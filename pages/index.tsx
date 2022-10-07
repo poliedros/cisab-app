@@ -1,16 +1,19 @@
+import Layout from "components/Layout";
+import useUser from "lib/useUser";
 import type { NextPage } from "next";
-import Head from "next/head";
 
 const Home: NextPage = () => {
+  const { user } = useUser({ redirectTo: "/login" });
+
+  if (!user || user.isLoggedIn == false) {
+    return <div>loading...</div>;
+  }
+
   return (
     <div>
-      <Head>
-        <title>Cisab</title>
-        <meta name="description" content="Cisab App" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <h1 className="text-3xl font-bold underline">It worked!</h1>
+      <Layout>
+        <h1 className="text-3xl font-bold underline">It worked!</h1>
+      </Layout>
     </div>
   );
 };
