@@ -1,0 +1,178 @@
+{
+    "countyRegistration": {
+        "pt": "Cadastro de Município"
+    },
+    "contact": {
+        "pt": "Contato"
+    },
+    "county": {
+        "pt": "Município"
+    },
+    "countyContact": {
+        "pt": "Dados de Contato com o Município"
+    },
+    "countyData": {
+        "pt": "Informações sobre o Município"
+    },
+    "name": {
+        "pt": "Nome"
+    },
+    "insertName": {
+        "pt": "Insira o Nome"
+    },
+    "account": {
+        "pt": "Conta"
+    },
+    "address": {
+        "pt": "Endereço"
+    },
+    "insertAddress": {
+        "pt": "Insira o Endereço"
+    },
+    "state": {
+        "pt": "Estado"
+    },
+    "chooseState": {
+        "pt": "Escolha o Estado"
+    },
+    "email": {
+        "pt": "E-mail"
+    },
+    "insertEmail": {
+        "pt": "Insira o E-mail"
+    },
+    "zipCode": {
+        "pt": "Código Postal"
+    },
+    "insertZipCode": {
+        "pt": "Insira o Código Postal"
+    },
+    "phone": {
+        "pt": "Telefone"
+    },
+    "insertPhone": {
+        "pt": "Insira o Telefone"
+    },
+    "contactWith": {
+        "pt": "Falar com:"
+    },
+    "site": {
+        "pt": "Website"
+    },
+    "insertSite": {
+        "pt": "Insira o Website"
+    },
+    "socialMedias": {
+        "pt": "Redes Sociais"
+    },
+    "insertSocialMedias": {
+        "pt": "Insira as Redes Sociais"
+    },
+    "job": {
+        "pt": "Cargo"
+    },
+    "insertJob": {
+        "pt": "Insira o Cargo"
+    },
+    "mayor": {
+        "pt": "Prefeito(a)"
+    },
+    "insertMayor": {
+        "pt": "Insira Nome do Prefeito(a)"
+    },
+    "population": {
+        "pt": "População"
+    },
+    "insertPopulation": {
+        "pt": "Insira a População"
+    },
+    "flag": {
+        "pt": "Bandeira"
+    },
+    "note": {
+        "pt": "Notas"
+    },
+    "insertNote": {
+        "pt": "Insira Notas e Observações"
+    },
+    "countyAnniversary": {
+        "pt": "Aniversário da Cidade"
+    },
+    "countyDistanceToCisab": {
+        "pt": "Distância da CISAB (em Km)"
+    },
+    "insertCountyDistanceToCisab": {
+        "pt": "Insira a Distância"
+    },
+
+    "countyAccount": {
+        "pt": "Conta da Prefeitura"
+    },
+    "insertCountyAccount": {
+        "pt": "Insira Nome da Conta"
+    },
+    "countyPassword": {
+        "pt": "Senha"
+    },
+    "insertCountyPassword": {
+        "pt": "Insira Senha"
+    },
+    "countyConfirmPassword": {
+        "pt": "Confirmação de Senha"
+    },
+    "insertCountyConfirmPassword": {
+        "pt": "Insira Senha Novamente"
+    },
+    "responsible": {
+        "pt": "Responsável"
+    },
+    "responsiblePhone": {
+        "pt": "Telefone do Responsável"
+    },
+    "responsibleEmail": {
+        "pt": "E-mail do Responsável"
+    },
+    "responsibleSocialMedia": {
+        "pt": "Redes Sociais do Responsável"
+    },
+    "countyName": {
+        "pt": "Nome do Município"
+    },
+    "insertCountyName": {
+        "pt": "Insira o Nome do Município"
+    },
+    "countryAddress": {
+        "pt": "Endereço da Prefeitura"
+    },
+    "countryZipCode": {
+        "pt": "Código Postal"
+    },
+    "countyPhone": {
+        "pt": "Telefone da Prefeitura"
+    },
+    "countyEmail": {
+        "pt": "E-mail da Prefeitura"
+    },
+    "countySite": {
+        "pt": "Website da Prefeitura"
+    },
+    "countySocialMedia": {
+        "pt": "Redes Sociais da Prefeitura"
+    },
+    "login": {
+        "pt": "Logar"
+    },
+    "signup": {
+        "pt": "Cadastrar"
+    },
+    "signin": {
+        "pt": "Acessar"
+    },
+    "password": {
+        "pt": "Senha"
+    },
+
+    "submit": {
+        "pt": "Enviar"
+    }
+}

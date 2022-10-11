@@ -1,3 +1,81 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* CSS mine */
+
+.invisibleScroll {
+    scrollbar-width: none;
+}
+
+.invisibleScroll::-webkit-scrollbar {
+    display: none;
+}
+
+.slide-in-bottom {
+	-webkit-animation: slide-in-bottom 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slide-in-bottom 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@-webkit-keyframes slide-in-bottom {
+  0% {
+    -webkit-transform: translateY(1000px);
+            transform: translateY(1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-bottom {
+  0% {
+    -webkit-transform: translateY(1000px);
+            transform: translateY(1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.swing-in-right-bck {
+	-webkit-animation: swing-in-right-bck 1.6s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+	        animation: swing-in-right-bck 1.6s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+}
+
+@-webkit-keyframes swing-in-right-bck {
+  0% {
+    -webkit-transform: rotateY(70deg);
+            transform: rotateY(70deg);
+    -webkit-transform-origin: right;
+            transform-origin: right;
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotateY(0);
+            transform: rotateY(0);
+    -webkit-transform-origin: right;
+            transform-origin: right;
+    opacity: 1;
+  }
+}
+@keyframes swing-in-right-bck {
+  0% {
+    -webkit-transform: rotateY(70deg);
+            transform: rotateY(70deg);
+    -webkit-transform-origin: right;
+            transform-origin: right;
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotateY(0);
+            transform: rotateY(0);
+    -webkit-transform-origin: right;
+            transform-origin: right;
+    opacity: 1;
+  }
+}
