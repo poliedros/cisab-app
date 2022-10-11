@@ -3,7 +3,6 @@ import Layout from "components/layout";
 import Start from "components/start";
 import useUser from "lib/useUser";
 
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Spinner } from "components/spinner";
 
 const Home: NextPage = () => {
