@@ -1,5 +1,4 @@
 import CountyList from "components/countyList";
-import { Spinner } from "components/spinner";
 import useUser from "lib/useUser";
 
 export default function Create() {
