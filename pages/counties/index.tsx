@@ -1,3 +1,5 @@
+import CountyList from "components/countyList";
+
 export default function Create() {
-  return <h1>List Counties</h1>;
+  return <CountyList />;
 }
