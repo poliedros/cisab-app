@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "react-bootstrap";
-import IconsByName from "components/IconsByName";
+import IconsByName from "components/iconsByName";
 import useUser from "lib/useUser";
 import { useRouter } from "next/router";
 import fetchJson from "lib/fetchJson";

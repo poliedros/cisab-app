@@ -6,7 +6,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
 import translations from "translations.json";
-import IconsByName from "components/IconsByName";
+import IconsByName from "components/iconsByName";
 import { useState } from "react";
 
 /*

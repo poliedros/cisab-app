@@ -3,7 +3,7 @@ import CountyRegistration from "./countyRegistration";
 
 import translations from "translations.json";
 import { Row, Col } from "react-bootstrap";
-import IconsByName from "components/IconsByName";
+import IconsByName from "components/iconsByName";
 
 export default function CountyProfile(
   {

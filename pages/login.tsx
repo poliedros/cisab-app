@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import useUser from "lib/useUser";
-import Layout from "components/layout";
+import Layout from "lib/layout";
 import { Spinner } from "components/spinner";
 import translations from "translations.json";
 import { Button, FloatingLabel, Form } from "react-bootstrap";

@@ -9,7 +9,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import { Container } from "react-bootstrap";
 import { CountyDTO } from "pages/api/counties";
 
-import IconsByName from "components/IconsByName";
+import IconsByName from "components/iconsByName";
 import PageBaseLayout from "./pageBaseLayout";
 
 export default function CountyList(/* { language }: { language: "en" | "es" | "pt" } */) {
