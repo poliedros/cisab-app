@@ -1,4 +1,6 @@
 import { useState } from "react";
+import CountyList from "./countyList";
+import CountyRegistration from "./countyRegistration";
 
 import PageBaseLayout from "./pageBaseLayout";
 
@@ -12,8 +14,10 @@ export default function Start({
   return (
     <>
       <div className="font-[Jost] h-screen flex items-center justify-center overflow-hidden">
-        <PageBaseLayout show={true} type="side" county={undefined} />
-        <PageBaseLayout show={true} type="main" county={undefined} />
+        <PageBaseLayout show={true} type="main" county={undefined}>
+          <CountyRegistration language={"pt"} />
+          <CountyList />
+        </PageBaseLayout>
       </div>
     </>
   );

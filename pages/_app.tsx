@@ -2,6 +2,9 @@ import type { AppProps } from "next/app";
 import { SWRConfig } from "swr";
 import fetchJson from "lib/fetchJson";
 import "styles/globals.css";
+import Layout from "components/layout";
+import styles from "styles/Home.module.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -13,7 +16,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         },
       }}
     >
-      <Component {...pageProps} />
+      <div className={styles.container}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </div>
     </SWRConfig>
   );
 }

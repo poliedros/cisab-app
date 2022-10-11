@@ -1,4 +1,5 @@
 import Head from "next/head";
+import PageBaseLayout from "./pageBaseLayout";
 
 export default function Layout({
   children,
@@ -18,7 +19,10 @@ export default function Layout({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div>{children}</div>
+        <div className="font-[Jost] h-screen flex items-center justify-center overflow-hidden">
+          <PageBaseLayout show={true} type="side" county={undefined} />
+          {children}
+        </div>
       </main>
     </>
   );

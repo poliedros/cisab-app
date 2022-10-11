@@ -4,7 +4,6 @@ import Layout from "components/layout";
 import { Spinner } from "components/spinner";
 import translations from "translations.json";
 import { Button, FloatingLabel, Form } from "react-bootstrap";
-import styles from "styles/Home.module.css";
 import IconsByName from "components/iconsByName";
 
 export default function Login() {
@@ -40,7 +39,7 @@ export default function Login() {
 
   return (
     <Layout title="Login">
-      <div className={styles.container}>
+      <div>
         <div className="font-[Jost] h-screen flex items-center justify-center overflow-hidden">
           <div className="flex flex-column items-center">
             <h3 className="text-white">
