@@ -5,7 +5,7 @@ import { Spinner } from "components/spinner";
 import translations from "translations.json";
 import { Button, FloatingLabel, Form } from "react-bootstrap";
 import styles from "styles/Home.module.css";
-import IconsByName from "components/IconsByName";
+import IconsByName from "components/iconsByName";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
