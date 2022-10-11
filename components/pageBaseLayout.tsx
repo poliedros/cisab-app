@@ -9,7 +9,7 @@ export default function PageBaseLayout(
     type,
     county,
   }: {
-    show: boolean;
+    show: boolean | undefined;
     type: string;
     county: any;
   } /* { language }: { language: "en" | "es" | "pt" } */

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import useUser from "lib/useUser";
-import Layout from "components/layout";
 import { Spinner } from "components/spinner";
 import translations from "translations.json";
 import { Button, FloatingLabel, Form } from "react-bootstrap";
@@ -38,62 +37,60 @@ export default function Login() {
   }
 
   return (
-    <Layout title="Login">
-      <div>
-        <div className="font-[Jost] h-screen flex items-center justify-center overflow-hidden">
-          <div className="flex flex-column items-center">
-            <h3 className="text-white">
-              <b>{translations.login[language]}</b>
-            </h3>
-          </div>
-          <div className="m-6">
-            <FloatingLabel
-              controlId="floatingInput"
-              label={translations.email[language]}
-              className="mb-3 text-white"
+    <div>
+      <div className="font-[Jost] h-screen flex items-center justify-center overflow-hidden">
+        <div className="flex flex-column items-center">
+          <h3 className="text-white">
+            <b>{translations.login[language]}</b>
+          </h3>
+        </div>
+        <div className="m-6">
+          <FloatingLabel
+            controlId="floatingInput"
+            label={translations.email[language]}
+            className="mb-3 text-white"
+          >
+            <Form.Control
+              className="!bg-white/25"
+              type="email"
+              placeholder="name@example.com"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </FloatingLabel>
+          <FloatingLabel
+            className="text-white"
+            controlId="floatingPassword"
+            label={translations.password[language]}
+          >
+            <Form.Control
+              className="!bg-white/25"
+              type="password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </FloatingLabel>
+        </div>
+        <div className="flex items-center justify-between">
+          {loading ? (
+            <Spinner />
+          ) : (
+            <Button
+              className="!bg-[#02aae9] !border-[#02aae9]"
+              onClick={handleButton}
             >
-              <Form.Control
-                className="!bg-white/25"
-                type="email"
-                placeholder="name@example.com"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </FloatingLabel>
-            <FloatingLabel
-              className="text-white"
-              controlId="floatingPassword"
-              label={translations.password[language]}
-            >
-              <Form.Control
-                className="!bg-white/25"
-                type="password"
-                placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </FloatingLabel>
-          </div>
-          <div className="flex items-center justify-between">
-            {loading ? (
-              <Spinner />
-            ) : (
-              <Button
-                className="!bg-[#02aae9] !border-[#02aae9]"
-                onClick={handleButton}
-              >
-                <div className="flex items-center uppercase">
-                  {IconsByName("bi", "BiLogInCircle")} &nbsp;{" "}
-                  {translations.signin[language]}
-                </div>
-              </Button>
-            )}
-          </div>
-          <div className="flex items-center justify-between">
-            <h1 className="font-medium leading-tight text-3xl mt-0 mb-2 text-red-600">
-              {errorMessage}
-            </h1>
-          </div>
+              <div className="flex items-center uppercase">
+                {IconsByName("bi", "BiLogInCircle")} &nbsp;{" "}
+                {translations.signin[language]}
+              </div>
+            </Button>
+          )}
+        </div>
+        <div className="flex items-center justify-between">
+          <h1 className="font-medium leading-tight text-3xl mt-0 mb-2 text-red-600">
+            {errorMessage}
+          </h1>
         </div>
       </div>
-    </Layout>
+    </div>
   );
 }

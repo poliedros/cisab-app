@@ -1,3 +1,4 @@
+import useUser from "lib/useUser";
 import Head from "next/head";
 import PageBaseLayout from "./pageBaseLayout";
 
@@ -8,6 +9,8 @@ export default function Layout({
   children: React.ReactNode;
   title?: string | undefined;
 }) {
+  const { user } = useUser();
+
   return (
     <>
       <Head>
@@ -20,8 +23,12 @@ export default function Layout({
       </Head>
       <main>
         <div className="font-[Jost] h-screen flex items-center justify-center overflow-hidden">
-          <PageBaseLayout show={true} type="side" county={undefined} />
-          {children}
+          <PageBaseLayout
+            show={user?.isLoggedIn}
+            type="side"
+            county={undefined}
+          />
+          <div>{children}</div>
         </div>
       </main>
     </>
