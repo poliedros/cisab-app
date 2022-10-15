@@ -14,9 +14,9 @@ export default function CountyProfile(
     return (
         <>
             <div className="flex flex-column">
-                <div className="flex flex-column items-center">
-                    <Row className="flex items-center w-max">
-                        <Col className="flex justify-center">
+                <div>
+                    <Row className="flex items-center">
+                        <Col sm={4} className="flex justify-center">
                             <div className="absolute bg-[silver] w-[200px] h-[200px] rounded-full"></div>
                             <Image
                                 className="p-2"
@@ -27,8 +27,8 @@ export default function CountyProfile(
                                 objectFit="contain"
                             />
                         </Col>
-                        <Col className="flex flex-column items-end text-right">
-                            <h1 className="ml-4 py-2 px-8 rounded bg-[#40d9f1] text-white uppercase tracking-wider font-semibold text-left">
+                        <Col sm={8} className="flex flex-column items-start text-left">
+                            <h1 className="py-2 px-8 rounded bg-[#40d9f1] text-white uppercase tracking-wider font-semibold text-left">
                                 {county.county.name}
                             </h1>
                             <h6 className="lowercase tracking-widest text-[silver]">
@@ -112,8 +112,8 @@ export default function CountyProfile(
                                 {county.accountable.phone}
                             </h4>
                         </div>
-                        <h4 className="text-center text-[#144974]">
-                            {county.accountable.email}
+                        <h4 className="">
+                            <span className="py-.5 px-2 rounded-full text-white bg-[#7dc523]">{county.accountable.email}</span>
                         </h4>
                     </Col>
                 </Row>

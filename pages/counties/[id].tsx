@@ -20,5 +20,5 @@ export default function Get() {
   if (error) return <div>failed to load</div>;
   if (!counties) return <div>loading...</div>;
 
-  return <CountyProfile county={counties[0]} />;
+  return <><h2>{JSON.stringify(fetcher)}</h2><CountyProfile county={counties[1]} /></>;
 }
