@@ -1,19 +1,17 @@
 import { useState } from "react";
 
-import PageBaseLayout from "./pageBaseLayout";
+import Home from "./home";
 
 export default function Start({
-  language,
+    language,
 }: {
-  language: /*"en" | "es" |*/ "pt";
+    language: /*"en" | "es" |*/ "pt";
 }) {
-  const [show, setShow] = useState(false);
+    const [show, setShow] = useState(false);
 
-  return (
-    <>
-      <div className="font-[Jost] h-screen flex items-center justify-center overflow-hidden">
-        <PageBaseLayout show={true} type="main" county={undefined} />
-      </div>
-    </>
-  );
+    return (
+        <>
+            <Home language={language} />
+        </>
+    );
 }

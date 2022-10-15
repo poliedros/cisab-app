@@ -1,3 +1,4 @@
+import * as IconsAi from "react-icons/ai"
 import * as IconsBi from "react-icons/bi"
 import * as IconsBs from "react-icons/bs"
 import * as IconsFa from "react-icons/fa"
@@ -9,9 +10,10 @@ import * as IconsSi from "react-icons/si"
 
 import { BsSlashCircleFill } from "react-icons/bs"
 
-export default function IconsByName(ico, name, width = "auto") {
+export default function IconsByName(ico, name, size = "auto") {
     let IconComponent;
 
+    if (ico === "ai") IconComponent = IconsAi[name];
     if (ico === "bi") IconComponent = IconsBi[name];
     if (ico === "bs") IconComponent = IconsBs[name];
     if (ico === "fa") IconComponent = IconsFa[name];
@@ -23,8 +25,8 @@ export default function IconsByName(ico, name, width = "auto") {
 
     if (!IconComponent) {
         // Return a default one
-        return <BsSlashCircleFill />;
+        return <BsSlashCircleFill style={{ width: size, height: size }} />;
     }
 
-    return <IconComponent style={{ width: width, height: width }} />;
+    return <IconComponent style={{ width: size, height: size }} />;
 }
