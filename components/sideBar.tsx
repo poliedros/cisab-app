@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Button } from "react-bootstrap";
+import { useRef, useState } from "react";
+import { Button, OverlayTrigger, Popover } from "react-bootstrap";
 import IconsByName from "components/iconsByName";
 import useUser from "lib/useUser";
 import { useRouter } from "next/router";
@@ -24,6 +24,28 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
         router.push("/");
     };
 
+    const popover = (
+        <div className="overflow-auto p-3 invisibleScroll">
+            <div className="flex relative bg-white px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5">
+                <Button
+                    className="hover:!bg-[#02aae9] border-0 !rounded-full !p-[12px]"
+                    variant="outline-secondary"
+                    onClick={handleSide}
+                >
+                    {IconsByName("fa", "FaCity", "24px")}
+                </Button>
+                &nbsp; &nbsp;
+                <Button
+                    className="hover:!bg-[#02aae9] border-0 !rounded-full !p-[12px]"
+                    variant="outline-secondary"
+                    onClick={handleSide}
+                >
+                    {IconsByName("fa", "FaThList", "24px")}
+                </Button>
+            </div>
+        </div>
+    );
+
     return (
         <>
             <div className="flex flex-column">
@@ -33,23 +55,29 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
                     onClick={handleSide}
                 >
                     {IconsByName("ai", "AiFillHome", "32px")}
-                </Button>{" "}
+                </Button>
                 &nbsp;
-                <Button
-                    className="hover:!bg-[#02aae9] border-0 !rounded-full !p-[12px]"
-                    variant="outline-secondary"
-                    onClick={handleSide}
+                <OverlayTrigger
+                    trigger="click"
+                    placement="right"
+                    overlay={popover}
                 >
-                    {IconsByName("fa", "FaCity", "32px")}
-                </Button>{" "}
+                    <Button
+                        className="hover:!bg-[#02aae9] border-0 !rounded-full !p-[12px]"
+                        variant="outline-secondary"
+                        /* onClick={handleSide} */
+                    >
+                        {IconsByName("fa", "FaCity", "32px")}
+                    </Button>
+                </OverlayTrigger>
                 &nbsp;
                 <Button
                     className="hover:!bg-[#02aae9] border-0 !rounded-full !p-[12px]"
                     variant="outline-secondary"
                     onClick={handleMain}
                 >
-                    {IconsByName("fa", "FaThList", "32px")}
-                </Button>{" "}
+                    {IconsByName("md", "MdTask", "32px")}
+                </Button>
                 &nbsp;
                 <Button
                     className="hover:!bg-[#02aae9] border-0 !rounded-full !p-[12px]"
