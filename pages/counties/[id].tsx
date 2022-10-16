@@ -1,10 +1,13 @@
 import useUser from "lib/useUser";
-
+import { useRouter } from "next/router";
 import useSWR from "swr";
 import { CountyDTO } from "pages/api/counties";
 import CountyProfile from "components/countyProfile";
 
 export default function Get() {
+  const router = useRouter();
+  const { id } = router.query;
+
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
   const { data: counties, error } = useSWR<CountyDTO[]>(
     "/api/counties",
@@ -20,5 +23,10 @@ export default function Get() {
   if (error) return <div>failed to load</div>;
   if (!counties) return <div>loading...</div>;
 
-  return <><h2>{JSON.stringify(fetcher)}</h2><CountyProfile county={counties[1]} /></>;
+  return (
+    <>
+      <h2>{JSON.stringify(fetcher)}</h2>
+      <CountyProfile county={counties[1]} />
+    </>
+  );
 }
