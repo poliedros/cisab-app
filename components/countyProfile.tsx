@@ -22,12 +22,16 @@ export default function CountyProfile(
                                 className="p-2"
                                 loader={() => county.county.flag}
                                 src={county.county.flag}
+                                alt={county.county.name}
                                 width={200}
                                 height={200}
                                 objectFit="contain"
                             />
                         </Col>
-                        <Col sm={8} className="flex flex-column items-start text-left">
+                        <Col
+                            sm={8}
+                            className="flex flex-column items-start text-left"
+                        >
                             <h1 className="py-2 px-8 rounded bg-[#40d9f1] text-white uppercase tracking-wider font-semibold text-left">
                                 {county.county.name}
                             </h1>
@@ -112,9 +116,11 @@ export default function CountyProfile(
                                 {county.accountable.phone}
                             </h4>
                         </div>
-                        <h4 className="">
-                            <span className="py-.5 px-2 rounded-full text-white bg-[#7dc523]">{county.accountable.email}</span>
-                        </h4>
+                        <div className="float-left">
+                            <h4 className="py-.5 px-2 rounded-full text-white bg-[#7dc523]">
+                                {county.accountable.email}
+                            </h4>
+                        </div>
                     </Col>
                 </Row>
                 <Row className="text-center">

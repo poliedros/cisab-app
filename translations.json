@@ -2,6 +2,9 @@
     "countyRegistration": {
         "pt": "Cadastro de Município"
     },
+    "editCounty": {
+        "pt": "Alterar Dados do Município"
+    },
     "contact": {
         "pt": "Contato"
     },
@@ -104,7 +107,6 @@
     "insertCountyDistanceToCisab": {
         "pt": "Insira a Distância"
     },
-
     "countyAccount": {
         "pt": "Conta da Prefeitura"
     },
@@ -171,7 +173,6 @@
     "password": {
         "pt": "Senha"
     },
-
     "submit": {
         "pt": "Enviar"
     }

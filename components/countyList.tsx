@@ -17,6 +17,7 @@ import { useRouter } from "next/router";
 
 export default function CountyList(/* { language }: { language: "en" | "es" | "pt" } */) {
     const [county, setCounty] = useState(false);
+    const [searchCounty, setSearchCounty] = useState('');
 
     const handleCloseCounty = () => setCounty(false);
     const handleCounty = () => setCounty(true);
@@ -55,6 +56,8 @@ export default function CountyList(/* { language }: { language: "en" | "es" | "p
                 </div>
                 <InputGroup className="mb-3">
                     <Form.Control
+                        value={searchCounty}
+                        onChange={ (e) => { setSearchCounty(e.target.value) } }
                         placeholder="Buscar Município por Nome"
                         aria-label="Recipient's username"
                         aria-describedby="basic-addon2"
@@ -73,7 +76,7 @@ export default function CountyList(/* { language }: { language: "en" | "es" | "p
                         </tr>
                     </thead>
                     <tbody>
-                        {counties.map((c, i) => {
+                        {counties.filter((c) => c.county.name.match(searchCounty)).map((c, i) => {
                             return (
                                 // eslint-disable-next-line react/jsx-key
                                 <tr>
