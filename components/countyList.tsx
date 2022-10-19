@@ -39,6 +39,9 @@ export default function CountyList(/* { language }: { language: "en" | "es" | "p
         "/api/counties",
         fetcher
     );
+    /* const updateData = () => {
+        fetch("/counties", { method: "PUT", body: JSON.stringify(data) })
+    } */
 
     if (error) return <div>failed to load</div>;
     if (!counties) return <div>loading...</div>;

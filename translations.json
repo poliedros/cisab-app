@@ -1,4 +1,13 @@
 {
+    "enter": {
+        "pt": "Entrar"
+    },
+    "close": {
+        "pt": "Fechar"
+    },
+    "remove": {
+        "pt": "Remover"
+    },
     "countyRegistration": {
         "pt": "Cadastro de Município"
     },
@@ -22,6 +31,9 @@
     },
     "insertName": {
         "pt": "Insira o Nome"
+    },
+    "insertPassword": {
+        "pt": "Insira Senha"
     },
     "account": {
         "pt": "Conta"
@@ -175,5 +187,8 @@
     },
     "submit": {
         "pt": "Enviar"
+    },
+    "emptyText": {
+        "pt": "Texto Vazio"
     }
 }

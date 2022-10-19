@@ -3,6 +3,7 @@ import Image from "next/image";
 import translations from "translations.json";
 import { Row, Col } from "react-bootstrap";
 import IconsByName from "components/iconsByName";
+import CapTitle from "atoms/capTitle";
 
 export default function CountyProfile(
     {
@@ -32,9 +33,10 @@ export default function CountyProfile(
                             sm={8}
                             className="flex flex-column items-start text-left"
                         >
-                            <h1 className="py-2 px-8 rounded bg-[#40d9f1] text-white uppercase tracking-wider font-semibold text-left">
+                            {/* <h1 className="py-2 px-8 rounded bg-[#40d9f1] text-white uppercase tracking-wider font-semibold text-left">
                                 {county.county.name}
-                            </h1>
+                            </h1> */}
+                            <CapTitle literal={county.county.name} additional={{label: " !text-4xl !m-0"}}/>
                             <h6 className="lowercase tracking-widest text-[silver]">
                                 {county.county.state}
                             </h6>

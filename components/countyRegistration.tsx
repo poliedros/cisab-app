@@ -1,51 +1,25 @@
-import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import { Form, Container, Row, Col } from "react-bootstrap";
 
-import Button from "react-bootstrap/Button";
-
-import translations from "translations.json";
-import IconsByName from "components/iconsByName";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 import useSWR from "swr";
 import { CountyDTO } from "pages/api/counties";
 
-/*
-Conta -
-Usuario Conta | Senha | Confirmar Senha
-Nome
--
-Municipio -
-Estado | Prefeito | População
-Bandeira | Aniversario da Cidade | Distancia da Cisab
-Notas
--
-Municipio Contato -
-Endereço | Codigo Postal
-Telefone | Responsavel
-Site | Email | Redes Sociais
--
-Responsavel -
-    Nome | Cargo
-    Endereço | Codigo Postal
-    Telefone | Email | Redes Sociais
-    Notas
--
-*/
+import CapTitle from "atoms/capTitle";
+import CapSubtitle from "atoms/capSubtitle";
+import CapForm from "atoms/capForm";
+import CapBtn from "atoms/capBtn";
 
 export default function CountyRegistration({
     language = "pt",
 }: {
-    language: /* "en" | "es" | */ "pt";
+    language: "pt";
 }) {
     const [countyAccount, setCountyAccount] = useState("");
     const [countyPassword, setCountyPassword] = useState("");
 
     const router = useRouter();
-    //const path = router.route.split('/');
     const { id } = router.query;
 
     const fetcher = (url: string) => fetch(url).then((res) => res.json());
@@ -61,28 +35,25 @@ export default function CountyRegistration({
         return counties
             ? () => {
                   setCountyAccount(
-                      counties.filter((c) => parseInt(c.id) === idNumber)[0] ?
-                      counties.filter((c) => parseInt(c.id) === idNumber)[0].account.user :
-                      ''
+                      counties.filter((c) => parseInt(c.id) === idNumber)[0]
+                          ? counties.filter(
+                                (c) => parseInt(c.id) === idNumber
+                            )[0].account.user
+                          : ""
                   );
                   setCountyPassword(
-                    counties.filter((c) => parseInt(c.id) === idNumber)[0] ?
-                    counties.filter((c) => parseInt(c.id) === idNumber)[0].account.password :
-                    ''
-                );
+                      counties.filter((c) => parseInt(c.id) === idNumber)[0]
+                          ? counties.filter(
+                                (c) => parseInt(c.id) === idNumber
+                            )[0].account.password
+                          : ""
+                  );
               }
-            : () => { setCountyAccount(''); setCountyPassword('') }
+            : () => {
+                  setCountyAccount("");
+                  setCountyPassword("");
+              };
     }, []);
-
-    /* useEffect(() => {
-        let filter: CountyDTO;
-        if (counties)
-            filter = counties.filter((c) => parseInt(c.id) === idNumber)[0];
-        return () => {
-            setCountyAccount(filter.account.user);
-            setCountyPassword(filter.account.password);
-        };
-    }, []); */
 
     if (error) return <div>failed to load</div>;
     if (!counties) return <div>loading...</div>;
@@ -90,339 +61,172 @@ export default function CountyRegistration({
     return (
         <>
             <Container className="font-['Jost']">
-                <div className="flex items-end">
-                    <div className="bg-[#7dc523] rounded-full p-3 text-white">
-                        {IconsByName("fa", "FaCity", "32px")}
-                    </div>
-                    <h2 className="ml-4 p-2 rounded bg-[#40d9f1] text-white uppercase tracking-wider font-semibold">
-                        {id
-                            ? translations.editCounty[language]
-                            : translations.countyRegistration[language]}
-                    </h2>
-                </div>
+                <CapTitle
+                    base="county"
+                    label={id ? "editCounty" : "countyRegistration"}
+                />
                 <Form>
-                    <h5 className="pl-4 text-[#7dc523] text-right uppercase tracking-widest p-2 mt-6 mb-4 border-b border-[#7dc523]">
-                        {translations.account[language]}
-                    </h5>
+                    <CapSubtitle label="account" />
                     <Row className="mb-3">
-                        <Form.Group as={Col} controlId="formAccount">
-                            <Form.Label>
-                                {translations.countyAccount[language]}
-                            </Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder={
-                                    translations.insertCountyAccount[language]
-                                }
-                                value={countyAccount}
-                                onChange={(e) =>
-                                    setCountyAccount(e.target.value)
-                                }
-                            />
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="formPassword">
-                            <Form.Label>
-                                {translations.countyPassword[language]}
-                            </Form.Label>
-                            <Form.Control
-                                type={id ? "text" : "password"}
-                                placeholder={
-                                    translations.insertCountyPassword[language]
-                                }
-                                value={countyPassword}
-                                onChange={(e) =>
-                                    setCountyPassword(e.target.value)
-                                }
-                            />
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="formConfirmPassword">
-                            <Form.Label>
-                                {translations.countyConfirmPassword[language]}
-                            </Form.Label>
-                            <Form.Control
-                                type="password"
-                                placeholder={
-                                    translations.insertCountyConfirmPassword[
-                                        language
-                                    ]
-                                }
-                            />
-                        </Form.Group>
-                    </Row>
-
-                    <Form.Group className="mb-3" controlId="formCountyName">
-                        <Form.Label>
-                            {translations.countyName[language]}
-                        </Form.Label>
-                        <Form.Control
-                            placeholder={
-                                translations.insertCountyName[language]
+                        <CapForm
+                            as={Col}
+                            label="countyAccount"
+                            placeholder="insertCountyAccount"
+                            value={countyAccount}
+                            change={(e: any) =>
+                                setCountyAccount(e.target.value)
                             }
                         />
-                    </Form.Group>
-
-                    <h5 className="pl-4 text-[#7dc523] text-right uppercase tracking-widest p-2 mt-12 mb-4 border-b border-[#7dc523]">
-                        {translations.countyData[language]}
-                    </h5>
-
-                    <Row className="mb-3">
-                        <Form.Group as={Col} controlId="formState">
-                            <Form.Label>
-                                {translations.state[language]}
-                            </Form.Label>
-                            <Form.Select
-                                defaultValue={
-                                    translations.chooseState[language]
-                                }
-                            >
-                                <option>
-                                    {translations.chooseState[language]}
-                                </option>
-                                <option>...</option>
-                            </Form.Select>
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="formMayor">
-                            <Form.Label>
-                                {translations.mayor[language]}
-                            </Form.Label>
-                            <Form.Control
-                                placeholder={translations.insertMayor[language]}
-                            />
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="formPopulation">
-                            <Form.Label>
-                                {translations.population[language]}
-                            </Form.Label>
-                            <Form.Control
-                                placeholder={
-                                    translations.insertPopulation[language]
-                                }
-                            />
-                        </Form.Group>
-                    </Row>
-
-                    <Row className="mb-3">
-                        <Form.Group as={Col} controlId="formFlag">
-                            <Form.Label>
-                                {translations.flag[language]}
-                            </Form.Label>
-                            <Form.Control />
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="formCountyAnniversary">
-                            <Form.Label>
-                                {translations.countyAnniversary[language]}
-                            </Form.Label>
-                            <Form.Control />
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="formDistanceToCisab">
-                            <Form.Label>
-                                {translations.countyDistanceToCisab[language]}
-                            </Form.Label>
-                            <Form.Control
-                                placeholder={
-                                    translations.insertCountyDistanceToCisab[
-                                        language
-                                    ]
-                                }
-                            />
-                        </Form.Group>
-                    </Row>
-
-                    <Form.Group className="mb-3" controlId="countyNote">
-                        <Form.Label>{translations.note[language]}</Form.Label>
-                        <Form.Control
-                            as="textarea"
-                            rows={3}
-                            placeholder={translations.insertNote[language]}
+                        <CapForm
+                            as={Col}
+                            label="countyPassword"
+                            type={id ? "text" : "password"}
+                            placeholder="insertCountyPassword"
+                            value={countyPassword}
+                            change={(e: any) =>
+                                setCountyPassword(e.target.value)
+                            }
                         />
-                    </Form.Group>
-
-                    <h5 className="pl-4 text-[#7dc523] text-right uppercase tracking-widest p-2 mt-12 mb-4 border-b border-[#7dc523]">
-                        {translations.countyContact[language]}
-                    </h5>
-
-                    <Row className="mb-3">
-                        <Form.Group as={Col} xs={8} controlId="formAddress">
-                            <Form.Label>
-                                {translations.address[language]}
-                            </Form.Label>
-                            <Form.Control
-                                placeholder={
-                                    translations.insertAddress[language]
-                                }
-                            />
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="formZipCode">
-                            <Form.Label>
-                                {translations.zipCode[language]}
-                            </Form.Label>
-                            <Form.Control
-                                placeholder={
-                                    translations.insertZipCode[language]
-                                }
-                            />
-                        </Form.Group>
-                    </Row>
-
-                    <Row className="mb-3">
-                        <Form.Group as={Col} controlId="formAddress">
-                            <Form.Label>
-                                {translations.phone[language]}
-                            </Form.Label>
-                            <Form.Control
-                                placeholder={
-                                    translations.insertAddress[language]
-                                }
-                            />
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="formZipCode">
-                            <Form.Label>
-                                {translations.contactWith[language]}
-                            </Form.Label>
-                            <Form.Control
-                                placeholder={
-                                    translations.insertZipCode[language]
-                                }
-                            />
-                        </Form.Group>
-                    </Row>
-
-                    <Row className="mb-3">
-                        <Form.Group as={Col} controlId="formSite">
-                            <Form.Label>
-                                {translations.site[language]}
-                            </Form.Label>
-                            <Form.Control
-                                placeholder={translations.insertSite[language]}
-                            />
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="formEmail">
-                            <Form.Label>
-                                {translations.email[language]}
-                            </Form.Label>
-                            <Form.Control
-                                placeholder={translations.insertEmail[language]}
-                            />
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="formSocialMedias">
-                            <Form.Label>
-                                {translations.socialMedias[language]}
-                            </Form.Label>
-                            <Form.Control
-                                placeholder={
-                                    translations.insertSocialMedias[language]
-                                }
-                            />
-                        </Form.Group>
-                    </Row>
-
-                    <h5 className="pl-4 text-[#7dc523] text-right uppercase tracking-widest p-2 mt-12 mb-4 border-b border-[#7dc523]">
-                        {translations.contact[language]}
-                    </h5>
-
-                    <Row className="mb-3">
-                        <Form.Group as={Col} controlId="formName">
-                            <Form.Label>
-                                {translations.name[language]}
-                            </Form.Label>
-                            <Form.Control
-                                placeholder={translations.insertName[language]}
-                            />
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="formJob">
-                            <Form.Label>
-                                {translations.job[language]}
-                            </Form.Label>
-                            <Form.Control
-                                placeholder={translations.insertJob[language]}
-                            />
-                        </Form.Group>
-                    </Row>
-
-                    <Row className="mb-3">
-                        <Form.Group as={Col} xs={8} controlId="formAddress">
-                            <Form.Label>
-                                {translations.address[language]}
-                            </Form.Label>
-                            <Form.Control
-                                placeholder={
-                                    translations.insertAddress[language]
-                                }
-                            />
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="formZipCode">
-                            <Form.Label>
-                                {translations.zipCode[language]}
-                            </Form.Label>
-                            <Form.Control
-                                placeholder={
-                                    translations.insertZipCode[language]
-                                }
-                            />
-                        </Form.Group>
-                    </Row>
-
-                    <Row className="mb-3">
-                        <Form.Group as={Col} controlId="formPhone">
-                            <Form.Label>
-                                {translations.phone[language]}
-                            </Form.Label>
-                            <Form.Control
-                                placeholder={translations.insertPhone[language]}
-                            />
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="formEmail">
-                            <Form.Label>
-                                {translations.email[language]}
-                            </Form.Label>
-                            <Form.Control
-                                placeholder={translations.insertEmail[language]}
-                            />
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="formSocialMedias">
-                            <Form.Label>
-                                {translations.socialMedias[language]}
-                            </Form.Label>
-                            <Form.Control
-                                placeholder={
-                                    translations.insertSocialMedias[language]
-                                }
-                            />
-                        </Form.Group>
-                    </Row>
-
-                    <Form.Group className="mb-3" controlId="responsableNote">
-                        <Form.Label>{translations.note[language]}</Form.Label>
-                        <Form.Control
-                            as="textarea"
-                            rows={3}
-                            placeholder={translations.insertNote[language]}
+                        <CapForm
+                            as={Col}
+                            label="countyConfirmPassword"
+                            type="password"
+                            placeholder="insertCountyConfirmPassword"
                         />
-                    </Form.Group>
-
-                    <Button
-                        className="!bg-[#02aae9] !border-[#02aae9] !flex items-center uppercase"
-                        /* type="submit" */ onClick={() => {
+                    </Row>
+                    <CapForm
+                        label="countyName"
+                        placeholder="insertCountyName"
+                    />
+                    <CapSubtitle label="countyData" />
+                    <Row className="mb-3">
+                        <CapForm
+                            kind="select"
+                            as={Col}
+                            label="state"
+                            optionsDefault={1}
+                            options={["ES", "MG", "RJ", "SP"]}
+                        />
+                        <CapForm
+                            as={Col}
+                            label="mayor"
+                            placeholder="insertMayor"
+                        />
+                        <CapForm
+                            as={Col}
+                            label="population"
+                            placeholder="insertPopulation"
+                        />
+                    </Row>
+                    <Row className="mb-3">
+                        <CapForm as={Col} label="flag" />
+                        <CapForm as={Col} label="countyAnniversary" />
+                        <CapForm
+                            as={Col}
+                            label="countyDistanceToCisab"
+                            placeholder="insertCountyDistanceToCisab"
+                        />
+                    </Row>
+                    <CapForm
+                        asControl="textarea"
+                        rows={3}
+                        label="note"
+                        placeholder="insertNote"
+                    />
+                    <CapSubtitle label="countyContact" />
+                    <Row className="mb-3">
+                        <CapForm
+                            as={Col}
+                            xs={8}
+                            label="address"
+                            placeholder="insertAddress"
+                        />
+                        <CapForm
+                            as={Col}
+                            label="zipCode"
+                            placeholder="insertZipCode"
+                        />
+                    </Row>
+                    <Row className="mb-3">
+                        <CapForm
+                            as={Col}
+                            label="phone"
+                            placeholder="insertPhone"
+                        />
+                        <CapForm
+                            as={Col}
+                            label="contactWith"
+                            placeholder="insertZipCode"
+                        />
+                    </Row>
+                    <Row className="mb-3">
+                        <CapForm
+                            as={Col}
+                            label="site"
+                            placeholder="insertSite"
+                        />
+                        <CapForm
+                            as={Col}
+                            label="email"
+                            placeholder="insertEmail"
+                        />
+                        <CapForm
+                            as={Col}
+                            label="socialMedias"
+                            placeholder="insertSocialMedias"
+                        />
+                    </Row>
+                    <CapSubtitle label="contact" />
+                    <Row className="mb-3">
+                        <CapForm
+                            as={Col}
+                            label="name"
+                            placeholder="insertName"
+                        />
+                        <CapForm as={Col} label="job" placeholder="insertJob" />
+                    </Row>
+                    <Row className="mb-3">
+                        <CapForm
+                            as={Col}
+                            xs={8}
+                            label="address"
+                            placeholder="insertAddress"
+                        />
+                        <CapForm
+                            as={Col}
+                            label="zipCode"
+                            placeholder="insertZipCode"
+                        />
+                    </Row>
+                    <Row className="mb-3">
+                        <CapForm
+                            as={Col}
+                            label="phone"
+                            placeholder="insertPhone"
+                        />
+                        <CapForm
+                            as={Col}
+                            label="email"
+                            placeholder="insertEmail"
+                        />
+                        <CapForm
+                            as={Col}
+                            label="socialMedias"
+                            placeholder="insertSocialMedias"
+                        />
+                    </Row>
+                    <CapForm
+                        asControl="textarea"
+                        rows={3}
+                        label="note"
+                        placeholder="insertNote"
+                    />
+                    <CapBtn
+                        kind="send"
+                        click={() => {
                             alert(countyAccount + " " + countyPassword);
                         }}
-                    >
-                        {IconsByName("bs", "BsSave")} &nbsp;
-                        {translations.submit[language]}
-                    </Button>
+                    />
                 </Form>
             </Container>
         </>
