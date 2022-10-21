@@ -78,7 +78,7 @@ export default function CountyRegistration({
                   setCountyAccount("");
                   setCountyPassword("");
               };
-    }, []);
+    }, [counties]);
 
     if (error) return <div>failed to load</div>;
     if (!counties) return <div>loading...</div>;
