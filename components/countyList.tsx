@@ -82,7 +82,7 @@ export default function CountyList(/* { language }: { language: "en" | "es" | "p
                         {counties.filter((c) => c.county.name.match(searchCounty)).map((c, i) => {
                             return (
                                 // eslint-disable-next-line react/jsx-key
-                                <tr>
+                                <tr key={i}>
                                     <td>{i + 1}</td>
                                     <td>{c.county.name}</td>
                                     <td>{c.accountable.name}</td>

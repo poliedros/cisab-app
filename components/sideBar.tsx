@@ -58,7 +58,7 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
           {IconsByName("ai", "AiFillHome", "32px")}
         </Button>
         &nbsp;
-        <OverlayTrigger trigger="click" placement="right" delay={{ show: 250, hide: 400 }} overlay={popover}>
+        <OverlayTrigger trigger="click" placement="right" overlay={popover}>
           <Button
             className="hover:!bg-[#02aae9] border-0 !rounded-full !p-[12px]"
             variant="outline-secondary"

@@ -10,7 +10,7 @@ export default function Create() {
 
     return (
         <>
-            <CountyRegistration language={"pt"} />
+            <CountyRegistration language={"pt"} county={undefined} />
         </>
     );
 }
