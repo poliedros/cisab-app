@@ -108,6 +108,8 @@ export default function CapForm({
                     ) : null}
                     <Form.Select
                         defaultValue={(options && optionsDefault) ? options[optionsDefault] : undefined}
+                        onClick={click}
+                        onChange={change}
                     >
                         { options ? options.map((op: string, i: number) => (<option key={i}>
                             {op}

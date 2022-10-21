@@ -71,6 +71,9 @@
     "contactWith": {
         "pt": "Falar com:"
     },
+    "insertNameContact":{
+        "pt": "Insira o nome do contato"
+    },
     "site": {
         "pt": "Website"
     },
@@ -104,6 +107,9 @@
     "flag": {
         "pt": "Bandeira"
     },
+    "insertFlag":{
+        "pt": "Insira a Bandeira"
+    },
     "note": {
         "pt": "Notas"
     },
@@ -112,6 +118,9 @@
     },
     "countyAnniversary": {
         "pt": "Aniversário da Cidade"
+    },
+    "insertAnniversary":{
+        "pt": "Insira o Aniversário da Cidade"
     },
     "countyDistanceToCisab": {
         "pt": "Distância da CISAB (em Km)"
@@ -149,10 +158,10 @@
     "responsibleSocialMedia": {
         "pt": "Redes Sociais do Responsável"
     },
-    "countyName": {
+    "countyCityName": {
         "pt": "Nome do Município"
     },
-    "insertCountyName": {
+    "insertCountyCityName": {
         "pt": "Insira o Nome do Município"
     },
     "countryAddress": {
@@ -181,6 +190,9 @@
     },
     "signin": {
         "pt": "Acessar"
+    },
+    "resetPassword": {
+        "pt": "Esqueci minha senha"
     },
     "password": {
         "pt": "Senha"

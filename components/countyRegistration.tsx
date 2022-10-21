@@ -18,6 +18,31 @@ export default function CountyRegistration({
 }) {
     const [countyAccount, setCountyAccount] = useState("");
     const [countyPassword, setCountyPassword] = useState("");
+    const [countyConfirmPassword, setCountyConfirmPassword] = useState("");
+    const [countyCityName, setCountyCityName] = useState("");
+    const [countyState, setCountyState] = useState("");
+    const [countyMayor, setCountyMayor] = useState("");
+    const [countyPopulation, setCountyPopulation] = useState("");
+    const [countyFlag, setCountyFlag] = useState("");
+    const [countyAnniversary, setCountyAnniversary] = useState("");
+    const [countyDistanceToCisab,setCountyDistanceToCisab] = useState("");
+    const [countyNote, setCountyNote] = useState("");
+    const [countyAddress, setCountyAddress] = useState("");
+    const [countyZipCode, setCountyZipCode] = useState("");
+    const [countyPhone, setCountyPhone] = useState("");
+    const [countyContactWith, setCountyContactWith] = useState("");
+    const [countySite, setCountySite] = useState("");
+    const [countyEmail, setCountyEmail] = useState("");
+    const [countySocialMedias, setCountySocialMedias] = useState("");
+    const [countyName, setCountyName] = useState("");
+    const [countyJob, setCountyJob] = useState("");
+    const [countyContactAddress, setCountyContactAddress] = useState("");
+    const [countyContactZipCode, setCountyContactZipCode] = useState("");
+    const [countyContactPhone, setCountyContactPhone] = useState("");
+    const [countyContactSite, setCountyContactSite] = useState("");
+    const [countyContactNote, setCountyContactNote] = useState("");
+    const [countyContactSocialMedias, setCountyContactSocialMedias] = useState("");
+    const [countyContactEmail, setCountyContactEmail] = useState("");
 
     const router = useRouter();
     const { id } = router.query;
@@ -90,13 +115,21 @@ export default function CountyRegistration({
                         <CapForm
                             as={Col}
                             label="countyConfirmPassword"
-                            type="password"
+                            type={id ? "text" : "password"}
                             placeholder="insertCountyConfirmPassword"
+                            value={countyConfirmPassword}
+                            change={(e: any) =>
+                                setCountyConfirmPassword(e.target.value)
+                            }
                         />
                     </Row>
                     <CapForm
-                        label="countyName"
-                        placeholder="insertCountyName"
+                        label="countyCityName" /* Alterado no arquivo translation.json de countyName para countyCityName */
+                        placeholder="insertCountyCityName" /* Alterado no arquivo translation.json de insertCountyName para insertCountyCityName */
+                        value={countyCityName}
+                            change={(e: any) =>
+                                setCountyCityName(e.target.value)
+                            }
                     />
                     <CapSubtitle label="countyData" />
                     <Row className="mb-3">
@@ -106,25 +139,61 @@ export default function CountyRegistration({
                             label="state"
                             optionsDefault={1}
                             options={["ES", "MG", "RJ", "SP"]}
+                            value={countyState}
+                            change={(e: any) =>
+                                setCountyState(e.target.value)
+                            }
                         />
                         <CapForm
                             as={Col}
                             label="mayor"
                             placeholder="insertMayor"
+                            value={countyMayor}
+                            change={(e: any) =>
+                                setCountyMayor(e.target.value)
+                            }
                         />
                         <CapForm
                             as={Col}
                             label="population"
+                            type="number"
                             placeholder="insertPopulation"
+                            value={countyPopulation}
+                            change={(e: any) =>
+                                setCountyPopulation(e.target.value)
+                            }
                         />
                     </Row>
                     <Row className="mb-3">
-                        <CapForm as={Col} label="flag" />
-                        <CapForm as={Col} label="countyAnniversary" />
+                        <CapForm 
+                            as={Col}
+                            label="flag"
+                            type="file"
+                            placeholder="insertFlag" /* Inserido no translations.json */
+                            value={countyFlag}
+                            change={(e: any) =>
+                                setCountyFlag(e.target.value)
+                            }
+                        />
+                        <CapForm
+                            as={Col}
+                            label="countyAnniversary"
+                            type="date"
+                            /* placeholder="insertAnniversary" */ /* Inserido no translations.json */
+                            value={countyAnniversary}
+                            change={(e: any) =>
+                                setCountyAnniversary(e.target.value)
+                            }
+                        />
                         <CapForm
                             as={Col}
                             label="countyDistanceToCisab"
-                            placeholder="insertCountyDistanceToCisab"
+                            type="number"
+                            placeholder="insertCountyDistanceToCisab" /* Inserido no translations.json */
+                            value={countyDistanceToCisab}
+                            change={(e: any) =>
+                                setCountyDistanceToCisab(e.target.value)
+                            }
                         />
                     </Row>
                     <CapForm
@@ -132,6 +201,10 @@ export default function CountyRegistration({
                         rows={3}
                         label="note"
                         placeholder="insertNote"
+                        value={countyNote}
+                        change={(e: any) =>
+                            setCountyNote(e.target.value)
+                        }
                     />
                     <CapSubtitle label="countyContact" />
                     <Row className="mb-3">
@@ -140,11 +213,19 @@ export default function CountyRegistration({
                             xs={8}
                             label="address"
                             placeholder="insertAddress"
+                            value={countyAddress}
+                            change={(e: any) =>
+                                setCountyAddress(e.target.value)
+                            }
                         />
                         <CapForm
                             as={Col}
                             label="zipCode"
                             placeholder="insertZipCode"
+                            value={countyZipCode}
+                            change={(e: any) =>
+                                setCountyZipCode(e.target.value)
+                            }
                         />
                     </Row>
                     <Row className="mb-3">
@@ -152,11 +233,19 @@ export default function CountyRegistration({
                             as={Col}
                             label="phone"
                             placeholder="insertPhone"
+                            value={countyPhone}
+                            change={(e: any) =>
+                                setCountyPhone(e.target.value)
+                            }
                         />
                         <CapForm
                             as={Col}
                             label="contactWith"
-                            placeholder="insertZipCode"
+                            placeholder="insertNameContact" /* Inserido no translations.json */
+                            value={countyContactWith}
+                            change={(e: any) =>
+                                setCountyContactWith(e.target.value)
+                            }
                         />
                     </Row>
                     <Row className="mb-3">
@@ -164,16 +253,28 @@ export default function CountyRegistration({
                             as={Col}
                             label="site"
                             placeholder="insertSite"
+                            value={countyContactSite}
+                            change={(e: any) =>
+                                setCountyContactSite(e.target.value)
+                            }
                         />
                         <CapForm
                             as={Col}
                             label="email"
                             placeholder="insertEmail"
+                            value={countyEmail}
+                            change={(e: any) =>
+                                setCountyEmail(e.target.value)
+                            }
                         />
                         <CapForm
                             as={Col}
                             label="socialMedias"
                             placeholder="insertSocialMedias"
+                            value={countySocialMedias}
+                            change={(e: any) =>
+                                setCountySocialMedias(e.target.value)
+                            }
                         />
                     </Row>
                     <CapSubtitle label="contact" />
@@ -182,20 +283,40 @@ export default function CountyRegistration({
                             as={Col}
                             label="name"
                             placeholder="insertName"
+                            value={countyName}
+                            change={(e: any) =>
+                                setCountyName(e.target.value)
+                            }
                         />
-                        <CapForm as={Col} label="job" placeholder="insertJob" />
+                        <CapForm 
+                            as={Col}
+                            label="job"
+                            placeholder="insertJob"
+                            value={countyJob}
+                            change={(e: any) =>
+                                setCountyJob(e.target.value)
+                            }
+                        />
                     </Row>
                     <Row className="mb-3">
                         <CapForm
                             as={Col}
                             xs={8}
-                            label="address"
+                            label="address" 
                             placeholder="insertAddress"
+                            value={countyContactAddress}
+                            change={(e: any) =>
+                                setCountyContactAddress(e.target.value)
+                            }
                         />
                         <CapForm
                             as={Col}
                             label="zipCode"
                             placeholder="insertZipCode"
+                            value={countyContactZipCode}
+                            change={(e: any) =>
+                                setCountyContactZipCode(e.target.value)
+                            }
                         />
                     </Row>
                     <Row className="mb-3">
@@ -203,16 +324,28 @@ export default function CountyRegistration({
                             as={Col}
                             label="phone"
                             placeholder="insertPhone"
+                            value={countyContactPhone}
+                            change={(e: any) =>
+                                setCountyContactPhone(e.target.value)
+                            }
                         />
                         <CapForm
                             as={Col}
                             label="email"
                             placeholder="insertEmail"
+                            value={countyContactEmail}
+                            change={(e: any) =>
+                                setCountyContactEmail(e.target.value)
+                            }
                         />
                         <CapForm
                             as={Col}
                             label="socialMedias"
                             placeholder="insertSocialMedias"
+                            value={countyContactSocialMedias}
+                            change={(e: any) =>
+                                setCountyContactSocialMedias(e.target.value)
+                            }
                         />
                     </Row>
                     <CapForm
@@ -220,11 +353,15 @@ export default function CountyRegistration({
                         rows={3}
                         label="note"
                         placeholder="insertNote"
+                        value={countyContactNote}
+                            change={(e: any) =>
+                                setCountyContactNote(e.target.value)
+                            }
                     />
                     <CapBtn
                         kind="send"
                         click={() => {
-                            alert(countyAccount + " " + countyPassword);
+                            alert(countyAccount + " " + countyPassword + " " + countyConfirmPassword + " " + countyCityName + " " + countyState + " " + countyMayor + " " + countyPopulation + " " + countyFlag + " " + countyAnniversary + " " + countyDistanceToCisab + " " + countyNote + " " + countyAddress + " " + countyZipCode + " " + countyPhone + " " + countyContactWith + " " + countySite + " " + countyEmail + " " + countySocialMedias + " " + countyName + " " + countyJob + " " + countyContactAddress + " " + countyContactZipCode + " " + countyContactSite + " " + countyContactNote + " " + countyContactSocialMedias + " " + countyContactEmail + " " + countyContactPhone + " " + countyContactAddress);
                         }}
                     />
                 </Form>

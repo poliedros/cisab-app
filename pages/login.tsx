@@ -71,6 +71,12 @@ export default function Login() {
                             click={handleButton}
                         />
                     )}
+                    <CapBtn
+                            label="resetPassword"
+                            iconType="cg"
+                            icon="CgPassword"
+                            click={handleButton}
+                        />
                 </div>
                 <div className="flex items-center justify-between">
                     <h1 className="font-medium leading-tight text-3xl mt-0 mb-2 text-red-600">
