@@ -69,7 +69,7 @@ export default function CountyList(/* { language }: { language: "en" | "es" | "p
                         {IconsByName("ri", "RiSearchLine")}
                     </Button>
                 </InputGroup>
-                <Table striped>
+                <Table striped responsive>
                     <thead>
                         <tr>
                             <th>Nº</th>
