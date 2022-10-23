@@ -40,11 +40,20 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<CountyDTO[]>
 ) {
+
   /* if(req.method === "PUT") {
     req.body
+    console.log('Jesus');
     return ;
+  } */
+
+  //putData()
+
+  if(req.method === "PUT") {
+    console.log(JSON.parse(req.body));
+      //res.status(200).json([body])
   }
-  putData() */
+
   res.status(200).json([
     {
       id: "001",

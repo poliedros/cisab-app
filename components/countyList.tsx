@@ -39,9 +39,11 @@ export default function CountyList(/* { language }: { language: "en" | "es" | "p
         "/api/counties",
         fetcher
     );
-    /* const updateData = () => {
+
+    const updateData = (c: CountyDTO) => {
+        const data: CountyDTO = c;
         fetch("/counties", { method: "PUT", body: JSON.stringify(data) })
-    } */
+    }
 
     if (error) return <div>failed to load</div>;
     if (!counties) return <div>loading...</div>;
@@ -107,6 +109,15 @@ export default function CountyList(/* { language }: { language: "en" | "es" | "p
                                             }
                                         >
                                             {IconsByName("ri", "RiEditBoxFill")}
+                                        </Button>
+                                        &nbsp;
+                                        <Button
+                                            variant="secondary"
+                                            className="!rounded-full !p-[6px]"
+                                            onClick={
+                                                () => updateData(c)
+                                        }>
+                                                {IconsByName("ri", "RiEditBoxFill")}
                                         </Button>
                                     </td>
                                 </tr>
