@@ -1,8 +1,17 @@
 import CountyList from "components/countyList";
 import useUser from "lib/useUser";
+import { CountyDTO } from "pages/api/counties";
+import useSWR from "swr";
 
 export default function Index() {
   const { user } = useUser({ redirectTo: "/login" });
+
+  const { data: counties, error } = useSWR<CountyDTO[]>(
+      user ? "/api/counties" : null
+  );
+
+  if (error) return <div>failed to load</div>;
+  if (!counties) return <div>loading...</div>;
 
   if (!user || user.isLoggedIn == false) {
     return <div>404</div>;
@@ -10,7 +19,7 @@ export default function Index() {
 
   return (
     <>
-      <CountyList />
+      <CountyList counties={counties}/>
     </>
   );
 }

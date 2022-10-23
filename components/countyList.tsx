@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-import useSWR from "swr";
-
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -10,43 +8,19 @@ import { Container } from "react-bootstrap";
 import { CountyDTO } from "pages/api/counties";
 
 import IconsByName from "components/iconsByName";
-import PageBaseLayout from "./pageBaseLayout";
 
 import Router from "next/router";
-import { useRouter } from "next/router";
 
-export default function CountyList(/* { language }: { language: "en" | "es" | "pt" } */) {
-    const [county, setCounty] = useState(false);
+export default function CountyList({counties}: {counties: CountyDTO[]}/* { language }: { language: "en" | "es" | "pt" } */) {
     const [searchCounty, setSearchCounty] = useState('');
 
-    const handleCloseCounty = () => setCounty(false);
-    const handleCounty = () => setCounty(true);
-
-    const [index, setIndex] = useState(0);
-
     const viewCounty = (i: number) => {
-        /* setIndex(i);
-        setCounty(true); */
         Router.push(`/counties/${i}`);
     };
 
     const editCounty = (i: number) => {
         Router.push(`/counties/${i}/edit`);
     };
-
-    const fetcher = (url: string) => fetch(url).then((res) => res.json());
-    const { data: counties, error } = useSWR<CountyDTO[]>(
-        "/api/counties",
-        fetcher
-    );
-
-    const updateData = (c: CountyDTO) => {
-        const data: CountyDTO = c;
-        fetch("/counties", { method: "PUT", body: JSON.stringify(data) })
-    }
-
-    if (error) return <div>failed to load</div>;
-    if (!counties) return <div>loading...</div>;
 
     return (
         <>
@@ -83,7 +57,6 @@ export default function CountyList(/* { language }: { language: "en" | "es" | "p
                     <tbody>
                         {counties.filter((c) => c.county.name.match(searchCounty)).map((c, i) => {
                             return (
-                                // eslint-disable-next-line react/jsx-key
                                 <tr key={i}>
                                     <td>{i + 1}</td>
                                     <td>{c.county.name}</td>
@@ -114,9 +87,9 @@ export default function CountyList(/* { language }: { language: "en" | "es" | "p
                                         <Button
                                             variant="secondary"
                                             className="!rounded-full !p-[6px]"
-                                            onClick={
+                                            /* onClick={
                                                 () => updateData(c)
-                                        }>
+                                        } */>
                                                 {IconsByName("ri", "RiEditBoxFill")}
                                         </Button>
                                     </td>
