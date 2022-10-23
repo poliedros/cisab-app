@@ -22,7 +22,7 @@ async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
       },
       body: JSON.stringify({ username: email, password }),
     });
-    if (response.status === 500)
+    if (response.status === 500 || response.status === 401)
       throw new Error("Login or password incorrect.");
 
     const data = await response.json();
