@@ -12,6 +12,15 @@
     display: none;
 }
 
+.popover-arrow {
+    display: none !important;
+}
+
+.bs-popover-end {
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+
 @media screen and (max-width: 640px) {
     .sideBar {
         flex-direction: row;
