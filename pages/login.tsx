@@ -26,7 +26,6 @@ export default function Login() {
       body: JSON.stringify({ email, password }),
     }).finally(() => setLoading(false));
 
-    console.log(data.status);
     if (data.status !== 200) {
       setErrorMessage("Log in error. Try again");
       return;

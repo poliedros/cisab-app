@@ -6,13 +6,16 @@ import CapTitle from "atoms/capTitle";
 import CapSubtitle from "atoms/capSubtitle";
 import CapForm from "atoms/capForm";
 import CapBtn from "atoms/capBtn";
+import { CountyDTO } from "pages/api/counties";
 
 export default function CountyRegistration({
     language = "pt",
     county = undefined,
+    onSubmit,
 }: {
     language: "pt";
-    county: any;
+    county: CountyDTO | undefined;
+    onSubmit: (county: CountyDTO) => void;
 }) {
     const [countyAccount, setCountyAccount] = useState("");
     const [countyPassword, setCountyPassword] = useState("");
@@ -20,10 +23,10 @@ export default function CountyRegistration({
     const [countyCityName, setCountyCityName] = useState("");
     const [countyState, setCountyState] = useState("");
     const [countyMayor, setCountyMayor] = useState("");
-    const [countyPopulation, setCountyPopulation] = useState("");
+    const [countyPopulation, setCountyPopulation] = useState(0);
     const [countyFlag, setCountyFlag] = useState("");
     const [countyAnniversary, setCountyAnniversary] = useState("");
-    const [countyDistanceToCisab, setCountyDistanceToCisab] = useState("");
+    const [countyDistanceToCisab, setCountyDistanceToCisab] = useState(0);
     const [countyNote, setCountyNote] = useState("");
     const [countyAddress, setCountyAddress] = useState("");
     const [countyZipCode, setCountyZipCode] = useState("");
@@ -42,6 +45,45 @@ export default function CountyRegistration({
     const [countyContactSocialMedias, setCountyContactSocialMedias] =
         useState("");
     const [countyContactEmail, setCountyContactEmail] = useState("");
+
+    const handleCounty = () => {
+        const id = county?.id;
+        const countyResult: CountyDTO = {
+            id: id ?? '0',
+            account: {
+                user: countyAccount,
+                password: countyPassword
+            },
+            county: {
+                name: countyCityName,
+                state: countyState,
+                mayor: countyMayor,
+                population: countyPopulation,
+                flag: countyFlag,
+                anniversary: countyAnniversary,
+                distanceToCisab: countyDistanceToCisab,
+                note: countyNote,
+                address: countyAddress,
+                zipCode: countyZipCode,
+                phone: countyPhone,
+                contact: countyContactWith,
+                site: countySite,
+                email: countyEmail,
+                socialMedias: countySocialMedias
+            },
+            accountable: {
+                name: countyName,
+                job: countyJob,
+                address: countyContactAddress,
+                zipCode: countyContactZipCode,
+                phone: countyContactPhone,
+                email: countyContactEmail,
+                socialMedias: countyContactSocialMedias,
+                note: countyContactNote
+            }
+          };
+          onSubmit(countyResult)
+    };
 
     useEffect(() => {
         if (county) {
@@ -309,65 +351,7 @@ export default function CountyRegistration({
                     />
                     <CapBtn
                         kind="send"
-                        click={() => {
-                            alert(
-                                countyAccount +
-                                    " " +
-                                    countyPassword +
-                                    " " +
-                                    countyConfirmPassword +
-                                    " " +
-                                    countyCityName +
-                                    " " +
-                                    countyState +
-                                    " " +
-                                    countyMayor +
-                                    " " +
-                                    countyPopulation +
-                                    " " +
-                                    countyFlag +
-                                    " " +
-                                    countyAnniversary +
-                                    " " +
-                                    countyDistanceToCisab +
-                                    " " +
-                                    countyNote +
-                                    " " +
-                                    countyAddress +
-                                    " " +
-                                    countyZipCode +
-                                    " " +
-                                    countyPhone +
-                                    " " +
-                                    countyContactWith +
-                                    " " +
-                                    countySite +
-                                    " " +
-                                    countyEmail +
-                                    " " +
-                                    countySocialMedias +
-                                    " " +
-                                    countyName +
-                                    " " +
-                                    countyJob +
-                                    " " +
-                                    countyContactAddress +
-                                    " " +
-                                    countyContactZipCode +
-                                    " " +
-                                    countyContactSite +
-                                    " " +
-                                    countyContactNote +
-                                    " " +
-                                    countyContactSocialMedias +
-                                    " " +
-                                    countyContactEmail +
-                                    " " +
-                                    countyContactPhone +
-                                    " " +
-                                    countyContactAddress
-                            );
-                        }}
+                        click={handleCounty}
                     />
                 </Form>
             </Container>

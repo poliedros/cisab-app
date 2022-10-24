@@ -60,7 +60,7 @@ export default function CapBtn({
         }
         variant={variant}
         size={size}
-        type={type}
+        //type={type}
         value={value}
         onClick={click}
         onChange={change}

@@ -5,6 +5,16 @@ export default function handler(
     req: NextApiRequest,
     res: NextApiResponse<CountyDTO>
 ) {
+    if (req.method === "PUT") {
+        res.status(200).json({} as CountyDTO)
+        return;
+    }
+
+    if (req.method === "DELETE") {
+        res.status(200).json({} as CountyDTO)
+        return;
+    }
+
     if (req.query.id !== "1") {
         res.status(404).json({} as CountyDTO);
         return;
