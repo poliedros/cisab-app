@@ -29,7 +29,7 @@ export default function Create() {
             <CountyRegistration
                 language={"pt"}
                 county={undefined}
-                onSubmit={saveCounty}
+                submit={saveCounty}
             />
             <>{error}</>
         </>

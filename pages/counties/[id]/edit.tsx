@@ -46,7 +46,7 @@ export default function Edit() {
             <CountyRegistration
                 language="pt"
                 county={countyRes}
-                onSubmit={editCounty}
+                submit={editCounty}
             />
             <>{error}</>
         </>

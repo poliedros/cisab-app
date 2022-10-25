@@ -11,11 +11,11 @@ import { CountyDTO } from "pages/api/counties";
 export default function CountyRegistration({
     language = "pt",
     county = undefined,
-    onSubmit,
+    submit,
 }: {
     language: "pt";
     county: CountyDTO | undefined;
-    onSubmit: (county: CountyDTO) => void;
+    submit: (county: CountyDTO) => void;
 }) {
     const [countyAccount, setCountyAccount] = useState("");
     const [countyPassword, setCountyPassword] = useState("");
@@ -82,7 +82,7 @@ export default function CountyRegistration({
                 note: countyContactNote
             }
           };
-          onSubmit(countyResult)
+          submit(countyResult)
     };
 
     useEffect(() => {
