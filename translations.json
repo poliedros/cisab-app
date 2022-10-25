@@ -8,6 +8,9 @@
     "remove": {
         "pt": "Remover"
     },
+    "loginError": {
+        "pt": "Erro ao logar, nome de usuário e senha incorretos. Tente novamente."
+    },
     "countyRegistration": {
         "pt": "Cadastro de Município"
     },

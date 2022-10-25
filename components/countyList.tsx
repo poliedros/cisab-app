@@ -61,7 +61,7 @@ export default function CountyList({counties}: {counties: CountyDTO[]}/* { langu
                                     <td>{i + 1}</td>
                                     <td>{c.county.name}</td>
                                     <td>{c.accountable.name}</td>
-                                    <td>
+                                    <td className="flex justify-center">
                                         <Button
                                             variant="secondary"
                                             className="!rounded-full !p-[6px]"

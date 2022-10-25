@@ -1,5 +1,6 @@
-import useUser from "lib/useUser";
+//import useUser from "lib/useUser";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import SideBar from "./sideBar";
 
 export default function Layout({
@@ -9,7 +10,8 @@ export default function Layout({
     children: React.ReactNode;
     title?: string | undefined;
 }) {
-    const { user } = useUser();
+    //const { user } = useUser();
+    const router = useRouter();
 
     return (
         <>
@@ -21,6 +23,8 @@ export default function Layout({
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+            { router.route === '/login' ?
+            <>{children}</> :
             <main>
                 <div className="font-[Jost] h-screen flex items-center justify-center overflow-hidden pageBase">
                     <div className="h-screen overflow-auto p-6 swing-in-right-bck invisibleScroll">
@@ -35,6 +39,7 @@ export default function Layout({
                     </div>
                 </div>
             </main>
+            }
         </>
     );
 }

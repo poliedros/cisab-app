@@ -124,7 +124,7 @@ export default function CapForm({
           className="mb-3 text-white"
         >
           <Form.Control
-            className="!bg-white/25"
+            className="!bg-white/25 text-white"
             type={type}
             placeholder={translations(placeholder, language)}
             onChange={change}

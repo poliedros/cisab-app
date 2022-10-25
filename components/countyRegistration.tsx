@@ -49,7 +49,7 @@ export default function CountyRegistration({
     const handleCounty = () => {
         const id = county?.id;
         const countyResult: CountyDTO = {
-            id: id ?? '0',
+            id: id ?? '0', //valor provisório
             account: {
                 user: countyAccount,
                 password: countyPassword
@@ -172,7 +172,6 @@ export default function CountyRegistration({
                             as={Col}
                             label="flag"
                             type="file"
-                            placeholder="insertFlag" /* Inserido no translations.json */
                             value={countyFlag}
                             change={(e: any) => setCountyFlag(e.target.value)}
                         />
@@ -180,7 +179,6 @@ export default function CountyRegistration({
                             as={Col}
                             label="countyAnniversary"
                             type="date"
-                            /* placeholder="insertAnniversary" */ /* Inserido no translations.json */
                             value={countyAnniversary}
                             change={(e: any) =>
                                 setCountyAnniversary(e.target.value)
@@ -190,7 +188,7 @@ export default function CountyRegistration({
                             as={Col}
                             label="countyDistanceToCisab"
                             type="number"
-                            placeholder="insertCountyDistanceToCisab" /* Inserido no translations.json */
+                            placeholder="insertCountyDistanceToCisab"
                             value={countyDistanceToCisab}
                             change={(e: any) =>
                                 setCountyDistanceToCisab(e.target.value)
@@ -238,7 +236,7 @@ export default function CountyRegistration({
                         <CapForm
                             as={Col}
                             label="contactWith"
-                            placeholder="insertNameContact" /* Inserido no translations.json */
+                            placeholder="insertNameContact"
                             value={countyContactWith}
                             change={(e: any) =>
                                 setCountyContactWith(e.target.value)

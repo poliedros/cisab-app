@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import useUser from "lib/useUser";
 import { Spinner } from "components/spinner";
-import translations from "translations.json";
+
+import Image from 'next/image';
 
 import CapForm from "atoms/capForm";
 import CapBtn from "atoms/capBtn";
+import CapLink from "atoms/capLink";
+import CapErrorBottom from "atoms/capErrorBottom";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const { mutateUser } = useUser({
     redirectTo: "/",
     redirectIfFound: true,
@@ -19,7 +22,7 @@ export default function Login() {
 
   async function handleButton() {
     setLoading(true);
-    setErrorMessage("");
+    setErrorMessage(false);
 
     const data = await fetch("/api/login", {
       method: "POST",
@@ -27,7 +30,7 @@ export default function Login() {
     }).finally(() => setLoading(false));
 
     if (data.status !== 200) {
-      setErrorMessage("Log in error. Try again");
+      setErrorMessage(true);
       return;
     }
 
@@ -37,13 +40,14 @@ export default function Login() {
 
   return (
     <div>
-      <div className="font-[Jost] h-screen flex items-center justify-center overflow-hidden">
+      <div className="font-[Jost] h-screen flex items-center justify-center overflow-hidden flex-column">
         <div className="flex flex-column items-center">
-          <h3 className="text-white">
+          {/* <h3 className="text-white">
             <b>{translations.login[language]}</b>
-          </h3>
+          </h3> */}
+          <Image src={'/cisabLogo.svg'} alt="me" width="196" height="128" objectFit="contain" /> {/* process.env.PUBLIC_URL + '/vercel.svg' */}
         </div>
-        <div className="m-6">
+        <div className="m-6 text-white">
           <CapForm
             kind="floating"
             label="email"
@@ -58,7 +62,7 @@ export default function Login() {
             change={(e: any) => setPassword(e.target.value)}
           />
         </div>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between flex-column">
           {loading ? (
             <Spinner />
           ) : (
@@ -69,18 +73,16 @@ export default function Login() {
               click={handleButton}
             />
           )}
-          <CapBtn
+          <br />
+          <CapLink
             label="resetPassword"
-            iconType="cg"
+            /* iconType="cg"
             icon="CgPassword"
-            click={handleButton}
+            click={handleButton} */
+            href=""
           />
         </div>
-        <div className="flex items-center justify-between">
-          <h1 className="font-medium leading-tight text-3xl mt-0 mb-2 text-red-600">
-            {errorMessage}
-          </h1>
-        </div>
+        { errorMessage ? <CapErrorBottom label={"loginError"} /> : <></> }
       </div>
     </div>
   );
