@@ -104,7 +104,7 @@ export default function CountyList({counties}: {counties: CountyDTO[]}/* { langu
                                                 removeCounty(c._id)
                                             }
                                         >
-                                            {IconsByName("ri", "RiEditBoxFill")}
+                                            {IconsByName("ri", "RiDeleteBin6Fill")}
                                         </Button>
                                     </td>
                                 </tr>

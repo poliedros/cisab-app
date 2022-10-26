@@ -89,6 +89,7 @@ export default function CountyRegistration({
         if (county) {
             setCountyAccount(county?.account.user);
             setCountyPassword(county?.account.password);
+            setCountyConfirmPassword(county?.account.password);
         }
     }, [county]);
 
