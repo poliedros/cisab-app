@@ -23,10 +23,10 @@ export default function CountyRegistration({
     const [countyCityName, setCountyCityName] = useState("");
     const [countyState, setCountyState] = useState("");
     const [countyMayor, setCountyMayor] = useState("");
-    const [countyPopulation, setCountyPopulation] = useState(0);
+    const [countyPopulation, setCountyPopulation] = useState("");
     const [countyFlag, setCountyFlag] = useState("");
     const [countyAnniversary, setCountyAnniversary] = useState("");
-    const [countyDistanceToCisab, setCountyDistanceToCisab] = useState(0);
+    const [countyDistanceToCisab, setCountyDistanceToCisab] = useState("");
     const [countyNote, setCountyNote] = useState("");
     const [countyAddress, setCountyAddress] = useState("");
     const [countyZipCode, setCountyZipCode] = useState("");
@@ -47,9 +47,9 @@ export default function CountyRegistration({
     const [countyContactEmail, setCountyContactEmail] = useState("");
 
     const handleCounty = () => {
-        const id = county?.id;
+        const _id = county?._id;
         const countyResult: CountyDTO = {
-            id: id ?? '0', //valor provisório
+            _id: _id ?? '0', //valor provisório
             account: {
                 user: countyAccount,
                 password: countyPassword

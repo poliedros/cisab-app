@@ -14,12 +14,24 @@ import Router from "next/router";
 export default function CountyList({counties}: {counties: CountyDTO[]}/* { language }: { language: "en" | "es" | "pt" } */) {
     const [searchCounty, setSearchCounty] = useState('');
 
-    const viewCounty = (i: number) => {
+    const viewCounty = (i: string) => {
         Router.push(`/counties/${i}`);
     };
 
-    const editCounty = (i: number) => {
+    const editCounty = (i: string) => {
         Router.push(`/counties/${i}/edit`);
+    };
+
+    const removeCounty = async (i: string) => {
+        const data = await fetch(`/api/counties/${i}`, {
+            method: "DELETE",
+        }); //.finally(() => setLoading(false));
+        if (data.status === 200) {
+            counties = counties.filter((c) => (c._id !== i)); //passar o setCounties
+            alert("Delete County");
+        } else {
+            alert("Delete County Fault");
+        }
     };
 
     return (
@@ -61,13 +73,13 @@ export default function CountyList({counties}: {counties: CountyDTO[]}/* { langu
                                     <td>{i + 1}</td>
                                     <td>{c.county.name}</td>
                                     <td>{c.accountable.name}</td>
-                                    <td className="flex justify-center">
+                                    <td>
                                         <Button
                                             variant="secondary"
                                             className="!rounded-full !p-[6px]"
                                             onClick={
                                                 /* alert(JSON.stringify(counties)) handleCounty,*/ () =>
-                                                    viewCounty(parseInt(c.id))
+                                                    viewCounty(c._id)
                                             }
                                         >
                                             {IconsByName("ri", "RiEyeFill")}
@@ -78,7 +90,18 @@ export default function CountyList({counties}: {counties: CountyDTO[]}/* { langu
                                             className="!rounded-full !p-[6px]"
                                             onClick={
                                                 /* alert(JSON.stringify(counties)) handleCounty,*/ () =>
-                                                    editCounty(parseInt(c.id))
+                                                    editCounty(c._id)
+                                            }
+                                        >
+                                            {IconsByName("ri", "RiEditBoxFill")}
+                                        </Button>
+                                        &nbsp;
+                                        <Button
+                                            variant="secondary"
+                                            className="!rounded-full !p-[6px]"
+                                            onClick={
+                                                /* alert(JSON.stringify(counties)) handleCounty,*/ () =>
+                                                removeCounty(c._id)
                                             }
                                         >
                                             {IconsByName("ri", "RiEditBoxFill")}

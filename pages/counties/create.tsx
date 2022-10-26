@@ -12,7 +12,8 @@ export default function Create() {
         return <div>404</div>;
     }
 
-    const saveCounty = async (county: CountyDTO) => {
+    const saveCounty = async (county: any) => {
+        delete county._id;
         const data = await fetch("/api/counties", {
             method: "POST",
             body: JSON.stringify(county),

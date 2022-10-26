@@ -4,11 +4,12 @@ import translations from "translations.json";
 import { Row, Col } from "react-bootstrap";
 import IconsByName from "components/iconsByName";
 import CapTitle from "atoms/capTitle";
+import { CountyDTO } from "pages/api/counties";
 
 export default function CountyProfile(
     {
         county,
-    }: { county: any } /* { language }: { language: "en" | "es" | "pt" } */
+    }: { county: CountyDTO } /* { language }: { language: "en" | "es" | "pt" } */
 ) {
     //const src = 'https://www.vicosa.mg.gov.br/css/images/logotipo.svg';//`${API}/user/photo/${blog.postedBy.username}`;
 
