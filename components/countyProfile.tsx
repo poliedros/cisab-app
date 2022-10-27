@@ -45,10 +45,10 @@ export default function CountyProfile(
                                 {county.county.phone}
                             </h3>
                             <div className="flex-row-reverse">
-                                <h6 className="flex items-center text-[#144974]">
+                                <a className="flex items-center text-[#144974]" href="mailto:{county.county.email}?subject=">
                                     {IconsByName("md", "MdAlternateEmail")}{" "}
                                     &nbsp; {county.county.email}
-                                </h6>
+                                </a>
                             </div>
                             <h5 className="text-[#dd823b]">
                                 {county.county.contact}
@@ -120,15 +120,15 @@ export default function CountyProfile(
                             </h4>
                         </div>
                         <div className="float-left">
-                            <h4 className="py-.5 px-2 rounded-full text-white bg-[#7dc523]">
+                            <a className="py-.5 px-2 rounded-full text-white bg-[#7dc523]" href="mailto:{county.county.email}?subject=">
                                 {county.accountable.email}
-                            </h4>
+                            </a>
                         </div>
                     </Col>
                 </Row>
                 <Row className="text-center">
                     <Col>
-                        <h5>{county.county.site}</h5>
+                        <a href="{county.county.site}">{county.county.site}</a>
                         <h6>{county.county.socialMedias}</h6>
                         <h5>{county.county.note}</h5>
                     </Col>
