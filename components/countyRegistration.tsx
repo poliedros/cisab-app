@@ -32,7 +32,6 @@ export default function CountyRegistration({
     const [countyZipCode, setCountyZipCode] = useState("");
     const [countyPhone, setCountyPhone] = useState("");
     const [countyContactWith, setCountyContactWith] = useState("");
-    const [countySite, setCountySite] = useState("");
     const [countyEmail, setCountyEmail] = useState("");
     const [countySocialMedias, setCountySocialMedias] = useState("");
     const [countyName, setCountyName] = useState("");
@@ -67,7 +66,7 @@ export default function CountyRegistration({
                 zipCode: countyZipCode,
                 phone: countyPhone,
                 contact: countyContactWith,
-                site: countySite,
+                site: countyContactSite,
                 email: countyEmail,
                 socialMedias: countySocialMedias
             },

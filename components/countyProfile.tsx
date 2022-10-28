@@ -45,7 +45,7 @@ export default function CountyProfile(
                                 {county.county.phone}
                             </h3>
                             <div className="flex-row-reverse">
-                                <a className="flex items-center text-[#144974]" href="mailto:{county.county.email}?subject=">
+                            <a className="flex items-center text-[#144974]" href={`mailto:${county.county.email}?subject=`}>
                                     {IconsByName("md", "MdAlternateEmail")}{" "}
                                     &nbsp; {county.county.email}
                                 </a>
@@ -120,7 +120,7 @@ export default function CountyProfile(
                             </h4>
                         </div>
                         <div className="float-left">
-                            <a className="py-.5 px-2 rounded-full text-white bg-[#7dc523]" href="mailto:{county.county.email}?subject=">
+                            <a className="py-.5 px-2 rounded-full text-white bg-[#7dc523]" href={`mailto:${county.accountable.email}?subject=`}>
                                 {county.accountable.email}
                             </a>
                         </div>
@@ -128,7 +128,7 @@ export default function CountyProfile(
                 </Row>
                 <Row className="text-center">
                     <Col>
-                        <a href="{county.county.site}">{county.county.site}</a>
+                        <a href={`${county.county.site}`}>{county.county.site}</a>
                         <h6>{county.county.socialMedias}</h6>
                         <h5>{county.county.note}</h5>
                     </Col>
