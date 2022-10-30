@@ -45,10 +45,10 @@ export default function CountyProfile(
                                 {county.county.phone}
                             </h3>
                             <div className="flex-row-reverse">
-                            <a className="flex items-center text-[#144974]" href={`mailto:${county.county.email}?subject=`}>
+                                <h6 className="flex items-center text-[#144974]">
                                     {IconsByName("md", "MdAlternateEmail")}{" "}
-                                    &nbsp; {county.county.email}
-                                </a>
+                                    &nbsp; <a href={`mailto:${county.county.email}?subject=`}>{county.county.email}</a>
+                                </h6>
                             </div>
                             <h5 className="text-[#dd823b]">
                                 {county.county.contact}

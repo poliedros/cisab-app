@@ -89,6 +89,28 @@ export default function CountyRegistration({
             setCountyAccount(county?.account.user);
             setCountyPassword(county?.account.password);
             setCountyConfirmPassword(county?.account.password);
+            setCountyCityName(county?.county.name);
+            setCountyState(county?.county.state);
+            setCountyMayor(county?.county.mayor);
+            setCountyPopulation(county?.county.population);
+            //setCountyFlag(county?.county.flag);
+            setCountyAnniversary(county?.county.anniversary.toString());
+            setCountyDistanceToCisab(county?.county.distanceToCisab);
+            setCountyNote(county?.county.note);
+            setCountyAddress(county?.county.address);
+            setCountyZipCode(county?.county.zipCode);
+            setCountyPhone(county?.county.phone);
+            setCountyContactWith(county?.county.contact);
+            setCountyEmail(county?.county.email);
+            setCountySocialMedias(county?.county.socialMedias);
+            setCountyName(county?.accountable.name);
+            setCountyJob(county?.accountable.job);
+            setCountyContactAddress(county?.accountable.address);
+            setCountyContactZipCode(county?.accountable.zipCode);
+            setCountyContactPhone(county?.accountable.phone);
+            setCountyContactNote(county?.accountable.note);
+            setCountyContactSocialMedias(county?.accountable.socialMedias);
+            setCountyContactEmail(county?.accountable.email);
         }
     }, [county]);
 

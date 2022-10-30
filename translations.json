@@ -11,6 +11,12 @@
     "loginError": {
         "pt": "Erro ao logar, nome de usuário e senha incorretos. Tente novamente."
     },
+    "editedCounty": {
+        "pt": "Município Editado e Salvo Corretamente."
+    },
+    "editedCountyFault": {
+        "pt": "Falha ao Editar o Município. Tente novamente."
+    },
     "countyRegistration": {
         "pt": "Cadastro de Município"
     },

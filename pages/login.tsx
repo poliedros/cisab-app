@@ -7,7 +7,7 @@ import Image from 'next/image';
 import CapForm from "atoms/capForm";
 import CapBtn from "atoms/capBtn";
 import CapLink from "atoms/capLink";
-import CapErrorBottom from "atoms/capErrorBottom";
+import CapMessageBottom from "atoms/capMessageBottom";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
@@ -82,7 +82,7 @@ export default function Login() {
             href=""
           />
         </div>
-        { errorMessage ? <CapErrorBottom label={"loginError"} /> : <></> }
+        { errorMessage ? <CapMessageBottom label={"loginError"} css="text-red-600" /> : <></> }
       </div>
     </div>
   );

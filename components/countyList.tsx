@@ -73,7 +73,7 @@ export default function CountyList({counties}: {counties: CountyDTO[]}/* { langu
                                     <td>{i + 1}</td>
                                     <td>{c.county.name}</td>
                                     <td>{c.accountable.name}</td>
-                                    <td>
+                                    <td className="text-center">
                                         <Button
                                             variant="secondary"
                                             className="!rounded-full !p-[6px]"
@@ -97,7 +97,7 @@ export default function CountyList({counties}: {counties: CountyDTO[]}/* { langu
                                         </Button>
                                         &nbsp;
                                         <Button
-                                            variant="secondary"
+                                            variant="danger"
                                             className="!rounded-full !p-[6px]"
                                             onClick={
                                                 /* alert(JSON.stringify(counties)) handleCounty,*/ () =>
