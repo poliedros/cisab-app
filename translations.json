@@ -29,8 +29,26 @@
     "county": {
         "pt": "Município"
     },
+    "countyCreated": {
+        "pt": "Município Criado com Sucesso."
+    },
+    "countyFaulty": {
+        "pt": "Município não foi Criado, tente novamente."
+    },
+    "countyList": {
+        "pt": "Lista de Município Consorciados"
+    },
+    "searchCountyByName": {
+        "pt": "Buscar Município por Nome"
+    },
     "countyContact": {
         "pt": "Dados de Contato com o Município"
+    },
+    "numberAbbreviation":{
+        "pt": "Nº"
+    },
+    "countyName":{
+        "pt": "Nome do Município"
     },
     "countyData": {
         "pt": "Informações sobre o Município"

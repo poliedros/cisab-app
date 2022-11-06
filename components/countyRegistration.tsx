@@ -7,6 +7,8 @@ import CapSubtitle from "atoms/capSubtitle";
 import CapForm from "atoms/capForm";
 import CapBtn from "atoms/capBtn";
 import { CountyDTO } from "pages/api/counties";
+import CapImage from "atoms/capImage";
+import CountyImageModal from "./countyImageModal";
 
 export default function CountyRegistration({
     language = "pt",
@@ -15,8 +17,11 @@ export default function CountyRegistration({
 }: {
     language: "pt";
     county: CountyDTO | undefined;
-    submit: (county: CountyDTO) => void;
+    submit: (county: CountyDTO) => Promise<CountyDTO | undefined>;
 }) {
+    const [imageStage, setImageStage] = useState(false);
+    const [countyRegister, setCountyRegister] = useState<CountyDTO>();
+
     const [countyAccount, setCountyAccount] = useState("");
     const [countyPassword, setCountyPassword] = useState("");
     const [countyConfirmPassword, setCountyConfirmPassword] = useState("");
@@ -45,9 +50,9 @@ export default function CountyRegistration({
         useState("");
     const [countyContactEmail, setCountyContactEmail] = useState("");
 
-    const handleCounty = () => {
+    const handleCounty = async () => {
         const _id = county?._id;
-        const countyResult: CountyDTO = {
+        let countyResult: CountyDTO = {
             _id: _id ?? '0', //valor provisório
             account: {
                 user: countyAccount,
@@ -81,7 +86,9 @@ export default function CountyRegistration({
                 note: countyContactNote
             }
           };
-          submit(countyResult)
+          setImageStage(true);
+          const countyReg = await submit(countyResult);
+          setCountyRegister(countyReg);
     };
 
     useEffect(() => {
@@ -189,14 +196,16 @@ export default function CountyRegistration({
                             }
                         />
                     </Row>
-                    <Row className="mb-3">
-                        <CapForm
-                            as={Col}
-                            label="flag"
-                            type="file"
-                            value={countyFlag}
-                            change={(e: any) => setCountyFlag(e.target.value)}
-                        />
+                    <Row className="mb-3 flex items-center">
+                        <Col className="flex flex-column">
+                            {countyFlag ? <CapImage src={countyFlag} w={128} h={128} obj="contain" /> : <></>}
+                            <CapForm
+                                label="flag"
+                                type="file"
+                                value={countyFlag}
+                                change={(e: any) => setCountyFlag(e.target.value)}
+                            />
+                        </Col>
                         <CapForm
                             as={Col}
                             label="countyAnniversary"
@@ -375,6 +384,7 @@ export default function CountyRegistration({
                     />
                 </Form>
             </Container>
+            <CountyImageModal show={imageStage} onHide={() => setImageStage(false)} county={countyRegister} submit={submit} />
         </>
     );
 }

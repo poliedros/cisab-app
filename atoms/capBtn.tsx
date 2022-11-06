@@ -15,12 +15,13 @@ export default function CapBtn({
     icon = undefined,
     iconType = undefined,
     href = undefined,
+    css = "",
     as = undefined,
     bsPrefix = undefined,
     additional = undefined,
     language = "pt",
 }: {
-    kind?: "default" | "close" | "enter" | "send" | "remove";
+    kind?: "default" | "close" | "enter" | "send" | "remove" | "viewIcon" | "editIcon" | "removeIcon";
     label?: string;
     variant?: string;
     size?: "sm" | "lg" | undefined;
@@ -32,6 +33,7 @@ export default function CapBtn({
     icon?: string;
     iconType?: string;
     href?: string;
+    css?: string;
     as?: any;
     bsPrefix?: string;
     additional?: any;
@@ -39,10 +41,13 @@ export default function CapBtn({
 }) {
     let iconItems = {
         default: "",
-        close: IconsByName("bs", "BsX"),
-        enter: IconsByName("bs", "BsCheck"),
-        remove: IconsByName("hi", "HiTrash"),
-        send: IconsByName("bs", "BsSave"),
+        close: IconsByName("bs", "BsX", "auto", ".3rem"),
+        enter: IconsByName("bs", "BsCheck", "auto", ".3rem"),
+        remove: IconsByName("hi", "HiTrash", "auto", ".3rem"),
+        send: IconsByName("bs", "BsSave", "auto", ".3rem"),
+        viewIcon: IconsByName("ri", "RiEyeFill"),
+        editIcon: IconsByName("ri", "RiEditBoxFill"),
+        removeIcon: IconsByName("ri", "RiDeleteBin6Fill"),
     };
     let labelItems = {
         default: "",
@@ -50,6 +55,9 @@ export default function CapBtn({
         enter: translations("enter", language),
         remove: translations("remove", language),
         send: translations("submit", language),
+        viewIcon: translations("emptyText", language),
+        editIcon: translations("emptyText", language),
+        removeIcon: translations("emptyText", language),
     };
     return (
         <>
@@ -57,7 +65,7 @@ export default function CapBtn({
                 <Button
                     className={
                         "!flex items-center uppercase" +
-                        (variant ? "" : " !bg-[#02aae9] !border-[#02aae9]")
+                        (variant ? " " : " !bg-[#02aae9] !border-[#02aae9] ") + (css || css !== "" ? css : "")
                     }
                     variant={variant}
                     size={size}
@@ -80,8 +88,8 @@ export default function CapBtn({
                         </>
                     ) : (
                         <>
-                            {iconItems[kind]} &nbsp;
-                            {labelItems[kind]}
+                            {iconItems[kind]} {kind.includes("Icon") ? null : //&nbsp;
+                            labelItems[kind]}
                         </>
                     )}
                 </Button>
@@ -89,7 +97,7 @@ export default function CapBtn({
                 <Button
                     className={
                         "!flex items-center uppercase" +
-                        (variant ? "" : " !bg-[#02aae9] !border-[#02aae9]")
+                        (variant ? " " : " !bg-[#02aae9] !border-[#02aae9] ") + (css || css !== "" ? css : "")
                     }
                     variant={variant}
                     size={size}
@@ -112,8 +120,9 @@ export default function CapBtn({
                         </>
                     ) : (
                         <>
-                            {iconItems[kind]} &nbsp;
-                            {labelItems[kind]}
+                            {iconItems[kind]} {kind.includes("Icon") ? null : 
+                            labelItems[kind]} {/* &nbsp;
+                            {labelItems[kind]} */}
                         </>
                     )}
                 </Button>

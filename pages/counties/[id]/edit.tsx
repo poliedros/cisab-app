@@ -35,7 +35,7 @@ export default function Edit() {
         return <div>404</div>;
     }
 
-    const editCounty = async (county: CountyDTO) => {
+    const editCounty = async (county: CountyDTO): Promise<CountyDTO | undefined> => {
         const data = await fetch(`/api/counties/${id}`, {
             method: "PUT",
             body: JSON.stringify(county),
@@ -52,6 +52,8 @@ export default function Edit() {
                 m.classList.remove('swing-in-left-bck');
                 m.classList.add('swing-in-left-bck');
             });
+            const response = await data.json();
+            return response;
             /* [].forEach.call(document.querySelectorAll('messageB'), function (el) {
                 el.classList.remove('swing-in-right-bck');
                 el.classList.add('swing-in-right-bck');
@@ -60,6 +62,7 @@ export default function Edit() {
             setMessage("fault");
             //setTimeout;
         }
+        return undefined;
     };
 
     return (

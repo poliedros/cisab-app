@@ -12,7 +12,7 @@ import * as IconsCg from "react-icons/cg"
 
 import { BsSlashCircleFill } from "react-icons/bs"
 
-export default function IconsByName(ico, name, size = "auto") {
+export default function IconsByName(ico, name, size = "auto", margin="0") {
     let IconComponent;
 
     if (ico === "ai") IconComponent = IconsAi[name];
@@ -32,5 +32,5 @@ export default function IconsByName(ico, name, size = "auto") {
         return <BsSlashCircleFill style={{ width: size, height: size }} />;
     }
 
-    return <IconComponent style={{ width: size, height: size }} />;
+    return <IconComponent style={{ width: size, height: size, margin: margin }} />;
 }
