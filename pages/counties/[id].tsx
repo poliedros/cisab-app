@@ -5,32 +5,25 @@ import { CountyDTO } from "pages/api/counties";
 import CountyProfile from "components/countyProfile";
 
 export default function Get() {
-    const router = useRouter();
-    const { id } = router.query;
+  const router = useRouter();
+  const { id } = router.query;
 
-    const fetcher = (url: string) => fetch(url).then((res) => res.json());
-    const { data: counties, error } = useSWR<CountyDTO[]>(
-        "/api/counties",
-        fetcher
-    );
+  const { data: county, error } = useSWR<CountyDTO>(`/api/counties/${id}`);
 
-    const { user } = useUser({ redirectTo: "/login" });
+  const { user } = useUser({ redirectTo: "/login" });
 
-    if (!user || user.isLoggedIn == false) {
-        return <div>404</div>;
-    }
+  if (!user || user.isLoggedIn == false) {
+    return <div>404</div>;
+  }
 
-    if (error) return <div>failed to load</div>;
-    if (!counties) return <div>loading...</div>;
+  if (error) return <div>Not Found</div>;
+  if (!county) return <div>loading...</div>;
 
-    let idNumber = 0;
-    if (id) idNumber = parseInt(String(id).padStart(3, "0"));
+  console.log(county);
 
-    return (
-        <>
-            <CountyProfile
-                county={counties.filter((c) => parseInt(c.id) === idNumber)[0]}
-            />
-        </>
-    );
+  return (
+    <>
+      <CountyProfile county={county} />
+    </>
+  );
 }

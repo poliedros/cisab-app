@@ -15,8 +15,20 @@ async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
   );
 
   try {
+    const response = await fetch("https://api.cisab.czar.dev/auth/login", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ username: email, password }),
+    });
+    if (response.status === 500 || response.status === 401)
+      throw new Error("Login or password incorrect.");
+
+    const data = await response.json();
+
     const { token, username } = {
-      token: "1234",
+      token: data.access_token,
       username: email,
     };
 
@@ -25,7 +37,7 @@ async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
     await req.session.save();
     res.json(user);
   } catch (error) {
-    res.status(500).json({ message: (error as Error).message });
+    res.status(401).json({ message: (error as Error).message });
   }
 }
 

@@ -1,4 +1,22 @@
 {
+    "enter": {
+        "pt": "Entrar"
+    },
+    "close": {
+        "pt": "Fechar"
+    },
+    "remove": {
+        "pt": "Remover"
+    },
+    "loginError": {
+        "pt": "Erro ao logar, nome de usuário e senha incorretos. Tente novamente."
+    },
+    "editedCounty": {
+        "pt": "Município Editado e Salvo Corretamente."
+    },
+    "editedCountyFault": {
+        "pt": "Falha ao Editar o Município. Tente novamente."
+    },
     "countyRegistration": {
         "pt": "Cadastro de Município"
     },
@@ -11,8 +29,26 @@
     "county": {
         "pt": "Município"
     },
+    "countyCreated": {
+        "pt": "Município Criado com Sucesso."
+    },
+    "countyFaulty": {
+        "pt": "Município não foi Criado, tente novamente."
+    },
+    "countyList": {
+        "pt": "Lista de Município Consorciados"
+    },
+    "searchCountyByName": {
+        "pt": "Buscar Município por Nome"
+    },
     "countyContact": {
         "pt": "Dados de Contato com o Município"
+    },
+    "numberAbbreviation":{
+        "pt": "Nº"
+    },
+    "countyName":{
+        "pt": "Nome do Município"
     },
     "countyData": {
         "pt": "Informações sobre o Município"
@@ -22,6 +58,9 @@
     },
     "insertName": {
         "pt": "Insira o Nome"
+    },
+    "insertPassword": {
+        "pt": "Insira Senha"
     },
     "account": {
         "pt": "Conta"
@@ -59,6 +98,9 @@
     "contactWith": {
         "pt": "Falar com:"
     },
+    "insertNameContact":{
+        "pt": "Insira o nome do contato"
+    },
     "site": {
         "pt": "Website"
     },
@@ -92,6 +134,9 @@
     "flag": {
         "pt": "Bandeira"
     },
+    "insertFlag":{
+        "pt": "Insira a Bandeira"
+    },
     "note": {
         "pt": "Notas"
     },
@@ -100,6 +145,9 @@
     },
     "countyAnniversary": {
         "pt": "Aniversário da Cidade"
+    },
+    "insertAnniversary":{
+        "pt": "Insira o Aniversário da Cidade"
     },
     "countyDistanceToCisab": {
         "pt": "Distância da CISAB (em Km)"
@@ -137,10 +185,10 @@
     "responsibleSocialMedia": {
         "pt": "Redes Sociais do Responsável"
     },
-    "countyName": {
+    "countyCityName": {
         "pt": "Nome do Município"
     },
-    "insertCountyName": {
+    "insertCountyCityName": {
         "pt": "Insira o Nome do Município"
     },
     "countryAddress": {
@@ -170,10 +218,16 @@
     "signin": {
         "pt": "Acessar"
     },
+    "resetPassword": {
+        "pt": "Esqueci minha senha"
+    },
     "password": {
         "pt": "Senha"
     },
     "submit": {
         "pt": "Enviar"
+    },
+    "emptyText": {
+        "pt": "Texto Vazio"
     }
 }
