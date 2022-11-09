@@ -1,15 +1,20 @@
 import { useEffect } from "react";
 import Router from "next/router";
-import useSWR from "swr";
 import { User } from "pages/api/user";
 
+type UseRoleType = {
+  user?: User | undefined;
+  role?: string | undefined;
+  redirectTo?: string | undefined;
+  redirectIfFound?: boolean | undefined;
+};
+
 export default function useRole({
+  user = undefined,
   role = "",
   redirectTo = "",
   redirectIfFound = false,
-} = {}) {
-  const { data: user, mutate: mutateUser } = useSWR<User>("/api/user");
-
+}: UseRoleType = {}) {
   useEffect(() => {
     // if no redirect needed, just return (example: already on /dashboard)
     // if user data not yet there (fetch in progress, logged in or not) then don't do anything yet

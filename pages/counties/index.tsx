@@ -7,7 +7,7 @@ import useSWR from "swr";
 
 export default function Index() {
   const { user } = useUser({ redirectTo: "/login" });
-  useRole({ role: Role.Cisab, redirectTo: "/" });
+  useRole({ user, role: Role.Cisab, redirectTo: "/" });
 
   const { data: counties, error } = useSWR<CountyDTO[]>(
     user ? "/api/counties" : null
