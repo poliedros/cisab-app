@@ -190,7 +190,7 @@ export default function CountyRegistration({
             />
           </Row>
           <Row className="mb-3 flex items-center">
-            <Col className="flex flex-column">
+            {/* <Col className="flex flex-column">
               {countyFlag ? (
                 <CapImage src={countyFlag} w={128} h={128} obj="contain" />
               ) : (
@@ -202,7 +202,7 @@ export default function CountyRegistration({
                 value={countyFlag}
                 change={(e: any) => setCountyFlag(e.target.value)}
               />
-            </Col>
+            </Col> */}
             <CapForm
               as={Col}
               label="countyAnniversary"

@@ -3,7 +3,7 @@ import CapSubtitle from "atoms/capSubtitle";
 import { useState } from "react";
 import { Row, Col } from "react-bootstrap";
 
-export default function CountyRegistration({
+export default function CountyUserRegistration({
   language = "pt",
   county = undefined,
   submit,
@@ -12,9 +12,10 @@ export default function CountyRegistration({
   county: undefined;
   submit: undefined;
 }) {
-  const [countyAccount, setCountyAccount] = useState("");
-  const [countyPassword, setCountyPassword] = useState("");
-  const [countyConfirmPassword, setCountyConfirmPassword] = useState("");
+  const [countyUserAccount, setCountyUserAccount] = useState("");
+  const [countyUserPassword, setCountyUserPassword] = useState("");
+  const [countyUserConfirmPassword, setCountyUserConfirmPassword] =
+    useState("");
 
   return (
     <>
@@ -24,24 +25,24 @@ export default function CountyRegistration({
           as={Col}
           label="countyAccount"
           placeholder="insertCountyAccount"
-          value={countyAccount}
-          change={(e: any) => setCountyAccount(e.target.value)}
+          value={countyUserAccount}
+          change={(e: any) => setCountyUserAccount(e.target.value)}
         />
         <CapForm
           as={Col}
           label="countyPassword"
           type={county ? "text" : "password"}
           placeholder="insertCountyPassword"
-          value={countyPassword}
-          change={(e: any) => setCountyPassword(e.target.value)}
+          value={countyUserPassword}
+          change={(e: any) => setCountyUserPassword(e.target.value)}
         />
         <CapForm
           as={Col}
           label="countyConfirmPassword"
           type={county ? "text" : "password"}
           placeholder="insertCountyConfirmPassword"
-          value={countyConfirmPassword}
-          change={(e: any) => setCountyConfirmPassword(e.target.value)}
+          value={countyUserConfirmPassword}
+          change={(e: any) => setCountyUserConfirmPassword(e.target.value)}
         />
       </Row>
     </>
