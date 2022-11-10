@@ -1,99 +1,80 @@
 import { useState } from "react";
 import { Button, OverlayTrigger, Popover } from "react-bootstrap";
-import Router from "next/router";
 import IconsByName from "components/iconsByName";
 import useUser from "lib/useUser";
 import { useRouter } from "next/router";
 import fetchJson from "lib/fetchJson";
+import CapIconButton from "atoms/capIconButton";
 
 export default function SideBar(/* { language }: { language: "en" | "es" | "pt" } */) {
-  const [side, setSide] = useState(false);
+    const [side, setSide] = useState(false);
 
-  const handleCloseSide = () => setSide(false);
-  const handleSide = () => setSide(true);
+    const handleCloseSide = () => setSide(false);
+    const handleSide = () => setSide(true);
 
-  const [main, setMain] = useState(false);
+    const [main, setMain] = useState(false);
 
-  const handleCloseMain = () => setMain(false);
-  const handleMain = () => setMain(true);
+    const handleCloseMain = () => setMain(false);
+    const handleMain = () => setMain(true);
 
-  const { mutateUser } = useUser();
-  const router = useRouter();
+    const { mutateUser } = useUser();
+    const router = useRouter();
 
-  const logout = () => {
-    mutateUser(fetchJson("/api/logout", { method: "POST" }), false);
-    router.push("/");
-  };
+    const logout = () => {
+        mutateUser(fetchJson("/api/logout", { method: "POST" }), false);
+        router.push("/");
+    };
 
-  const popover = (
-    <Popover>
-      <div className="overflow-auto -m-6 p-4 invisibleScroll">
-        <div className="flex relative bg-white px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5">
-          <Button
-            className="hover:!bg-[#7dc523] border-0 !rounded-full !p-[12px]"
-            variant="outline-secondary"
-            onClick={() => Router.push("/counties/create")}
-          >
-            {IconsByName("fa", "FaCity", "24px")}
-          </Button>
-          &nbsp; &nbsp;
-          <Button
-            className="hover:!bg-[#7dc523] border-0 !rounded-full !p-[12px]"
-            variant="outline-secondary"
-            onClick={() => Router.push("/counties")}
-          >
-            {IconsByName("fa", "FaThList", "24px")}
-          </Button>
-        </div>
-      </div>
-    </Popover>
-  );
+    const popover = (
+        <Popover>
+            <div className="overflow-auto -m-6 p-4 invisibleScroll">
+                <div className="flex relative bg-white px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5">
+                    <CapIconButton
+                        iconType="fa"
+                        icon="FaCity"
+                        size="24px"
+                        route="/counties/create"
+                        hoverColor="#7dc523"
+                    />
+                    &nbsp; &nbsp;
+                    <CapIconButton
+                        iconType="fa"
+                        icon="FaThList"
+                        size="24px"
+                        route="/counties"
+                        hoverColor="#7dc523"
+                    />
+                </div>
+            </div>
+        </Popover>
+    );
 
-  return (
-    <>
-      <div className="flex flex-column">
-        <Button
-          className="hover:!bg-[#02aae9] border-0 !rounded-full !p-[12px]"
-          variant="outline-secondary"
-          onClick={() => Router.push("/")}
-        >
-          {IconsByName("ai", "AiFillHome", "32px")}
-        </Button>
-        &nbsp;
-        <OverlayTrigger trigger="click" placement="right" overlay={popover} rootClose>
-          <Button
-            className="hover:!bg-[#02aae9] border-0 !rounded-full !p-[12px]"
-            variant="outline-secondary"
-            /* onClick={handleSide} */
-          >
-            {IconsByName("fa", "FaCity", "32px")}
-          </Button>
-        </OverlayTrigger>
-        &nbsp;
-        <Button
-          className="hover:!bg-[#02aae9] border-0 !rounded-full !p-[12px]"
-          variant="outline-secondary"
-          onClick={handleMain}
-        >
-          {IconsByName("md", "MdTask", "32px")}
-        </Button>
-        &nbsp;
-        <Button
-          className="hover:!bg-[#02aae9] border-0 !rounded-full !p-[12px]"
-          variant="outline-secondary"
-          onClick={handleMain}
-        >
-          {IconsByName("gi", "GiCardboardBoxClosed", "32px")}
-        </Button>
-        &nbsp;
-        <Button
-          className="hover:!bg-[#02aae9] border-0 !rounded-full !p-[12px]"
-          variant="outline-secondary"
-          onClick={logout}
-        >
-          {IconsByName("io5", "IoLogOut", "32px")}
-        </Button>
-      </div>
-    </>
-  );
+    return (
+        <>
+            <div className="flex flex-column">
+                <CapIconButton iconType="ai" icon="AiFillHome" route="/" />
+                &nbsp;
+                <OverlayTrigger
+                    trigger="click"
+                    placement="right"
+                    overlay={popover}
+                    rootClose
+                >
+                    <div>
+                        <CapIconButton iconType="fa" icon="FaCity" />
+                    </div>
+                </OverlayTrigger>
+                &nbsp;
+                <CapIconButton iconType="md" icon="MdTask" click={handleMain} />
+                &nbsp;
+                <CapIconButton
+                    iconType="gi"
+                    icon="GiCardboardBoxClosed"
+                    click={handleMain}
+                />
+                &nbsp;
+                <CapIconButton iconType="io5" icon="IoLogOut" click={logout} />
+            </div>
+        </>
+    );
 }

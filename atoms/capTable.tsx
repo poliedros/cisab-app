@@ -81,6 +81,11 @@ export default function CapTable({
                         {headers.map((h, i) => (
                             <th key={i}>{translations(h, language)}</th>
                         ))}
+                        {/* {buttonsPaths.length > 0 ? (
+                            <th key={-1}>
+                                
+                            </th>
+                        ) : null} */}
                     </tr>
                 </thead>
                 <tbody>
@@ -116,7 +121,7 @@ export default function CapTable({
                                                             j === 0
                                                             ? i + 1
                                                             : j ===
-                                                              columns.length - 1
+                                                              columns.length + (buttonsColumns.length > 0 ? -1 : 0)
                                                             ? buttonsColumns.map(
                                                                   (bc, l) => {
                                                                       return (
