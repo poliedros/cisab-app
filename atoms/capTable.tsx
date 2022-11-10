@@ -33,10 +33,6 @@ export default function CapTable({
   search?: string;
   searchPath?: string;
 }) {
-  const createCountyUser = (p: string, i: string) => {
-    console.log("create", p, i);
-  };
-
   const viewCounty = (p: string, i: string) => {
     Router.push(`${p}${i}`);
   };
@@ -118,21 +114,6 @@ export default function CapTable({
                             ? buttonsColumns.map((bc, l) => {
                                 return (
                                   <div key={l}>
-                                    {bc === "create" ? (
-                                      <div className="mx-0.5">
-                                        <CapBtn
-                                          kind={"viewIcon"}
-                                          variant={"secondary"}
-                                          css="!rounded-full !p-[6px]"
-                                          click={() =>
-                                            createCountyUser(
-                                              buttonsPaths[l],
-                                              d._id
-                                            )
-                                          }
-                                        />
-                                      </div>
-                                    ) : null}
                                     {bc === "view" ? (
                                       <div className="mx-0.5">
                                         <CapBtn
