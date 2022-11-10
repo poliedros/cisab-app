@@ -61,5 +61,5 @@ jobs:
         with:
           name: "VERSION"
           value: $((${{ secrets.VERSION }}+1))
-          repository: poliedros/web-chat-app
+          repository: poliedros/cisab-app
           token: ${{ secrets.REPO_ACCESS_TOKEN }}

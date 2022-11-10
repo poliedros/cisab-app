@@ -4,6 +4,14 @@ import { withIronSessionApiRoute } from "iron-session/next";
 import { sessionOptions } from "lib/session";
 import { NextApiRequest, NextApiResponse } from "next";
 
+export type UserJwt = {
+  email: string;
+  sub: string;
+  roles: string[];
+  iat: number;
+  exp: number;
+};
+
 async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
     res.status(405);
@@ -15,29 +23,31 @@ async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
   );
 
   try {
-    const response = await fetch("https://api.cisab.czar.dev/auth/login", {
+    const response = await fetch(`${process.env.API_URL}/auth/login`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify({ username: email, password }),
+      body: JSON.stringify({ email, password }),
     });
     if (response.status === 500 || response.status === 401)
       throw new Error("Login or password incorrect.");
 
     const data = await response.json();
 
-    const { token, username } = {
-      token: data.access_token,
-      username: email,
-    };
+    const token = data.access_token;
+    const { roles } = parseJwt(token);
 
-    const user = { isLoggedIn: true, username, token } as User;
+    const user = { isLoggedIn: true, email, token, roles } as User;
     req.session.user = user;
     await req.session.save();
     res.json(user);
   } catch (error) {
     res.status(401).json({ message: (error as Error).message });
+  }
+
+  function parseJwt(token: string): UserJwt {
+    return JSON.parse(Buffer.from(token.split(".")[1], "base64").toString());
   }
 }
 
