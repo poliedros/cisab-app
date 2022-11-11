@@ -2,13 +2,13 @@
 import { withIronSessionApiRoute } from "iron-session/next";
 import { sessionOptions } from "lib/session";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { MeasureDTO } from "./units";
+import { UnitDTO } from "./units";
 
 export type ProductDTO = {
     _id: string;
     name: string;
     photo: string;
-    measures: MeasureDTO[];
+    units: UnitDTO[];
 };
 
 async function handler(req: NextApiRequest, res: NextApiResponse<ProductDTO[]>) {
