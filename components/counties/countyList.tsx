@@ -27,11 +27,12 @@ export default function CountyList(
                     headers={["countyName", "responsible"]}
                     columns={["county.name", "accountable.name"]}
                     numeral={true}
-                    buttonsColumns={["view", "edit", "remove"]}
+                    buttonsColumns={["view", "edit", "remove", "user"]}
                     buttonsPaths={[
                         "/counties/",
                         "/counties/",
                         "/api/counties/",
+                        "/counties/",
                     ]}
                     search={searchCounty}
                     searchPath={"county.name"}

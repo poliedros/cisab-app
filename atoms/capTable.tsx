@@ -53,6 +53,10 @@ export default function CapTable({
         }
     };
 
+    const userCounty = async (p: string, i: string) => {
+        Router.push(`${p}${i}/user`);
+    };
+
     /* useEffect(() => {
         if (numeral)
             columns.unshift("numeral");
@@ -187,6 +191,28 @@ export default function CapTable({
                                                                                           css="!rounded-full !p-[6px]"
                                                                                           click={() =>
                                                                                               removeCounty(
+                                                                                                  buttonsPaths[
+                                                                                                      l
+                                                                                                  ],
+                                                                                                  d._id
+                                                                                              )
+                                                                                          }
+                                                                                      />
+                                                                                  </div>
+                                                                              ) : null}
+                                                                              {bc ===
+                                                                              "user" ? (
+                                                                                  <div className="mx-0.5">
+                                                                                      <CapBtn
+                                                                                          kind={
+                                                                                              "userIcon"
+                                                                                          }
+                                                                                          variant={
+                                                                                              "secondary"
+                                                                                          }
+                                                                                          css="!rounded-full !p-[6px]"
+                                                                                          click={() =>
+                                                                                              userCounty(
                                                                                                   buttonsPaths[
                                                                                                       l
                                                                                                   ],
