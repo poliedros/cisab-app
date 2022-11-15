@@ -3,7 +3,7 @@ import CapSubtitle from "atoms/capSubtitle";
 import { useState } from "react";
 import { Row, Col } from "react-bootstrap";
 
-export default function CountyUserRegistration({
+export default function UserRegistration({
   language = "pt",
   county = undefined,
   submit,

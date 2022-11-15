@@ -1,9 +1,9 @@
-import CountyUserRegistration from "components/countyUserRegistration";
+import UserList from "components/users/userList";
 
 export default function Users() {
   return (
     <>
-      <CountyUserRegistration />
+      <UserList />
     </>
   );
 }

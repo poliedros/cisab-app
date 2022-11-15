@@ -265,5 +265,14 @@
     },
     "emptyText": {
         "pt": "Texto Vazio"
+    },
+    "userList": {
+        "pt": "Lista de Usuários do Município"
+    },
+    "userName": {
+        "pt": "Nome do Usuário"
+    },
+    "searchUserByName": {
+        "pt": "Buscar Usuário por Nome"
     }
 }
