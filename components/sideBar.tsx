@@ -25,7 +25,7 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
         router.push("/");
     };
 
-    const popover = (
+    const county = (
         <Popover>
             <div className="overflow-auto -m-6 p-4 invisibleScroll">
                 <div className="flex relative bg-white px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5">
@@ -49,6 +49,30 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
         </Popover>
     );
 
+    const product = (
+        <Popover>
+            <div className="overflow-auto -m-6 p-4 invisibleScroll">
+                <div className="flex relative bg-white px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5">
+                    <CapIconButton
+                        iconType="gi"
+                        icon="GiCardboardBoxClosed"
+                        size="24px"
+                        route="/products/create"
+                        hoverColor="#7dc523"
+                    />
+                    &nbsp; &nbsp;
+                    <CapIconButton
+                        iconType="md"
+                        icon="MdLinearScale"
+                        size="24px"
+                        //route="/counties"
+                        hoverColor="#7dc523"
+                    />
+                </div>
+            </div>
+        </Popover>
+    );
+
     return (
         <>
             <div className="flex flex-column">
@@ -57,7 +81,7 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
                 <OverlayTrigger
                     trigger="click"
                     placement="right"
-                    overlay={popover}
+                    overlay={county}
                     rootClose
                 >
                     <div>
@@ -67,11 +91,19 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
                 &nbsp;
                 <CapIconButton iconType="md" icon="MdTask" click={handleMain} />
                 &nbsp;
-                <CapIconButton
-                    iconType="gi"
-                    icon="GiCardboardBoxClosed"
-                    click={handleMain}
-                />
+                <OverlayTrigger
+                    trigger="click"
+                    placement="right"
+                    overlay={product}
+                    rootClose
+                >
+                    <div>
+                        <CapIconButton
+                            iconType="gi"
+                            icon="GiCardboardBoxClosed"
+                        />
+                    </div>
+                </OverlayTrigger>
                 &nbsp;
                 <CapIconButton iconType="io5" icon="IoLogOut" click={logout} />
             </div>

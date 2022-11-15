@@ -1,10 +1,10 @@
-import CountyRegistration from "components/counties/countyRegistration";
+//import CountyRegistration from "components/counties/countyRegistration";
 import useUser from "lib/useUser";
 
 import { useRouter } from "next/router";
 
 import useSWR from "swr";
-import { CountyDTO } from "pages/api/counties";
+import { ProductDTO } from "pages/api/products";
 import { useState } from "react";
 import CapMessageBottom from "atoms/capMessageBottom";
 
@@ -20,25 +20,25 @@ export default function Edit() {
     let idNumber = 0;
     if (id) idNumber = parseInt(String(id).padStart(3, "0"));
 
-    const { data: countyRes, error: errorCounty } = useSWR<CountyDTO>(
-        id ? `/api/counties/${id}` : null
+    const { data: productRes, error: errorProduct } = useSWR<ProductDTO>(
+        id ? `/api/products/${id}` : null
     );
 
     /* setTimeout(function() {
         setMessage("");
     }, 4000) */
 
-    if (errorCounty) return <div>failed to load</div>;
-    if (!countyRes) return <div>loading...</div>;
+    if (errorProduct) return <div>failed to load</div>;
+    if (!productRes) return <div>loading...</div>;
 
     if (!user || user.isLoggedIn == false) {
         return <div>404</div>;
     }
 
-    const editCounty = async (county: CountyDTO): Promise<CountyDTO | undefined> => {
-        const data = await fetch(`/api/counties/${id}`, {
+    const editProduct = async (product: ProductDTO): Promise<ProductDTO | undefined> => {
+        const data = await fetch(`/api/products/${id}`, {
             method: "PUT",
-            body: JSON.stringify(county),
+            body: JSON.stringify(product),
         }); //.finally(() => setLoading(false));
         if (data.status === 200) {
             setMessage("success");
@@ -67,11 +67,11 @@ export default function Edit() {
 
     return (
         <>
-            <CountyRegistration
+            {/* <CountyRegistration
                 language="pt"
                 county={countyRes}
                 submit={editCounty}
-            />
+            /> */}
             <>{error}</>
             <div className="flex justify-center">
                 {message === "success" ? (

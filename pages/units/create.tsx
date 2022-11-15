@@ -1,7 +1,8 @@
 import CapMessageBottom from "atoms/capMessageBottom";
-import CountyRegistration from "components/counties/countyRegistration";
+//import ProductCreation from "components/products/productCreation";
+//import CountyRegistration from "components/counties/countyRegistration";
 import useUser from "lib/useUser";
-import { CountyDTO } from "pages/api/counties";
+import { UnitDTO } from "pages/api/units";
 import { useState } from "react";
 
 export default function Create() {
@@ -15,11 +16,11 @@ export default function Create() {
         return <div>404</div>;
     }
 
-    const saveCounty = async (county: any): Promise<CountyDTO | undefined> => {
-        delete county._id;
-        const data = await fetch("/api/counties", {
+    const saveUnit = async (unit: any): Promise<UnitDTO | undefined> => {
+        delete unit._id;
+        const data = await fetch("/api/units", {
             method: "POST",
-            body: JSON.stringify(county),
+            body: JSON.stringify(unit),
         }); //.finally(() => setLoading(false));
         if (data.status === 200) {
             //alert("Create County");
@@ -37,11 +38,9 @@ export default function Create() {
 
     return (
         <>
-            <CountyRegistration
+            {/* <ProductCreation
                 language={"pt"}
-                county={undefined}
-                submit={saveCounty}
-            />
+    /> */}
             {/*<>{error}</>*/}
             <div className="flex justify-center">
                 { errorMessage ? <CapMessageBottom label={message} css={message === "countyFaulty" ? "text-red-600" : "text-green-600"} /> : <></> }
