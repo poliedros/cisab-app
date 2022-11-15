@@ -32,7 +32,7 @@ export default function CountyList(
             "/counties/",
             "/counties/",
             "/api/counties/",
-            //`/counties/${}/users`, // Como pegar o id do conty?
+            //`/counties/${}/users`, // Como pegar o id do county?
           ]}
           search={searchCounty}
           searchPath={"county.name"}
