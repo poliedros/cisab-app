@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { Container } from "react-bootstrap";
-import { User } from "pages/api/user";
+import { CountyUserDTO } from "pages/api/counties/[id]/users";
 
 import CapTable from "atoms/capTable";
 import CapTitle from "atoms/capTitle";
@@ -11,7 +11,7 @@ export default function UserList(
   {
     users,
   }: {
-    users: User[];
+    users: CountyUserDTO[];
   } /* { language }: { language: "en" | "es" | "pt" } */
 ) {
   const [searchUser, setSearchUser] = useState("");
@@ -25,12 +25,12 @@ export default function UserList(
         <CapTable
           data={users}
           headers={["userName"]}
-          columns={["user.name"]}
+          columns={["name"]}
           numeral={true}
-          buttonsColumns={["view", "edit", "remove"]}
-          buttonsPaths={["/users/", "/users/", "/api/users/"]}
+          buttonsColumns={["edit"]}
+          buttonsPaths={["/users/"]}
           search={searchUser}
-          searchPath={"user.name"}
+          searchPath={"name"}
         />
       </Container>
     </>

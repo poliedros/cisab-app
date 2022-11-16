@@ -274,5 +274,8 @@
     },
     "searchUserByName": {
         "pt": "Buscar Usuário por Nome"
+    },
+    "addUser": {
+        "pt": "Adicionar Usuário"
     }
 }
