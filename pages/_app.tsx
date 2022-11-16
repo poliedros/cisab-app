@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       }}
     >
       <div className={styles.container}>
-        <Layout>
+        <Layout baseColor="light">
           <Component {...pageProps} />
         </Layout>
       </div>

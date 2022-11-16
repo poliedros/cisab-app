@@ -8,6 +8,8 @@ export type ProductDTO = {
     _id: string;
     name: string;
     photo: string;
+    measures: string[];
+    values: string[];
     units: UnitDTO[];
 };
 

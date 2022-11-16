@@ -8,6 +8,7 @@ export default function CapIconButton({
     click = undefined,
     size = "32px",
     route = undefined,
+    fill = "",
     hoverColor = "#02aae9",
 }: {
     icon?: string;
@@ -15,6 +16,7 @@ export default function CapIconButton({
     size?: string;
     click?: any;
     route?: string;
+    fill?: string;
     hoverColor?: string;
 }) {
     return (
@@ -29,14 +31,14 @@ export default function CapIconButton({
                             : () => (route ? Router.push(route) : null)
                     }
                 >
-                    {IconsByName(iconType, icon, size)}
+                    {IconsByName(iconType, icon, size, "0", fill)}
                 </Button>
             ) : (
                 <Button
                     className={"hover:!bg-[#02aae9] border-0 !rounded-full !p-[12px]"}
                     variant="outline-secondary"
                 >
-                    {IconsByName(iconType, icon, size)}
+                    {IconsByName(iconType, icon, size, "0", fill)}
                 </Button>
             )}
         </>

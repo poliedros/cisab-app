@@ -73,6 +73,30 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
         </Popover>
     );
 
+    const setting = (
+        <Popover>
+            <div className="overflow-auto -m-6 p-4 invisibleScroll">
+                <div className="flex relative bg-white px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5">
+                    <CapIconButton
+                        iconType="ri"
+                        icon="RiMoonClearFill"
+                        size="24px"
+                        //route="/products/create"
+                        hoverColor="#7dc523"
+                    />
+                    &nbsp; &nbsp;
+                    <CapIconButton
+                        iconType="ri"
+                        icon="RiSunFill"
+                        size="24px"
+                        //route="/counties"
+                        hoverColor="#7dc523"
+                    />
+                </div>
+            </div>
+        </Popover>
+    );
+
     return (
         <>
             <div className="flex flex-column">
@@ -102,6 +126,17 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
                             iconType="gi"
                             icon="GiCardboardBoxClosed"
                         />
+                    </div>
+                </OverlayTrigger>
+                &nbsp;
+                <OverlayTrigger
+                    trigger="click"
+                    placement="right"
+                    overlay={setting}
+                    rootClose
+                >
+                    <div>
+                        <CapIconButton iconType="bs" icon="BsGearFill" />
                     </div>
                 </OverlayTrigger>
                 &nbsp;
