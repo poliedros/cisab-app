@@ -1,14 +1,13 @@
 import CapBtn from "atoms/capBtn";
 import CapForm from "atoms/capForm";
-import CapIconButton from "atoms/capIconButton";
 import CapImage from "atoms/capImage";
 import CapTabs from "atoms/capTabs";
 import CapTitle from "atoms/capTitle";
 import useRole from "lib/useRole";
 import useUser from "lib/useUser";
-import { ProductDTO } from "pages/api/products";
+import { Measure, ProductDTO } from "pages/api/products";
 import { UnitDTO } from "pages/api/units";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import { Role } from "lib/role.enum";
 import useSWR from "swr";
@@ -38,7 +37,7 @@ export default function ProductCreation({
     const { user } = useUser({ redirectTo: "/login" });
     useRole({ user, role: Role.Cisab, redirectTo: "/" });
 
-    const { data: units, error } = useSWR<UnitDTO[]>(
+    const { data: units, error, mutate } = useSWR<UnitDTO[]>(
         user ? "/api/units" : null
     );
 
@@ -62,15 +61,23 @@ export default function ProductCreation({
 
     const handleProduct = async () => {
         const _id = product?._id;
+        let mea: Measure;
+        let meaRes: Measure[] = [];
+        measures.map((m, i) => {
+            mea = {
+                "name": m,
+                "value": unitsValue[i],
+                "unit": "",
+            };
+            meaRes.push(mea);
+        });
         let productResult: ProductDTO = {
             _id: _id ?? "0",
             name: productName,
-            photo: "",
-            measures: measures,
-            values: unitsValue,
-            units: unitsSt,
+            measurements: meaRes ?? [],
         };
         alert(JSON.stringify(productResult));
+        console.log(unitsValue);
         alert(func);
     };
 
@@ -113,7 +120,7 @@ export default function ProductCreation({
                                                 key={0}
                                                 as={Col}
                                                 label="measure"
-                                                placeholder="insertMeasure"
+                                                placeholder="insertMeasureName"
                                                 //value={} //(e: any) => measures[e.target.parentElement.parentElement.parentElement.id]
                                                 change={(e: any) =>
                                                     handleProductMeasure(e) //console.log(e.target.parentElement.parentElement.parentElement.id ) //setMeasures(e.target.value)
@@ -122,8 +129,8 @@ export default function ProductCreation({
                                             <CapForm
                                                 key={0}
                                                 as={Col}
-                                                label="unit"
-                                                placeholder="insertUnit"
+                                                label="scale"
+                                                placeholder="insertScale"
                                                 type="number"
                                                 //value={measures}
                                                 change={(e: any) =>
@@ -131,7 +138,7 @@ export default function ProductCreation({
                                                 } //setMeasures([...measures, e.target.value])
                                             />,
                                             <Col key={0}>
-                                                <UnitFunded units={units} func={func} /> {/* (e: any) => setFunc(e) (e: any) => handleUnitName(e) */}
+                                                <UnitFunded units={units} mutate={mutate} func={func} /> {/* (e: any) => setFunc(e) (e: any) => handleUnitName(e) */}
                                             </Col>,
                                         ]}
                                         key={k}

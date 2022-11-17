@@ -4,13 +4,16 @@ import { sessionOptions } from "lib/session";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { UnitDTO } from "./units";
 
+export type Measure = {
+    name: string;
+    value: string;
+    unit: string;
+};
+
 export type ProductDTO = {
     _id: string;
     name: string;
-    photo: string;
-    measures: string[];
-    values: string[];
-    units: UnitDTO[];
+    measurements: Measure[];
 };
 
 async function handler(req: NextApiRequest, res: NextApiResponse<ProductDTO[]>) {

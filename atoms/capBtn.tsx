@@ -5,6 +5,7 @@ import translations from "../lib/translations";
 export default function CapBtn({
     kind = "default",
     label = "emptyText",
+    literal = undefined,
     variant = undefined,
     size = undefined,
     type = undefined,
@@ -23,6 +24,7 @@ export default function CapBtn({
 }: {
     kind?: "default" | "close" | "enter" | "send" | "remove" | "next" | "viewIcon" | "editIcon" | "removeIcon" | "userIcon";
     label?: string;
+    literal?: string;
     variant?: string;
     size?: "sm" | "lg" | undefined;
     type?: "button" | "submit" | "reset" | undefined;
@@ -88,7 +90,7 @@ export default function CapBtn({
                                 ? IconsByName(iconType, icon)
                                 : ""}{" "}
                             &nbsp;
-                            {translations(label, language)}
+                            {literal ? literal : translations(label, language)}
                         </>
                     ) : (
                         <>
