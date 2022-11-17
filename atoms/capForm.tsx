@@ -103,11 +103,13 @@ export default function CapForm({
             </Form.Label>
           ) : null}
           <Form.Select
+            disabled={true}
             defaultValue={
               options && optionsDefault ? options[optionsDefault] : undefined
             }
             onClick={click}
             onChange={change}
+            value="MG"
           >
             {options ? (
               options.map((op: string, i: number) => (
