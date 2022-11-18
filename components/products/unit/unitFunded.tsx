@@ -9,14 +9,16 @@ import { KeyedMutator } from "swr";
 
 export default function UnitFunded({
     units = [],
-    func = undefined,
+    array = [],
+    setArray = undefined,
     language = "pt",
     mutate,
 }: /* county = undefined,
     submit, */
 {
     language?: "pt";
-    func?: any;
+    array?: string[];
+    setArray?: any;
     units?: UnitDTO[];
     mutate: KeyedMutator<UnitDTO[]>;
     /* county: CountyDTO | undefined;
@@ -45,14 +47,14 @@ export default function UnitFunded({
             //alert("Create County");
             setMessage("MdThumbUpAlt");
             setError(true);
-            //alert(message + unitName);
+            alert(message + unitName);
             const response = await data.json();
             return response;
         } else {
             //setError("Create County Fault");
             setMessage("MdThumbDownAlt");
             setError(true);
-            //alert(message + unitName);
+            alert(message + unitName);
         }
         return undefined;
     };
@@ -96,12 +98,13 @@ export default function UnitFunded({
         let id =
             e.target.parentElement.parentElement.parentElement.parentElement
                 .parentElement.parentElement.id;
-        //console.log(id);
+        console.log(id);
         let name = String(e.currentTarget.textContent);
-        //console.log(name);
-        func = { e };
-        //console.log("func");
-        //console.log(func);
+        console.log(name);
+        //func({"pos": id, "name": name});
+        array[id] = name;
+        console.log(array);
+        setArray(array);
         return e;
     };
 

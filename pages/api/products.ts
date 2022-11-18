@@ -30,7 +30,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ProductDTO[]>) 
             body: req.body
         });
         const data = (await response.json()) as ProductDTO[];
-        res.status(200).json(data);
+        res.status(response.status).json(data);
         return;
     }
 

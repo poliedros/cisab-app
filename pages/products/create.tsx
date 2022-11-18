@@ -22,7 +22,8 @@ export default function Create() {
             method: "POST",
             body: JSON.stringify(product),
         }); //.finally(() => setLoading(false));
-        if (data.status === 200) {
+        alert(data.status);
+        if (data.status === 201) {
             //alert("Create County");
             setMessage("countyCreated");
             setErrorMessage(true);
@@ -38,7 +39,7 @@ export default function Create() {
 
     return (
         <>
-            <ProductCreation />
+            <ProductCreation submit={saveProduct} />
             {/*<>{error}</>*/}
             <div className="flex justify-center">
                 { errorMessage ? <CapMessageBottom label={message} css={message === "countyFaulty" ? "text-red-600" : "text-green-600"} /> : <></> }

@@ -18,6 +18,7 @@ import CapTinyCard from "atoms/capTinyCard";
 export default function ProductCreation({
     language = "pt",
     product = undefined,
+    submit,
 }: /* county = undefined,
     submit, */
 {
@@ -25,8 +26,14 @@ export default function ProductCreation({
     product?: ProductDTO | undefined;
     /* county: CountyDTO | undefined;
     submit: (county: CountyDTO) => Promise<CountyDTO | undefined>; */
+    submit: (product: ProductDTO) => Promise<ProductDTO | undefined>;
 }) {
     const [productName, setProductName] = useState("");
+
+    const [productRegister, setProductRegister] = useState<ProductDTO>();
+
+    const [array, setArray] = useState([]);
+
     const [measures, setMeasures] = useState<string[]>([]);
     const [unitsValue, setUnitsValue] = useState<string[]>([]);
     const [unitsSt, setUnitsSt] = useState<UnitDTO[]>([]);
@@ -63,11 +70,11 @@ export default function ProductCreation({
         const _id = product?._id;
         let mea: Measure;
         let meaRes: Measure[] = [];
-        measures.map((m, i) => {
+        array.map((a, i) => {
             mea = {
-                "name": m,
+                "name": measures[i],
                 "value": unitsValue[i],
-                "unit": "",
+                "unit": a,
             };
             meaRes.push(mea);
         });
@@ -77,8 +84,9 @@ export default function ProductCreation({
             measurements: meaRes ?? [],
         };
         alert(JSON.stringify(productResult));
-        console.log(unitsValue);
-        alert(func);
+        console.log(array);
+        //const productReg = await submit(productResult);
+        //setProductRegister(productReg);
     };
 
     if (error) return <div>failed to load</div>;
@@ -87,6 +95,8 @@ export default function ProductCreation({
     if (!user || user.isLoggedIn == false) {
         return <div>404</div>;
     }
+
+    console.log(array);
 
     return (
         <>
@@ -138,10 +148,12 @@ export default function ProductCreation({
                                                 } //setMeasures([...measures, e.target.value])
                                             />,
                                             <Col key={0}>
-                                                <UnitFunded units={units} mutate={mutate} func={func} /> {/* (e: any) => setFunc(e) (e: any) => handleUnitName(e) */}
+                                                <UnitFunded units={units} mutate={mutate} array={array} setArray={setArray} /> {/* (e: any) => setFunc(e) (e: any) => handleUnitName(e) */}
                                             </Col>,
                                         ]}
                                         key={k}
+                                        resultArray={array}
+                                        setResultArray={setArray}
                                     />
                                     {/* unit.map((m, i) => 
                                 <div key={i}>

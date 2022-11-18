@@ -7,34 +7,58 @@ export default function CapContainerAdd({
     components = [],
     key = undefined,
     language = "pt",
+    resultArray = [""],
+    setResultArray = undefined,
 }: {
     components?: any[];
     key?: number;
     language?: "pt";
+    resultArray?: string[];
+    setResultArray?: any;
 }) {
-    const [element, setElement] = useState([1]);
+    const [elements, setElements] = useState(resultArray.length > 0 ? resultArray : [""]);
+
+    const handleArray = () => {
+        setElements([...elements, '']); //elements.length.toString()
+        setResultArray(elements);
+    };
+
+    const handleArrayMinus = (i: number) => {
+        console.log(i);
+        setElements(
+            elements.filter(function (uni, k) {
+                console.log(k !== i);
+                return k !== i;
+            })
+        );
+        console.log(elements.filter(function (uni, k) {
+            return k !== i;
+        }));
+        setResultArray(elements);
+    };
 
     return (
         <>
-            {element.map((el, i) => (
+            {elements.map((el, i) => (
                 <div key={i}>
                     <Row id={String(i)} className="mb-3 items-center">
                         {components.map((c, j) => (
                             <Col key={j}>{c}</Col>
                         ))}
-                        {i !== element.length - 1 ? (
+                        {i !== elements.length - 1 ? (
                             <Col md="auto">
                                 <CapIconButton
                                     iconType="fa"
                                     icon="FaMinus"
                                     size="18px"
                                     click={() =>
-                                        setElement(
-                                            element.filter(function (uni, k) {
+                                        handleArrayMinus(i)
+                                        /* setElements(
+                                            elements.filter(function (uni, k) {
                                                 console.log(i);
                                                 return k !== i;
                                             })
-                                        )
+                                        ) */
                                     }
                                 />
                             </Col>
@@ -44,7 +68,7 @@ export default function CapContainerAdd({
                                     iconType="fa"
                                     icon="FaPlus"
                                     size="18px"
-                                    click={() => setElement([...element, element.length])}
+                                    click={handleArray} //() => setElements([...elements, elements.length])
                                 />
                             </Col>
                         )}
