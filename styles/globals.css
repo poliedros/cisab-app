@@ -16,6 +16,20 @@
     display: none !important;
 }
 
+.tooltip-clean {
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+.tooltip-clean .tooltip-arrow {
+    display: none !important;
+}
+
+.tooltip-clean .tooltip-inner {
+    background-color: transparent !important;
+}
+
 .bs-popover-end {
     background-color: transparent !important;
     border-color: transparent !important;

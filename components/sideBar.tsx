@@ -35,6 +35,7 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
                         size="24px"
                         route="/counties/create"
                         hoverColor="#7dc523"
+                        tooltip="createCounty"
                     />
                     &nbsp; &nbsp;
                     <CapIconButton
@@ -43,6 +44,7 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
                         size="24px"
                         route="/counties"
                         hoverColor="#7dc523"
+                        tooltip="listCounties"
                     />
                 </div>
             </div>
@@ -76,7 +78,7 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
     return (
         <>
             <div className="flex flex-column">
-                <CapIconButton iconType="ai" icon="AiFillHome" route="/" />
+                <CapIconButton iconType="ai" icon="AiFillHome" route="/" tooltip="home" />
                 &nbsp;
                 <OverlayTrigger
                     trigger="click"
@@ -85,7 +87,7 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
                     rootClose
                 >
                     <div>
-                        <CapIconButton iconType="fa" icon="FaCity" />
+                        <CapIconButton iconType="fa" icon="FaCity" tooltip="counties" />
                     </div>
                 </OverlayTrigger>
                 {/* &nbsp;

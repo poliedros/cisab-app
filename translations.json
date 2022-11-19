@@ -1,4 +1,7 @@
 {
+    "home": {
+        "pt": "Início"
+    },
     "enter": {
         "pt": "Entrar"
     },
@@ -23,14 +26,23 @@
     "countyRegistration": {
         "pt": "Cadastro de Município"
     },
+    "createCounty": {
+        "pt": "Criar Município"
+    },
     "editCounty": {
         "pt": "Alterar Dados do Município"
+    },
+    "listCounties": {
+        "pt": "Lista de Municípios"
     },
     "contact": {
         "pt": "Contato"
     },
     "county": {
         "pt": "Município"
+    },
+    "counties": {
+        "pt": "Municípios"
     },
     "countyCreated": {
         "pt": "Município Criado com Sucesso."
