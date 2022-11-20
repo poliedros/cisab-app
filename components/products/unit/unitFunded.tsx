@@ -98,6 +98,8 @@ export default function UnitFunded({
         let id =
             e.target.parentElement.parentElement.parentElement.parentElement
                 .parentElement.parentElement.id;
+            /* e.target.parentElement.parentElement.parentElement.parentElement
+                .parentElement.parentElement.id; */
         console.log(id);
         let name = String(e.currentTarget.textContent);
         console.log(name);

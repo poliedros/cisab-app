@@ -32,7 +32,8 @@ export default function ProductCreation({
 
     const [productRegister, setProductRegister] = useState<ProductDTO>();
 
-    const [array, setArray] = useState([]);
+    const [array, setArray] = useState([""]);
+    const [list, setList] = useState([""]);
 
     const [measures, setMeasures] = useState<string[]>([]);
     const [unitsValue, setUnitsValue] = useState<string[]>([]);
@@ -97,6 +98,7 @@ export default function ProductCreation({
     }
 
     console.log(array);
+    console.log(list);
 
     return (
         <>
@@ -124,6 +126,9 @@ export default function ProductCreation({
                                             setProductName(e.target.value) //setProductName(e.target.value)
                                         }
                                     />
+                                    {/* {
+                                        setComponents()
+                                    } */}
                                     <CapContainerAdd
                                         components={[
                                             <CapForm
@@ -148,9 +153,10 @@ export default function ProductCreation({
                                                 } //setMeasures([...measures, e.target.value])
                                             />,
                                             <Col key={0}>
-                                                <UnitFunded units={units} mutate={mutate} array={array} setArray={setArray} /> {/* (e: any) => setFunc(e) (e: any) => handleUnitName(e) */}
+                                                <UnitFunded units={units} mutate={mutate} array={list} setArray={setList} /> {/* (e: any) => setFunc(e) (e: any) => handleUnitName(e) */}
                                             </Col>,
                                         ]}
+                                        //setComponents={setComponents}
                                         key={k}
                                         resultArray={array}
                                         setResultArray={setArray}
