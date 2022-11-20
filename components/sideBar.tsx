@@ -28,7 +28,7 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
     const county = (
         <Popover>
             <div className="overflow-auto -m-6 p-4 invisibleScroll">
-                <div className="flex relative bg-white px-4 pt-4 pb-4 ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:px-5">
+                <div className="flex relative bg-white px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5">
                     <CapIconButton
                         iconType="fa"
                         icon="FaCity"
@@ -54,7 +54,7 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
     const product = (
         <Popover>
             <div className="overflow-auto -m-6 p-4 invisibleScroll">
-                <div className="flex relative bg-white px-4 pt-4 pb-4 ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:px-5">
+                <div className="flex relative bg-white px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5">
                     <CapIconButton
                         iconType="gi"
                         icon="GiCardboardBoxClosed"
@@ -90,7 +90,7 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
                         <CapIconButton iconType="fa" icon="FaCity" tooltip="counties" />
                     </div>
                 </OverlayTrigger>
-                {/* &nbsp;
+                &nbsp;
                 <CapIconButton iconType="md" icon="MdTask" click={handleMain} />
                 &nbsp;
                 <OverlayTrigger
@@ -107,7 +107,7 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
                     </div>
                 </OverlayTrigger>
                 &nbsp;
-                <CapIconButton iconType="io5" icon="IoLogOut" click={logout} /> */}
+                <CapIconButton iconType="io5" icon="IoLogOut" click={logout} />
             </div>
         </>
     );

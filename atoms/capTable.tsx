@@ -74,7 +74,7 @@ export default function CapTable({
 
   return (
     <>
-      <Table responsive>
+      <Table striped responsive>
         <thead>
           <tr>
             {numeral ? (

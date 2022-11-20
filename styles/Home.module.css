@@ -1,6 +1,8 @@
 .container {
   padding: 0 2rem;
-  background-color: gray;
+  background-image: url("https://besthqwallpapers.com/Uploads/22-3-2022/195560/thumb2-low-poly-3d-texture-4k-geometric-shapes-3d-textures-green-low-poly-backgrounds.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .main {
