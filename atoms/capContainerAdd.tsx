@@ -8,58 +8,73 @@ export default function CapContainerAdd({
     setComponents = undefined,
     key = undefined,
     language = "pt",
-    resultArray = [""],
+    resultArray = [{name: "", value: "", unit: ""}],
     setResultArray = undefined,
+    scanArray = [],
+    setScanArray = undefined,
 }: {
     components?: any[];
     setComponents?: any;
     key?: number;
     language?: "pt";
-    resultArray?: string[];
+    resultArray?: {"name": string, "value": string, "unit": string}[];
     setResultArray?: any;
+    scanArray?: any[];
+    setScanArray?: any;
 }) {
-    //const [elements, setElements] = useState(resultArray.length > 0 ? resultArray : [""]);
     const [listComponents, setListComponents] = useState<any[]>([components]);
 
     const handleArray = () => {
         setListComponents([...listComponents, components]);
-        //setResultArray([...resultArray, '']); //elements.length.toString()
-        //setResultArray(elements);
     };
 
     const handleArrayMinus = (i: number) => {
-        /* setComponents(
-            components.filter(function (uni, k) {
-                return k !== i;
-            })
-        ); */
-        //document.getElementById(String(i))?.remove(); /* "el-" + */
-        /* const list = document.getElementById("list");
-        console.log("RESULT");
-        let finalArray: string[] = [];
-        list?.childNodes.forEach(function(node, index) {
-            finalArray.push(node.childNodes[3].firstChild?.firstChild?.firstChild?.textContent ? node.childNodes[3].firstChild?.firstChild?.firstChild?.textContent : "");
+        document.getElementById(String(i))?.remove();
+        const list = document.getElementById("list");
+        /* let finalArray: string[] = [];
+        list?.childNodes.forEach(function (node, index) {
+            finalArray.push(
+                node.childNodes[2].firstChild?.firstChild?.firstChild
+                    ?.textContent
+                    ? node.childNodes[2].firstChild?.firstChild?.firstChild
+                          ?.textContent
+                    : ""
+            );
+        }); */
+        let finalArray: {"name": string, "value": string, "unit": string}[] = [];
+        list?.childNodes.forEach(function (node, index) {
+            finalArray.push({
+                "name": node.childNodes[0].firstChild?.lastChild
+                    ?.textContent
+                    ? node.childNodes[0].firstChild?.lastChild?.value
+                    : "",
+                "value": node.childNodes[1].firstChild?.lastChild
+                    ?.textContent
+                    ? node.childNodes[1].firstChild?.lastChild?.value
+                    : "",
+                "unit": node.childNodes[2].firstChild?.firstChild?.firstChild
+                    ?.textContent
+                    ? node.childNodes[2].firstChild?.firstChild?.firstChild
+                          ?.textContent
+                    : ""
+            });
         });
-        setResultArray(
-            finalArray
-        ); */
-        setListComponents(
-            listComponents.filter((uni, k) => {
-                return k !== i
-            })
-        );
+        list?.childNodes.forEach(function (node, index) {
+                node.childNodes[1].firstChild?.lastChild
+                    ?.textContent
+                    ? console.log(node.childNodes[1].firstChild?.lastChild?.value)
+                    : ""
+        });
+        console.log(finalArray);
+        setResultArray(finalArray);
+        console.log(resultArray);
     };
-    console.log("listComponents");
-    listComponents.map(list => console.log(list[2].firstChild)/* .forEach((n: any, i: any) => { console.log(n) }) *//* ?.childNodes.forEach(function(node: { childNodes: { firstChild: { firstChild: { firstChild: { textContent: any; }; }; }; }[]; }, index: any) {
-        console.log(node);
-    }) */);
 
     return (
         <>
-        <div id="list">
-            {listComponents.map((el, i) => (
-                
-                    <Row id={String(i)} key={i} className="mb-3 items-center"> {/* "el-" +  */}
+            <div id="list">
+                {listComponents.map((el, i) => (
+                    <Row id={String(i)} key={i} className="mb-3 items-center">
                         {components.map((c, j) => (
                             <Col key={j}>{c}</Col>
                         ))}
@@ -69,15 +84,7 @@ export default function CapContainerAdd({
                                     iconType="fa"
                                     icon="FaMinus"
                                     size="18px"
-                                    click={() =>
-                                        handleArrayMinus(i)
-                                        /* setElements(
-                                            elements.filter(function (uni, k) {
-                                                console.log(i);
-                                                return k !== i;
-                                            })
-                                        ) */
-                                    }
+                                    click={() => handleArrayMinus(i)}
                                 />
                             </Col>
                         ) : (
@@ -86,13 +93,12 @@ export default function CapContainerAdd({
                                     iconType="fa"
                                     icon="FaPlus"
                                     size="18px"
-                                    click={handleArray} //() => setElements([...elements, elements.length])
+                                    click={handleArray}
                                 />
                             </Col>
                         )}
                     </Row>
-                
-            ))}
+                ))}
             </div>
         </>
     );

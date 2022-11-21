@@ -12,20 +12,16 @@ import { Col, Container, Form, Row } from "react-bootstrap";
 import { Role } from "lib/role.enum";
 import useSWR from "swr";
 import UnitFunded from "./unit/unitFunded";
-import CapContainerAdd from "atoms/capContainerAdd";
 import CapTinyCard from "atoms/capTinyCard";
+import CapContainerAdd from "atoms/capContainerAdd";
 
 export default function ProductCreation({
     language = "pt",
     product = undefined,
     submit,
-}: /* county = undefined,
-    submit, */
-{
+}: {
     language?: "pt";
     product?: ProductDTO | undefined;
-    /* county: CountyDTO | undefined;
-    submit: (county: CountyDTO) => Promise<CountyDTO | undefined>; */
     submit: (product: ProductDTO) => Promise<ProductDTO | undefined>;
 }) {
     const [productName, setProductName] = useState("");
@@ -33,6 +29,7 @@ export default function ProductCreation({
     const [productRegister, setProductRegister] = useState<ProductDTO>();
 
     const [array, setArray] = useState([""]);
+    const [arrayValues, setArrayValues] = useState([{"name": "", "value": "", "unit": ""}]);
     const [list, setList] = useState([""]);
 
     const [measures, setMeasures] = useState<string[]>([]);
@@ -45,25 +42,30 @@ export default function ProductCreation({
     const { user } = useUser({ redirectTo: "/login" });
     useRole({ user, role: Role.Cisab, redirectTo: "/" });
 
-    const { data: units, error, mutate } = useSWR<UnitDTO[]>(
-        user ? "/api/units" : null
-    );
+    const {
+        data: units,
+        error,
+        mutate,
+    } = useSWR<UnitDTO[]>(user ? "/api/units" : null);
 
     const handleProductMeasure = (e: any) => {
         let measuresAlt: string[] = measures;
-        measuresAlt[e.target.parentElement.parentElement.parentElement.id] = e.target.value;
+        measuresAlt[e.target.parentElement.parentElement.parentElement.id] =
+            e.target.value;
         setMeasures(measuresAlt);
     };
 
     const handleUnitValue = (e: any) => {
         let unitsValueAlt: string[] = unitsValue;
-        unitsValueAlt[e.target.parentElement.parentElement.parentElement.id] = e.target.value;
+        unitsValueAlt[e.target.parentElement.parentElement.parentElement.id] =
+            e.target.value;
         setUnitsValue(unitsValueAlt);
     };
 
     const handleUnitName = (e: any) => {
         let unitsStAlt: UnitDTO[] = unitsSt;
-        unitsStAlt[e.target.parentElement.parentElement.parentElement.id].name = e.target.value;
+        unitsStAlt[e.target.parentElement.parentElement.parentElement.id].name =
+            e.target.value;
         setUnitsSt(unitsStAlt);
     };
 
@@ -73,9 +75,9 @@ export default function ProductCreation({
         let meaRes: Measure[] = [];
         array.map((a, i) => {
             mea = {
-                "name": measures[i],
-                "value": unitsValue[i],
-                "unit": a,
+                name: measures[i],
+                value: unitsValue[i],
+                unit: a,
             };
             meaRes.push(mea);
         });
@@ -86,8 +88,6 @@ export default function ProductCreation({
         };
         alert(JSON.stringify(productResult));
         console.log(array);
-        //const productReg = await submit(productResult);
-        //setProductRegister(productReg);
     };
 
     if (error) return <div>failed to load</div>;
@@ -103,10 +103,7 @@ export default function ProductCreation({
     return (
         <>
             <Container className="font-['Jost']">
-                <CapTitle
-                    base="product"
-                    label="addProduct" //{county ? "editCounty" : "countyRegistration"}
-                />
+                <CapTitle base="product" label="addProduct" />
                 <Form className="mt-3">
                     <Row>
                         <CapTabs
@@ -123,12 +120,9 @@ export default function ProductCreation({
                                         placeholder="insertProductName"
                                         value={productName}
                                         change={(e: any) =>
-                                            setProductName(e.target.value) //setProductName(e.target.value)
+                                            setProductName(e.target.value)
                                         }
                                     />
-                                    {/* {
-                                        setComponents()
-                                    } */}
                                     <CapContainerAdd
                                         components={[
                                             <CapForm
@@ -136,9 +130,8 @@ export default function ProductCreation({
                                                 as={Col}
                                                 label="measure"
                                                 placeholder="insertMeasureName"
-                                                //value={} //(e: any) => measures[e.target.parentElement.parentElement.parentElement.id]
                                                 change={(e: any) =>
-                                                    handleProductMeasure(e) //console.log(e.target.parentElement.parentElement.parentElement.id ) //setMeasures(e.target.value)
+                                                    handleProductMeasure(e)
                                                 }
                                             />,
                                             <CapForm
@@ -147,89 +140,32 @@ export default function ProductCreation({
                                                 label="scale"
                                                 placeholder="insertScale"
                                                 type="number"
-                                                //value={measures}
                                                 change={(e: any) =>
-                                                    handleUnitValue(e) //alert(e.target.value)
-                                                } //setMeasures([...measures, e.target.value])
+                                                    handleUnitValue(e)
+                                                }
                                             />,
                                             <Col key={0}>
-                                                <UnitFunded units={units} mutate={mutate} array={list} setArray={setList} /> {/* (e: any) => setFunc(e) (e: any) => handleUnitName(e) */}
+                                                <UnitFunded
+                                                    units={units}
+                                                    mutate={mutate}
+                                                    array={list}
+                                                    setArray={setList}
+                                                />
                                             </Col>,
                                         ]}
-                                        //setComponents={setComponents}
                                         key={k}
-                                        resultArray={array}
-                                        setResultArray={setArray}
+                                        resultArray={arrayValues}
+                                        setResultArray={setArrayValues}
                                     />
-                                    {/* unit.map((m, i) => 
-                                <div key={i}>
-                                    <Row className="mb-3 items-center">
-                                        <CapForm
-                                            as={Col}
-                                            label="measure"
-                                            placeholder="insertMeasure"
-                                            /* value={countyMayor}
-                                            change={(e: any) => setCountyMayor(e.target.value)} /
-                                        />
-                                        <CapForm
-                                            as={Col}
-                                            label="unit"
-                                            placeholder="insertUnit"
-                                            /* value={countyMayor}
-                                            change={(e: any) => setCountyMayor(e.target.value)} /
-                                        />
-                                        <Col>
-                                                <UnitFunded units={units} />
-                                        </Col>
-                                        {/* <CapForm
-                                            kind="select"
-                                            as={Col}
-                                            label="selectScale"
-                                            optionsDefault={1}
-                                            options={["centímetros", "polegadas", "mililitros", "graus"]}
-                                            /* value={countyState}
-                                            change={(e: any) => setCountyState(e.target.value)} /
-                                        /> /}
-                                        {i !== unit.length -1 ? <Col md="auto">
-                                            <CapIconButton iconType="fa" icon="FaMinus" size="18px" click={() => setUnit(unit.filter(function(uni, j) { 
-                                            return j !== i 
-                                        }))} />
-                                        </Col>
-                                        : <Col md="auto">
-                                            <CapIconButton iconType="fa" icon="FaPlus" size="18px" click={() => setUnit([...unit, "2"])} />
-                                        </Col>
-                                        }
-                                    </Row>
-                                    </div>
-                                    ) */}
                                     <CapBtn kind="next" click={handleProduct} />
                                 </>,
                                 <>
                                     <CapImage key={0} src={""} />
-                                    <CapForm
-                                        label="image"
-                                        type="file"
-                                        /* value={countyFlag}
-                                    change={(e: any) => setCountyFlag(e.target.value)} */
-                                    />
+                                    <CapForm label="image" type="file" />
                                     <CapBtn kind="send" />
                                 </>,
                             ]}
                         />
-                        {/* <Row>
-                            <Col>
-                            <CapTinyCard />
-                            </Col>
-                            <Col>
-                            <CapTinyCard />
-                            </Col>
-                            <Col>
-                            <CapTinyCard />
-                            </Col>
-                            <Col>
-                            <CapTinyCard />
-                            </Col>
-                        </Row> */}
                     </Row>
                 </Form>
             </Container>
