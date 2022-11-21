@@ -22,6 +22,7 @@ export default function CapForm({
   xs = undefined,
   optionsDefault = undefined,
   options = [],
+  legend = "emptyText",
   additional = undefined,
   language = "pt",
 }: {
@@ -44,6 +45,7 @@ export default function CapForm({
   xs?: number;
   optionsDefault?: number;
   options?: string[];
+  legend?: string;
   additional?: any;
   language?: "pt";
 }) {
@@ -80,6 +82,9 @@ export default function CapForm({
             rows={rows}
             xs={xs}
           />
+          <Form.Text className="text-muted">
+            {legend !== "emptyText" ? translations(legend, language) : null}
+          </Form.Text>
         </Form.Group>
       ) : kind === "select" ? (
         <Form.Group

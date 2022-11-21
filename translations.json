@@ -289,5 +289,11 @@
     },
     "addUser": {
         "pt": "Adicionar Usuário"
+    },
+    "exampleProductName": {
+        "pt": "Ex.: Cano de PVC"
+    },
+    "exampleMeasure": {
+        "pt": "Ex.: Comprimento"
     }
 }
