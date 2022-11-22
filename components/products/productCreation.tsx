@@ -39,7 +39,8 @@ export default function ProductCreation({
                                         /* value={countyAccount} */
                                         change={(e: any) =>
                                             setProductName(e.target.value)
-                                        } 
+                                        }
+                                        legend="exampleProductName"
                                     />
                             {unit.map((m, i) => 
                                 <div key={i}>
@@ -50,6 +51,7 @@ export default function ProductCreation({
                                             placeholder="insertMeasure"
                                             /* value={countyMayor}
                                             change={(e: any) => setCountyMayor(e.target.value)} */
+                                            legend="exampleMeasure"
                                         />
                                         <CapForm
                                             as={Col}

@@ -6,6 +6,7 @@ import * as IconsFa from "react-icons/fa"
 import * as IconsGi from "react-icons/gi"
 import * as IconsGr from "react-icons/gr"
 import * as IconsHi from "react-icons/hi"
+//import * as IconsHi2 from "react-icons/hi2"
 import * as IconsMd from "react-icons/md"
 import * as IconsIo from "react-icons/io"
 import * as IconsIo5 from "react-icons/io5"
@@ -26,6 +27,7 @@ export default function IconsByName(ico, name, size = "auto", margin="0") {
     if (ico === "gi") IconComponent = IconsGi[name];
     if (ico === "gr") IconComponent = IconsGr[name];
     if (ico === "hi") IconComponent = IconsHi[name];
+    //if (ico === "hi2") IconComponent = IconsHi2[name];
     if (ico === "io") IconComponent = IconsIo[name];
     if (ico === "io5") IconComponent = IconsIo5[name];
     if (ico === "md") IconComponent = IconsMd[name];

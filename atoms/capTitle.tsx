@@ -8,7 +8,7 @@ export default function CapTitle({
   language = "pt",
   additional = undefined,
 }: {
-  base?: "none" | "county" | "list" | "product";
+  base?: "none" | "county" | "list" | "product" | "doc" | "diagram" | "lab";
   label?: string;
   literal?: string;
   language?: "pt";
@@ -19,6 +19,10 @@ export default function CapTitle({
     county: IconsByName("fa", "FaCity", "32px"),
     list: IconsByName("fa", "FaThList", "32px"),
     product: IconsByName("gi", "GiCardboardBoxClosed", "32px"),
+
+    doc: IconsByName("hi", "HiDocumentText", "32px"),
+    diagram: IconsByName("bs", "BsDiagram2Fill", "32px"),
+    lab: IconsByName("ri", "RiTestTubeFill", "32px"),
   };
   return (
     <>
