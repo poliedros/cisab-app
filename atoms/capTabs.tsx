@@ -12,6 +12,7 @@ export default function CapTabs({
   stagesBody = [],
   disabled = [],
   language = "pt",
+  selected = undefined,
 }: {
   label?: string;
   literal?: string;
@@ -22,21 +23,30 @@ export default function CapTabs({
   stagesBody?: any[];
   disabled?: boolean[];
   language?: "pt";
+  selected?: any;
 }) {
   return (
     <>
-        <Tabs
-            defaultActiveKey={activeKey}
-            className="mb-3 justify-center"
-        >
-            {stagesIcons ? stagesIcons.map((sI, i) => 
-                <Tab key={i} eventKey={i} title={IconsByName(stagesIconsTypes[i], sI, "24px")} disabled={disabled[i]}>
-                    {stagesBody[i]}
-                </Tab>
-            )
-                : <></>
-            }
-        </Tabs>
+      <Tabs
+        // defaultActiveKey={activeKey}
+        activeKey={activeKey}
+        className="mb-3 justify-center"
+      >
+        {stagesIcons ? (
+          stagesIcons.map((sI, i) => (
+            <Tab
+              key={i}
+              eventKey={i}
+              title={IconsByName(stagesIconsTypes[i], sI, "24px")}
+              disabled={disabled[i]}
+            >
+              {stagesBody[i]}
+            </Tab>
+          ))
+        ) : (
+          <></>
+        )}
+      </Tabs>
     </>
   );
 }

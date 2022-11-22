@@ -65,6 +65,9 @@
     "countyName":{
         "pt": "Nome do Município"
     },
+    "insertCountyName": {
+        "pt": "Insira o Nome do Município"
+    },
     "countyData": {
         "pt": "Informações sobre o Município"
     },
