@@ -80,10 +80,18 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
             <div className="overflow-auto -m-6 p-4 invisibleScroll">
                 <div className="flex relative bg-white px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5">
                     <CapIconButton
+                        iconType="hi"
+                        icon="HiDocumentText"
+                        size="24px"
+                        route="/documentation"
+                        hoverColor="#7dc523"
+                    />
+                    &nbsp; &nbsp;
+                    <CapIconButton
                         iconType="bs"
                         icon="BsDiagram2Fill"
                         size="24px"
-                        route="/products/create"
+                        route="/diagrams"
                         hoverColor="#7dc523"
                     />
                     &nbsp; &nbsp;
