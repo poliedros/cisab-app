@@ -159,7 +159,7 @@
         "pt": "Insira a Distância"
     },
     "countyAccount": {
-        "pt": "Conta da Prefeitura"
+        "pt": "Conta do Diretor da Prefeitura"
     },
     "insertCountyAccount": {
         "pt": "Insira Nome da Conta"
@@ -277,5 +277,17 @@
     },
     "addUser": {
         "pt": "Adicionar Usuário"
+    },
+    "yes": {
+        "pt": "Sim"
+    },
+    "no": {
+        "pt": "Não"
+    },
+    "additionalDataQuestion": {
+        "pt": "Deseja preencher mais dados?"
+    },
+    "autarchyQuestion": {
+        "pt": "Conta criada com sucesso. Um email foi enviado para a conta de email informada. Tem autarquia?"
     }
 }
