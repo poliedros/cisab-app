@@ -8,13 +8,13 @@ import CapTitle from "atoms/capTitle";
 import CapInputGroup from "atoms/capInputGroup";
 
 export default function CountyList(
-    {
-        counties,
-    }: {
-        counties: CountyDTO[];
-    } /* { language }: { language: "en" | "es" | "pt" } */
+  {
+    counties,
+  }: {
+    counties: CountyDTO[];
+  } /* { language }: { language: "en" | "es" | "pt" } */
 ) {
-    const [searchCounty, setSearchCounty] = useState("");
+  const [searchCounty, setSearchCounty] = useState("");
 
     return (
         <>

@@ -1,4 +1,7 @@
 {
+    "home": {
+        "pt": "Início"
+    },
     "enter": {
         "pt": "Entrar"
     },
@@ -26,14 +29,23 @@
     "countyRegistration": {
         "pt": "Cadastro de Município"
     },
+    "createCounty": {
+        "pt": "Criar Município"
+    },
     "editCounty": {
         "pt": "Alterar Dados do Município"
+    },
+    "listCounties": {
+        "pt": "Lista de Municípios"
     },
     "contact": {
         "pt": "Contato"
     },
     "county": {
         "pt": "Município"
+    },
+    "counties": {
+        "pt": "Municípios"
     },
     "countyCreated": {
         "pt": "Município Criado com Sucesso."
@@ -280,5 +292,29 @@
     },
     "emptyText": {
         "pt": "Texto Vazio"
+    },
+    "userList": {
+        "pt": "Lista de Usuários do Município"
+    },
+    "userName": {
+        "pt": "Nome do Usuário"
+    },
+    "searchUserByName": {
+        "pt": "Buscar Usuário por Nome"
+    },
+    "addUser": {
+        "pt": "Adicionar Usuário"
+    },
+    "exampleProductName": {
+        "pt": "Ex.: Cano de PVC"
+    },
+    "exampleMeasure": {
+        "pt": "Ex.: Comprimento"
+    },
+    "documentation": {
+        "pt": "Documentação"
+    },
+    "diagrams": {
+        "pt": "Diagramas"
     }
 }

@@ -106,7 +106,7 @@ export default function ProductCreation({
                 <CapTitle base="product" label="addProduct" />
                 <Form className="mt-3">
                     <Row>
-                        <CapTabs
+                    <CapTabs
                             activeKey={"0"}
                             disabled={[false, true]}
                             stagesIcons={["MdEditNote", "IoImage"]}

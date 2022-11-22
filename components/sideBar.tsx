@@ -35,6 +35,7 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
                         size="24px"
                         route="/counties/create"
                         hoverColor="#7dc523"
+                        tooltip="createCounty"
                     />
                     &nbsp; &nbsp;
                     <CapIconButton
@@ -43,6 +44,7 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
                         size="24px"
                         route="/counties"
                         hoverColor="#7dc523"
+                        tooltip="listCounties"
                     />
                 </div>
             </div>
@@ -65,7 +67,39 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
                         iconType="md"
                         icon="MdLinearScale"
                         size="24px"
-                        //route="/counties"
+                        route="/counties"
+                        hoverColor="#7dc523"
+                    />
+                </div>
+            </div>
+        </Popover>
+    );
+
+    const project = (
+        <Popover>
+            <div className="overflow-auto -m-6 p-4 invisibleScroll">
+                <div className="flex relative bg-white px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5">
+                    <CapIconButton
+                        iconType="hi"
+                        icon="HiDocumentText"
+                        size="24px"
+                        route="/documentation"
+                        hoverColor="#7dc523"
+                    />
+                    &nbsp; &nbsp;
+                    <CapIconButton
+                        iconType="bs"
+                        icon="BsDiagram2Fill"
+                        size="24px"
+                        route="/diagrams"
+                        hoverColor="#7dc523"
+                    />
+                    &nbsp; &nbsp;
+                    <CapIconButton
+                        iconType="ri"
+                        icon="RiTestTubeFill"
+                        size="24px"
+                        route="/test"
                         hoverColor="#7dc523"
                     />
                 </div>
@@ -100,7 +134,7 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
     return (
         <>
             <div className="flex flex-column">
-                <CapIconButton iconType="ai" icon="AiFillHome" route="/" />
+                <CapIconButton iconType="ai" icon="AiFillHome" route="/" tooltip="home" />
                 &nbsp;
                 <OverlayTrigger
                     trigger="click"
@@ -109,7 +143,7 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
                     rootClose
                 >
                     <div>
-                        <CapIconButton iconType="fa" icon="FaCity" />
+                        <CapIconButton iconType="fa" icon="FaCity" tooltip="counties" />
                     </div>
                 </OverlayTrigger>
                 &nbsp;
@@ -125,6 +159,20 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
                         <CapIconButton
                             iconType="gi"
                             icon="GiCardboardBoxClosed"
+                        />
+                    </div>
+                </OverlayTrigger>
+                &nbsp;
+                <OverlayTrigger
+                    trigger="click"
+                    placement="right"
+                    overlay={project}
+                    rootClose
+                >
+                    <div>
+                        <CapIconButton
+                            iconType="bs"
+                            icon="BsDiagram3Fill"
                         />
                     </div>
                 </OverlayTrigger>

@@ -129,10 +129,10 @@ export default function CapBtn({
                             {iconItems[kind]} {kind.includes("Icon") ? null : 
                             labelItems[kind]} {/* &nbsp;
                             {labelItems[kind]} */}
-                        </>
-                    )}
-                </Button>
-            )}
-        </>
-    );
+            </>
+          )}
+        </Button>
+      )}
+    </>
+  );
 }
