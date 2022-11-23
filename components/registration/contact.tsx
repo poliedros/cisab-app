@@ -7,12 +7,14 @@ import { Col, Row } from "react-bootstrap";
 type ContactProps = {
   language: "pt";
   contact?: ContactDTO;
-  handleContact: (contact: ContactDTO) => void;
+  kind: "county" | "autarky";
+  handleContact: (contact: ContactDTO, kind: "county" | "autarky") => void;
 };
 
 export default function Contact({
   language = "pt",
   contact,
+  kind,
   handleContact,
 }: ContactProps) {
   const [countyAddress, setCountyAddress] = useState("");
@@ -33,7 +35,7 @@ export default function Contact({
       email: countyEmail,
       socialMedias: countySocialMedias,
     };
-    handleContact(countyContact);
+    handleContact(countyContact, kind);
   };
 
   useEffect(() => {

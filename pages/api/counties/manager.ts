@@ -1,26 +1,23 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { withIronSessionApiRoute } from "iron-session/next";
 import { sessionOptions } from "lib/session";
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 
-export type CountyManagerDTO = {
-  email: string;
-  name: string;
-  county_id?: string;
+export type CountyManagerResponseDTO = {
+  county_id: string;
 };
 
 async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<CountyManagerDTO[]>
+  res: NextApiResponse<CountyManagerResponseDTO>
 ) {
   const user = req.session.user;
   if (!user) {
-    res.status(401).json({} as CountyManagerDTO[]);
+    res.status(401).json({} as CountyManagerResponseDTO);
     return;
   }
 
   if (req.method === "POST") {
-    const response = await fetch(process.env.API_URL + `/counties/manager`, {
+    const response = await fetch(process.env.API_URL + "/counties/manager", {
       headers: {
         Authorization: "Bearer " + user.token,
         "Content-Type": "application/json",
@@ -28,8 +25,8 @@ async function handler(
       method: "POST",
       body: req.body,
     });
-    const data = (await response.json()) as CountyManagerDTO[];
-    res.status(200).json(data);
+    const data = (await response.json()) as CountyManagerResponseDTO;
+    res.status(response.status).json(data);
     return;
   }
 }

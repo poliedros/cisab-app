@@ -7,7 +7,10 @@ import { Row, Col } from "react-bootstrap";
 type AccountProps = {
   language: "pt";
   kind: "county" | "autarky";
-  handleAccount: (account: CountyManagerDTO) => void;
+  handleAccount: (
+    account: CountyManagerDTO,
+    kind: "county" | "autarky"
+  ) => void;
 };
 
 export default function Account({
@@ -31,8 +34,7 @@ export default function Account({
             setCountyName(e.target.value);
             handleAccount(
               {
-                _id: "",
-                name: countyName,
+                name: e.target.value,
                 email: managerEmail,
               },
               kind
@@ -48,9 +50,8 @@ export default function Account({
             setManagerEmail(e.target.value);
             handleAccount(
               {
-                _id: "",
                 name: countyName,
-                email: managerEmail,
+                email: e.target.value,
               },
               kind
             );

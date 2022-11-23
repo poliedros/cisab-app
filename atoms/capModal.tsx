@@ -55,10 +55,7 @@ export default function CapModal({
             </h2>
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          {translations(text, language)}
-          {displayButtons(yesNoButtons)}
-        </Modal.Body>
+        <Modal.Body>{translations(text, language)}</Modal.Body>
         <Modal.Footer></Modal.Footer>
       </Modal>
     </>

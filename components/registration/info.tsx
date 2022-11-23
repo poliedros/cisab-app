@@ -7,10 +7,16 @@ import { Col, Row } from "react-bootstrap";
 type InfoProps = {
   language: "pt";
   info?: InfoDTO;
-  handleInfo: (info: InfoDTO) => void;
+  kind: "county" | "autarky";
+  handleInfo: (info: InfoDTO, kind: "county" | "autarky") => void;
 };
 
-export default function Info({ language = "pt", info, handleInfo }: InfoProps) {
+export default function Info({
+  language = "pt",
+  info,
+  kind,
+  handleInfo,
+}: InfoProps) {
   const [countyName, setCountyName] = useState("");
   const [countyState, setCountyState] = useState("");
   const [countyMayor, setCountyMayor] = useState("");
@@ -27,7 +33,7 @@ export default function Info({ language = "pt", info, handleInfo }: InfoProps) {
       distanceToCisab: countyDistanceToCisab,
       note: countyNote,
     };
-    handleInfo(countyData);
+    handleInfo(countyData, kind);
   };
 
   useEffect(() => {
