@@ -11,40 +11,45 @@ import { CountyManagerDTO } from "./api/counties/[id]/manager";
 
 export default function Registration({ language = "pt" }: { language: "pt" }) {
   const [activeTab, setActiveTab] = useState(0);
-  const [hasAutarchy, setHasAutarchy] = useState(false);
-
-  let countyManager: CountyManagerDTO = {
+  const [hasAutarky, setHasAutarky] = useState(false);
+  const [countyManager, setCountyManager] = useState<CountyManagerDTO>({
     _id: "",
     name: "",
     email: "",
-  };
-
-  let county: CountyDTO = {
+  });
+  const [county, setCounty] = useState<CountyDTO>({
     _id: "",
     name: "",
-  };
-
-  let autarchyManager: CountyManagerDTO = {
+  });
+  const [autarkyManager, setAutarkyManager] = useState<CountyManagerDTO>({
     _id: "",
     name: "",
     email: "",
-  };
-
-  let autarchy: CountyDTO = {
+  });
+  const [autarky, setAutarky] = useState<CountyDTO>({
     _id: "",
     name: "",
-  };
+  });
 
-  function handleAccount(account: CountyManagerDTO) {
-    countyManager = account;
+  function handleAccount(account: CountyManagerDTO, kind: string) {
+    console.log(account);
+    if (kind == "county") setCountyManager(account);
+    if (kind == "autarky") setAutarkyManager(account);
   }
 
-  function handleInfo(info: InfoDTO) {
-    county.info = info;
+  function handleInfo(info: InfoDTO, kind: string) {
+    if (kind == "county") setCounty({ ...county, info });
+    if (kind == "autarky") setAutarky({ ...autarky, info });
   }
 
-  function handleContact(contact: ContactDTO) {
-    county.contact = contact;
+  function handleContact(contact: ContactDTO, kind: string) {
+    if (kind == "county") setCounty({ ...county, contact });
+    if (kind == "autarky") setAutarky({ ...autarky, contact });
+  }
+
+  function test() {
+    console.log("countyManager", countyManager);
+    console.log("countyAutarky", autarkyManager);
   }
 
   return (
@@ -65,24 +70,34 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
         stagesBody={[
           // 0. County Manager Registration
           <>
-            <Account handleAccount={handleAccount} language={"pt"} />
+            <Account
+              handleAccount={handleAccount}
+              kind={"county"}
+              language={"pt"}
+            />
             <Form.Check
               type="checkbox"
-              label={translations("autarchyQuestion", language)}
+              label={translations("autarkyQuestion", language)}
               onChange={(e) => {
-                setHasAutarchy(e.target.checked);
+                setHasAutarky(e.target.checked);
               }}
             />
             <p>{translations("additionalDataQuestion", language)}</p>
             <Row className="mb-6">
               <Col>
-                <CapBtn label="yes" click={() => setActiveTab(1)} />
+                <CapBtn
+                  label="yes"
+                  click={() => {
+                    test();
+                    setActiveTab(1);
+                  }}
+                />
               </Col>
               <Col>
                 <CapBtn
                   label="no"
                   click={() => {
-                    if (hasAutarchy) setActiveTab(3);
+                    if (hasAutarky) setActiveTab(3);
                     else setActiveTab(6);
                   }}
                 />
@@ -100,30 +115,40 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
             <CapBtn
               kind="next"
               click={() => {
-                if (hasAutarchy) setActiveTab(3);
+                if (hasAutarky) setActiveTab(3);
                 else setActiveTab(6);
               }}
             />
           </>,
-          // 3. Autarchy Manager Registration
+          // 3. Autarky Manager Registration
           <>
-            <Account handleAccount={handleAccount} language={"pt"} />
+            <Account
+              handleAccount={handleAccount}
+              kind={"autarky"}
+              language={"pt"}
+            />
             <p>{translations("additionalDataQuestion", language)}</p>
             <Row className="mb-6">
               <Col>
-                <CapBtn label="yes" click={() => setActiveTab(4)} />
+                <CapBtn
+                  label="yes"
+                  click={() => {
+                    test();
+                    setActiveTab(4);
+                  }}
+                />
               </Col>
               <Col>
                 <CapBtn label="no" click={() => setActiveTab(6)} />
               </Col>
             </Row>
           </>,
-          // 4. Autarchy Info
+          // 4. Autarky Info
           <>
             <Info handleInfo={handleInfo} language={"pt"} />
             <CapBtn kind="next" click={() => setActiveTab(5)} />
           </>,
-          // 5. Autarchy Contact
+          // 5. Autarky Contact
           <>
             <Contact handleContact={handleContact} language={"pt"} />
             <CapBtn kind="next" click={() => setActiveTab(6)} />
