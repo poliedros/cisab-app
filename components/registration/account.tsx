@@ -35,7 +35,6 @@ export default function Account({
           value={managerEmail}
           change={(e: any) => setManagerEmail(e.target.value)}
         />
-        <p>{translations("additionalDataQuestion", language)}</p>
       </Row>
     </>
   );

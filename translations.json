@@ -315,6 +315,9 @@
         "pt": "Deseja preencher mais dados?"
     },
     "autarchyQuestion": {
-        "pt": "Conta criada com sucesso. Um email foi enviado para a conta de email informada. Tem autarquia?"
+        "pt": "Tem autarquia?"
+    },
+    "accountCreated":{
+        "pt": "Conta criada com sucesso. Um email foi enviado para a conta de email informada."
     }
 }
