@@ -17,7 +17,6 @@ export default function Info({
   kind,
   handleInfo,
 }: InfoProps) {
-  const [countyName, setCountyName] = useState("");
   const [countyState, setCountyState] = useState("");
   const [countyMayor, setCountyMayor] = useState("");
   const [countyPopulation, setCountyPopulation] = useState("");
@@ -36,6 +35,16 @@ export default function Info({
     handleInfo(countyData, kind);
   };
 
+  function getInfo(): InfoDTO {
+    return {
+      anniversary: countyAnniversary,
+      distanceToCisab: countyDistanceToCisab,
+      mayor: countyMayor,
+      note: countyNote,
+      population: countyPopulation,
+    };
+  }
+
   useEffect(() => {
     if (info) {
       setCountyMayor(info?.mayor);
@@ -51,26 +60,27 @@ export default function Info({
       <CapSubtitle label="countyData" />
       <Row className="mb-3">
         <CapForm
-          label="countyCityName" /* Alterado no arquivo translation.json de countyName para countyCityName */
-          placeholder="insertCountyCityName" /* Alterado no arquivo translation.json de insertCountyName para insertCountyCityName */
-          value={countyName}
-          change={(e: any) => setCountyName(e.target.value)}
-        />
-        <CapForm
           kind="select"
           as={Col}
           label="state"
           optionsDefault={1}
           options={["MG"]}
           value={countyState}
-          change={(e: any) => setCountyState(e.target.value)}
+          change={(e: any) => {
+            setCountyState(e.target.value);
+          }}
         />
         <CapForm
           as={Col}
           label="mayor"
           placeholder="insertMayor"
           value={countyMayor}
-          change={(e: any) => setCountyMayor(e.target.value)}
+          change={(e: any) => {
+            const mayor = e.target.value;
+            const info = getInfo();
+            handleInfo({ ...info, mayor }, kind);
+            setCountyMayor(e.target.value);
+          }}
         />
         <CapForm
           as={Col}
@@ -78,7 +88,12 @@ export default function Info({
           type="number"
           placeholder="insertPopulation"
           value={countyPopulation}
-          change={(e: any) => setCountyPopulation(e.target.value)}
+          change={(e: any) => {
+            const population = e.target.value;
+            const info = getInfo();
+            handleInfo({ ...info, population }, kind);
+            setCountyPopulation(e.target.value);
+          }}
         />
       </Row>
       <Row className="mb-3 flex items-center">
@@ -87,7 +102,13 @@ export default function Info({
           label="countyAnniversary"
           type="date"
           value={countyAnniversary}
-          change={(e: any) => setCountyAnniversary(e.target.value)}
+          change={(e: any) => {
+            const anniversary = e.target.value;
+            console.log(anniversary);
+            const info = getInfo();
+            handleInfo({ ...info, anniversary }, kind);
+            setCountyAnniversary(e.target.value);
+          }}
         />
         <CapForm
           as={Col}
@@ -95,7 +116,12 @@ export default function Info({
           type="number"
           placeholder="insertCountyDistanceToCisab"
           value={countyDistanceToCisab}
-          change={(e: any) => setCountyDistanceToCisab(e.target.value)}
+          change={(e: any) => {
+            const distanceToCisab = e.target.value;
+            const info = getInfo();
+            handleInfo({ ...info, distanceToCisab }, kind);
+            setCountyDistanceToCisab(e.target.value);
+          }}
         />
       </Row>
       <CapForm
@@ -104,7 +130,12 @@ export default function Info({
         label="note"
         placeholder="insertNote"
         value={countyNote}
-        change={(e: any) => setCountyNote(e.target.value)}
+        change={(e: any) => {
+          const note = e.target.value;
+          const info = getInfo();
+          handleInfo({ ...info, note }, kind);
+          setCountyNote(e.target.value);
+        }}
       />
     </>
   );

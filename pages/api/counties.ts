@@ -25,6 +25,7 @@ export type ContactDTO = {
 export type CountyDTO = {
   _id: string;
   name: string;
+  county_id?: string;
   info?: InfoDTO;
   contact?: ContactDTO;
 };

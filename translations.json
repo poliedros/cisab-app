@@ -318,6 +318,6 @@
         "pt": "Tem autarquia?"
     },
     "accountCreated":{
-        "pt": "Conta criada com sucesso. Um email foi enviado para a conta de email informada."
+        "pt": "Conta(s) criada(s) com sucesso. Um email foi enviado para:"
     }
 }

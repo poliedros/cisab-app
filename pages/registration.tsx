@@ -31,7 +31,6 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
   });
 
   function handleAccount(account: CountyManagerDTO, kind: string) {
-    console.log(account);
     if (kind == "county") setCountyManager(account);
     if (kind == "autarky") setAutarkyManager(account);
   }
@@ -47,12 +46,22 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
   }
 
   async function registerAccount(account: CountyManagerDTO) {
-    const response = await fetch("api/counties/manager", {
-      method: "POST",
-      body: JSON.stringify(account),
-    });
-    const data = await response.json();
-    setCounty({ name: account.name, _id: data.county_id });
+    // const response = await fetch("api/counties/manager", {
+    //   method: "POST",
+    //   body: JSON.stringify(account),
+    // });
+    // const data = await response.json();
+    // setCounty({ name: account.name, _id: data.county_id });
+    setCounty({ name: account.name, _id: "637e7572a43d43b46f0cd180" });
+  }
+
+  async function registerAdditionalData(additionalData: CountyDTO, id: string) {
+    console.log(additionalData, id);
+    // const response = await fetch(`api/counties/${id}`, {
+    //   method: "PUT",
+    //   body: JSON.stringify(additionalData),
+    // });
+    // const data = await response.json();
   }
 
   return (
@@ -100,6 +109,7 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                 <CapBtn
                   label="no"
                   click={() => {
+                    registerAccount(countyManager);
                     if (hasAutarky) setActiveTab(3);
                     else setActiveTab(6);
                   }}
@@ -122,6 +132,7 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
             <CapBtn
               kind="next"
               click={() => {
+                registerAdditionalData(county, county._id);
                 if (hasAutarky) setActiveTab(3);
                 else setActiveTab(6);
               }}
@@ -149,7 +160,16 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                 />
               </Col>
               <Col>
-                <CapBtn label="no" click={() => setActiveTab(6)} />
+                <CapBtn
+                  label="no"
+                  click={() => {
+                    registerAccount({
+                      ...autarkyManager,
+                      county_id: county._id,
+                    });
+                    setActiveTab(6);
+                  }}
+                />
               </Col>
             </Row>
           </>,
@@ -165,7 +185,19 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
               kind={"autarky"}
               language={"pt"}
             />
-            <CapBtn kind="next" click={() => setActiveTab(6)} />
+            <CapBtn
+              kind="next"
+              click={() => {
+                registerAdditionalData(
+                  {
+                    ...autarky,
+                    county_id: county._id,
+                  },
+                  autarky._id
+                );
+                setActiveTab(6);
+              }}
+            />
           </>,
           // 6. Account Created
           <>{translations("accountCreated", language)}</>,
