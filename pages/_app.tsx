@@ -5,8 +5,13 @@ import "styles/globals.css";
 import Layout from "components/layout";
 import styles from "styles/Home.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useState } from "react";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [brightness, setBrightness] = useState<"light" | "dark">("light");
+  /* pageProps = {brightness: brightness};
+  console.log(pageProps); */
+
   return (
     <SWRConfig
       value={{
@@ -17,7 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       }}
     >
       <div className={styles.container}>
-        <Layout baseColor="light">
+        <Layout baseColor={brightness} changeBaseColor={setBrightness}>
           <Component {...pageProps} />
         </Layout>
       </div>

@@ -6,8 +6,17 @@ import { useRouter } from "next/router";
 import fetchJson from "lib/fetchJson";
 import CapIconButton from "atoms/capIconButton";
 
-export default function SideBar(/* { language }: { language: "en" | "es" | "pt" } */) {
+export default function SideBar(
+    {
+        bgCurrent = undefined,
+        bgColor = undefined,
+    }:{
+        bgCurrent?: "light" | "dark" | undefined; 
+        bgColor?: any;
+    }/* { language }: { language: "en" | "es" | "pt" } */) {
     const [side, setSide] = useState(false);
+
+    const [iconBrightness, setIconBrightness] = useState("MdBrightness4");
 
     const handleCloseSide = () => setSide(false);
     const handleSide = () => setSide(true);
@@ -23,6 +32,17 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
     const logout = () => {
         mutateUser(fetchJson("/api/logout", { method: "POST" }), false);
         router.push("/");
+    };
+
+    const handleBrightness = () => {
+        if (bgCurrent === "light") {
+            bgColor("dark");
+            setIconBrightness("MdBrightness5"); 
+        } else if (bgCurrent === "dark") {
+            bgColor("light");
+            setIconBrightness("MdBrightness4"); 
+        } else
+            null
     };
 
     const county = (
@@ -111,19 +131,11 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
         <Popover>
             <div className="overflow-auto -m-6 p-4 invisibleScroll">
                 <div className="flex relative bg-white px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5">
-                    <CapIconButton
-                        iconType="ri"
-                        icon="RiMoonClearFill"
+                <CapIconButton
+                        iconType="md"
+                        icon={iconBrightness}
                         size="24px"
-                        //route="/products/create"
-                        hoverColor="#7dc523"
-                    />
-                    &nbsp; &nbsp;
-                    <CapIconButton
-                        iconType="ri"
-                        icon="RiSunFill"
-                        size="24px"
-                        //route="/counties"
+                        click={handleBrightness}
                         hoverColor="#7dc523"
                     />
                 </div>
