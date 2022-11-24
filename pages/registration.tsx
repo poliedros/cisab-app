@@ -46,22 +46,32 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
   }
 
   async function registerAccount(account: CountyManagerDTO) {
-    // const response = await fetch("api/counties/manager", {
-    //   method: "POST",
-    //   body: JSON.stringify(account),
-    // });
-    // const data = await response.json();
-    // setCounty({ name: account.name, _id: data.county_id });
-    setCounty({ name: account.name, _id: "637e7572a43d43b46f0cd180" });
+    const response = await fetch("api/counties/manager", {
+      method: "POST",
+      body: JSON.stringify(account),
+    });
+    const data = await response.json();
+    setCounty({ name: account.name, _id: data.county_id });
+    setAutarky({
+      name: account.name,
+      _id: data.county_id,
+      county_id: county._id,
+    });
+    // setCounty({ name: account.name, _id: "637e7572a43d43b46f0cd180" });
   }
 
-  async function registerAdditionalData(additionalData: CountyDTO, id: string) {
-    console.log(additionalData, id);
-    // const response = await fetch(`api/counties/${id}`, {
-    //   method: "PUT",
-    //   body: JSON.stringify(additionalData),
-    // });
-    // const data = await response.json();
+  async function registerCounty(county: CountyDTO, id: string) {
+    console.log("trying to register county...");
+
+    console.log(county, id);
+
+    const response = await fetch(`api/counties/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(county),
+    });
+    const data = await response.json();
+
+    console.log("request has been sent and response is: ", data);
   }
 
   return (
@@ -132,7 +142,7 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
             <CapBtn
               kind="next"
               click={() => {
-                registerAdditionalData(county, county._id);
+                registerCounty(county, county._id);
                 if (hasAutarky) setActiveTab(3);
                 else setActiveTab(6);
               }}
@@ -188,7 +198,7 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
             <CapBtn
               kind="next"
               click={() => {
-                registerAdditionalData(
+                registerCounty(
                   {
                     ...autarky,
                     county_id: county._id,

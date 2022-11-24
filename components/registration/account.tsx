@@ -46,6 +46,7 @@ export default function Account({
           label="email"
           placeholder="insertEmail"
           value={managerEmail}
+          type="email"
           change={(e: any) => {
             setManagerEmail(e.target.value);
             handleAccount(

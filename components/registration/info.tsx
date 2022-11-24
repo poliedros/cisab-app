@@ -104,7 +104,6 @@ export default function Info({
           value={countyAnniversary}
           change={(e: any) => {
             const anniversary = e.target.value;
-            console.log(anniversary);
             const info = getInfo();
             handleInfo({ ...info, anniversary }, kind);
             setCountyAnniversary(e.target.value);
