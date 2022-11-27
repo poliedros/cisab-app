@@ -1,5 +1,6 @@
 import CapBtn from "atoms/capBtn";
 import CapTabs from "atoms/capTabs";
+import CapTitle from "atoms/capTitle";
 import Account from "components/registration/account";
 import Contact from "components/registration/contact";
 import Info from "components/registration/info";
@@ -76,19 +77,23 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
 
   return (
     <>
+      <CapTitle
+          base="county"
+          label={county ? "editCounty" : "countyRegistration"}
+        />
       <CapTabs
         activeKey={activeTab.toString()}
-        disabled={[false, false, false, false, false, false, false]}
+        disabled={[true, true, true, true, true, true, true]}
         stagesIcons={[
-          "MdEditNote",
-          "IoImage",
-          "MdEditNote",
-          "IoImage",
-          "IoImage",
-          "MdEditNote",
-          "MdEditNote",
+          "RiAccountPinCircleFill",
+          "FaCity",
+          "RiGovernmentFill",
+          "RiAccountPinCircleFill",
+          "RiGovernmentFill",
+          "ImUserTie",
+          "RiCheckboxCircleFill",
         ]}
-        stagesIconsTypes={["md", "io5", "md", "io5", "io5", "md", "md"]}
+        stagesIconsTypes={["ri", "fa", "ri", "ri", "ri", "im", "ri"]}
         stagesBody={[
           // 0. County Manager Registration
           <>
@@ -104,24 +109,28 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                 setHasAutarky(e.target.checked);
               }}
             />
-            <p>{translations("additionalDataQuestion", language)}</p>
-            <Row className="mb-6">
-              <Col>
+            {/* <p>{translations("additionalDataQuestion", language)}</p> */}
+            <Row>
+              <Col md="auto" className="!pl-0 !pr-3">
                 <CapBtn
-                  label="yes"
-                  click={() => {
-                    registerAccount(countyManager);
-                    setActiveTab(1);
-                  }}
-                />
-              </Col>
-              <Col>
-                <CapBtn
-                  label="no"
+                  label="forwardToAccountable"
+                  iconType="bi"
+                  icon="BiMailSend"
                   click={() => {
                     registerAccount(countyManager);
                     if (hasAutarky) setActiveTab(3);
                     else setActiveTab(6);
+                  }}
+                />
+              </Col>
+              <Col md="auto" className="!p-0">
+                <CapBtn
+                  label="continueFillingOut"
+                  iconType="md"
+                  icon="MdNavigateNext"
+                  click={() => {
+                    registerAccount(countyManager);
+                    setActiveTab(1);
                   }}
                 />
               </Col>
@@ -152,32 +161,34 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
           <>
             <Account
               handleAccount={handleAccount}
-              kind={"autarky"}
+              kind={"autarchy"}
               language={"pt"}
             />
-            <p>{translations("additionalDataQuestion", language)}</p>
-            <Row className="mb-6">
-              <Col>
+            {/* <p>{translations("additionalDataQuestion", language)}</p> */}
+            <Row>
+              <Col md="auto" className="!pl-0 !pr-3">
                 <CapBtn
-                  label="yes"
-                  click={() => {
-                    registerAccount({
-                      ...autarkyManager,
-                      county_id: county._id,
-                    });
-                    setActiveTab(4);
-                  }}
-                />
-              </Col>
-              <Col>
-                <CapBtn
-                  label="no"
+                  kind="send"
                   click={() => {
                     registerAccount({
                       ...autarkyManager,
                       county_id: county._id,
                     });
                     setActiveTab(6);
+                  }}
+                />
+              </Col>
+              <Col md="auto" className="!pl-0">
+                <CapBtn
+                  label="continueFillingOut"
+                  iconType="md"
+                  icon="MdNavigateNext"
+                  click={() => {
+                    registerAccount({
+                      ...autarkyManager,
+                      county_id: county._id,
+                    });
+                    setActiveTab(4);
                   }}
                 />
               </Col>

@@ -27,7 +27,7 @@ export default function ProductCreation({
                     base="product"
                     label="addProduct" //{county ? "editCounty" : "countyRegistration"}
                 />
-                <Form className="mt-3">
+                <Form className="mt-3"> {/* <Form noValidate validated={true}> */}
                     <Row>
                         <CapTabs activeKey={"0"} disabled={[false, true]} stagesIcons={["MdEditNote", "IoImage"]} stagesIconsTypes={["md", "io5"]} stagesBody={[
                             <>

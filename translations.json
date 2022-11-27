@@ -319,5 +319,11 @@
     },
     "accountCreated":{
         "pt": "Conta(s) criada(s) com sucesso. Um email foi enviado para:"
+    },
+    "forwardToAccountable":{
+        "pt": "Enviar ao Responsável"
+    },
+    "continueFillingOut":{
+        "pt": "Seguir Preenchendo"
     }
 }

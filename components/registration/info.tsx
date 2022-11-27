@@ -57,7 +57,7 @@ export default function Info({
 
   return (
     <>
-      <CapSubtitle label="countyData" />
+      {/* <CapSubtitle label="countyData" /> */}
       <Row className="mb-3">
         <CapForm
           kind="select"
@@ -65,7 +65,8 @@ export default function Info({
           label="state"
           optionsDefault={1}
           options={["MG"]}
-          value={countyState}
+          value={"MG"} //countyState
+          disabled={true}
           change={(e: any) => {
             setCountyState(e.target.value);
           }}

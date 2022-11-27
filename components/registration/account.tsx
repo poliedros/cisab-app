@@ -23,7 +23,7 @@ export default function Account({
 
   return (
     <>
-      <CapSubtitle label="account" />
+      {/* <CapSubtitle label="account" /> */}
       <Row className="mb-3">
         <CapForm
           as={Col}
