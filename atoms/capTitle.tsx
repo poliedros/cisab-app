@@ -5,12 +5,14 @@ export default function CapTitle({
   base = "none",
   label = "emptyText",
   literal = undefined,
+  baseColor = "light",
   language = "pt",
   additional = undefined,
 }: {
   base?: "none" | "county" | "list" | "product" | "doc" | "diagram" | "lab";
   label?: string;
   literal?: string;
+  baseColor?: "light" | "dark";
   language?: "pt";
   additional?: any;
 }) {
@@ -20,13 +22,13 @@ export default function CapTitle({
     list: IconsByName("fa", "FaThList", "32px"),
     product: IconsByName("gi", "GiCardboardBoxClosed", "32px"),
 
-    doc: IconsByName("hi", "HiDocumentText", "32px"),
+    doc: (baseColor === "light") ? IconsByName("hi", "HiDocumentText", "32px") : IconsByName("hi", "HiDocumentText", "32px", "0", "black"),
     diagram: IconsByName("bs", "BsDiagram2Fill", "32px"),
     lab: IconsByName("ri", "RiTestTubeFill", "32px"),
   };
   return (
     <>
-      <div className="flex items-end overflow-auto invisibleScroll w-full">
+      <div className="flex items-center overflow-auto invisibleScroll w-full">
         {base !== "none" ? (
           <div className="bg-[#7dc523] rounded-full p-3 text-white">
             {iconItems[base]}

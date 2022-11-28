@@ -159,3 +159,15 @@
         opacity: 0;
     }
 }
+
+/* rotation */
+
+.rot-45 {
+    -webkit-transform: rotate3d(0, 1, 0, 30deg);
+    transform: rotate3d(0, 1, 0, 30deg);
+}
+
+.rot-minus-45 {
+    -webkit-transform: rotate3d(0, 1, 0, -5deg);
+    transform: rotate3d(0, 1, 0, -5deg);
+}

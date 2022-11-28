@@ -16,28 +16,28 @@ export default function CountyList(
 ) {
   const [searchCounty, setSearchCounty] = useState("");
 
-  return (
-    <>
-      <Container>
-        <CapTitle base="list" label="countyList" />
-        <div className="mb-6"></div>
-        <CapInputGroup search={searchCounty} setSearch={setSearchCounty} />
-        <CapTable
-          data={counties}
-          headers={["countyName", "responsible"]}
-          columns={["county.name", "accountable.name"]}
-          numeral={true}
-          buttonsColumns={["view", "edit", "remove", "users"]}
-          buttonsPaths={[
-            "/counties/",
-            "/counties/",
-            "/api/counties/",
-            "/counties/",
-          ]}
-          search={searchCounty}
-          searchPath={"county.name"}
-        />
-      </Container>
-    </>
-  );
+    return (
+        <>
+            <Container>
+                <CapTitle base="list" label="countyList" />
+                <div className="mb-6"></div>
+                <CapInputGroup search={searchCounty} setSearch={setSearchCounty} placeholder="searchCountyByName" />
+                <CapTable
+                    data={counties}
+                    headers={["countyName", "responsible"]}
+                    columns={["county.name", "accountable.name"]}
+                    numeral={true}
+                    buttonsColumns={["view", "edit", "remove", "user"]}
+                    buttonsPaths={[
+                        "/counties/",
+                        "/counties/",
+                        "/api/counties/",
+                        "/counties/",
+                    ]}
+                    search={searchCounty}
+                    searchPath={"county.name"}
+                />
+            </Container>
+        </>
+    );
 }
