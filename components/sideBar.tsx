@@ -33,7 +33,7 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
             iconType="fa"
             icon="FaCity"
             size="24px"
-            route="/registration"
+            route="/counties/registration"
             hoverColor="#7dc523"
             tooltip="createCounty"
           />
@@ -83,7 +83,7 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
             iconType="hi"
             icon="HiDocumentText"
             size="24px"
-            route="/documentation"
+            route="/project/documentation"
             hoverColor="#7dc523"
           />
           &nbsp; &nbsp;
@@ -91,7 +91,7 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
             iconType="bs"
             icon="BsDiagram2Fill"
             size="24px"
-            route="/diagrams"
+            route="/project/diagrams"
             hoverColor="#7dc523"
           />
           &nbsp; &nbsp;
@@ -99,7 +99,7 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
             iconType="ri"
             icon="RiTestTubeFill"
             size="24px"
-            route="/test"
+            route="/project/test"
             hoverColor="#7dc523"
           />
         </div>
