@@ -11,9 +11,6 @@
     "remove": {
         "pt": "Remover"
     },
-    "create": {
-        "pt": "Criar"
-    },
     "next": {
         "pt": "Próximo"
     },
@@ -67,6 +64,9 @@
     },
     "countyName":{
         "pt": "Nome do Município"
+    },
+    "insertCountyName": {
+        "pt": "Insira o Nome do Município"
     },
     "countyData": {
         "pt": "Informações sobre o Município"
@@ -174,7 +174,7 @@
         "pt": "Insira a Distância"
     },
     "countyAccount": {
-        "pt": "Conta da Prefeitura"
+        "pt": "Conta do Diretor da Prefeitura"
     },
     "insertCountyAccount": {
         "pt": "Insira Nome da Conta"
@@ -248,29 +248,17 @@
     "unit": {
         "pt": "Unidade"
     },
-    "scale": {
-        "pt": "Escala"
-    },
     "units": {
         "pt": "Unidades"
-    },
-    "insertUnitName": {
-        "pt": "Insira Unidade"
-    },
-    "findUnitName": {
-        "pt": "Buscar Unidade"
     },
     "measure": {
         "pt": "Medida"
     },
-    "insertScale": {
-        "pt": "Insira a quantidade"
-    },
     "insertUnit": {
         "pt": "Insira a quantidade"
     },
-    "insertMeasureName": {
-        "pt": "Insira Nome da Medida"
+    "insertMeasure": {
+        "pt": "Insira a Medida"
     },
     "selectScale": {
         "pt": "Selecione Escala"
@@ -282,7 +270,7 @@
         "pt": "Nome do Produto"
     },
     "insertProductName": {
-        "pt": "Insira o Nome do Produto"
+        "pt": "Insera o Nome do Produto"
     },
     "image": {
         "pt": "Imagem"
@@ -316,5 +304,26 @@
     },
     "diagrams": {
         "pt": "Diagramas"
+    },
+    "yes": {
+        "pt": "Sim"
+    },
+    "no": {
+        "pt": "Não"
+    },
+    "additionalDataQuestion": {
+        "pt": "Deseja preencher mais dados?"
+    },
+    "autarkyQuestion": {
+        "pt": "Tem autarquia?"
+    },
+    "accountCreated":{
+        "pt": "Conta(s) criada(s) com sucesso. Um email foi enviado para:"
+    },
+    "forwardToAccountable":{
+        "pt": "Enviar ao Responsável"
+    },
+    "continueFillingOut":{
+        "pt": "Seguir Preenchendo"
     }
 }

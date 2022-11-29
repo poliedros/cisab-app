@@ -10,7 +10,6 @@ export default function CapImage({
     w = 100,
     h = 100,
     obj = undefined,
-    css = "",
 }: {
     label?: string;
     literal?: string;
@@ -20,12 +19,11 @@ export default function CapImage({
     w?: number;
     h?: number;
     obj?: "fill" | "contain" | "cover" | "none" | "scale-down";
-    css?: string;
 }) {
     return (
         <>
             <Image
-                className={"p-2 !border-4 !border-amber-900" + css}
+                className="p-2"
                 loader={() => src}
                 src={src}
                 alt={alt}

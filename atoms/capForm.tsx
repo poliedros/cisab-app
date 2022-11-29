@@ -1,4 +1,4 @@
-import { Form, FloatingLabel } from "react-bootstrap";
+import { Form, FloatingLabel, Button } from "react-bootstrap";
 import IconsByName from "components/iconsByName";
 import translations from "../lib/translations";
 
@@ -15,11 +15,12 @@ export default function CapForm({
   htmlFor = undefined,
   icon = undefined,
   iconType = undefined,
-  validated = undefined,
   as = undefined,
   asControl = undefined,
   rows = undefined,
   xs = undefined,
+  disabled = false,
+  required = false,
   optionsDefault = undefined,
   options = [],
   legend = "emptyText",
@@ -38,11 +39,12 @@ export default function CapForm({
   htmlFor?: string;
   icon?: string;
   iconType?: string;
-  validated?: boolean;
   as?: any;
   asControl?: any;
   rows?: number;
   xs?: number;
+  disabled?: boolean;
+  required?: boolean;
   optionsDefault?: number;
   options?: string[];
   legend?: string;
@@ -63,7 +65,6 @@ export default function CapForm({
               column={column}
               type={type}
               htmlFor={htmlFor}
-              validated={validated}
             >
               <div className="!flex items-center">
                 {iconType && icon ? IconsByName(iconType, icon) : ""}
@@ -72,7 +73,8 @@ export default function CapForm({
               </div>
             </Form.Label>
           ) : null}
-          <Form.Control
+          {required ? <Form.Control
+            required
             type={type}
             placeholder={translations(placeholder, language)}
             value={value}
@@ -81,10 +83,25 @@ export default function CapForm({
             as={asControl}
             rows={rows}
             xs={xs}
-          />
+          /> : <Form.Control
+          type={type}
+          placeholder={translations(placeholder, language)}
+          value={value}
+          onClick={click}
+          onChange={change}
+          as={asControl}
+          rows={rows}
+          xs={xs}
+        /> }
           <Form.Text className="text-muted">
             {legend !== "emptyText" ? translations(legend, language) : null}
           </Form.Text>
+          <Form.Control.Feedback type="valid" tooltip>
+            Please provide a valid zip2.
+          </Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">
+            Please provide a valid zip.
+          </Form.Control.Feedback>
         </Form.Group>
       ) : kind === "select" ? (
         <Form.Group
@@ -98,7 +115,6 @@ export default function CapForm({
               column={column}
               type={type}
               htmlFor={htmlFor}
-              validated={validated}
             >
               <div className="!flex items-center">
                 {iconType && icon ? IconsByName(iconType, icon) : ""}
@@ -113,6 +129,7 @@ export default function CapForm({
             }
             onClick={click}
             onChange={change}
+            disabled={disabled}
           >
             {options ? (
               options.map((op: string, i: number) => (

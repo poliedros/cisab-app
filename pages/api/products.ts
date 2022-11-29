@@ -4,16 +4,11 @@ import { sessionOptions } from "lib/session";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { UnitDTO } from "./units";
 
-export type Measure = {
-    name: string;
-    value: string;
-    unit: string;
-};
-
 export type ProductDTO = {
     _id: string;
     name: string;
-    measurements: Measure[];
+    photo: string;
+    units: UnitDTO[];
 };
 
 async function handler(req: NextApiRequest, res: NextApiResponse<ProductDTO[]>) {
@@ -30,7 +25,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ProductDTO[]>) 
             body: req.body
         });
         const data = (await response.json()) as ProductDTO[];
-        res.status(response.status).json(data);
+        res.status(200).json(data);
         return;
     }
 

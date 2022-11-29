@@ -7,6 +7,7 @@ import * as IconsGi from "react-icons/gi"
 import * as IconsGr from "react-icons/gr"
 import * as IconsHi from "react-icons/hi"
 //import * as IconsHi2 from "react-icons/hi2"
+import * as IconsIm from "react-icons/im"
 import * as IconsMd from "react-icons/md"
 import * as IconsIo from "react-icons/io"
 import * as IconsIo5 from "react-icons/io5"
@@ -16,7 +17,7 @@ import * as IconsTi from "react-icons/ti"
 
 import { BsSlashCircleFill } from "react-icons/bs"
 
-export default function IconsByName(ico, name, size = "auto", margin="0", fill = "current") {
+export default function IconsByName(ico, name, size = "auto", margin="0") {
     let IconComponent;
 
     if (ico === "ai") IconComponent = IconsAi[name];
@@ -28,6 +29,7 @@ export default function IconsByName(ico, name, size = "auto", margin="0", fill =
     if (ico === "gr") IconComponent = IconsGr[name];
     if (ico === "hi") IconComponent = IconsHi[name];
     //if (ico === "hi2") IconComponent = IconsHi2[name];
+    if (ico === "im") IconComponent = IconsIm[name];
     if (ico === "io") IconComponent = IconsIo[name];
     if (ico === "io5") IconComponent = IconsIo5[name];
     if (ico === "md") IconComponent = IconsMd[name];
@@ -37,8 +39,8 @@ export default function IconsByName(ico, name, size = "auto", margin="0", fill =
 
     if (!IconComponent) {
         // Return a default one
-        return <BsSlashCircleFill style={{ width: size, height: size, fill: fill }} />;
+        return <BsSlashCircleFill style={{ width: size, height: size }} />;
     }
 
-    return <IconComponent style={{ width: size, height: size, margin: margin, fill: fill }} />;
+    return <IconComponent style={{ width: size, height: size, margin: margin }} />;
 }
