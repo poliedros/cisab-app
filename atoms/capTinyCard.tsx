@@ -60,7 +60,7 @@ export default function CapTinyCard({
                 <Col xs={4}>
                   <CapIconButton
                     size="14px"
-                    fill={baseColor === "dark" ? "green" : ""}
+                    // fill={baseColor === "dark" ? "green" : ""}
                   />
                   <CapIconButton size="14px" />
                   <CapIconButton size="14px" />

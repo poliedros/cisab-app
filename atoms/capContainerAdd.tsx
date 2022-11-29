@@ -43,17 +43,18 @@ export default function CapContainerAdd({
         }); */
     let finalArray: { name: string; value: string; unit: string }[] = [];
     list?.childNodes.forEach(function (node, index) {
-      finalArray.push({
-        name: node.childNodes[0].firstChild?.lastChild?.textContent
-          ? node.childNodes[0].firstChild?.lastChild?.value
-          : "",
-        value: node.childNodes[1].firstChild?.lastChild?.textContent
-          ? node.childNodes[1].firstChild?.lastChild?.value
-          : "",
-        unit: node.childNodes[2].firstChild?.firstChild?.firstChild?.textContent
-          ? node.childNodes[2].firstChild?.firstChild?.firstChild?.textContent
-          : "",
-      });
+      // TODO:
+      // finalArray.push({
+      //   name: node.childNodes[0].firstChild?.lastChild?.textContent
+      //     ? node.childNodes[0].firstChild?.lastChild?.value
+      //     : "",
+      //   value: node.childNodes[1].firstChild?.lastChild?.textContent
+      //     ? node.childNodes[1].firstChild?.lastChild?.value
+      //     : "",
+      //   unit: node.childNodes[2].firstChild?.firstChild?.firstChild?.textContent
+      //     ? node.childNodes[2].firstChild?.firstChild?.firstChild?.textContent
+      //     : "",
+      // });
     });
     list?.childNodes.forEach(function (node, index) {
       node.childNodes[1].firstChild?.lastChild?.textContent
