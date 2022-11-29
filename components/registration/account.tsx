@@ -17,6 +17,8 @@ type AccountProps = {
         kind: "county" | "autarky"
     ) => void;
     setActiveTab?: any;
+    //county?: any;
+    setCounty?: any;
 };
 
 export default function Account({
@@ -24,24 +26,32 @@ export default function Account({
     kind,
     handleAccount,
     setActiveTab,
+    //county,
+    setCounty,
 }: AccountProps) {
     //const [managerEmail, setManagerEmail] = useState("");
     //const [countyName, setCountyName] = useState("");
 
     const [step, setStep] = useState(0);
-    const [countyName, setCountyName] = useState("");
-    const [email, setEmail] = useState("");
+    //const [countyName, setCountyName] = useState("");
+    //const [email, setEmail] = useState("");
 
     const schema = yup.object().shape({
         countyName: yup.string().required(),
         email: yup.string().email().required(),
     });
 
+    const handleAccountWithTab = (s: number, st: any) => {
+        setActiveTab(s);
+        const countyIn = { name: st.countyName, email: st.email};
+        setCounty(countyIn);
+    };
+
     return (
         <>
             <Formik
                 validationSchema={schema}
-                onSubmit={(e: any) => {e ? setActiveTab(step)
+                onSubmit={(e: any) => {e ? handleAccountWithTab(step, e)
                      : null
                 }} //console.log(e.countyName); setActiveTab(step);
                 initialValues={{}}
@@ -122,7 +132,7 @@ export default function Account({
                                         setActiveTab(1);
                                     }} */
                                         click={() => {
-                                            setActiveTab(1);
+                                            setStep(1);
                                             handleSubmit();
                                         }}
                                     />

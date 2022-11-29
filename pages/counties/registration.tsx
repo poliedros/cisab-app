@@ -1,12 +1,9 @@
 import CapBtn from "atoms/capBtn";
-import CapFormik from "atoms/capFormik";
-import * as yup from "yup";
 import CapTabs from "atoms/capTabs";
 import CapTitle from "atoms/capTitle";
 import Account from "components/registration/account";
 import Contact from "components/registration/contact";
 import Info from "components/registration/info";
-import { Formik } from "formik";
 import translations from "lib/translations";
 import { useState } from "react";
 import { Col, Row, Form } from "react-bootstrap";
@@ -83,17 +80,16 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
         console.log("request has been sent and response is: ", data);
     }
 
-    const schema = yup.object().shape({
-        countyName2: yup.string().required(),
-        email2: yup.string().email().required(),
-    });
+    const [disableds, setDisableds] = useState<boolean[]>([true, true, true, true, true, true, true]);
+    const [state, setState] = useState("");
+    console.log(state);
 
     return (
         <>
             <CapTitle base="county" label={"countyRegistration"} />
             <CapTabs
                 activeKey={activeTab.toString()}
-                disabled={[true, true, true, true, true, true, true]}
+                disabled={disableds}
                 stagesIcons={[
                     "RiAccountPinCircleFill",
                     "FaCity",
@@ -111,64 +107,8 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                             handleAccount={handleAccount}
                             kind={"county"}
                             setActiveTab={setActiveTab}
+                            setCounty={setCountyManager}
                         />
-                        {/* <Formik
-                            validationSchema={schema}
-                            onSubmit={console.log}
-                            initialValues={{}}
-                        >
-                            <Form validated={false}>
-                                <Row className="mb-3">
-                                    <CapFormik
-                                        as={Col}
-                                        label="countyName"
-                                        type="text"
-                                        name="countyName2"
-                                        placeholder="insertCountyName"
-                                    />
-                                    <CapFormik
-                                        as={Col}
-                                        label="email"
-                                        type="email"
-                                        name="email2"
-                                        placeholder="insertEmail"
-                                    />
-                                </Row>
-                            </Form>
-                        </Formik> */}
-                        {/* <Form.Check
-                            type="checkbox"
-                            label={translations("autarkyQuestion", language)}
-                            onChange={(e) => {
-                                setHasAutarky(e.target.checked);
-                            }}
-                        /> */}
-                        {/* <p>{translations("additionalDataQuestion", language)}</p> */}
-                        {/* <Row>
-                            <Col md="auto" className="!pl-0 !pr-3">
-                                <CapBtn
-                                    label="forwardToAccountable"
-                                    iconType="bi"
-                                    icon="BiMailSend"
-                                    click={() => {
-                                        registerAccount(countyManager);
-                                        if (hasAutarky) setActiveTab(3);
-                                        else setActiveTab(6);
-                                    }}
-                                />
-                            </Col>
-                            <Col md="auto" className="!p-0">
-                                <CapBtn
-                                    label="continueFillingOut"
-                                    iconType="md"
-                                    icon="MdNavigateNext"
-                                    click={() => {
-                                        registerAccount(countyManager);
-                                        setActiveTab(1);
-                                    }}
-                                />
-                            </Col>
-                        </Row> */}
                     </>,
                     // 1. County Info
                     <>
@@ -176,8 +116,10 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                             handleInfo={handleInfo}
                             kind={"county"}
                             language={"pt"}
+                            setActiveTab={setActiveTab}
+                            setState={setState}
                         />
-                        <CapBtn kind="next" click={() => setActiveTab(2)} />
+                        {/* <CapBtn kind="next" click={() => setActiveTab(2)} /> */}
                     </>,
                     // 2. County Contact
                     <>
