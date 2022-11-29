@@ -10,17 +10,25 @@ export default function CapIconButton({
     size = "32px",
     route = undefined,
     tooltip = "emptyText",
+    fill = "",
     language = "pt",
     hoverColor = "#02aae9",
+    css = undefined,
+    padding = "!p-[12px]",
+    rounded = "!rounded-full",
 }: {
     icon?: string;
     iconType?: string;
     size?: string;
     click?: any;
     route?: string;
+    fill?: string;
     tooltip?: string;
     language?: string;
     hoverColor?: string;
+    css?: string;
+    padding?: string;
+    rounded?: string;
 }) {
     const renderTooltip = (props: any) => (
         <Tooltip id="button-tooltip" className="tooltip-clean" {...props}>
@@ -70,12 +78,7 @@ export default function CapIconButton({
                 </OverlayTrigger>
             ) : click || route ? (
                 <Button
-                    className={
-                        (hoverColor === "#7dc523"
-                            ? "hover:!bg-[#7dc523]"
-                            : "hover:!bg-[#02aae9]") +
-                        " border-0 !rounded-full !p-[12px]"
-                    }
+                    className={(hoverColor === "#7dc523" ? "hover:!bg-[#7dc523] " : "hover:!bg-[#02aae9] ") + css + " border-0 !rounded-full " + rounded + " " + padding}
                     variant="outline-secondary"
                     onClick={
                         click
@@ -83,7 +86,7 @@ export default function CapIconButton({
                             : () => (route ? Router.push(route) : null)
                     }
                 >
-                    {IconsByName(iconType, icon, size)}
+                    {IconsByName(iconType, icon, size, "0", fill)}
                 </Button>
             ) : (
                 <Button
@@ -92,7 +95,7 @@ export default function CapIconButton({
                     }
                     variant="outline-secondary"
                 >
-                    {IconsByName(iconType, icon, size)}
+                    {IconsByName(iconType, icon, size, "0", fill)}
                 </Button>
             )}
         </>

@@ -85,11 +85,11 @@ export default function Documentation({
             {IconsByName("ri", "RiAccountPinCircleFill", "32px")}
             <p>Account - Conta</p>
             {IconsByName("fa", "FaCity", "32px")}
-            <p>County - MunicÃ­pio</p>
+            <p>County - Município</p>
             {IconsByName("ri", "RiGovernmentFill", "32px")}
-            <p>Institution Â´CountyÂ´ - InstituiÃ§Ã£o (Prefeitura/Autarquia)</p>
+            <p>Institution ´County´ - Instituição (Prefeitura/Autarquia)</p>
             {IconsByName("im", "ImUserTie", "32px")}
-            <p>Accountable Â´ContactÂ´ - ResposÃ¡nvel</p>
+            <p>Accountable ´Contact´ - Resposánvel</p>
 
             <Accordion>
                 <Accordion.Item eventKey="0">
@@ -105,7 +105,7 @@ export default function Documentation({
                                 as={Col}
                                 label="county"
                                 optionsDefault={0}
-                                options={["ViÃ§osa"]}
+                                options={["Viçosa"]}
                             />
                             <CapForm
                                 as={Col}

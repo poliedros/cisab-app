@@ -5,12 +5,14 @@ import translations from "../lib/translations";
 export default function CapInputGroup({
     label = "emptyText",
     literal = undefined,
+    placeholder = "emptyText",
     language = "pt",
     search = undefined,
     setSearch = undefined,
 }: {
     label?: string;
     literal?: string;
+    placeholder?: string;
     language?: "pt";
     search?: any,
     setSearch?: any,
@@ -23,7 +25,7 @@ export default function CapInputGroup({
                     onChange={(e) => {
                         setSearch(e.target.value);
                     }}
-                    placeholder={translations("searchCountyByName", language)}
+                    placeholder={translations(placeholder, language)}
                     aria-label="Recipient's username"
                     aria-describedby="basic-addon2"
                 />
