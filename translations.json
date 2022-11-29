@@ -11,9 +11,6 @@
     "remove": {
         "pt": "Remover"
     },
-    "create": {
-        "pt": "Criar"
-    },
     "next": {
         "pt": "Próximo"
     },
@@ -251,29 +248,17 @@
     "unit": {
         "pt": "Unidade"
     },
-    "scale": {
-        "pt": "Escala"
-    },
     "units": {
         "pt": "Unidades"
-    },
-    "insertUnitName": {
-        "pt": "Insira Unidade"
-    },
-    "findUnitName": {
-        "pt": "Buscar Unidade"
     },
     "measure": {
         "pt": "Medida"
     },
-    "insertScale": {
-        "pt": "Insira a quantidade"
-    },
     "insertUnit": {
         "pt": "Insira a quantidade"
     },
-    "insertMeasureName": {
-        "pt": "Insira Nome da Medida"
+    "insertMeasure": {
+        "pt": "Insira a Medida"
     },
     "selectScale": {
         "pt": "Selecione Escala"
@@ -285,7 +270,7 @@
         "pt": "Nome do Produto"
     },
     "insertProductName": {
-        "pt": "Insira o Nome do Produto"
+        "pt": "Insera o Nome do Produto"
     },
     "image": {
         "pt": "Imagem"

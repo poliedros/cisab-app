@@ -22,7 +22,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<UnitDTO[]>) {
             body: req.body
         });
         const data = (await response.json()) as UnitDTO[];
-        res.status(response.status).json(data);
+        res.status(200).json(data);
         return;
     }
 
