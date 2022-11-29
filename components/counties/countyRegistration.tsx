@@ -50,7 +50,7 @@ export default function CountyRegistration({
     useState("");
   const [countyContactEmail, setCountyContactEmail] = useState("");
 
-  const handleCounty = async () => {
+  /* const handleCounty = async () => {
     const _id = county?._id;
     let countyResult: CountyDTO = {
       _id: _id ?? "0", //valor provisório
@@ -89,9 +89,9 @@ export default function CountyRegistration({
     setImageStage(true);
     const countyReg = await submit(countyResult);
     setCountyRegister(countyReg);
-  };
+  }; */
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (county) {
       setCountyAccount(county?.account.user);
       setCountyPassword(county?.account.password);
@@ -119,7 +119,7 @@ export default function CountyRegistration({
       setCountyContactSocialMedias(county?.accountable.socialMedias);
       setCountyContactEmail(county?.accountable.email);
     }
-  }, [county]);
+  }, [county]); */
 
   return (
     <>
@@ -349,7 +349,7 @@ export default function CountyRegistration({
             value={countyContactNote}
             change={(e: any) => setCountyContactNote(e.target.value)}
           />
-          <CapBtn kind="send" click={handleCounty} />
+          <CapBtn kind="send" click={undefined} /> handleCounty
         </Form>
       </Container>
       <CountyImageModal

@@ -46,7 +46,7 @@ export default function Create() {
       <CountyMainAccount
         language={"pt"}
         county={undefined}
-        submit={saveCounty}
+        submit={undefined} //saveCounty
       />
       {/*<>{error}</>*/}
       <div className="flex justify-center">
