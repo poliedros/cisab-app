@@ -23,7 +23,9 @@ export default function Layout({
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {router.route === "/login" || router.route.includes("firstAccess") ? (
+      {router.route === "/login" ||
+      router.route.includes("firstAccess") ||
+      router.route.includes("forgetPassword") ? (
         <>{children}</>
       ) : (
         <main>
