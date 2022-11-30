@@ -334,6 +334,15 @@
     },
     "requiredField": {
         "pt": "Este é um campo obrigatório!"
+    },
+    "passwordError": {
+        "pt": "Erro ao cadastrar a senha. Tente novamente."
+    },
+    "passwordSuccess": {
+        "pt": "Senha cadastrada com sucesso."
+    },
+    "managerActive": {
+        "pt": "Senha já cadastrada para esse usuário."
     }
    
 }

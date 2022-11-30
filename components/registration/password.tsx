@@ -36,47 +36,48 @@ export default function Password({
       <Formik
         validationSchema={schema}
         onSubmit={(e: any) => {
-          console.log(e);
           handleSubmitFunction(e.password);
         }}
         initialValues={{}}
       >
         {({ handleSubmit }) => {
           return (
-            <Form noValidate validated={false}>
-              <Row className="mb-3">
-                <CapFormik
-                  as={Col}
-                  label="countyPassword"
-                  placeholder="insertCountyPassword"
-                  name="password"
-                  type="password"
-                  change={(e: any) => {
-                    setPassword(e.target.value);
-                  }}
-                />
-                <CapFormik
-                  as={Col}
-                  label="countyConfirmPassword"
-                  placeholder="insertCountyConfirmPassword"
-                  name="confirmation"
-                  type="password"
-                  change={(e: any) => {
-                    setConfirmation(e.target.value);
-                  }}
-                />
-              </Row>
-              <Row>
-                <Col md="auto" className="!p-0">
-                  <CapBtn
-                    kind="send"
-                    click={() => {
-                      handleSubmit();
+            <div className="m-6 text-white">
+              <Form noValidate validated={false}>
+                <Row className="mb-3">
+                  <CapFormik
+                    as={Col}
+                    label="countyPassword"
+                    placeholder="insertCountyPassword"
+                    name="password"
+                    type="password"
+                    change={(e: any) => {
+                      setPassword(e.target.value);
                     }}
                   />
-                </Col>
-              </Row>
-            </Form>
+                  <CapFormik
+                    as={Col}
+                    label="countyConfirmPassword"
+                    placeholder="insertCountyConfirmPassword"
+                    name="confirmation"
+                    type="password"
+                    change={(e: any) => {
+                      setConfirmation(e.target.value);
+                    }}
+                  />
+                </Row>
+                <Row>
+                  <Col md="auto" className="!p-0">
+                    <CapBtn
+                      kind="send"
+                      click={() => {
+                        handleSubmit();
+                      }}
+                    />
+                  </Col>
+                </Row>
+              </Form>
+            </div>
           );
         }}
       </Formik>

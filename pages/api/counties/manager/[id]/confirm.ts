@@ -4,7 +4,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 async function handler(req: NextApiRequest, res: NextApiResponse<boolean>) {
   if (req.method === "POST") {
     const response = await fetch(
-      process.env.API_URL + `/counties/manager/${req.query.id}`,
+      process.env.API_URL + `/counties/manager/${req.query.id}/confirm`,
       {
         headers: {
           "Content-Type": "application/json",
