@@ -343,6 +343,12 @@
     },
     "managerActive": {
         "pt": "Senha já cadastrada para esse usuário."
+    },
+    "recoverPasswordSuccess": {
+        "pt": "Um link foi enviado para o email informado."
+    },
+    "recoverPasswordError": {
+        "pt": "Email incorreto, tente novamente."
     }
    
 }
