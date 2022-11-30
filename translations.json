@@ -183,13 +183,13 @@
         "pt": "Senha"
     },
     "insertCountyPassword": {
-        "pt": "Insira Senha"
+        "pt": "Insira Uma Senha"
     },
     "countyConfirmPassword": {
         "pt": "Confirmação de Senha"
     },
     "insertCountyConfirmPassword": {
-        "pt": "Insira Senha Novamente"
+        "pt": "Insira a Senha Novamente"
     },
     "responsible": {
         "pt": "Responsável"
@@ -325,5 +325,15 @@
     },
     "continueFillingOut":{
         "pt": "Seguir Preenchendo"
+    },
+    "passwordRegistration":{
+        "pt": "Cadastro de senha"
+    },
+    "passwordValidation": {
+        "pt": "As senhas não coincidem."
+    },
+    "requiredField": {
+        "pt": "Este é um campo obrigatório!"
     }
+   
 }
