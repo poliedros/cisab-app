@@ -51,13 +51,15 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
     async function registerAccount(account: CountyManagerDTO) {
         console.log("ACCOUNT");
         console.log(account);
+        if(currentTab === 3)
+            account = {...account, county_id: county._id};
 
         const response = await fetch("../api/counties/manager", {
             method: "POST",
             body: JSON.stringify(account),
         });
-        
         const data = await response.json();
+        
         setCounty({ name: account.name, _id: data.county_id });
         setAutarky({
             name: account.name,
