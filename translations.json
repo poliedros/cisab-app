@@ -200,6 +200,9 @@
     "responsibleEmail": {
         "pt": "E-mail do Responsável"
     },
+    "insertResponsibleEmail": {
+        "pt": "Insira o E-mail do Responsável"
+    },
     "responsibleSocialMedia": {
         "pt": "Redes Sociais do Responsável"
     },
@@ -323,7 +326,31 @@
     "forwardToAccountable":{
         "pt": "Enviar ao Responsável"
     },
+    "forwardItToAccountable":{
+        "pt": "Enviar essa e Inserir uma Nova"
+    },
+    "forwardToAccountableGoToAutarky":{
+        "pt": "Enviar e Ir à Autarquias"
+    },
     "continueFillingOut":{
         "pt": "Seguir Preenchendo"
+    },
+    "autarky":{
+        "pt": "Autarquia"
+    },
+    "autarkyName":{
+        "pt": "Nome da Autarquia"
+    },
+    "insertAutarkyName":{
+        "pt": "Insira o Nome da Autarquia"
+    },
+    "insertAutarky":{
+        "pt": "Inserir Autarquia"
+    },
+    "insertNewAutarky":{
+        "pt": "Inserir uma Nova Autarquia"
+    },
+    "finalize":{
+        "pt": "Finalizar"
     }
 }

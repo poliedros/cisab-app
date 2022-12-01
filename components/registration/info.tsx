@@ -11,7 +11,7 @@ import CapFormik from "atoms/capFormik";
 import CapBtn from "atoms/capBtn";
 
 type InfoProps = {
-    language: "pt";
+    language?: "pt";
     info?: InfoDTO;
     kind: "county" | "autarky";
     handleInfo: (info: InfoDTO, kind: "county" | "autarky") => void;
@@ -77,97 +77,117 @@ export default function Info({
     const [step, setStep] = useState(0);
 
     const handleAccountWithTab = (s: number, st: any) => {
-      setActiveTab(s);
-      const stateIn = { mayor: st.mayor, population: st.population };
-      setState(stateIn);
-  };
+        setActiveTab(s);
+        const stateIn = {
+            state: st.state,
+            mayor: st.mayor,
+            population: st.population,
+            countyAnniversary: st.countyAnniversary,
+            countyDistanceToCisab: st.countyDistanceToCisab,
+            note: st.note,
+        };
+        setState(stateIn);
+    };
 
     return (
         <>
             {/* <CapSubtitle label="countyData" /> */}
-            <Formik
-                validationSchema={schema}
-                onSubmit={(e: any) => {e ? handleAccountWithTab(step, e)
-                  : null
-             }} //console.log(e.countyName); setActiveTab(step);
-                initialValues={{}}
-            >
-                {({
-                    handleSubmit,
-                    handleChange,
-                    values,
-                    errors,
-                    isValid,
-                    isSubmitting,
-                }) => {
-                    return (
-                        <Form noValidate validated={false}>
-                            <Row>
-                                <CapFormik
-                                    kind="select"
-                                    as={Col}
-                                    label="state"
-                                    //optionsDefault={1}
-                                    //options={["MG"]}
-                                    value={"MG"} //countyState
-                                    disabled={false}
-                                    name="state"
-                                >
-                                  <option value="MG">MG</option>
-                                  <option>Toronto</option>
-                                  <option>Markham</option>
-                                  <option>Mississauga</option>
-                                </CapFormik>
-                                <CapFormik
-                                    as={Col}
-                                    label="mayor"
-                                    placeholder="insertMayor"
-                                    name="mayor"
-                                />
-                                <CapFormik
-                                    as={Col}
-                                    label="population"
-                                    placeholder="insertPopulation"
-                                    name="population"
-                                    type="number"
-                                />
-                            </Row>
-                            <Row>
-                            <CapFormik
-                                    as={Col}
-                                    label="countyAnniversary"
-                                    //placeholder="insertCountyAnniversary"
-                                    name="countyAnniversary"
-                                />
-                                <CapFormik
-                                    as={Col}
-                                    label="countyDistanceToCisab"
-                                    placeholder="insertCountyDistanceToCisab"
-                                    name="countyDistanceToCisab"
-                                />
-                            </Row>
-                            <Row>
-                            <CapFormik
-                                    as={Col}
-                                    label="note"
-                                    placeholder="insertNote"
-                                    name="note"
-                                />
-                            </Row>
-                            <Row>
-                              <Col>
-                              <CapBtn kind="next"
-                                  click={() => {
-                                    setStep(2);
-                                    handleSubmit();
-                                }} />
-                              </Col>
-                            </Row>
-                        </Form>
-                    );
-                }}
-            </Formik>
-            <Row className="mb-3">
+            {kind === "county" ? (
+                <Formik
+                    validationSchema={schema}
+                    onSubmit={(e: any) => {
+                        e ? handleAccountWithTab(step, e) : null;
+                    }} //console.log(e.countyName); setActiveTab(step);
+                    initialValues={{}}
+                >
+                    {({
+                        handleSubmit,
+                        handleChange,
+                        values,
+                        errors,
+                        isValid,
+                        isSubmitting,
+                    }) => {
+                        return (
+                            <Form noValidate validated={false}>
+                                <Row className="mb-3">
+                                    <CapFormik
+                                        kind="select"
+                                        as={Col}
+                                        label="state"
+                                        //optionsDefault={1}
+                                        options={["MG"]}
+                                        value={["MG"]} //countyState
+                                        disabled={true}
+                                        name="state"
+                                    />
+                                    <CapFormik
+                                        as={Col}
+                                        label="mayor"
+                                        placeholder="insertMayor"
+                                        name="mayor"
+                                    />
+                                    <CapFormik
+                                        as={Col}
+                                        label="population"
+                                        placeholder="insertPopulation"
+                                        name="population"
+                                        type="number"
+                                    />
+                                </Row>
+                                <Row className="mb-3">
+                                    <CapFormik
+                                        as={Col}
+                                        type="date"
+                                        label="countyAnniversary"
+                                        //placeholder="insertCountyAnniversary"
+                                        name="countyAnniversary"
+                                    />
+                                    <CapFormik
+                                        as={Col}
+                                        label="countyDistanceToCisab"
+                                        placeholder="insertCountyDistanceToCisab"
+                                        name="countyDistanceToCisab"
+                                    />
+                                </Row>
+                                <Row className="mb-3">
+                                    <CapFormik
+                                        as={Col}
+                                        asControl="textarea"
+                                        rows={3}
+                                        label="note"
+                                        placeholder="insertNote"
+                                        name="note"
+                                    />
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <CapBtn
+                                            kind="next"
+                                            click={() => {
+                                                setStep(2);
+                                                handleSubmit();
+                                            }}
+                                        />
+                                    </Col>
+                                </Row>
+                            </Form>
+                        );
+                    }}
+                </Formik>
+            ) : (
+                <Row>
+                    <Col>
+                        <CapBtn
+                            kind="next"
+                            click={() => {
+                                setActiveTab(5);
+                            }}
+                        />
+                    </Col>
+                </Row>
+            )}
+            {/* <Row className="mb-3">
         <CapForm
           kind="select"
           as={Col}
@@ -245,7 +265,7 @@ export default function Info({
           handleInfo({ ...info, note }, kind);
           setCountyNote(e.target.value);
         }}
-      />
+      /> */}
         </>
     );
 }

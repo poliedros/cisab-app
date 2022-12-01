@@ -1,4 +1,3 @@
-import CapBtn from "atoms/capBtn";
 import CapTabs from "atoms/capTabs";
 import CapTitle from "atoms/capTitle";
 import Account from "components/registration/account";
@@ -6,14 +5,12 @@ import Contact from "components/registration/contact";
 import Info from "components/registration/info";
 import translations from "lib/translations";
 import { useState } from "react";
-import { Col, Row, Form } from "react-bootstrap";
 import { ContactDTO, CountyDTO, InfoDTO } from "../api/counties";
 import { CountyManagerDTO } from "../api/counties/[id]/manager";
 import IconsByName from "components/iconsByName";
 
 export default function Registration({ language = "pt" }: { language: "pt" }) {
-    const [activeTab, setActiveTab] = useState(0);
-    const [hasAutarky, setHasAutarky] = useState(false);
+    const [currentTab, setCurrentTab] = useState(0);
 
     const [countyManager, setCountyManager] = useState<CountyManagerDTO>({
         name: "",
@@ -36,26 +33,30 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
         name: "",
     });
 
-    function handleAccount(account: CountyManagerDTO, kind: string) {
-        if (kind == "county") setCountyManager(account);
-        if (kind == "autarky") setAutarkyManager(account);
+    function handleAccount(account: CountyManagerDTO, type: "county" | "autarky") {
+        if (type === "county") setCountyManager(account);
+        if (type === "autarky") setAutarkyManager(account);
     }
 
-    function handleInfo(info: InfoDTO, kind: string) {
-        if (kind == "county") setCounty({ ...county, info });
-        if (kind == "autarky") setAutarky({ ...autarky, info });
+    function handleInfo(info: InfoDTO, type: "county" | "autarky") {
+        if (type === "county") setCounty({ ...county, info });
+        if (type === "autarky") setAutarky({ ...autarky, info });
     }
 
-    function handleContact(contact: ContactDTO, kind: string) {
-        if (kind == "county") setCounty({ ...county, contact });
-        if (kind == "autarky") setAutarky({ ...autarky, contact });
+    function handleContact(contact: ContactDTO, type: "county" | "autarky") {
+        if (type === "county") setCounty({ ...county, contact });
+        if (type === "autarky") setAutarky({ ...autarky, contact });
     }
 
     async function registerAccount(account: CountyManagerDTO) {
-        const response = await fetch("api/counties/manager", {
+        console.log("ACCOUNT");
+        console.log(account);
+
+        const response = await fetch("../api/counties/manager", {
             method: "POST",
             body: JSON.stringify(account),
         });
+        
         const data = await response.json();
         setCounty({ name: account.name, _id: data.county_id });
         setAutarky({
@@ -63,6 +64,7 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
             _id: data.county_id,
             county_id: county._id,
         });
+        console.log(data);
         // setCounty({ name: account.name, _id: "637e7572a43d43b46f0cd180" });
     }
 
@@ -82,32 +84,32 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
 
     const [disableds, setDisableds] = useState<boolean[]>([true, true, true, true, true, true, true]);
     const [state, setState] = useState("");
-    console.log(state);
+    const [contact, setContact] = useState("");
 
     return (
         <>
             <CapTitle base="county" label={"countyRegistration"} />
             <CapTabs
-                activeKey={activeTab.toString()}
+                activeKey={currentTab.toString()}
                 disabled={disableds}
                 stagesIcons={[
                     "RiAccountPinCircleFill",
                     "FaCity",
-                    "RiGovernmentFill",
+                    "HiOfficeBuilding",
                     "RiAccountPinCircleFill",
                     "RiGovernmentFill",
-                    "ImUserTie",
+                    "HiOfficeBuilding",
                     "RiCheckboxCircleFill",
                 ]}
-                stagesIconsTypes={["ri", "fa", "ri", "ri", "ri", "im", "ri"]}
+                stagesIconsTypes={["ri", "fa", "hi", "ri", "ri", "hi", "ri"]}
                 stagesBody={[
                     // 0. County Manager Registration
                     <>
                         <Account
-                            handleAccount={handleAccount}
-                            kind={"county"}
-                            setActiveTab={setActiveTab}
-                            setCounty={setCountyManager}
+                            type="county"
+                            setCurrentStep={setCurrentTab}
+                            setInstitutionAccount={setCountyManager}
+                            registerAccount={registerAccount}
                         />
                     </>,
                     // 1. County Info
@@ -115,8 +117,7 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                         <Info
                             handleInfo={handleInfo}
                             kind={"county"}
-                            language={"pt"}
-                            setActiveTab={setActiveTab}
+                            setActiveTab={setCurrentTab}
                             setState={setState}
                         />
                         {/* <CapBtn kind="next" click={() => setActiveTab(2)} /> */}
@@ -126,26 +127,28 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                         <Contact
                             handleContact={handleContact}
                             kind={"county"}
-                            language={"pt"}
+                            setActiveTab={setCurrentTab}
+                            setCounty={setContact}
                         />
-                        <CapBtn
+                        {/* <CapBtn
                             kind="next"
                             click={() => {
                                 registerCounty(county, county._id);
                                 if (hasAutarky) setActiveTab(3);
                                 else setActiveTab(6);
                             }}
-                        />
+                        /> */}
                     </>,
                     // 3. Autarky Manager Registration
                     <>
                         <Account
-                            handleAccount={handleAccount}
-                            kind={"autarky"}
-                            language={"pt"}
+                            type={"autarky"}
+                            setCurrentStep={setCurrentTab}
+                            setInstitutionAccount={setAutarkyManager}
+                            registerAccount={registerAccount}
                         />
                         {/* <p>{translations("additionalDataQuestion", language)}</p> */}
-                        <Row>
+                        {/* <Row>
                             <Col md="auto" className="!pl-0 !pr-3">
                                 <CapBtn
                                     kind="send"
@@ -172,7 +175,7 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                                     }}
                                 />
                             </Col>
-                        </Row>
+                        </Row> */}
                     </>,
                     // 4. Autarky Info
                     <>
@@ -180,8 +183,9 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                             handleInfo={handleInfo}
                             kind={"autarky"}
                             language={"pt"}
+                            setActiveTab={setCurrentTab}
                         />
-                        <CapBtn kind="next" click={() => setActiveTab(5)} />
+                        {/* <CapBtn kind="next" click={() => setActiveTab(5)} /> */}
                     </>,
                     // 5. Autarky Contact
                     <>
@@ -189,8 +193,10 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                             handleContact={handleContact}
                             kind={"autarky"}
                             language={"pt"}
+                            setActiveTab={setCurrentTab}
+                            setCounty={setContact}
                         />
-                        <CapBtn
+                        {/* <CapBtn
                             kind="next"
                             click={() => {
                                 registerCounty(
@@ -202,7 +208,7 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                                 );
                                 setActiveTab(6);
                             }}
-                        />
+                        /> */}
                     </>,
                     // 6. Account Created
                     <>{IconsByName("ri", "RiCheckboxCircleFill", "96px")}
