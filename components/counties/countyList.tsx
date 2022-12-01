@@ -15,6 +15,9 @@ export default function CountyList(
   } /* { language }: { language: "en" | "es" | "pt" } */
 ) {
   const [searchCounty, setSearchCounty] = useState("");
+  const onlyCounties = counties.filter((county) => (typeof(county.county_id) === undefined || county.county_id == null));
+  console.log(counties);
+  console.log(onlyCounties);
 
   return (
     <>
@@ -23,9 +26,9 @@ export default function CountyList(
         <div className="mb-6"></div>
         <CapInputGroup search={searchCounty} setSearch={setSearchCounty} />
         <CapTable
-          data={counties}
+          data={onlyCounties}
           headers={["countyName", "responsible"]}
-          columns={["county.name", "accountable.name"]}
+          columns={["name", "contact.speakTo"]}
           numeral={true}
           buttonsColumns={["view", "edit", "remove", "users"]}
           buttonsPaths={[
@@ -35,7 +38,7 @@ export default function CountyList(
             "/counties/",
           ]}
           search={searchCounty}
-          searchPath={"county.name"}
+          searchPath={"name"}
         />
       </Container>
     </>
