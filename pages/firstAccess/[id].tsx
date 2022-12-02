@@ -17,7 +17,9 @@ export default function FirstAccess() {
   const { id } = router.query;
 
   async function redirectToLogin() {
-    router.push("/login");
+    setTimeout(function () {
+      router.push("/login");
+    }, 3000);
   }
 
   async function checkManagerActive() {
@@ -61,7 +63,7 @@ export default function FirstAccess() {
     <>
       {loading ? (
         <Spinner animation={"border"} />
-      ) : active ? (
+      ) : !active ? (
         <div className="flex relative font-[Jost] bg-white text-black shadow-md px-2 pt-1 pb-1 ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5">
           {translations("managerActive", "pt")}
         </div>
