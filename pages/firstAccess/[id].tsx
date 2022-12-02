@@ -25,14 +25,13 @@ export default function FirstAccess() {
   async function checkManagerActive() {
     const response = await fetch(`/api/counties/manager/${id}/confirm`, {
       method: "POST",
-      body: "",
     }).finally(() => {
       setLoading(false);
     });
 
     active = await response.json();
 
-    if (!active) {
+    if (active) {
       redirectToLogin();
     }
   }
@@ -58,13 +57,13 @@ export default function FirstAccess() {
     }
   }
 
-  checkManagerActive();
+  if (id) checkManagerActive();
 
   return (
     <>
       {loading ? (
         <Spinner animation={"border"} />
-      ) : !active ? (
+      ) : active ? (
         <div className="flex relative font-[Jost] bg-white text-black shadow-md px-2 pt-1 pb-1 ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5">
           {translations("managerActive", "pt")}
         </div>

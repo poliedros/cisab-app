@@ -6,11 +6,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<boolean>) {
     const response = await fetch(
       process.env.API_URL + `/counties/manager/${req.query.id}/confirm`,
       {
-        headers: {
-          "Content-Type": "application/json",
-        },
         method: "POST",
-        body: req.body,
       }
     );
     const data = (await response.json()) as boolean;
