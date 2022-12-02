@@ -17,9 +17,7 @@ export default function FirstAccess() {
   const { id } = router.query;
 
   async function redirectToLogin() {
-    setTimeout(function () {
-      router.push("/login");
-    }, 3000);
+    router.push("/login");
   }
 
   async function checkManagerActive() {
