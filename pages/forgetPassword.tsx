@@ -16,7 +16,6 @@ export default function Login() {
   async function handleButton() {
     setLoading(true);
     setErrorMessage(false);
-
     const data = await fetch("/api/forgetPassword", {
       method: "POST",
       body: JSON.stringify({ email }),

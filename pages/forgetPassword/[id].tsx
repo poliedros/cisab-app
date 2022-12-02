@@ -23,7 +23,7 @@ export default function ForgetPassword() {
   }
 
   async function checkLinkAlreadyUsed() {
-    const response = await fetch(`/api/forget-password/${id}/confirm`, {
+    const response = await fetch(`/api/forgetPassword/${id}/confirm`, {
       method: "POST",
     }).finally(() => {
       setLoading(false);

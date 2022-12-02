@@ -2,15 +2,17 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 async function handler(req: NextApiRequest, res: NextApiResponse<boolean>) {
-  console.log(req.body);
   if (req.method === "POST") {
-    const response = await fetch(process.env.API_URL + "/forget-password/", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: req.body,
-    });
+    const response = await fetch(
+      process.env.API_URL + `/forget-password/${req.query.id}/confirm`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: req.body,
+      }
+    );
     const data = (await response.json()) as boolean;
     res.status(response.status).json(data);
     return;
