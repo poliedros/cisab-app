@@ -12,7 +12,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
   );
   const data = await response.json();
-  const countyList = data.map((county) => {
+  const countyList = data.map((county: any) => {
     return {
       id: county.id,
       name: county.nome,
