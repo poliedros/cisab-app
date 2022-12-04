@@ -1,356 +1,356 @@
 {
-    "home": {
-        "pt": "Início"
-    },
-    "enter": {
-        "pt": "Entrar"
-    },
-    "close": {
-        "pt": "Fechar"
-    },
-    "remove": {
-        "pt": "Remover"
-    },
-    "next": {
-        "pt": "Próximo"
-    },
-    "loginError": {
-        "pt": "Erro ao logar, nome de usuário e senha incorretos. Tente novamente."
-    },
-    "editedCounty": {
-        "pt": "Município Editado e Salvo Corretamente."
-    },
-    "editedCountyFault": {
-        "pt": "Falha ao Editar o Município. Tente novamente."
-    },
-    "countyRegistration": {
-        "pt": "Cadastro de Município"
-    },
-    "createCounty": {
-        "pt": "Criar Município"
-    },
-    "editCounty": {
-        "pt": "Alterar Dados do Município"
-    },
-    "listCounties": {
-        "pt": "Lista de Municípios"
-    },
-    "contact": {
-        "pt": "Contato"
-    },
-    "county": {
-        "pt": "Município"
-    },
-    "counties": {
-        "pt": "Municípios"
-    },
-    "countyCreated": {
-        "pt": "Município Criado com Sucesso."
-    },
-    "countyFaulty": {
-        "pt": "Município não foi Criado, tente novamente."
-    },
-    "countyList": {
-        "pt": "Lista de Município Consorciados"
-    },
-    "searchCountyByName": {
-        "pt": "Buscar Município por Nome"
-    },
-    "countyContact": {
-        "pt": "Dados de Contato com o Município"
-    },
-    "numberAbbreviation":{
-        "pt": "Nº"
-    },
-    "countyName":{
-        "pt": "Nome do Município"
-    },
-    "insertCountyName": {
-        "pt": "Insira o Nome do Município"
-    },
-    "countyData": {
-        "pt": "Informações sobre o Município"
-    },
-    "name": {
-        "pt": "Nome"
-    },
-    "insertName": {
-        "pt": "Insira o Nome"
-    },
-    "insertPassword": {
-        "pt": "Insira Senha"
-    },
-    "account": {
-        "pt": "Conta"
-    },
-    "address": {
-        "pt": "Endereço"
-    },
-    "insertAddress": {
-        "pt": "Insira o Endereço"
-    },
-    "state": {
-        "pt": "Estado"
-    },
-    "chooseState": {
-        "pt": "Escolha o Estado"
-    },
-    "email": {
-        "pt": "E-mail"
-    },
-    "insertEmail": {
-        "pt": "Insira o E-mail"
-    },
-    "zipCode": {
-        "pt": "Código Postal"
-    },
-    "insertZipCode": {
-        "pt": "Insira o Código Postal"
-    },
-    "phone": {
-        "pt": "Telefone"
-    },
-    "insertPhone": {
-        "pt": "Insira o Telefone"
-    },
-    "contactWith": {
-        "pt": "Falar com:"
-    },
-    "insertNameContact":{
-        "pt": "Insira o nome do contato"
-    },
-    "site": {
-        "pt": "Website"
-    },
-    "insertSite": {
-        "pt": "Insira o Website"
-    },
-    "socialMedias": {
-        "pt": "Redes Sociais"
-    },
-    "insertSocialMedias": {
-        "pt": "Insira as Redes Sociais"
-    },
-    "job": {
-        "pt": "Cargo"
-    },
-    "insertJob": {
-        "pt": "Insira o Cargo"
-    },
-    "mayor": {
-        "pt": "Prefeito(a)"
-    },
-    "insertMayor": {
-        "pt": "Insira Nome do Prefeito(a)"
-    },
-    "population": {
-        "pt": "População"
-    },
-    "insertPopulation": {
-        "pt": "Insira a População"
-    },
-    "flag": {
-        "pt": "Bandeira"
-    },
-    "insertFlag":{
-        "pt": "Insira a Bandeira"
-    },
-    "note": {
-        "pt": "Notas"
-    },
-    "insertNote": {
-        "pt": "Insira Notas e Observações"
-    },
-    "countyAnniversary": {
-        "pt": "Aniversário da Cidade"
-    },
-    "insertAnniversary":{
-        "pt": "Insira o Aniversário da Cidade"
-    },
-    "countyDistanceToCisab": {
-        "pt": "Distância da CISAB (em Km)"
-    },
-    "insertCountyDistanceToCisab": {
-        "pt": "Insira a Distância"
-    },
-    "countyAccount": {
-        "pt": "Conta do Diretor da Prefeitura"
-    },
-    "insertCountyAccount": {
-        "pt": "Insira Nome da Conta"
-    },
-    "countyPassword": {
-        "pt": "Senha"
-    },
-    "insertCountyPassword": {
-        "pt": "Insira Senha"
-    },
-    "countyConfirmPassword": {
-        "pt": "Confirmação de Senha"
-    },
-    "insertCountyConfirmPassword": {
-        "pt": "Insira Senha Novamente"
-    },
-    "responsible": {
-        "pt": "Responsável"
-    },
-    "responsiblePhone": {
-        "pt": "Telefone do Responsável"
-    },
-    "responsibleEmail": {
-        "pt": "E-mail do Responsável"
-    },
-    "insertResponsibleEmail": {
-        "pt": "Insira o E-mail do Responsável"
-    },
-    "responsibleSocialMedia": {
-        "pt": "Redes Sociais do Responsável"
-    },
-    "countyCityName": {
-        "pt": "Nome do Município"
-    },
-    "insertCountyCityName": {
-        "pt": "Insira o Nome do Município"
-    },
-    "countryAddress": {
-        "pt": "Endereço da Prefeitura"
-    },
-    "countryZipCode": {
-        "pt": "Código Postal"
-    },
-    "countyPhone": {
-        "pt": "Telefone da Prefeitura"
-    },
-    "countyEmail": {
-        "pt": "E-mail da Prefeitura"
-    },
-    "countySite": {
-        "pt": "Website da Prefeitura"
-    },
-    "countySocialMedia": {
-        "pt": "Redes Sociais da Prefeitura"
-    },
-    "login": {
-        "pt": "Logar"
-    },
-    "signup": {
-        "pt": "Cadastrar"
-    },
-    "signin": {
-        "pt": "Acessar"
-    },
-    "resetPassword": {
-        "pt": "Esqueci minha senha"
-    },
-    "password": {
-        "pt": "Senha"
-    },
-    "submit": {
-        "pt": "Enviar"
-    },
-    "unit": {
-        "pt": "Unidade"
-    },
-    "units": {
-        "pt": "Unidades"
-    },
-    "measure": {
-        "pt": "Medida"
-    },
-    "insertUnit": {
-        "pt": "Insira a quantidade"
-    },
-    "insertMeasure": {
-        "pt": "Insira a Medida"
-    },
-    "selectScale": {
-        "pt": "Selecione Escala"
-    },
-    "addProduct": {
-        "pt": "Adicionar um novo Produto"
-    },
-    "productName": {
-        "pt": "Nome do Produto"
-    },
-    "insertProductName": {
-        "pt": "Insera o Nome do Produto"
-    },
-    "image": {
-        "pt": "Imagem"
-    },
-    "upload": {
-        "pt": "Enviar"
-    },
-    "emptyText": {
-        "pt": "Texto Vazio"
-    },
-    "userList": {
-        "pt": "Lista de Usuários do Município"
-    },
-    "userName": {
-        "pt": "Nome do Usuário"
-    },
-    "searchUserByName": {
-        "pt": "Buscar Usuário por Nome"
-    },
-    "addUser": {
-        "pt": "Adicionar Usuário"
-    },
-    "exampleProductName": {
-        "pt": "Ex.: Cano de PVC"
-    },
-    "exampleMeasure": {
-        "pt": "Ex.: Comprimento"
-    },
-    "documentation": {
-        "pt": "Documentação"
-    },
-    "diagrams": {
-        "pt": "Diagramas"
-    },
-    "yes": {
-        "pt": "Sim"
-    },
-    "no": {
-        "pt": "Não"
-    },
-    "additionalDataQuestion": {
-        "pt": "Deseja preencher mais dados?"
-    },
-    "autarkyQuestion": {
-        "pt": "Tem autarquia?"
-    },
-    "accountCreated":{
-        "pt": "Conta(s) criada(s) com sucesso. Um email foi enviado para:"
-    },
-    "forwardToAccountable":{
-        "pt": "Enviar ao Responsável"
-    },
-    "forwardItToAccountable":{
-        "pt": "Enviar essa e Inserir uma Nova"
-    },
-    "forwardToAccountableGoToAutarky":{
-        "pt": "Enviar e Ir à Autarquias"
-    },
-    "continueFillingOut":{
-        "pt": "Seguir Preenchendo"
-    },
-    "autarky":{
-        "pt": "Autarquia"
-    },
-    "autarkyName":{
-        "pt": "Nome da Autarquia"
-    },
-    "insertAutarkyName":{
-        "pt": "Insira o Nome da Autarquia"
-    },
-    "insertAutarky":{
-        "pt": "Inserir Autarquia"
-    },
-    "insertNewAutarky":{
-        "pt": "Inserir uma Nova Autarquia"
-    },
-    "finalize":{
-        "pt": "Finalizar"
-    }
+  "home": {
+    "pt": "Início"
+  },
+  "enter": {
+    "pt": "Entrar"
+  },
+  "close": {
+    "pt": "Fechar"
+  },
+  "remove": {
+    "pt": "Remover"
+  },
+  "next": {
+    "pt": "Próximo"
+  },
+  "loginError": {
+    "pt": "Erro ao logar, nome de usuário e senha incorretos. Tente novamente."
+  },
+  "editedCounty": {
+    "pt": "Município Editado e Salvo Corretamente."
+  },
+  "editedCountyFault": {
+    "pt": "Falha ao Editar o Município. Tente novamente."
+  },
+  "countyRegistration": {
+    "pt": "Cadastro de Município"
+  },
+  "createCounty": {
+    "pt": "Criar Município"
+  },
+  "editCounty": {
+    "pt": "Alterar Dados do Município"
+  },
+  "listCounties": {
+    "pt": "Lista de Municípios"
+  },
+  "contact": {
+    "pt": "Contato"
+  },
+  "county": {
+    "pt": "Município"
+  },
+  "counties": {
+    "pt": "Municípios"
+  },
+  "countyCreated": {
+    "pt": "Município Criado com Sucesso."
+  },
+  "countyFaulty": {
+    "pt": "Município não foi Criado, tente novamente."
+  },
+  "countyList": {
+    "pt": "Lista de Município Consorciados"
+  },
+  "searchCountyByName": {
+    "pt": "Buscar Município por Nome"
+  },
+  "countyContact": {
+    "pt": "Dados de Contato com o Município"
+  },
+  "numberAbbreviation": {
+    "pt": "Nº"
+  },
+  "countyName": {
+    "pt": "Nome do Município"
+  },
+  "insertCountyName": {
+    "pt": "Insira o Nome do Município"
+  },
+  "countyData": {
+    "pt": "Informações sobre o Município"
+  },
+  "name": {
+    "pt": "Nome"
+  },
+  "insertName": {
+    "pt": "Insira o Nome"
+  },
+  "insertPassword": {
+    "pt": "Insira Senha"
+  },
+  "account": {
+    "pt": "Conta"
+  },
+  "address": {
+    "pt": "Endereço"
+  },
+  "insertAddress": {
+    "pt": "Insira o Endereço"
+  },
+  "state": {
+    "pt": "Estado"
+  },
+  "chooseState": {
+    "pt": "Escolha o Estado"
+  },
+  "email": {
+    "pt": "E-mail"
+  },
+  "insertEmail": {
+    "pt": "Insira o E-mail"
+  },
+  "zipCode": {
+    "pt": "Código Postal"
+  },
+  "insertZipCode": {
+    "pt": "Insira o Código Postal"
+  },
+  "phone": {
+    "pt": "Telefone"
+  },
+  "insertPhone": {
+    "pt": "Insira o Telefone"
+  },
+  "contactWith": {
+    "pt": "Falar com:"
+  },
+  "insertNameContact": {
+    "pt": "Insira o nome do contato"
+  },
+  "site": {
+    "pt": "Website"
+  },
+  "insertSite": {
+    "pt": "Insira o Website"
+  },
+  "socialMedias": {
+    "pt": "Redes Sociais"
+  },
+  "insertSocialMedias": {
+    "pt": "Insira as Redes Sociais"
+  },
+  "job": {
+    "pt": "Cargo"
+  },
+  "insertJob": {
+    "pt": "Insira o Cargo"
+  },
+  "mayor": {
+    "pt": "Prefeito(a)"
+  },
+  "insertMayor": {
+    "pt": "Insira Nome do Prefeito(a)"
+  },
+  "population": {
+    "pt": "População"
+  },
+  "insertPopulation": {
+    "pt": "Insira a População"
+  },
+  "flag": {
+    "pt": "Bandeira"
+  },
+  "insertFlag": {
+    "pt": "Insira a Bandeira"
+  },
+  "note": {
+    "pt": "Notas"
+  },
+  "insertNote": {
+    "pt": "Insira Notas e Observações"
+  },
+  "countyAnniversary": {
+    "pt": "Aniversário da Cidade"
+  },
+  "insertAnniversary": {
+    "pt": "Insira o Aniversário da Cidade"
+  },
+  "countyDistanceToCisab": {
+    "pt": "Distância da CISAB (em Km)"
+  },
+  "insertCountyDistanceToCisab": {
+    "pt": "Insira a Distância"
+  },
+  "countyAccount": {
+    "pt": "Conta do Diretor da Prefeitura"
+  },
+  "insertCountyAccount": {
+    "pt": "Insira Nome da Conta"
+  },
+  "countyPassword": {
+    "pt": "Senha"
+  },
+  "insertCountyPassword": {
+    "pt": "Insira Senha"
+  },
+  "countyConfirmPassword": {
+    "pt": "Confirmação de Senha"
+  },
+  "insertCountyConfirmPassword": {
+    "pt": "Insira Senha Novamente"
+  },
+  "responsible": {
+    "pt": "Responsável"
+  },
+  "responsiblePhone": {
+    "pt": "Telefone do Responsável"
+  },
+  "responsibleEmail": {
+    "pt": "E-mail do Responsável"
+  },
+  "insertResponsibleEmail": {
+    "pt": "Insira o E-mail do Responsável"
+  },
+  "responsibleSocialMedia": {
+    "pt": "Redes Sociais do Responsável"
+  },
+  "countyCityName": {
+    "pt": "Nome do Município"
+  },
+  "insertCountyCityName": {
+    "pt": "Insira o Nome do Município"
+  },
+  "countryAddress": {
+    "pt": "Endereço da Prefeitura"
+  },
+  "countryZipCode": {
+    "pt": "Código Postal"
+  },
+  "countyPhone": {
+    "pt": "Telefone da Prefeitura"
+  },
+  "countyEmail": {
+    "pt": "E-mail da Prefeitura"
+  },
+  "countySite": {
+    "pt": "Website da Prefeitura"
+  },
+  "countySocialMedia": {
+    "pt": "Redes Sociais da Prefeitura"
+  },
+  "login": {
+    "pt": "Logar"
+  },
+  "signup": {
+    "pt": "Cadastrar"
+  },
+  "signin": {
+    "pt": "Acessar"
+  },
+  "resetPassword": {
+    "pt": "Esqueci minha senha"
+  },
+  "password": {
+    "pt": "Senha"
+  },
+  "submit": {
+    "pt": "Enviar"
+  },
+  "unit": {
+    "pt": "Unidade"
+  },
+  "units": {
+    "pt": "Unidades"
+  },
+  "measure": {
+    "pt": "Medida"
+  },
+  "insertUnit": {
+    "pt": "Insira a quantidade"
+  },
+  "insertMeasure": {
+    "pt": "Insira a Medida"
+  },
+  "selectScale": {
+    "pt": "Selecione Escala"
+  },
+  "addProduct": {
+    "pt": "Adicionar um novo Produto"
+  },
+  "productName": {
+    "pt": "Nome do Produto"
+  },
+  "insertProductName": {
+    "pt": "Insera o Nome do Produto"
+  },
+  "image": {
+    "pt": "Imagem"
+  },
+  "upload": {
+    "pt": "Enviar"
+  },
+  "emptyText": {
+    "pt": "Texto Vazio"
+  },
+  "userList": {
+    "pt": "Lista de Usuários do Município"
+  },
+  "userName": {
+    "pt": "Nome do Usuário"
+  },
+  "searchUserByName": {
+    "pt": "Buscar Usuário por Nome"
+  },
+  "addUser": {
+    "pt": "Adicionar Usuário"
+  },
+  "exampleProductName": {
+    "pt": "Ex.: Cano de PVC"
+  },
+  "exampleMeasure": {
+    "pt": "Ex.: Comprimento"
+  },
+  "documentation": {
+    "pt": "Documentação"
+  },
+  "diagrams": {
+    "pt": "Diagramas"
+  },
+  "yes": {
+    "pt": "Sim"
+  },
+  "no": {
+    "pt": "Não"
+  },
+  "additionalDataQuestion": {
+    "pt": "Deseja preencher mais dados?"
+  },
+  "autarkyQuestion": {
+    "pt": "Tem autarquia?"
+  },
+  "accountCreated": {
+    "pt": "Conta(s) criada(s) com sucesso. Um email foi enviado para:"
+  },
+  "forwardToAccountable": {
+    "pt": "Enviar ao Responsável"
+  },
+  "forwardItToAccountable": {
+    "pt": "Enviar essa e Inserir uma Nova"
+  },
+  "forwardToAccountableGoToAutarky": {
+    "pt": "Enviar e Preencher Autarquia"
+  },
+  "continueFillingOut": {
+    "pt": "Seguir Preenchendo"
+  },
+  "autarky": {
+    "pt": "Autarquia"
+  },
+  "autarkyName": {
+    "pt": "Nome da Autarquia"
+  },
+  "insertAutarkyName": {
+    "pt": "Insira o Nome da Autarquia"
+  },
+  "insertAutarky": {
+    "pt": "Inserir Autarquia"
+  },
+  "insertNewAutarky": {
+    "pt": "Inserir uma Nova Autarquia"
+  },
+  "finalize": {
+    "pt": "Finalizar"
+  }
 }
