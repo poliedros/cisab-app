@@ -5,9 +5,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   const response = await fetch(
     `https://servicodados.ibge.gov.br/api/v3/agregados/793/variaveis?localidades=N6[${req.query.id}]`,
     {
-      headers: {
-        "Content-Type": "application/json",
-      },
       method: "GET",
     }
   );

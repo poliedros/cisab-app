@@ -5,9 +5,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   const response = await fetch(
     "https://servicodados.ibge.gov.br/api/v1/localidades/estados/31/municipios",
     {
-      headers: {
-        "Content-Type": "application/json",
-      },
       method: "GET",
     }
   );
