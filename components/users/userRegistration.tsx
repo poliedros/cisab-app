@@ -1,15 +1,16 @@
 import CapForm from "atoms/capForm";
 import CapSubtitle from "atoms/capSubtitle";
+import { CountyUserDTO } from "pages/api/counties/[id]/users";
 import { useState } from "react";
 import { Row, Col } from "react-bootstrap";
 
 export default function UserRegistration({
   language = "pt",
-  county = undefined,
+  user = undefined,
   submit,
 }: {
   language: "pt";
-  county: undefined;
+  user: CountyUserDTO | undefined;
   submit: undefined;
 }) {
   const [countyUserAccount, setCountyUserAccount] = useState("");
@@ -31,7 +32,7 @@ export default function UserRegistration({
         <CapForm
           as={Col}
           label="countyPassword"
-          type={county ? "text" : "password"}
+          type={user ? "text" : "password"}
           placeholder="insertCountyPassword"
           value={countyUserPassword}
           change={(e: any) => setCountyUserPassword(e.target.value)}
@@ -39,7 +40,7 @@ export default function UserRegistration({
         <CapForm
           as={Col}
           label="countyConfirmPassword"
-          type={county ? "text" : "password"}
+          type={user ? "text" : "password"}
           placeholder="insertCountyConfirmPassword"
           value={countyUserConfirmPassword}
           change={(e: any) => setCountyUserConfirmPassword(e.target.value)}

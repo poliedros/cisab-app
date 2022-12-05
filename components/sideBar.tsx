@@ -152,6 +152,14 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
           </div>
         </OverlayTrigger>
         &nbsp;
+        <CapIconButton
+          iconType="fa"
+          icon="FaUserFriends"
+          size="24px"
+          route="/counties/6363c2f363e9deb5a8e1c672/users" // TODO: Substituir para pegar do municipio logado
+          hoverColor="#7dc523"
+        />
+        &nbsp;
         <CapIconButton iconType="io5" icon="IoLogOut" click={logout} />
       </div>
     </>

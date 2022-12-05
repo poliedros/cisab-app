@@ -349,6 +349,18 @@
     },
     "recoverPasswordError": {
         "pt": "Email incorreto, tente novamente."
+    },
+    "editedUser": {
+        "pt": "Usuário Editado e Salvo Corretamente."
+    },
+    "editedUserFault": {
+        "pt": "Falha ao Editar o Usuário. Tente novamente."
+    },
+    "editUser": {
+        "pt": "Alterar Dados do Usuário"
+    },
+    "surname": {
+        "pt": "Sobrenome"
     }
    
 }
