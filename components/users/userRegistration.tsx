@@ -24,8 +24,8 @@ export default function UserRegistration({
       <Row className="mb-3">
         <CapForm
           as={Col}
-          label="countyAccount"
-          placeholder="insertCountyAccount"
+          label="email"
+          placeholder="insertEmail"
           value={countyUserAccount}
           change={(e: any) => setCountyUserAccount(e.target.value)}
         />

@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import { useState } from "react";
 import CapMessageBottom from "atoms/capMessageBottom";
-import UserRegistration from "components/users/userRegistration";
 import { CountyUserDTO } from "pages/api/counties/[id]/users";
 import UserProfile from "components/users/userProfile";
 
