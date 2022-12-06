@@ -38,11 +38,11 @@ export default function Create() {
 
   return (
     <>
-      <UserRegistration
+      {/* <UserRegistration
         language={"pt"}
         user={undefined}
         submit={saveCountyUser}
-      />
+      /> */}
       {/*<>{error}</>*/}
       <div className="flex justify-center">
         {errorMessage ? (

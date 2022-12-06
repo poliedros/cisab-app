@@ -8,22 +8,25 @@ export type CountyUserDTO = {
   email: string;
   name: string;
   surname: string;
+  password?: string;
   properties: {
     // county_id: string;
+    profession?: string;
   };
 };
 
 async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<CountyUserDTO[]>
+  res: NextApiResponse<CountyUserDTO | CountyUserDTO[]>
 ) {
   const user = req.session.user;
   if (!user) {
-    res.status(401).json({} as CountyUserDTO[]);
+    res.status(401).json({} as CountyUserDTO);
     return;
   }
 
-  if (req.method === "POST") {
+  if (req.method === "POST" || req.method === "PUT") {
+    console.log(req.body);
     const response = await fetch(
       process.env.API_URL + `/counties/${req.query.id}/users`,
       {
@@ -31,12 +34,12 @@ async function handler(
           Authorization: "Bearer " + user.token,
           "Content-Type": "application/json",
         },
-        method: "POST",
+        method: req.method,
         body: req.body,
       }
     );
-    const data = (await response.json()) as CountyUserDTO[];
-    res.status(200).json(data);
+    const data = (await response.json()) as CountyUserDTO;
+    res.status(response.status).json(data);
     return;
   }
 

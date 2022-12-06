@@ -361,6 +361,9 @@
     },
     "surname": {
         "pt": "Sobrenome"
+    },
+    "insertSurname": {
+        "pt": "Insira o Sobrenome"
     }
    
 }
