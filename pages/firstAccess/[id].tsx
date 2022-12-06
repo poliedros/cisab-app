@@ -25,14 +25,13 @@ export default function FirstAccess() {
   async function checkManagerActive() {
     const response = await fetch(`/api/counties/manager/${id}/confirm`, {
       method: "POST",
-      body: "",
     }).finally(() => {
       setLoading(false);
     });
 
     active = await response.json();
 
-    if (!active) {
+    if (active) {
       redirectToLogin();
     }
   }
@@ -58,7 +57,7 @@ export default function FirstAccess() {
     }
   }
 
-  checkManagerActive();
+  if (id) checkManagerActive();
 
   return (
     <>
