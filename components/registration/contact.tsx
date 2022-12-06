@@ -65,7 +65,7 @@ export default function Contact({
   return (
     <>
       {/* <CapSubtitle label="countyContact" /> */}
-      <Row className="mb-3">
+      <Row>
         <CapForm
           as={Col}
           xs={8}

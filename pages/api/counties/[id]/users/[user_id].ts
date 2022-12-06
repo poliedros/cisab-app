@@ -8,38 +8,18 @@ export type CountyUserDTO = {
   email: string;
   name: string;
   surname: string;
-  password?: string;
   properties: {
     // county_id: string;
-    profession?: string;
   };
 };
 
 async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<CountyUserDTO | CountyUserDTO[]>
+  res: NextApiResponse<CountyUserDTO>
 ) {
   const user = req.session.user;
   if (!user) {
     res.status(401).json({} as CountyUserDTO);
-    return;
-  }
-
-  if (req.method === "POST" || req.method === "PUT") {
-    console.log(req.body);
-    const response = await fetch(
-      process.env.API_URL + `/counties/${req.query.id}/users`,
-      {
-        headers: {
-          Authorization: "Bearer " + user.token,
-          "Content-Type": "application/json",
-        },
-        method: req.method,
-        body: req.body,
-      }
-    );
-    const data = (await response.json()) as CountyUserDTO;
-    res.status(response.status).json(data);
     return;
   }
 
@@ -50,8 +30,10 @@ async function handler(
     }
   );
   const data = (await response.json()) as CountyUserDTO[];
-
-  res.status(200).json(data);
+  const countyUser = data.find((elem) => {
+    return elem._id == req.query.user_id;
+  });
+  if (countyUser) res.status(response.status).json(countyUser);
 }
 
 export default withIronSessionApiRoute(handler, sessionOptions);
