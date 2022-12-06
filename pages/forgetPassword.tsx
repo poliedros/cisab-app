@@ -21,12 +21,11 @@ export default function Login() {
       body: JSON.stringify({ email }),
     }).finally(() => setLoading(false));
 
-    if (data.status !== 200) {
+    if (data.status !== 201) {
       setErrorMessage(true);
       return;
     }
 
-    const user = await data.json();
     setSuccessMessage(true);
   }
 

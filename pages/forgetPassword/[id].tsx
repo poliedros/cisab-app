@@ -8,10 +8,11 @@ import { Spinner } from "react-bootstrap";
 
 export default function ForgetPassword() {
   const [loading, setLoading] = useState(false);
+  const [active, setActive] = useState(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
   const language = "pt";
-  let active = false;
+  //let active = false;
 
   const router = useRouter();
   const { id } = router.query;
@@ -28,12 +29,10 @@ export default function ForgetPassword() {
     }).finally(() => {
       setLoading(false);
     });
-
-    active = await response.json();
-
-    if (active) {
-      redirectToLogin();
-    }
+    if (response.status === 200) setActive(true); //active = true;
+    // if (!active) {
+    //   redirectToLogin();
+    // }
   }
 
   async function registerPassword(password: string) {
@@ -45,12 +44,10 @@ export default function ForgetPassword() {
       body: JSON.stringify({ password }),
     });
 
-    if (response.status !== 200) {
+    if (response.status !== 201) {
       setErrorMessage(true);
       return;
     }
-
-    const status = await response.json();
     setSuccessMessage(true);
     redirectToLogin();
   }
