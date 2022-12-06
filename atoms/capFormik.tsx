@@ -26,6 +26,8 @@ const CapFormik = ({
     options = [],
     inputGroupPrepend,
     children,
+    asControl = undefined,
+    rows = undefined,
     language = "pt",
 }: {
     kind?: "default" | "floating" | "select";
@@ -49,6 +51,8 @@ const CapFormik = ({
     options?: string[];
     inputGroupPrepend?: any;
     children?: any;
+    asControl?: any;
+    rows?: number;
     language?: "pt";
 }) => {
     return (
@@ -66,6 +70,8 @@ const CapFormik = ({
                             <Form.Control
                                 {...field}
                                 type={type}
+                                as={asControl}
+                                rows={rows}
                                 isValid={form.touched[field.name] && isValid}
                                 isInvalid={isInvalid}
                                 feedback={form.errors[field.name]}
@@ -86,7 +92,6 @@ const CapFormik = ({
                     </Form.Group>
                     ) : kind === "select" ? (
                         <Form.Group
-                            className="mb-3"
                             controlId={controlId}
                             placeholder={placeholder}
                             as={as}
@@ -105,6 +110,7 @@ const CapFormik = ({
                                 </div>
                                 </Form.Label>
                             ) : null}
+
                             <InputGroup>
                                 {inputGroupPrepend}
                                 <Form.Control
@@ -116,8 +122,16 @@ const CapFormik = ({
                                     as="select"
                                     className="!rounded-md"
                                     disabled={disabled}
+                                    value={["MG"]}
+                                    defaultValue={["MG"]}
                                 >
-                                    {children}
+                                    {options ? (
+                                        options.map((op: string, i: number) => (
+                                            <option key={i}>{op}</option>
+                                        ))
+                                        ) : (
+                                        <option>...</option>
+                                        )}
                                 </Form.Control>
                                 <Form.Control.Feedback type="invalid">
                                     {form.errors[field.name]}

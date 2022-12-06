@@ -33,7 +33,7 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
             iconType="fa"
             icon="FaCity"
             size="24px"
-            route="/counties/registration"
+            route="/registration"
             hoverColor="#7dc523"
             tooltip="createCounty"
           />
