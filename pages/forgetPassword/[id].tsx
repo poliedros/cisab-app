@@ -8,9 +8,11 @@ import { Spinner } from "react-bootstrap";
 
 export default function ForgetPassword() {
   const [loading, setLoading] = useState(false);
+  const [active, setActive] = useState(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
   const language = "pt";
+  //let active = false;
 
   const router = useRouter();
   const { id } = router.query;
@@ -19,6 +21,18 @@ export default function ForgetPassword() {
     setTimeout(function () {
       router.push("/login");
     }, 3000);
+  }
+
+  async function checkLinkAlreadyUsed() {
+    const response = await fetch(`/api/forgetPassword/${id}/confirm`, {
+      method: "POST",
+    }).finally(() => {
+      setLoading(false);
+    });
+    if (response.status === 200) setActive(true); //active = true;
+    // if (!active) {
+    //   redirectToLogin();
+    // }
   }
 
   async function registerPassword(password: string) {
@@ -30,20 +44,24 @@ export default function ForgetPassword() {
       body: JSON.stringify({ password }),
     });
 
-    if (response.status !== 200) {
+    if (response.status !== 201) {
       setErrorMessage(true);
       return;
     }
-
-    const status = await response.json();
     setSuccessMessage(true);
     redirectToLogin();
   }
+
+  if (id) checkLinkAlreadyUsed();
 
   return (
     <>
       {loading ? (
         <Spinner animation={"border"} />
+      ) : !active ? (
+        <div className="flex relative font-[Jost] bg-white text-black shadow-md px-2 pt-1 pb-1 ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5">
+          {translations("managerActive", "pt")}
+        </div>
       ) : (
         <div className="font-[Jost] h-screen flex items-center justify-center overflow-hidden flex-column">
           <div className="flex flex-column items-center">

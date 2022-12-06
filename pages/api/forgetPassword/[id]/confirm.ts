@@ -4,7 +4,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     const response = await fetch(
-      process.env.API_URL + `/forget-password/recovery/${req.query.id}`,
+      process.env.API_URL + `/forget-password/${req.query.id}/validate`,
       {
         headers: {
           "Content-Type": "application/json",
