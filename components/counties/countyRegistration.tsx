@@ -121,6 +121,36 @@ export default function CountyRegistration({
     }
   }, [county]); */
 
+  useEffect(() => {
+    if (county) {
+      //setCountyAccount(county?.account.user);
+      //setCountyPassword(county?.account.password);
+      //setCountyConfirmPassword(county?.account.password);
+      setCountyCityName(county.name);
+      //setCountyState(county?.county.state);
+      setCountyMayor(county.info ? county.info?.mayor : "");
+      setCountyPopulation(county.info ? county.info?.population : "");
+      //setCountyFlag(county?.county.flag);
+      setCountyAnniversary(county.info ? county.info?.anniversary.toString() : "");
+      setCountyDistanceToCisab(county.info ? county.info?.distanceToCisab : "");
+      setCountyNote(county.info ? county.info?.note : "");
+      setCountyAddress(county.contact ? county.contact?.address : "");
+      setCountyZipCode(county.contact ? county.contact?.zipCode : "");
+      setCountyPhone(county.contact ? county.contact?.phone : "");
+      setCountyContactWith(county.contact ? county.contact?.speakTo : "");
+      setCountyEmail(county.contact ? county.contact?.email : "");
+      setCountySocialMedias(county.contact ? county.contact?.socialMedias : "");
+      //setCountyName(county?.accountable.name);
+      //setCountyJob(county?.accountable.job);
+      //setCountyContactAddress(county?.accountable.address);
+      //setCountyContactZipCode(county?.accountable.zipCode);
+      //setCountyContactPhone(county?.accountable.phone);
+      //setCountyContactNote(county?.accountable.note);
+      //setCountyContactSocialMedias(county?.accountable.socialMedias);
+      //setCountyContactEmail(county?.accountable.email);
+    }
+  }, [county]);
+
   return (
     <>
       <Container className="font-['Jost']">
@@ -170,6 +200,7 @@ export default function CountyRegistration({
               label="state"
               optionsDefault={1}
               options={["ES", "MG", "RJ", "SP"]}
+              disabled={true}
               value={countyState}
               change={(e: any) => setCountyState(e.target.value)}
             />
@@ -284,7 +315,7 @@ export default function CountyRegistration({
               change={(e: any) => setCountySocialMedias(e.target.value)}
             />
           </Row>
-          <CapSubtitle label="contact" />
+          {/* <CapSubtitle label="contact" />
           <Row className="mb-3">
             <CapForm
               as={Col}
@@ -348,8 +379,8 @@ export default function CountyRegistration({
             placeholder="insertNote"
             value={countyContactNote}
             change={(e: any) => setCountyContactNote(e.target.value)}
-          />
-          <CapBtn kind="send" click={undefined} /> handleCounty
+          /> */}
+          <CapBtn kind="send" click={undefined} />
         </Form>
       </Container>
       <CountyImageModal
