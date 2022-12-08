@@ -8,7 +8,7 @@ export default function CapTitle({
   language = "pt",
   additional = undefined,
 }: {
-  base?: "none" | "county" | "list" | "product" | "doc" | "diagram" | "lab";
+  base?: "none" | "county" | "user" | "list" | "product" | "doc" | "diagram" | "lab";
   label?: string;
   literal?: string;
   language?: "pt";
@@ -17,6 +17,7 @@ export default function CapTitle({
   let iconItems = {
     none: "",
     county: IconsByName("fa", "FaCity", "32px"),
+    user: IconsByName("fa", "FaUserFriends", "32px"),
     list: IconsByName("fa", "FaThList", "32px"),
     product: IconsByName("gi", "GiCardboardBoxClosed", "32px"),
 
