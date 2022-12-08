@@ -83,6 +83,7 @@ export default function CapForm({
             as={asControl}
             rows={rows}
             xs={xs}
+            disabled={disabled}
           /> : <Form.Control
           type={type}
           placeholder={translations(placeholder, language)}
@@ -92,6 +93,7 @@ export default function CapForm({
           as={asControl}
           rows={rows}
           xs={xs}
+          disabled={disabled}
         /> }
           <Form.Text className="text-muted">
             {legend !== "emptyText" ? translations(legend, language) : null}
