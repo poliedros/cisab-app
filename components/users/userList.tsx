@@ -18,7 +18,7 @@ export default function UserList(
 
   return (
     <>
-      <Container>
+      <Container className="p-0">
         <CapTitle base="list" label="userList" />
         <div className="mb-6"></div>
         <CapInputGroup search={searchUser} setSearch={setSearchUser} />

@@ -21,7 +21,7 @@ export default function CountyList(
 
   return (
     <>
-      <Container>
+      <Container className="p-0">
         <CapTitle base="list" label="countyList" />
         <div className="mb-6"></div>
         <CapInputGroup search={searchCounty} setSearch={setSearchCounty} />

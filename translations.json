@@ -391,5 +391,14 @@
   },
   "insertSurname": {
     "pt": "Insira o Sobrenome"
+  },
+  "logout": {
+    "pt": "Sair"
+  },
+  "users": {
+    "pt": "Usuários"
+  },
+  "registerUser": {
+    "pt": "Registrar Usuário"
   }
 }
