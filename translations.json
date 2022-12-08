@@ -412,5 +412,14 @@
   },
   "noValue": {
     "pt": "Não Informado"
+  },
+  "logout": {
+    "pt": "Sair"
+  },
+  "users": {
+    "pt": "Usuários"
+  },
+  "registerUser": {
+    "pt": "Registrar Usuário"
   }
 }
