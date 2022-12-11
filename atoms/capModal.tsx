@@ -3,12 +3,13 @@ import Modal from "react-bootstrap/Modal";
 import translations from "../lib/translations";
 import CapBtn from "./capBtn";
 
+import { useLanguage, useLanguageUpdate } from "../context/languageContext";
+
 type ObjType = {
   show: any;
   handleClose: any;
   state: any;
   title: any;
-  language: string;
   text: string;
   yesNoButtons: boolean;
 };
@@ -35,10 +36,12 @@ export default function CapModal({
   handleClose,
   state,
   title,
-  language,
   text,
   yesNoButtons,
 }: ObjType) {
+  const language = useLanguage();
+  const toggleLanguage = useLanguageUpdate();
+
   return (
     <>
       <Modal

@@ -421,5 +421,14 @@
   },
   "registerUser": {
     "pt": "Registrar Usuário"
+  },
+  "settings": {
+    "pt": "Configurações"
+  },
+  "employees": {
+    "pt": "Funcionários"
+  },
+  "themes": {
+    "pt": "Temas"
   }
 }

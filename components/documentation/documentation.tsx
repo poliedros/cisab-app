@@ -3,11 +3,7 @@ import CapTitle from "atoms/capTitle";
 import IconsByName from "components/iconsByName";
 import { Accordion, Card, Col, Row } from "react-bootstrap";
 
-export default function Documentation({
-    language = "pt",
-}: {
-    language?: "pt";
-}) {
+export default function Documentation() {
     return (
         <>
             <CapTitle base="doc" label="documentation" />

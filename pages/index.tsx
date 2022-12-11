@@ -11,7 +11,7 @@ const Home: NextPage = () => {
     return <Spinner />;
   }
 
-  return <Start language={"pt"} />;
+  return <Start />;
 };
 
 export default Home;

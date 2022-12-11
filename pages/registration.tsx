@@ -131,7 +131,6 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
             <Account
               handleAccount={handleAccount}
               kind={"county"}
-              language={"pt"}
             />
             <Row>
               <Col md="auto" className="!pl-0 !pr-3">
@@ -181,7 +180,7 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
           </>,
           // 1. County Info
           <>
-            <Info handleInfo={handleInfo} kind={"county"} language={"pt"} />
+            <Info handleInfo={handleInfo} kind={"county"} />
             <CapBtn kind="next" click={() => setActiveTab(2)} />
           </>,
           // 2. County Contact
@@ -189,7 +188,6 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
             <Contact
               handleContact={handleContact}
               kind={"county"}
-              language={"pt"}
             />
             <Row>
               <Col md="auto" className="!pl-0 !pr-3">
@@ -221,7 +219,6 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
             <Account
               handleAccount={handleAccount}
               kind={"autarky"}
-              language={"pt"}
             />
             {/* <p>{translations("additionalDataQuestion", language)}</p> */}
             <Row>
@@ -266,7 +263,7 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
           </>,
           // 4. Autarky Info
           <>
-            <Info handleInfo={handleInfo} kind={"autarky"} language={"pt"} />
+            <Info handleInfo={handleInfo} kind={"autarky"}  />
             <CapBtn kind="next" click={() => setActiveTab(5)} />
           </>,
           // 5. Autarky Contact
@@ -274,7 +271,6 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
             <Contact
               handleContact={handleContact}
               kind={"autarky"}
-              language={"pt"}
             />
             <CapBtn
               label="finalize"

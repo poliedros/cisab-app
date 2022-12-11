@@ -1,10 +1,11 @@
 import IconsByName from "components/iconsByName";
 import translations from "../lib/translations";
 
+import { useLanguage, useLanguageUpdate } from "../context/languageContext";
+
 export default function CapLink({
     label = "emptyText",
     literal = undefined,
-    language = "pt",
     icon = undefined,
     iconType = undefined,
     iconColor = undefined,
@@ -13,13 +14,15 @@ export default function CapLink({
 }: {
     label?: string;
     literal?: string;
-    language?: "pt";
     icon?: string;
     iconType?: string;
     iconColor?: string;
     href: string;
     css?: string;
 }) {
+    const language = useLanguage();
+    const toggleLanguage = useLanguageUpdate();
+
     return (
         <>
             {icon && iconType ? (

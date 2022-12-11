@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { Button, OverlayTrigger, Popover } from "react-bootstrap";
-import IconsByName from "components/iconsByName";
+import { OverlayTrigger, Popover } from "react-bootstrap";
+
 import useUser from "lib/useUser";
 import { useRouter } from "next/router";
-import fetchJson from "lib/fetchJson";
-import CapIconButton from "atoms/capIconButton";
-import { GiCircularSawblade } from "react-icons/gi";
 
-export default function SideBar(/* { language }: { language: "en" | "es" | "pt" } */) {
+import fetchJson from "lib/fetchJson";
+
+import CapIconButton from "atoms/capIconButton";
+
+import { useTheme, useThemeUpdate } from "../context/themeContext";
+
+export default function SideBar() {
     const [side, setSide] = useState(false);
 
     const handleCloseSide = () => setSide(false);
@@ -26,10 +29,28 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
         router.push("/");
     };
 
+    const [iconBrightness, setIconBrightness] = useState("MdBrightness4");
+
+    const theme = useTheme();
+    const toggleTheme = useThemeUpdate();
+
+    const handleBrightness = () => {
+        if (theme === "light") {
+            //bgColor("dark");
+            toggleTheme("dark");
+            setIconBrightness("MdBrightness5"); 
+        } else if (theme === "dark") {
+            //bgColor("light");
+            toggleTheme("light");
+            setIconBrightness("MdBrightness4"); 
+        } else
+            null
+    };
+
     const county = (
         <Popover>
             <div className="overflow-auto -m-6 p-4 invisibleScroll">
-                <div className="flex relative bg-white px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5">
+                <div className={ (theme === "dark" ? "bg-slate-800" : "bg-white") + " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"}>
                     <CapIconButton
                         iconType="fa"
                         icon="FaCity"
@@ -37,8 +58,8 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
                         route="/registration"
                         hoverColor="#7dc523"
                         tooltip="createCounty"
+                        css="mr-3"
                     />
-                    &nbsp; &nbsp;
                     <CapIconButton
                         iconType="fa"
                         icon="FaThList"
@@ -55,15 +76,15 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
     const product = (
         <Popover>
             <div className="overflow-auto -m-6 p-4 invisibleScroll">
-                <div className="flex relative bg-white px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5">
+                <div className={ (theme === "dark" ? "bg-slate-800" : "bg-white") + " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"}>
                     <CapIconButton
                         iconType="gi"
                         icon="GiCardboardBoxClosed"
                         size="24px"
                         route="/products/create"
                         hoverColor="#7dc523"
+                        css="mr-3"
                     />
-                    &nbsp; &nbsp;
                     <CapIconButton
                         iconType="md"
                         icon="MdLinearScale"
@@ -79,29 +100,46 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
     const project = (
         <Popover>
             <div className="overflow-auto -m-6 p-4 invisibleScroll">
-                <div className="flex relative bg-white px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5">
+                <div className={ (theme === "dark" ? "bg-slate-800" : "bg-white") + " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"}>
                     <CapIconButton
                         iconType="hi"
                         icon="HiDocumentText"
                         size="24px"
                         route="/project/documentation"
                         hoverColor="#7dc523"
+                        css="mr-3"
                     />
-                    &nbsp; &nbsp;
                     <CapIconButton
                         iconType="bs"
                         icon="BsDiagram2Fill"
                         size="24px"
                         route="/project/diagrams"
                         hoverColor="#7dc523"
+                        css="mr-3"
                     />
-                    &nbsp; &nbsp;
                     <CapIconButton
                         iconType="ri"
                         icon="RiTestTubeFill"
                         size="24px"
                         route="/project/test"
                         hoverColor="#7dc523"
+                    />
+                </div>
+            </div>
+        </Popover>
+    );
+
+    const setting = (
+        <Popover>
+            <div className="overflow-auto -m-6 p-4 invisibleScroll">
+                <div className={ (theme === "dark" ? "bg-slate-800" : "bg-white") + " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"}>
+                <CapIconButton
+                        iconType="md"
+                        icon={iconBrightness}
+                        size="24px"
+                        click={handleBrightness}
+                        hoverColor="#7dc523"
+                        tooltip="themes"
                     />
                 </div>
             </div>
@@ -116,8 +154,8 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
                     icon="AiFillHome"
                     route="/"
                     tooltip="home"
+                    css="mb-3"
                 />
-                &nbsp;
                 {user?.email === "cisab@cisab.com" ? (
                     <>
                         <OverlayTrigger
@@ -131,10 +169,10 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
                                     iconType="fa"
                                     icon="FaCity"
                                     tooltip="counties"
+                                    css="mb-3"
                                 />
                             </div>
                         </OverlayTrigger>
-                        &nbsp;
                     </>
                 ) : null}
                 {/* <CapIconButton iconType="md" icon="MdTask" click={handleMain} />
@@ -161,17 +199,28 @@ export default function SideBar(/* { language }: { language: "en" | "es" | "pt" 
           </div>
         </OverlayTrigger>
         &nbsp; */}
+        
                 {user?.email === "cisab@cisab.com" ? (
                     <>
                         <CapIconButton
                             iconType="fa"
                             icon="FaUserFriends"
                             route={"/counties/6363c2f363e9deb5a8e1c672/users"} // TODO: Substituir para pegar do municipio logado
-                            tooltip="users"
+                            tooltip="employees"
+                            css="mb-3"
                         />
-                        &nbsp;
                     </>
                 ) : null}
+                <OverlayTrigger
+                    trigger="click"
+                    placement="right"
+                    overlay={setting}
+                    rootClose
+                >
+                    <div>
+                        <CapIconButton iconType="bs" icon="BsGearFill" tooltip="settings" css="mb-3" />
+                    </div>
+                </OverlayTrigger>
                 <CapIconButton
                     iconType="io5"
                     icon="IoLogOut"

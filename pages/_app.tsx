@@ -4,7 +4,11 @@ import fetchJson from "lib/fetchJson";
 import "styles/globals.css";
 import Layout from "components/layout";
 import styles from "styles/Home.module.css";
+
 import "bootstrap/dist/css/bootstrap.min.css";
+
+import { LanguageProvider } from "../context/languageContext";
+import { ThemeProvider } from "../context/themeContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -17,9 +21,13 @@ function MyApp({ Component, pageProps }: AppProps) {
       }}
     >
       <div className={styles.container}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <LanguageProvider>
+          <ThemeProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ThemeProvider>
+        </LanguageProvider>
       </div>
     </SWRConfig>
   );

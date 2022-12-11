@@ -70,7 +70,6 @@ export default function Edit() {
   return (
     <>
       <CountyRegistration
-        language="pt"
         county={countyRes}
         submit={editCounty}
       />

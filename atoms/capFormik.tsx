@@ -4,6 +4,8 @@ import { Field } from "formik";
 import translations from "lib/translations";
 import IconsByName from "components/iconsByName";
 
+import { useLanguage, useLanguageUpdate } from "../context/languageContext";
+
 const CapFormik = ({
     kind = "default",
     as,
@@ -28,7 +30,6 @@ const CapFormik = ({
     children,
     asControl = undefined,
     rows = undefined,
-    language = "pt",
 }: {
     kind?: "default" | "floating" | "select";
     as?: any;
@@ -53,8 +54,10 @@ const CapFormik = ({
     children?: any;
     asControl?: any;
     rows?: number;
-    language?: "pt";
 }) => {
+    const language = useLanguage();
+    const toggleLanguage = useLanguageUpdate();
+
     return (
         <Field
             name={name}

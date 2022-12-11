@@ -6,11 +6,9 @@ import { useState } from "react";
 import { Row, Col } from "react-bootstrap";
 
 export default function CountyMainAccount({
-  language = "pt",
   county = undefined,
   submit,
 }: {
-  language: "pt";
   county: undefined;
   submit: undefined;
 }) {
@@ -53,7 +51,6 @@ export default function CountyMainAccount({
         show={show}
         handleClose={handleClose}
         state={null}
-        language="pt"
         title={null}
         text={"additionalDataQuestion"}
         yesNoButtons={true}

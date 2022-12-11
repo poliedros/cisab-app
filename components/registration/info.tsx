@@ -5,14 +5,12 @@ import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 
 type InfoProps = {
-  language: "pt";
   info?: InfoDTO;
   kind: "county" | "autarky";
   handleInfo: (info: InfoDTO, kind: "county" | "autarky") => void;
 };
 
 export default function Info({
-  language = "pt",
   info,
   kind,
   handleInfo,

@@ -66,7 +66,6 @@ export default function Users() {
       {addNewUser ? (
         <>
           <UserRegistration
-            language={"pt"}
             countyUser={newUserData}
             submit={registerUser}
           />

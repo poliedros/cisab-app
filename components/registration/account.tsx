@@ -5,7 +5,6 @@ import { useState } from "react";
 import { Row, Col } from "react-bootstrap";
 
 type AccountProps = {
-  language: "pt";
   kind: "county" | "autarky";
   handleAccount: (
     account: CountyManagerDTO,
@@ -14,7 +13,6 @@ type AccountProps = {
 };
 
 export default function Account({
-  language = "pt",
   kind,
   handleAccount,
 }: AccountProps) {

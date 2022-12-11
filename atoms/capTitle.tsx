@@ -1,19 +1,22 @@
 import IconsByName from "components/iconsByName";
 import translations from "../lib/translations";
 
+import { useLanguage, useLanguageUpdate } from "../context/languageContext";
+
 export default function CapTitle({
   base = "none",
   label = "emptyText",
   literal = undefined,
-  language = "pt",
   additional = undefined,
 }: {
   base?: "none" | "county" | "user" | "list" | "product" | "doc" | "diagram" | "lab";
   label?: string;
   literal?: string;
-  language?: "pt";
   additional?: any;
 }) {
+  const language = useLanguage();
+  const toggleLanguage = useLanguageUpdate();
+
   let iconItems = {
     none: "",
     county: IconsByName("fa", "FaCity", "32px"),

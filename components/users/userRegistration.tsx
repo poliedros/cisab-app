@@ -7,13 +7,11 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Row, Col } from "react-bootstrap";
 
 type UserRegistrationProps = {
-  language?: "pt";
   countyUser: CountyUserDTO;
   submit: (countyUser: CountyUserDTO) => Promise<CountyUserDTO | undefined>;
 };
 
 export default function UserRegistration({
-  language = "pt",
   countyUser,
   submit,
 }: UserRegistrationProps) {

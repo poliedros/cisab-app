@@ -2,19 +2,22 @@ import IconsByName from "components/iconsByName";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import translations from "../lib/translations";
 
+import { useLanguage, useLanguageUpdate } from "../context/languageContext";
+
 export default function CapInputGroup({
     label = "emptyText",
     literal = undefined,
-    language = "pt",
     search = undefined,
     setSearch = undefined,
 }: {
     label?: string;
     literal?: string;
-    language?: "pt";
     search?: any,
     setSearch?: any,
 }) {
+    const language = useLanguage();
+    const toggleLanguage = useLanguageUpdate();
+
     return (
         <>
             <InputGroup className="mb-3">

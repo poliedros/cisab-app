@@ -1,6 +1,8 @@
 import translations from "../lib/translations";
 import CapLink from "./capLink";
 
+import { useLanguage, useLanguageUpdate } from "../context/languageContext";
+
 export default function CapInfoBoard({
     title = "emptyText",
     litTitle = "emptyText",
@@ -9,7 +11,6 @@ export default function CapInfoBoard({
     sentences = [],
     litSentences = [],
     style = [],
-    language = "pt",
 }: {
     title?: string;
     litTitle?: string;
@@ -18,8 +19,10 @@ export default function CapInfoBoard({
     sentences?: string[];
     litSentences?: string[];
     style?: ("default" | "huge" | "medium" | "email")[];
-    language?: "pt";
 }) {
+    const language = useLanguage();
+    const toggleLanguage = useLanguageUpdate();
+
     return (
         <>
             <h3 className="text-[#40d9f1] uppercase tracking-wider border-b-2 border-[#40d9f1] pt-4 pb-2 font-black">

@@ -2,6 +2,8 @@ import { Form, FloatingLabel, Button } from "react-bootstrap";
 import IconsByName from "components/iconsByName";
 import translations from "../lib/translations";
 
+import { useLanguage, useLanguageUpdate } from "../context/languageContext";
+
 export default function CapForm({
   kind = "default",
   label = "emptyText",
@@ -25,7 +27,6 @@ export default function CapForm({
   options = [],
   legend = "emptyText",
   additional = undefined,
-  language = "pt",
 }: {
   kind?: "default" | "floating" | "select";
   label?: string;
@@ -49,8 +50,10 @@ export default function CapForm({
   options?: string[];
   legend?: string;
   additional?: any;
-  language?: "pt";
 }) {
+  const language = useLanguage();
+  const toggleLanguage = useLanguageUpdate();
+
   return (
     <>
       {kind === "default" ? (

@@ -12,7 +12,7 @@ export default function UserList(
     users,
   }: {
     users: CountyUserDTO[];
-  } /* { language }: { language: "en" | "es" | "pt" } */
+  }
 ) {
   const [searchUser, setSearchUser] = useState("");
 
