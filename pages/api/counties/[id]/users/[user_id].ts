@@ -9,7 +9,6 @@ export type CountyUserDTO = {
   name: string;
   surname: string;
   properties: {
-    // county_id: string;
   };
 };
 

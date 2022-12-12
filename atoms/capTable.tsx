@@ -5,10 +5,12 @@ import translations from "../lib/translations";
 import CapBtn from "./capBtn";
 import CapIconButton from "./capIconButton";
 
+import { useLanguage, useLanguageUpdate } from "../context/languageContext";
+import { useTheme, useThemeUpdate } from "../context/themeContext";
+
 export default function CapTable({
   label = "emptyText",
   literal = undefined,
-  language = "pt",
   data = [],
   headers = [],
   literalHeaders = [],
@@ -22,7 +24,6 @@ export default function CapTable({
 }: {
   label?: string;
   literal?: string;
-  language?: "pt";
   data: any[];
   headers?: string[];
   literalHeaders?: string[];
@@ -34,6 +35,12 @@ export default function CapTable({
   search?: string;
   searchPath?: string;
 }) {
+  const language = useLanguage();
+  const toggleLanguage = useLanguageUpdate();
+
+  const theme = useTheme();
+  const toggleTheme = useThemeUpdate();
+
   const viewCounty = (p: string, i: string) => {
     Router.push(`${p}${i}`);
   };
@@ -92,7 +99,7 @@ export default function CapTable({
 
   return (
     <>
-      <Table striped responsive>
+      <Table striped responsive variant={theme === "dark" ? "dark" : "default"}>
         <thead>
           <tr>
             {numeral ? (

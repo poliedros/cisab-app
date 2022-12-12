@@ -5,12 +5,10 @@ export default function CapVisualCard({
     label = "emptyText",
     literal = undefined,
     components = undefined,
-    language = "pt",
 }: {
     label?: string;
     literal?: string;
     components?: any;
-    language?: "pt";
 }) {
     return (
         <>

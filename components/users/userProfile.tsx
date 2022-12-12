@@ -12,7 +12,7 @@ export default function UserProfile(
     countyUser,
   }: {
     countyUser: CountyUserDTO;
-  } /* { language }: { language: "en" | "es" | "pt" } */
+  }
 ) {
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);

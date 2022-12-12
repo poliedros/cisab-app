@@ -9,13 +9,7 @@ import CapInfoBoard from "atoms/capInfoBoard";
 import CapLink from "atoms/capLink";
 import translations from "lib/translations";
 
-export default function CountyProfile(
-    {
-        county,
-    }: {
-        county: any;
-    } /* { language }: { language: "en" | "es" | "pt" } */
-) {
+export default function CountyProfile({ county }: { county: any }) {
     return (
         <>
             <div className="flex flex-column">
@@ -41,16 +35,28 @@ export default function CountyProfile(
                         <h6 className="lowercase tracking-widest text-[silver]">
                             MG
                         </h6>
-                        <h3 className="font-black">{county.contact ? county.contact.phone : translations("noValue", "pt")}</h3>
+                        <h3 className="font-black">
+                            {county.contact
+                                ? county.contact.phone
+                                : translations("noValue", "pt")}
+                        </h3>
                         <CapLink
-                            literal={county.contact ? county.contact.email : translations("noValue", "pt")}
+                            literal={
+                                county.contact
+                                    ? county.contact.email
+                                    : translations("noValue", "pt")
+                            }
                             icon="MdAlternateEmail"
                             iconType="md"
                             iconColor="text-[#144974]"
-                            href={`mailto:${county.contact ? county.contact.email : null}?subject=`}
+                            href={`mailto:${
+                                county.contact ? county.contact.email : null
+                            }?subject=`}
                         />
                         <h5 className="text-[#dd823b] my-2">
-                            {county.contact ? county.contact.speakTo : translations("noValue", "pt")}
+                            {county.contact
+                                ? county.contact.speakTo
+                                : translations("noValue", "pt")}
                         </h5>
                     </Col>
                 </Row>
@@ -58,32 +64,60 @@ export default function CountyProfile(
                     <Col className="text-left my-2">
                         <CapTextShowData
                             label={"address"}
-                            info={county.contact ? county.contact.address : translations("noValue", "pt")}
+                            info={
+                                county.contact
+                                    ? county.contact.address
+                                    : translations("noValue", "pt")
+                            }
                         />
                         <CapTextShowData
                             label={"zipCode"}
-                            info={county.contact ? county.contact.zipCode : translations("noValue", "pt")}
+                            info={
+                                county.contact
+                                    ? county.contact.zipCode
+                                    : translations("noValue", "pt")
+                            }
                         />
                         <CapTextShowData
                             label={"countyDistanceToCisab"}
-                            info={county.info ? county.info.distanceToCisab : translations("noValue", "pt")}
+                            info={
+                                county.info
+                                    ? county.info.distanceToCisab
+                                    : translations("noValue", "pt")
+                            }
                         />
                         <CapTextShowData
                             label={"mayor"}
-                            info={county.info ? county.info.mayor : translations("noValue", "pt")}
+                            info={
+                                county.info
+                                    ? county.info.mayor
+                                    : translations("noValue", "pt")
+                            }
                         />
                         <CapTextShowData
                             label={"population"}
-                            info={county.info ? county.info.population : translations("noValue", "pt")}
+                            info={
+                                county.info
+                                    ? county.info.population
+                                    : translations("noValue", "pt")
+                            }
                         />
                         <CapTextShowData
                             label={"countyAnniversary"}
-                            info={county.info ? county.info.anniversary : translations("noValue", "pt")}
+                            info={
+                                county.info
+                                    ? county.info.anniversary
+                                    : translations("noValue", "pt")
+                            }
                         />
                     </Col>
                     <Col className="text-left bg-[#f9f9f9] !px-8">
                         <CapInfoBoard
-                            litTitle={county.contact ? county.contact.speakTo : translations("noValue", "pt")}
+                            litTitle={
+                                county.contact
+                                    ? county.contact.speakTo
+                                    : translations("noValue", "pt")
+                            }
                             //litSubtitle={county.accountable.job}
                             /* litSentences={[
                                 `${county.accountable.address} - ${county.accountable.zipCode}`,
@@ -109,8 +143,16 @@ export default function CountyProfile(
                             href={`${county.county.site}`}
                         /> */}
                     </Col>
-                    <h6>{county.contact ? county.contact.socialMedias : translations("noValue", "pt")}</h6>
-                    <h5>{county.contact ? county.contact.note : translations("noValue", "pt")}</h5>
+                    <h6>
+                        {county.contact
+                            ? county.contact.socialMedias
+                            : translations("noValue", "pt")}
+                    </h6>
+                    <h5>
+                        {county.contact
+                            ? county.contact.note
+                            : translations("noValue", "pt")}
+                    </h5>
                 </Row>
             </div>
         </>

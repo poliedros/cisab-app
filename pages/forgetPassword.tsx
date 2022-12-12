@@ -11,7 +11,6 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
-  const language = "pt";
 
   async function handleButton() {
     setLoading(true);

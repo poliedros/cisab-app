@@ -1,7 +1,8 @@
-export default function Home({
-    language,
-}: {
-    language: /*"en" | "es" |*/ "pt";
-}) {
+import { useLanguage, useLanguageUpdate } from "../context/languageContext";
+
+export default function Home() {
+    const language = useLanguage();
+    const toggleLanguage = useLanguageUpdate();
+
     return <>CISAB</>;
 }

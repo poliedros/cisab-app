@@ -2,18 +2,20 @@ import Translations from "lib/translations";
 import { UnitDTO } from "pages/api/units";
 import { Dropdown } from "react-bootstrap";
 
+import { useLanguage, useLanguageUpdate } from "../../../context/languageContext";
+
 export default function UnitFunded({
     units = [],
-    language = "pt",
     /* county = undefined,
     submit, */
 }: {
-    language?: "pt";
     units?: UnitDTO[];
     /* county: CountyDTO | undefined;
     submit: (county: CountyDTO) => Promise<CountyDTO | undefined>; */
 }) {
-    //alert(units);
+    const language = useLanguage();
+    const toggleLanguage = useLanguageUpdate();
+
     return (
         <>
             <Dropdown className="flex flex-column">

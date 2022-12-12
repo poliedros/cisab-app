@@ -5,14 +5,12 @@ import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 
 type ContactProps = {
-  language: "pt";
   contact?: ContactDTO;
   kind: "county" | "autarky";
   handleContact: (contact: ContactDTO, kind: "county" | "autarky") => void;
 };
 
 export default function Contact({
-  language = "pt",
   contact,
   kind,
   handleContact,

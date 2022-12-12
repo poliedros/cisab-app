@@ -1,16 +1,19 @@
 import translations from "../lib/translations";
 
+import { useLanguage, useLanguageUpdate } from "../context/languageContext";
+
 export default function CapTextShowData({
     label = "emptyText",
     literal = undefined,
-    language = "pt",
     info = "",
 }: {
     label?: string;
     literal?: string;
-    language?: "pt";
     info?: string;
 }) {
+    const language = useLanguage();
+    const toggleLanguage = useLanguageUpdate();
+
     return (
         <>
             <div className="flex items-center">

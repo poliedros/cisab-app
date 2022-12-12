@@ -44,7 +44,6 @@ export default function Create() {
                 submit={saveCounty}
             /> */}
       <CountyMainAccount
-        language={"pt"}
         county={undefined}
         submit={undefined} //saveCounty
       />

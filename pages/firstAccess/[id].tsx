@@ -10,7 +10,6 @@ export default function FirstAccess() {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
-  const language = "pt";
   let active = false;
 
   const router = useRouter();
