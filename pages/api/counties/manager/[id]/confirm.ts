@@ -9,8 +9,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse<boolean>) {
         method: "POST",
       }
     );
-    const data = (await response.json()) as boolean;
-    res.status(response.status).json(data);
+    const data = await response.text();
+    const boolean_data = data === "true";
+    res.status(response.status).json(boolean_data);
     return;
   }
 }
