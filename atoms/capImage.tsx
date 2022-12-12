@@ -1,10 +1,8 @@
 import Image from "next/image";
-import translations from "../lib/translations";
 
 export default function CapImage({
     label = "emptyText",
     literal = undefined,
-    language = "pt",
     src = "",
     alt = "",
     w = 100,
@@ -13,7 +11,6 @@ export default function CapImage({
 }: {
     label?: string;
     literal?: string;
-    language?: "pt";
     src: string;
     alt?: string;
     w?: number;

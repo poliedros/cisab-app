@@ -7,7 +7,7 @@ import { useState } from "react";
 import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
 import CapFormik from "atoms/capFormik";
 
-export default function TestLab({ language = "pt" }: { language?: "pt" }) {
+export default function TestLab() {
     const [validated, setValidated] = useState(false);
 
     const handleSubmit = (event: any) => {

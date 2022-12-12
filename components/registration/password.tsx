@@ -8,15 +8,18 @@ import { useState } from "react";
 import { Row, Col, Form } from "react-bootstrap";
 import translations from "lib/translations";
 
+import { useLanguage, useLanguageUpdate } from "../../context/languageContext";
+
 type PasswordProps = {
-  language?: "pt";
   handleSubmitFunction: (password: string) => void;
 };
 
 export default function Password({
-  language = "pt",
   handleSubmitFunction,
 }: PasswordProps) {
+  const language = useLanguage();
+  const toggleLanguage = useLanguageUpdate();
+
   const schema = yup.object().shape({
     password: yup.string().required(translations("requiredField", language)),
     confirmation: yup

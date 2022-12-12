@@ -5,14 +5,12 @@ import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 
 type InfoProps = {
-  language: "pt";
   info?: InfoDTO;
   kind: "county" | "autarky";
   handleInfo: (info: InfoDTO, kind: "county" | "autarky") => void;
 };
 
 export default function Info({
-  language = "pt",
   info,
   kind,
   handleInfo,
@@ -58,13 +56,15 @@ export default function Info({
   return (
     <>
       {/* <CapSubtitle label="countyData" /> */}
-      <Row>
+      {kind === "county" ?
+      <><Row>
         <CapForm
           kind="select"
           as={Col}
           label="state"
           optionsDefault={1}
           options={["MG"]}
+          disabled={true}
           value={countyState}
           change={(e: any) => {
             setCountyState(e.target.value);
@@ -135,7 +135,29 @@ export default function Info({
           handleInfo({ ...info, note }, kind);
           setCountyNote(e.target.value);
         }}
+      /></> : <>
+      <Row className="flex items-center">
+        <CapForm
+          as={Col}
+          label="typeInstitution"
+          placeholder="insertTypeInstitution"
+          disabled={true}
+        />
+        <CapForm
+          as={Col}
+          label="accountableCisab"
+          placeholder="insertAccountableCisab"
+          disabled={true}
+        />
+      </Row>
+      <CapForm
+        asControl="textarea"
+        rows={3}
+        label="note"
+        disabled={true}
+        placeholder="insertNote"
       />
+      </> }
     </>
   );
 }

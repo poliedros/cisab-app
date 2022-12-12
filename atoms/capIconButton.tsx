@@ -3,6 +3,8 @@ import translations from "lib/translations";
 import Router from "next/router";
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 
+import { useLanguage, useLanguageUpdate } from "../context/languageContext";
+
 export default function CapIconButton({
     icon = undefined,
     iconType = undefined,
@@ -10,8 +12,8 @@ export default function CapIconButton({
     size = "32px",
     route = undefined,
     tooltip = "emptyText",
-    language = "pt",
     hoverColor = "#02aae9",
+    css = "",
 }: {
     icon?: string;
     iconType?: string;
@@ -19,9 +21,12 @@ export default function CapIconButton({
     click?: any;
     route?: string;
     tooltip?: string;
-    language?: string;
     hoverColor?: string;
+    css?: string;
 }) {
+    const language = useLanguage();
+    const toggleLanguage = useLanguageUpdate();
+
     const renderTooltip = (props: any) => (
         <Tooltip id="button-tooltip" className="tooltip-clean" {...props}>
             <div className="overflow-auto -m-6 p-4 invisibleScroll">
@@ -46,7 +51,8 @@ export default function CapIconButton({
                                 (hoverColor === "#7dc523"
                                     ? "hover:!bg-[#7dc523]"
                                     : "hover:!bg-[#02aae9]") +
-                                " border-0 !rounded-full !p-[12px]"
+                                " border-0 !rounded-full !p-[12px] " +
+                                (css || css !== "" ? css : "")
                             }
                             variant="outline-secondary"
                             onClick={
@@ -60,7 +66,8 @@ export default function CapIconButton({
                     ) : (
                         <Button
                             className={
-                                "hover:!bg-[#02aae9] border-0 !rounded-full !p-[12px]"
+                                "hover:!bg-[#02aae9] border-0 !rounded-full !p-[12px] " +
+                                (css || css !== "" ? css : "")
                             }
                             variant="outline-secondary"
                         >
@@ -72,9 +79,11 @@ export default function CapIconButton({
                 <Button
                     className={
                         (hoverColor === "#7dc523"
-                            ? "hover:!bg-[#7dc523]"
+                            ? "hover:!bg-[#7dc523]" +
+                            (css || css !== "" ? css : "")
                             : "hover:!bg-[#02aae9]") +
-                        " border-0 !rounded-full !p-[12px]"
+                        " border-0 !rounded-full !p-[12px] " +
+                        (css || css !== "" ? css : "")
                     }
                     variant="outline-secondary"
                     onClick={
@@ -88,7 +97,8 @@ export default function CapIconButton({
             ) : (
                 <Button
                     className={
-                        "hover:!bg-[#02aae9] border-0 !rounded-full !p-[12px]"
+                        "hover:!bg-[#02aae9] border-0 !rounded-full !p-[12px] " +
+                        (css || css !== "" ? css : "")
                     }
                     variant="outline-secondary"
                 >

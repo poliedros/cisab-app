@@ -6,12 +6,10 @@ import CapImage from "./capImage";
 export default function CapTinyCard({
   label = "emptyText",
   literal = undefined,
-  language = "pt",
   baseColor = "light",
 }: {
   label?: string;
   literal?: string;
-  language?: "pt";
   baseColor?: "light" | "dark";
 }) {
   return (

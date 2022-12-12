@@ -8,15 +8,7 @@ import { useState } from "react";
 import { Col, Container, Dropdown, Form, Row } from "react-bootstrap";
 import UnitFunded from "./unit/unitFunded";
 
-export default function ProductCreation({
-    language = "pt",
-    /* county = undefined,
-    submit, */
-}: {
-    language?: "pt";
-    /* county: CountyDTO | undefined;
-    submit: (county: CountyDTO) => Promise<CountyDTO | undefined>; */
-}) {
+export default function ProductCreation() {
     const [productName, setProductName] = useState("");
     const [unit, setUnit] = useState(["1"]);
 

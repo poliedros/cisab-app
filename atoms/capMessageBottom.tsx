@@ -1,18 +1,19 @@
 import { useState } from "react";
 import translations from "../lib/translations";
 
+import { useLanguage, useLanguageUpdate } from "../context/languageContext";
+
 export default function CapMessageBottom({
   label = "emptyText",
   literal = undefined,
   css = undefined,
-  language = "pt",
 }: {
   label?: string;
   literal?: string;
   css?: string;
-  language?: "pt";
 }) {
-  
+  const language = useLanguage();
+  const toggleLanguage = useLanguageUpdate();
 
   return (
     <>

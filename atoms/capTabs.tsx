@@ -11,7 +11,6 @@ export default function CapTabs({
   stagesIconsTypes = [],
   stagesBody = [],
   disabled = [],
-  language = "pt",
   selected = undefined,
 }: {
   label?: string;
@@ -22,7 +21,6 @@ export default function CapTabs({
   stagesIconsTypes?: string[];
   stagesBody?: any[];
   disabled?: boolean[];
-  language?: "pt";
   selected?: any;
 }) {
   return (

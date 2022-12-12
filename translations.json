@@ -391,5 +391,44 @@
   },
   "insertSurname": {
     "pt": "Insira o Sobrenome"
+  },
+  "confirm": {
+    "pt": "Confirmo"
+  },
+  "typeInstitution": {
+    "pt": "Tipo da Instituição"
+  },
+  "insertTypeInstitution": {
+    "pt": "Insira o Tipo dessa Instituição"
+  },
+  "accountableCisab": {
+    "pt": "Responsável"
+  },
+  "insertAccountableCisab": {
+    "pt": "Insira o Responsável pela Cisab"
+  },
+  "questionRemove": {
+    "pt": "Está seguro disso?"
+  },
+  "noValue": {
+    "pt": "Não Informado"
+  },
+  "logout": {
+    "pt": "Sair"
+  },
+  "users": {
+    "pt": "Usuários"
+  },
+  "registerUser": {
+    "pt": "Registrar Usuário"
+  },
+  "settings": {
+    "pt": "Configurações"
+  },
+  "employees": {
+    "pt": "Funcionários"
+  },
+  "themes": {
+    "pt": "Temas"
   }
 }

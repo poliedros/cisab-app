@@ -18,7 +18,6 @@ export default function Login() {
     redirectTo: "/",
     redirectIfFound: true,
   });
-  const language = "pt";
 
   async function handleButton() {
     setLoading(true);

@@ -1,13 +1,16 @@
 import Router from "next/router";
 import { useEffect } from "react";
-import { Table } from "react-bootstrap";
+import { OverlayTrigger, Popover, Table } from "react-bootstrap";
 import translations from "../lib/translations";
 import CapBtn from "./capBtn";
+import CapIconButton from "./capIconButton";
+
+import { useLanguage, useLanguageUpdate } from "../context/languageContext";
+import { useTheme, useThemeUpdate } from "../context/themeContext";
 
 export default function CapTable({
   label = "emptyText",
   literal = undefined,
-  language = "pt",
   data = [],
   headers = [],
   literalHeaders = [],
@@ -21,7 +24,6 @@ export default function CapTable({
 }: {
   label?: string;
   literal?: string;
-  language?: "pt";
   data: any[];
   headers?: string[];
   literalHeaders?: string[];
@@ -33,6 +35,12 @@ export default function CapTable({
   search?: string;
   searchPath?: string;
 }) {
+  const language = useLanguage();
+  const toggleLanguage = useLanguageUpdate();
+
+  const theme = useTheme();
+  const toggleTheme = useThemeUpdate();
+
   const viewCounty = (p: string, i: string) => {
     Router.push(`${p}${i}`);
   };
@@ -72,9 +80,26 @@ export default function CapTable({
   )
     columns.push("buttons");
 
+    /* const confirmRemove = (
+      <Popover>
+        <div className="overflow-auto -m-6 p-4 invisibleScroll">
+          <div className="flex relative bg-white px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5">
+          <CapIconButton
+            iconType="gi"
+            icon="GiCardboardBoxClosed"
+            size="24px"
+            click={() => removeCounty(buttonsPaths[l], d._id)}
+            route="/products/create"
+            hoverColor="#7dc523"
+          />
+          </div>
+        </div>
+      </Popover>
+    ); */
+
   return (
     <>
-      <Table striped responsive>
+      <Table striped responsive variant={theme === "dark" ? "dark" : "default"}>
         <thead>
           <tr>
             {numeral ? (
@@ -150,16 +175,38 @@ export default function CapTable({
                                       </div>
                                     ) : null}
                                     {bc === "remove" ? (
+                                      <OverlayTrigger
+                                      trigger="click"
+                                      placement="bottom"
+                                      overlay={<Popover>
+                                        <div className="overflow-auto -m-6 p-4 invisibleScroll">
+                                          <div className="flex flex-column items-center relative bg-white py-2.5 px-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl">
+                                          <p className="mb-0.5">{translations("questionRemove", language)}</p>
+                                          <CapBtn label="confirm" iconType="hi" icon="HiTrash" variant="danger" size="sm" click={() => removeCounty(buttonsPaths[l], d._id)} />
+                                          {/* <CapIconButton
+                                            iconType="gi"
+                                            icon="GiCardboardBoxClosed"
+                                            size="24px"
+                                            click={() => removeCounty(buttonsPaths[l], d._id)}
+                                            route="/products/create"
+                                            hoverColor="#7dc523"
+                                          /> */}
+                                          </div>
+                                        </div>
+                                      </Popover>}
+                                      rootClose>
                                       <div className="mx-0.5">
                                         <CapBtn
                                           kind={"removeIcon"}
                                           variant={"danger"}
                                           css="!rounded-full !p-[6px]"
-                                          click={() =>
-                                            removeCounty(buttonsPaths[l], d._id)
-                                          }
+                                          /* click={() =>
+                                            null
+                                            //removeCounty(buttonsPaths[l], d._id)
+                                          } */
                                         />
                                       </div>
+                                      </OverlayTrigger>
                                     ) : null}
                                     {bc === "users" ? (
                                       <div className="mx-0.5">

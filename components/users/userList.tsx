@@ -12,13 +12,13 @@ export default function UserList(
     users,
   }: {
     users: CountyUserDTO[];
-  } /* { language }: { language: "en" | "es" | "pt" } */
+  }
 ) {
   const [searchUser, setSearchUser] = useState("");
 
   return (
     <>
-      <Container>
+      <Container className="p-0">
         <CapTitle base="list" label="userList" />
         <div className="mb-6"></div>
         <CapInputGroup search={searchUser} setSearch={setSearchUser} />

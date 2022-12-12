@@ -59,14 +59,13 @@ export default function Users() {
       <UserList users={users} />
       <CapBtn
         label="addUser"
-        iconType="bs"
-        icon="BsPersonPlusFill"
+        iconType="hi"
+        icon="HiOutlineUserAdd"
         click={() => setAddNewUser(true)}
       />
       {addNewUser ? (
         <>
           <UserRegistration
-            language={"pt"}
             countyUser={newUserData}
             submit={registerUser}
           />
