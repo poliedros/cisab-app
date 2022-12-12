@@ -11,7 +11,7 @@ export default function FirstAccess() {
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
   const language = "pt";
-  let active = false;
+  const [active, setActive] = useState(true);
 
   const router = useRouter();
   const { id } = router.query;
@@ -29,9 +29,10 @@ export default function FirstAccess() {
       setLoading(false);
     });
 
-    active = await response.json();
+    const res = await response.json();
+    setActive(res);
 
-    if (active) {
+    if (res) {
       redirectToLogin();
     }
   }
@@ -46,7 +47,7 @@ export default function FirstAccess() {
         body: JSON.stringify({ password }),
       });
 
-      if (response.status !== 200) {
+      if (response.status !== 201) {
         setErrorMessage(true);
         return;
       }
@@ -63,7 +64,7 @@ export default function FirstAccess() {
     <>
       {loading ? (
         <Spinner animation={"border"} />
-      ) : !active ? (
+      ) : active ? (
         <div className="flex relative font-[Jost] bg-white text-black shadow-md px-2 pt-1 pb-1 ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5">
           {translations("managerActive", "pt")}
         </div>
