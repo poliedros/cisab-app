@@ -7,6 +7,7 @@ import CapIconButton from "./capIconButton";
 
 import { useLanguage, useLanguageUpdate } from "../context/languageContext";
 import { useTheme, useThemeUpdate } from "../context/themeContext";
+import CapImage from "./capImage";
 
 export default function CapTable({
   label = "emptyText",
@@ -19,6 +20,8 @@ export default function CapTable({
   numeral = false,
   buttonsColumns = [],
   buttonsPaths = [],
+  striped = false,
+  image = undefined,
   search = undefined,
   searchPath = undefined,
 }: {
@@ -32,6 +35,8 @@ export default function CapTable({
   numeral?: boolean;
   buttonsColumns?: string[];
   buttonsPaths?: any[];
+  striped?: boolean;
+  image?: number;
   search?: string;
   searchPath?: string;
 }) {
@@ -99,7 +104,7 @@ export default function CapTable({
 
   return (
     <>
-      <Table striped responsive variant={theme === "dark" ? "dark" : "default"}>
+      <Table striped={striped} responsive variant={theme === "dark" ? "dark" : "default"}>
         <thead>
           <tr>
             {numeral ? (
@@ -129,15 +134,17 @@ export default function CapTable({
             )
             .map((d, i) => {
               return (
-                <tr key={i}>
+                <tr key={i} className="align-middle">
                   {columns.map((c, j) => {
                     return (
                       <td
                         className={
                           "" +
                           (c === "buttons"
-                            ? "!flex !justify-center !text-center"
-                            : "")
+                            ? "!text-center"
+                            : image === j ?
+                            "flex items-center justify-center !text-center"
+                            :"")
                         }
                         key={j}
                       >
@@ -147,7 +154,8 @@ export default function CapTable({
                             : j ===
                               columns.length +
                                 (buttonsColumns.length > 0 ? -1 : 0)
-                            ? buttonsColumns.map((bc, l) => {
+                            ? <div className="!flex !justify-center">
+                              {buttonsColumns.map((bc, l) => {
                                 return (
                                   <div key={l}>
                                     {bc === "view" ? (
@@ -222,7 +230,14 @@ export default function CapTable({
                                     ) : null}
                                   </div>
                                 );
-                              })
+                              })}
+                              </div>
+                            : image === j ? 
+                              <CapImage src={"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"}
+                                w={45}
+                                h={45}
+                                css="rounded-full"
+                              />
                             : o && o[k];
                         }, d)}
                       </td>

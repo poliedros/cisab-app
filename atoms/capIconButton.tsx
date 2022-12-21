@@ -14,6 +14,8 @@ export default function CapIconButton({
     tooltip = "emptyText",
     hoverColor = "#02aae9",
     css = "",
+    padding = "!p-[12px]",
+    rounded = "!rounded-full",
 }: {
     icon?: string;
     iconType?: string;
@@ -23,6 +25,8 @@ export default function CapIconButton({
     tooltip?: string;
     hoverColor?: string;
     css?: string;
+    padding?: string;
+    rounded?: string;
 }) {
     const language = useLanguage();
     const toggleLanguage = useLanguageUpdate();
@@ -52,7 +56,7 @@ export default function CapIconButton({
                                     ? "hover:!bg-[#7dc523]"
                                     : "hover:!bg-[#02aae9]") +
                                 " border-0 !rounded-full !p-[12px] " +
-                                (css || css !== "" ? css : "")
+                                (css || css !== "" ? css : "") + " " + rounded + " " + padding
                             }
                             variant="outline-secondary"
                             onClick={
@@ -67,7 +71,7 @@ export default function CapIconButton({
                         <Button
                             className={
                                 "hover:!bg-[#02aae9] border-0 !rounded-full !p-[12px] " +
-                                (css || css !== "" ? css : "")
+                                (css || css !== "" ? css : "") + " " + rounded + " " + padding
                             }
                             variant="outline-secondary"
                         >
@@ -80,10 +84,10 @@ export default function CapIconButton({
                     className={
                         (hoverColor === "#7dc523"
                             ? "hover:!bg-[#7dc523]" +
-                            (css || css !== "" ? css : "")
+                            (css || css !== "" ? css : "") + " " + rounded + " " + padding 
                             : "hover:!bg-[#02aae9]") +
                         " border-0 !rounded-full !p-[12px] " +
-                        (css || css !== "" ? css : "")
+                        (css || css !== "" ? css : "") + " " + rounded + " " + padding
                     }
                     variant="outline-secondary"
                     onClick={
@@ -98,7 +102,7 @@ export default function CapIconButton({
                 <Button
                     className={
                         "hover:!bg-[#02aae9] border-0 !rounded-full !p-[12px] " +
-                        (css || css !== "" ? css : "")
+                        (css || css !== "" ? css : "") + " " + rounded + " " + padding
                     }
                     variant="outline-secondary"
                 >

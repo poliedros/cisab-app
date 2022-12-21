@@ -6,19 +6,23 @@ import CapImage from "./capImage";
 export default function CapTinyCard({
   label = "emptyText",
   literal = undefined,
-  baseColor = "light",
+  //baseColor = "light",
+  title = "",
+  subtitle = "",
 }: {
   label?: string;
   literal?: string;
-  baseColor?: "light" | "dark";
+  //baseColor?: "light" | "dark";
+  title?: string;
+  subtitle?: string;
 }) {
   return (
     <>
-      <div className="flex items-center justify-center flex-column">
-        <div className="flex items-center justify-center -mb-4 z-10">
+      <div className="flex flex-column">
+        <div className="-mb-4 z-10">
           <div className="absolute bg-[silver] w-[70px] h-[70px] rounded-full"></div>
           <div
-            className="w-[75px] h-[75px] flex items-center justify-center"
+            className="w-[75px] h-[75px]"
             style={{
               perspective: "90px",
             }}
@@ -26,7 +30,7 @@ export default function CapTinyCard({
             <div className="rot-45 w-[75px] h-[75px]">
               <CapImage
                 src={
-                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1dZxqfOUQ33P34MMFH7HQmwCYgY69oLm7QQ&usqp=CAU"
+                  "https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"
                 }
                 h={75}
                 w={75}
@@ -36,24 +40,24 @@ export default function CapTinyCard({
           </div>
         </div>
         <div
-          className="w-[250px] h-[125px] flex items-center ml-60"
+          className="w-[250px] h-[125px] flex items-center ml-6 mb-12"
           style={{
             perspective: "300px",
           }}
         >
           <Card
             className="rot-minus-45 !rounded-3xl pt-4"
-            bg={baseColor === "dark" ? "dark" : "white"}
+            //bg={baseColor === "dark" ? "dark" : "white"}
           >
             <Card.Body className="!pl-12">
               <Row className="!flex-nowrap">
                 <Col xs={8}>
                   <Card.Title
-                    className={"" + baseColor === "dark" ? "text-white" : ""}
+                    className={"" /* + baseColor === "dark" ? "text-white" : "" */}
                   >
-                    Nome
+                    {title}
                   </Card.Title>
-                  <Card.Text>porra do saco</Card.Text>
+                  <Card.Text>{subtitle}</Card.Text>
                 </Col>
                 <Col xs={4}>
                   <CapIconButton

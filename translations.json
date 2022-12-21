@@ -275,6 +275,18 @@
   "insertProductName": {
     "pt": "Insera o Nome do Produto"
   },
+  "productCode": {
+    "pt": "Código do Produto"
+  },
+  "insertProductCode": {
+    "pt": "Insera Código do Produto"
+  },
+  "productCategory": {
+    "pt": "Categoria do Produto"
+  },
+  "insertProductCategory": {
+    "pt": "Insera uma Categoria do Produto"
+  },
   "image": {
     "pt": "Imagem"
   },
@@ -430,5 +442,29 @@
   },
   "themes": {
     "pt": "Temas"
+  },
+  "products": {
+    "pt": "Produtos"
+  },
+  "createProduct": {
+    "pt": "Criar Produto"
+  },
+  "listProducts": {
+    "pt": "Lista de Produtos"
+  },
+  "code": {
+    "pt": "Código"
+  },
+  "goToAccessory": {
+    "pt": "Preencher Acessórios"
+  },
+  "category": {
+    "pt": "Categoria"
+  },
+  "norm": {
+    "pt": "Norma"
+  },
+  "insertNorm": {
+    "pt": "Insira texto da Norma"
   }
 }

@@ -38,19 +38,23 @@ export default function SideBar() {
         if (theme === "light") {
             //bgColor("dark");
             toggleTheme("dark");
-            setIconBrightness("MdBrightness5"); 
+            setIconBrightness("MdBrightness5");
         } else if (theme === "dark") {
             //bgColor("light");
             toggleTheme("light");
-            setIconBrightness("MdBrightness4"); 
-        } else
-            null
+            setIconBrightness("MdBrightness4");
+        } else null;
     };
 
     const county = (
         <Popover>
             <div className="overflow-auto -m-6 p-4 invisibleScroll">
-                <div className={ (theme === "dark" ? "bg-slate-800" : "bg-white") + " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"}>
+                <div
+                    className={
+                        (theme === "dark" ? "bg-slate-800" : "bg-white") +
+                        " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"
+                    }
+                >
                     <CapIconButton
                         iconType="fa"
                         icon="FaCity"
@@ -76,7 +80,12 @@ export default function SideBar() {
     const product = (
         <Popover>
             <div className="overflow-auto -m-6 p-4 invisibleScroll">
-                <div className={ (theme === "dark" ? "bg-slate-800" : "bg-white") + " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"}>
+                <div
+                    className={
+                        (theme === "dark" ? "bg-slate-800" : "bg-white") +
+                        " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"
+                    }
+                >
                     <CapIconButton
                         iconType="gi"
                         icon="GiCardboardBoxClosed"
@@ -84,6 +93,15 @@ export default function SideBar() {
                         route="/products/create"
                         hoverColor="#7dc523"
                         css="mr-3"
+                        tooltip="createProduct"
+                    />
+                    <CapIconButton
+                        iconType="fa"
+                        icon="FaThList"
+                        size="24px"
+                        route="/products"
+                        hoverColor="#7dc523"
+                        tooltip="listProducts"
                     />
                     <CapIconButton
                         iconType="md"
@@ -100,7 +118,12 @@ export default function SideBar() {
     const project = (
         <Popover>
             <div className="overflow-auto -m-6 p-4 invisibleScroll">
-                <div className={ (theme === "dark" ? "bg-slate-800" : "bg-white") + " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"}>
+                <div
+                    className={
+                        (theme === "dark" ? "bg-slate-800" : "bg-white") +
+                        " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"
+                    }
+                >
                     <CapIconButton
                         iconType="hi"
                         icon="HiDocumentText"
@@ -132,8 +155,13 @@ export default function SideBar() {
     const setting = (
         <Popover>
             <div className="overflow-auto -m-6 p-4 invisibleScroll">
-                <div className={ (theme === "dark" ? "bg-slate-800" : "bg-white") + " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"}>
-                <CapIconButton
+                <div
+                    className={
+                        (theme === "dark" ? "bg-slate-800" : "bg-white") +
+                        " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"
+                    }
+                >
+                    <CapIconButton
                         iconType="md"
                         icon={iconBrightness}
                         size="24px"
@@ -175,31 +203,32 @@ export default function SideBar() {
                         </OverlayTrigger>
                     </>
                 ) : null}
-                {/* <CapIconButton iconType="md" icon="MdTask" click={handleMain} />
-        &nbsp;
-        <OverlayTrigger
-          trigger="click"
-          placement="right"
-          overlay={product}
-          rootClose
-        >
-          <div>
-            <CapIconButton iconType="gi" icon="GiCardboardBoxClosed" />
-          </div>
-        </OverlayTrigger>
-        &nbsp;
-        <OverlayTrigger
+                <CapIconButton iconType="ri" icon="RiFileList2Fill" click={handleMain} css="mb-3" />
+                <OverlayTrigger
+                    trigger="click"
+                    placement="right"
+                    overlay={product}
+                    rootClose
+                >
+                    <div>
+                        <CapIconButton
+                            iconType="gi"
+                            icon="GiCardboardBoxClosed"
+                            css="mb-3"
+                            tooltip="products"
+                        />
+                    </div>
+                </OverlayTrigger>
+                <OverlayTrigger
           trigger="click"
           placement="right"
           overlay={project}
           rootClose
         >
           <div>
-            <CapIconButton iconType="bs" icon="BsDiagram3Fill" />
+            <CapIconButton iconType="bs" icon="BsDiagram3Fill" css="mb-3" />
           </div>
         </OverlayTrigger>
-        &nbsp; */}
-        
                 {user?.email === "cisab@cisab.com" ? (
                     <>
                         <CapIconButton
@@ -218,7 +247,12 @@ export default function SideBar() {
                     rootClose
                 >
                     <div>
-                        <CapIconButton iconType="bs" icon="BsGearFill" tooltip="settings" css="mb-3" />
+                        <CapIconButton
+                            iconType="bs"
+                            icon="BsGearFill"
+                            tooltip="settings"
+                            css="mb-3"
+                        />
                     </div>
                 </OverlayTrigger>
                 <CapIconButton

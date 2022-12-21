@@ -38,7 +38,9 @@ export default function Create() {
 
     return (
         <>
-            <ProductCreation />
+            <ProductCreation submit={function (product: ProductDTO): Promise<ProductDTO | undefined> {
+                throw new Error("Function not implemented.");
+            } } />
             {/*<>{error}</>*/}
             <div className="flex justify-center">
                 { errorMessage ? <CapMessageBottom label={message} css={message === "countyFaulty" ? "text-red-600" : "text-green-600"} /> : <></> }

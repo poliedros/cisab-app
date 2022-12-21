@@ -52,6 +52,90 @@
     }
 }
 
+.page-item .page-link {
+    border-radius: 9999px !important;
+    aspect-ratio: 1 / 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    line-height: 1rem;
+}
+
+/* calendar */
+
+.react-calendar__tile {
+    border-radius: 9999px;
+    aspect-ratio: 1 / 1;
+    height: 100%;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    /*padding: -0.25rem !important;
+    margin: 0.25rem !important;
+    padding: 0 !important;
+    flex: 1 1 10% !important; */
+}
+
+.react-daterange-picker__calendar {
+    z-index: 10 !important;
+}
+
+.css-13cymwt-control {
+    border: 0 !important;
+}
+
+.css-t3ipsp-control {
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+.css-3w2yfm-ValueContainer {
+    padding: 0 !important;
+}
+
+.css-1fdsijx-ValueContainer {
+    padding: 0 !important;
+}
+
+/* .react-calendar {
+    background-color: gray;
+    text-align: center;
+}
+
+.react-daterange-picker__wrapper {
+    background-color: green;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.react-daterange-picker__inputGroup__input {
+    width: auto !important;
+}
+
+.react-calendar__navigation {
+    display: flex;
+    margin-left: 1rem;
+    margin-right: 1rem;
+} */
+
+/* rotation */
+
+.rot-45 {
+    -webkit-transform: rotate3d(0, 1, 0, 30deg);
+    transform: rotate3d(0, 1, 0, 30deg);
+}
+
+.rot-minus-45 {
+    -webkit-transform: rotate3d(0, 1, 0, -5deg);
+    transform: rotate3d(0, 1, 0, -5deg);
+}
+
+.rot-minus-40 {
+    -webkit-transform: rotate3d(0, 1, 0, -5deg);
+    transform: rotate3d(0, -1, 0, -5deg);
+}
+
 /* animations */
 
 .slide-in-bottom {

@@ -6,14 +6,15 @@ import useUser from "lib/useUser";
 import { UnitDTO } from "pages/api/units";
 import { ProductDTO } from "pages/api/products";
 import useSWR from "swr";
+import ProductList from "components/products/productList";
 
 export default function Index() {
   const { user } = useUser({ redirectTo: "/login" });
   useRole({ user, role: Role.Cisab, redirectTo: "/" });
 
-  /* const { data: products, error } = useSWR<ProductDTO[]>(
+  const { data: products, error } = useSWR<ProductDTO[]>(
     user ? "/api/products" : null
-  );*/
+  );
 
   const { data: units, error: error2 } = useSWR<UnitDTO[]>(
     user ? "/api/units" : null
@@ -24,8 +25,8 @@ export default function Index() {
   if (error2) return <div>failed to load</div>;
   if (!units) return <div>loading...</div>;
 
-  //if (error) return <div>failed to load2</div>;
-  //if (!products) return <div>loading...</div>;
+  if (error) return <div>failed to load2</div>;
+  if (!products) return <div>loading...</div>;
 
   if (!user || user.isLoggedIn == false) {
     return <div>404</div>;
@@ -35,11 +36,11 @@ export default function Index() {
     return <div>404</div>;
   } */
 
-  alert(JSON.stringify(units));
+  alert(JSON.stringify(products));
 
   return (
     <>
-      {/* <CountyList counties={counties} /> */}
+      <ProductList products={products} />
     </>
   );
 }

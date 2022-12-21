@@ -1,45 +1,33 @@
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import translations from "../lib/translations";
 import CapBtn from "./capBtn";
 import CapIconButton from "./capIconButton";
+import { ProductDTO } from "pages/api/products";
 
-export default function CapContainerAdd({
+export default function CapContainerProductAdd({
     components = [],
-    setComponents = undefined,
-    key = undefined,
     resultArray = [],
     setResultArray = undefined,
-    scanArray = undefined,
-    //scanArray = [],
-    //setScanArray = undefined,
-    setStep = undefined,
 }: {
     components?: any[];
-    setComponents?: any;
-    key?: number;
-    resultArray?: {"name": string, "value": string, "unit": string}[];
+    resultArray?: ProductDTO[];
     setResultArray?: any;
-    scanArray?: any;
-    //scanArray?: any[];
-    //setScanArray?: any;
-    setStep?: any;
 }) {
     const [listComponents, setListComponents] = useState<any[]>([components]);
 
     const handleScanArray = () => {
-        const list = document.getElementById("list");
-        let finalArray: {"name": string, "value": string, "unit": string}[] = [];
+        const list = document.getElementById("listP");
+        let finalArray: ProductDTO[] = [];
         list?.childNodes.forEach(function (node, index) {
-            node.childNodes[0].firstChild?.lastChild?.textContent && node.childNodes[1].firstChild?.lastChild?.textContent && node.childNodes[2].firstChild?.firstChild?.firstChild?.textContent ?
-                finalArray.push({
-                    "name": node.childNodes[0].firstChild?.firstChild?.nextSibling?.value,
-                    "value": node.childNodes[1].firstChild?.firstChild?.nextSibling?.value,
-                    "unit": node.childNodes[2].firstChild?.firstChild?.firstChild?.textContent
-                })
-            : null
+            finalArray.push({
+                "_id": "",
+                "name": node.childNodes[0].firstChild?.lastChild
+                    ?.textContent
+                    ? node.childNodes[0].firstChild?.firstChild?.nextSibling?.value
+                    : "",
+                "photo": ""
+            });
         });
-        //setStep(1);
         setResultArray(finalArray);
         alert(JSON.stringify(finalArray));
     };
@@ -50,30 +38,21 @@ export default function CapContainerAdd({
 
     const handleArrayMinus = (i: number) => {
         document.getElementById(String(i))?.remove();
-        const list = document.getElementById("list");
-        /* let finalArray: string[] = [];
-        list?.childNodes.forEach(function (node, index) {
-            finalArray.push(
-                node.childNodes[2].firstChild?.firstChild?.firstChild
-                    ?.textContent
-                    ? node.childNodes[2].firstChild?.firstChild?.firstChild
-                          ?.textContent
-                    : ""
-            );
-        }); */
-        let finalArray: {"name": string, "value": string, "unit": string}[] = [];
+        const list = document.getElementById("listP");
+        let finalArray: ProductDTO[] = [];
         console.log("LIST");
         list?.childNodes.forEach(function (node, index) {
             console.log(node.childNodes[2].firstChild?.firstChild?.firstChild?.textContent);
         });
         list?.childNodes.forEach(function (node, index) {
-            node.childNodes[0].firstChild?.lastChild?.textContent && node.childNodes[1].firstChild?.lastChild?.textContent && node.childNodes[2].firstChild?.firstChild?.firstChild?.textContent ?
-                finalArray.push({
-                    "name": node.childNodes[0].firstChild?.firstChild?.nextSibling?.value,
-                    "value": node.childNodes[1].firstChild?.firstChild?.nextSibling?.value,
-                    "unit": node.childNodes[2].firstChild?.firstChild?.firstChild?.textContent
-                })
-            : null
+            finalArray.push({
+                "_id": "",
+                "name": node.childNodes[0].firstChild?.lastChild
+                    ?.textContent
+                    ? node.childNodes[0].firstChild?.firstChild?.nextSibling?.value
+                    : "",
+                "photo": ""
+            });
         });
         list?.childNodes.forEach(function (node, index) {
                 node.childNodes[1].firstChild?.lastChild
@@ -81,19 +60,19 @@ export default function CapContainerAdd({
                     ? console.log(node.childNodes[1].firstChild?.lastChild?.value)
                     : ""
         });
-        let finalArrayD = [...resultArray, finalArray];
         setResultArray(finalArray);
-        console.log(resultArray);
     };
 
     return (
         <>
-            <div id="list">
+            <div id="listP">
                 {listComponents.map((el, i) => (
                     <Row id={String(i)} key={i} className="mb-3 items-center">
+                        <Col>
                         {components.map((c, j) => (
-                            <Col key={j}>{c}</Col>
+                            <Row key={j}><Col>{c}</Col></Row>
                         ))}
+                        </Col>
                         {i !== listComponents.length - 1 ? (
                             <Col md="auto">
                                 <CapIconButton

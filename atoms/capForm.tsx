@@ -89,7 +89,8 @@ export default function CapForm({
             disabled={disabled}
           /> : <Form.Control
           type={type}
-          placeholder={translations(placeholder, language)}
+          placeholder={translations(placeholder,
+            language)}
           value={value}
           onClick={click}
           onChange={change}

@@ -6,6 +6,8 @@ import CapTitle from "atoms/capTitle";
 import { useState } from "react";
 import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
 import CapFormik from "atoms/capFormik";
+import CapLargeCard from "atoms/capLargeCard";
+import CapInputRangeCalendar from "atoms/capInputRangeCalendar";
 
 export default function TestLab() {
     const [validated, setValidated] = useState(false);
@@ -135,6 +137,9 @@ export default function TestLab() {
                 </Form.Group>
                 </Row>
                 </Form>
+            <CapLargeCard mirror={false}/>
+            <CapLargeCard mirror={true} />
+            <CapInputRangeCalendar />
         </>
     );
 }
