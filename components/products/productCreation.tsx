@@ -248,8 +248,6 @@ export default function ProductCreation({
                                         //setComponents={setComponents}
                                         key={k}
                                         resultArray={array}
-                                        setResultArray={setArray}
-                                        setStep={setStep}
                                     />
                                     {/* unit.map((m, i) => 
                                 <div key={i}>
@@ -333,7 +331,6 @@ export default function ProductCreation({
                                             </>,
                                         ]}
                                         resultArray={arrayNorms}
-                                        setResultArray={setArrayNorms}
                                     />
                                     <Row>
                                         <Col md="auto" className="!pl-0 !pr-3">
@@ -447,8 +444,6 @@ export default function ProductCreation({
                                                 //setComponents={setComponents}
                                                 key={k}
                                                 resultArray={array}
-                                                setResultArray={setArray}
-                                                setStep={setStep}
                                             />,
                                         ]}
                                         resultArray={[]}

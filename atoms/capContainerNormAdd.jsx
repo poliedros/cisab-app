@@ -7,16 +7,12 @@ export default function CapContainerNormAdd({
     components = [],
     resultArray = [{text: ""}],
     setResultArray = undefined,
-}: {
-    components?: any[];
-    resultArray?: {"text": string}[];
-    setResultArray?: any;
 }) {
-    const [listComponents, setListComponents] = useState<any[]>([components]);
+    const [listComponents, setListComponents] = useState([components]);
 
     const handleScanArray = () => {
         const list = document.getElementById("listN");
-        let finalArray: {"text": string}[] = [];
+        let finalArray = [];
         list?.childNodes.forEach(function (node, index) {
             node.childNodes[0].firstChild?.lastChild?.textContent ?
             finalArray.push({
@@ -32,10 +28,10 @@ export default function CapContainerNormAdd({
         setListComponents([...listComponents, components]);
     };
 
-    const handleArrayMinus = (i: number) => {
+    const handleArrayMinus = (i) => {
         document.getElementById(String(i))?.remove();
         const list = document.getElementById("listN");
-        let finalArray: {"text": string}[] = [];
+        let finalArray = [];
         console.log("LIST");
         list?.childNodes.forEach(function (node, index) {
             console.log(node.childNodes[2].firstChild?.firstChild?.firstChild?.textContent);

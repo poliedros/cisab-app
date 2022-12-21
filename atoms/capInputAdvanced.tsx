@@ -52,7 +52,7 @@ export default function CapInputAdvanced({
                             isMulti
                             options={options}
                             placeholder="Selecione uma ou mais Categorias"
-                            onChange={(e: any) => setArray(JSON.stringify(e.map((c: any) => c.label.replace(/"([^"]+)":/g, '$1:'))))} //.toString().replace(/\\/g, "")
+                            onChange={(e: any) => setArray(e.map((c: any) => c.label))} //.toString().replace(/\\/g, "")
                         />
                     </div>
                     <CategoryFunded 

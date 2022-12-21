@@ -8,16 +8,12 @@ export default function CapContainerProductAdd({
     components = [],
     resultArray = [],
     setResultArray = undefined,
-}: {
-    components?: any[];
-    resultArray?: ProductDTO[];
-    setResultArray?: any;
 }) {
-    const [listComponents, setListComponents] = useState<any[]>([components]);
+    const [listComponents, setListComponents] = useState([components]);
 
     const handleScanArray = () => {
         const list = document.getElementById("listP");
-        let finalArray: ProductDTO[] = [];
+        let finalArray = [];
         list?.childNodes.forEach(function (node, index) {
             finalArray.push({
                 "_id": "",
@@ -36,10 +32,10 @@ export default function CapContainerProductAdd({
         setListComponents([...listComponents, components]);
     };
 
-    const handleArrayMinus = (i: number) => {
+    const handleArrayMinus = (i) => {
         document.getElementById(String(i))?.remove();
         const list = document.getElementById("listP");
-        let finalArray: ProductDTO[] = [];
+        let finalArray = [];
         console.log("LIST");
         list?.childNodes.forEach(function (node, index) {
             console.log(node.childNodes[2].firstChild?.firstChild?.firstChild?.textContent);

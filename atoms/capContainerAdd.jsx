@@ -14,22 +14,12 @@ export default function CapContainerAdd({
     //scanArray = [],
     //setScanArray = undefined,
     setStep = undefined,
-}: {
-    components?: any[];
-    setComponents?: any;
-    key?: number;
-    resultArray?: {"name": string, "value": string, "unit": string}[];
-    setResultArray?: any;
-    scanArray?: any;
-    //scanArray?: any[];
-    //setScanArray?: any;
-    setStep?: any;
 }) {
-    const [listComponents, setListComponents] = useState<any[]>([components]);
+    const [listComponents, setListComponents] = useState([components]);
 
     const handleScanArray = () => {
         const list = document.getElementById("list");
-        let finalArray: {"name": string, "value": string, "unit": string}[] = [];
+        let finalArray = [];
         list?.childNodes.forEach(function (node, index) {
             node.childNodes[0].firstChild?.lastChild?.textContent && node.childNodes[1].firstChild?.lastChild?.textContent && node.childNodes[2].firstChild?.firstChild?.firstChild?.textContent ?
                 finalArray.push({
@@ -48,7 +38,7 @@ export default function CapContainerAdd({
         setListComponents([...listComponents, components]);
     };
 
-    const handleArrayMinus = (i: number) => {
+    const handleArrayMinus = (i) => {
         document.getElementById(String(i))?.remove();
         const list = document.getElementById("list");
         /* let finalArray: string[] = [];
@@ -61,7 +51,7 @@ export default function CapContainerAdd({
                     : ""
             );
         }); */
-        let finalArray: {"name": string, "value": string, "unit": string}[] = [];
+        let finalArray = [];
         console.log("LIST");
         list?.childNodes.forEach(function (node, index) {
             console.log(node.childNodes[2].firstChild?.firstChild?.firstChild?.textContent);

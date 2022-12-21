@@ -12,6 +12,8 @@ import CapContainer from "atoms/capContainer";
 import CapIconButton from "atoms/capIconButton";
 import CapInputAdvanced from "atoms/capInputAdvanced";
 import CapInputRangeCalendar from "atoms/capInputRangeCalendar";
+import { CategoryDTO } from "pages/api/categories";
+import { MutatorCallback, MutatorOptions } from "swr";
 
 export default function ProductList({ products }: { products: ProductDTO[] }) {
     const [searchProduct, setSearchProduct] = useState("");
@@ -59,7 +61,9 @@ export default function ProductList({ products }: { products: ProductDTO[] }) {
                     searchPath={"name"}
                 /> : null}
                 <CapPagination content={products} size={size} page={page} setPage={setPage} />
-                <CapInputAdvanced />
+                <CapInputAdvanced mutate={function (data?: CategoryDTO[] | Promise<CategoryDTO[]> | MutatorCallback<CategoryDTO[]> | undefined, opts?: boolean | MutatorOptions<CategoryDTO[]> | undefined): Promise<CategoryDTO[] | undefined> {
+                    throw new Error("Function not implemented.");
+                } } />
                 <CapInputRangeCalendar />
             </Container>
         </>

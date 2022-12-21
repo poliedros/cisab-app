@@ -33,7 +33,7 @@ export default function CapInputAdvancedProduct({
                             isMulti
                             options={options}
                             placeholder="Selecione um ou mais Acessórios"
-                            onChange={(e: any) => setArray(JSON.stringify(e.map((c: any) => c.value)))}
+                            onChange={(e: any) => setArray(e.map((c: any) => c.value))}
                         />
                     </div>
                     {/* <CategoryFunded 
