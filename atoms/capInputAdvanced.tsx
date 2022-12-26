@@ -13,6 +13,7 @@ import { KeyedMutator } from "swr";
 export default function CapInputAdvanced({
     label = "emptyText",
     literal = undefined,
+    placeholder = "emptyText",
     categories= [],
     mutate,
     array= [],
@@ -20,6 +21,7 @@ export default function CapInputAdvanced({
 }: {
     label?: string;
     literal?: string;
+    placeholder?: string;
     categories?: CategoryDTO[];
     mutate: KeyedMutator<CategoryDTO[]>;
     array?: string[];
@@ -51,7 +53,7 @@ export default function CapInputAdvanced({
                             //defaultValue={[]}
                             isMulti
                             options={options}
-                            placeholder="Selecione uma ou mais Categorias"
+                            placeholder={translations(placeholder, language)}
                             onChange={(e: any) => setArray(e.map((c: any) => c.label))} //.toString().replace(/\\/g, "")
                         />
                     </div>

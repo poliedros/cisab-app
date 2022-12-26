@@ -9,7 +9,7 @@ export default function CapContainerAdd({
     setComponents = undefined,
     key = undefined,
     resultArray = [],
-    setResultArray = undefined,
+    setResultArray,
     scanArray = undefined,
     //scanArray = [],
     //setScanArray = undefined,
@@ -105,7 +105,10 @@ export default function CapContainerAdd({
                         )}
                     </Row>
                 ))}
-                <CapBtn label="next" iconType="" icon="" click={handleScanArray} css="mb-3" />
+                <div className="text-center">
+                    <CapIconButton iconType="bs" icon="BsSave" size="20px" click={handleScanArray} />
+                </div>
+                {/* <CapBtn label="next" iconType="" icon="" click={handleScanArray} css="mb-3" /> */}
             </div>
         </>
     );

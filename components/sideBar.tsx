@@ -48,10 +48,10 @@ export default function SideBar() {
 
     const county = (
         <Popover>
-            <div className="overflow-auto -m-6 p-4 invisibleScroll">
+            <div className="overflow-auto -mt-[2.5rem] -mb-6 -mx-5 p-4 invisibleScroll">
                 <div
                     className={
-                        (theme === "dark" ? "bg-slate-800" : "bg-white") +
+                        (theme === "dark" ? "bg-slate-900" : "bg-white") +
                         " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"
                     }
                 >
@@ -79,10 +79,10 @@ export default function SideBar() {
 
     const product = (
         <Popover>
-            <div className="overflow-auto -m-6 p-4 invisibleScroll">
+            <div className="overflow-auto -mt-[2.5rem] -mb-6 -mx-5 p-4 invisibleScroll">
                 <div
                     className={
-                        (theme === "dark" ? "bg-slate-800" : "bg-white") +
+                        (theme === "dark" ? "bg-slate-900" : "bg-white") +
                         " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"
                     }
                 >
@@ -103,13 +103,13 @@ export default function SideBar() {
                         hoverColor="#7dc523"
                         tooltip="listProducts"
                     />
-                    <CapIconButton
+                    {/* <CapIconButton
                         iconType="md"
                         icon="MdLinearScale"
                         size="24px"
                         route="/counties"
                         hoverColor="#7dc523"
-                    />
+                    /> */}
                 </div>
             </div>
         </Popover>
@@ -117,10 +117,10 @@ export default function SideBar() {
 
     const project = (
         <Popover>
-            <div className="overflow-auto -m-6 p-4 invisibleScroll">
+            <div className="overflow-auto -mt-[2.5rem] -mb-6 -mx-5 p-4 invisibleScroll w-max">
                 <div
                     className={
-                        (theme === "dark" ? "bg-slate-800" : "bg-white") +
+                        (theme === "dark" ? "bg-slate-900" : "bg-white") +
                         " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"
                     }
                 >
@@ -142,6 +142,22 @@ export default function SideBar() {
                     />
                     <CapIconButton
                         iconType="ri"
+                        icon="RiArtboardFill"
+                        size="24px"
+                        route="/project/diagrams"
+                        hoverColor="#7dc523"
+                        css="mr-3"
+                    />
+                    <CapIconButton
+                        iconType="bs"
+                        icon="BsPuzzleFill"
+                        size="24px"
+                        route="/project/diagrams"
+                        hoverColor="#7dc523"
+                        css="mr-3"
+                    />
+                    <CapIconButton
+                        iconType="ri"
                         icon="RiTestTubeFill"
                         size="24px"
                         route="/project/test"
@@ -154,10 +170,10 @@ export default function SideBar() {
 
     const setting = (
         <Popover>
-            <div className="overflow-auto -m-6 p-4 invisibleScroll">
+            <div className="overflow-auto -mt-[2.5rem] -mb-6 -mx-5 p-4 invisibleScroll">
                 <div
                     className={
-                        (theme === "dark" ? "bg-slate-800" : "bg-white") +
+                        (theme === "dark" ? "bg-slate-900" : "bg-white") +
                         " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"
                     }
                 >

@@ -22,7 +22,7 @@ export default function Get() {
 
   return (
     <>
-      <ProductShowcase />
+      <ProductShowcase product={product}/>
     </>
   );
 }

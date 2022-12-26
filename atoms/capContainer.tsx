@@ -4,7 +4,7 @@ import { useLanguage, useLanguageUpdate } from "../context/languageContext";
 import CapTinyCard from "./capTinyCard";
 import { Col, Row } from "react-bootstrap";
 
-export default function CapSubtitle({
+export default function CapContainer({
     data = undefined,
     component = "",
 }: {

@@ -41,7 +41,7 @@ export default function CapLargeCard({
           </div>
         </div> */}
         <div
-          className="h-[125px] flex items-center"
+          className="h-auto flex items-center mb-3"
           style={{
             perspective: "300px",
           }}
@@ -53,13 +53,24 @@ export default function CapLargeCard({
             {mirror ?
               <Row className="!flex-nowrap">
                 <Col xs={8}>
+                  <h4>{translations(label, language)}</h4>
                   <Card.Title
                   >
-                    Nome
+                    Tema
                   </Card.Title>
-                  <Card.Text>porra do saco</Card.Text>
+                  <Card.Text>Data</Card.Text><div>
+            <CapImage src={"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"} w={35} h={35} css="rounded-full" />
+            <CapImage src={"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"} w={35} h={35} css="rounded-full" />
+            <CapImage src={"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"} w={35} h={35} css="rounded-full" />
+            <CapImage src={"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"} w={35} h={35} css="rounded-full" />
+            <CapImage src={"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"} w={35} h={35} css="rounded-full" />
+            <CapImage src={"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"} w={35} h={35} css="rounded-full" />
+            <CapImage src={"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"} w={35} h={35} css="rounded-full" />
+            <CapImage src={"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"} w={35} h={35} css="rounded-full" />
+            </div>
                 </Col>
-                <Col xs={4} className="text-right">
+                
+                <Col xs={4} className="text-right flex justify-end items-center">
                   <CapIconButton
                     size="14px"
                   />
@@ -68,7 +79,7 @@ export default function CapLargeCard({
                 </Col>
               </Row>
               : <Row className="!flex-nowrap">
-                <Col xs={4}>
+                <Col xs={4} className="flex justify-start items-center">
                 <CapIconButton
                   size="14px"
                 />
@@ -76,13 +87,24 @@ export default function CapLargeCard({
                 <CapIconButton size="14px" />
               </Col>
               <Col xs={8} className="text-right">
-                <Card.Title
-                >
-                  Nome
-                </Card.Title>
-                <Card.Text>porra do saco</Card.Text>
+                <h4>{translations(label, language)}</h4>
+                  <Card.Title
+                  >
+                    Tema
+                  </Card.Title>
+                  <Card.Text>Data</Card.Text><div className="text-right">
+            <CapImage src={"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"} w={35} h={35} css="rounded-full" />
+            <CapImage src={"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"} w={35} h={35} css="rounded-full" />
+            <CapImage src={"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"} w={35} h={35} css="rounded-full" />
+            <CapImage src={"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"} w={35} h={35} css="rounded-full" />
+            <CapImage src={"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"} w={35} h={35} css="rounded-full" />
+            <CapImage src={"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"} w={35} h={35} css="rounded-full" />
+            <CapImage src={"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"} w={35} h={35} css="rounded-full" />
+            <CapImage src={"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"} w={35} h={35} css="rounded-full" />
+            </div>
               </Col>
             </Row>}
+            {Array(10).map(a => { return <CapImage key={0} src={"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"} w={35} h={35} css="rounded-full" /> })}
             </Card.Body>
           </Card>
         </div>

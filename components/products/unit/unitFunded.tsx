@@ -7,16 +7,20 @@ import { RefAttributes, useEffect, useState } from "react";
 import { Dropdown, Form, OverlayTrigger, Popover } from "react-bootstrap";
 import { KeyedMutator } from "swr";
 
+import { useLanguage, useLanguageUpdate } from "../../../context/languageContext";
+
+import { useTheme, useThemeUpdate } from "../../../context/themeContext";
+
 export default function UnitFunded({
+    defaultUnit = undefined,
     units = [],
     array = [],
     setArray = undefined,
-    language = "pt",
     mutate,
 }: /* county = undefined,
     submit, */
 {
-    language?: "pt";
+    defaultUnit?: string;
     array?: string[];
     setArray?: any;
     units?: UnitDTO[];
@@ -24,6 +28,9 @@ export default function UnitFunded({
     /* county: CountyDTO | undefined;
     submit: (county: CountyDTO) => Promise<CountyDTO | undefined>; */
 }) {
+    const language = useLanguage();
+    const toggleLanguage = useLanguageUpdate();
+
     //alert(units);
     const [unitSelected, setUnitSelected] = useState("");
     const [unitName, setUnitName] = useState("");
@@ -34,6 +41,9 @@ export default function UnitFunded({
 
     const [errorUnit, setErrorUnit] = useState(-1);
     const [messageUnit, setMessageUnit] = useState("emptyText");
+
+    const theme = useTheme();
+    const toggleTheme = useThemeUpdate();
 
     const saveUnit = async (unit: any): Promise<UnitDTO | undefined> => {
         delete unit._id;
@@ -130,16 +140,24 @@ export default function UnitFunded({
                     className="!bg-[#7dc523] !border-0"
                     id="dropdown-basic"
                 >
-                    {unitSelected
+                    {defaultUnit && !unitSelected ? defaultUnit :
+                    unitSelected
                         ? unitSelected
                         : Translations("unit", language)}
                 </Dropdown.Toggle>
-                <Dropdown.Menu>
+                <Dropdown.Menu className="border-0 bg-transparent">
+                <div className="overflow-auto -m-6 p-4 invisibleScroll">
+                <div
+                    className={
+                        (theme === "dark" ? "bg-slate-600" : "bg-white") +
+                        " flex flex-column relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"
+                    }
+                >
                     <div className="!flex flex-column">
                         <Form.Control
                             autoFocus
                             className="mx-3 my-2 w-auto"
-                            placeholder={Translations("emptyText", //"findUnitName",
+                            placeholder={Translations("findUnitName", //"findUnitName",
                             language)} //Type to filter...
                             onChange={(e) => setValue(e.target.value)}
                             value={value}
@@ -153,17 +171,18 @@ export default function UnitFunded({
                             .map((m, i) => (
                                 <div
                                     key={i}
-                                    className="!flex justify-between items-center"
+                                    className={"!flex justify-between items-center"}
                                 >
                                     <Dropdown.Item
                                         eventKey={i}
+                                        className={(theme === "dark" ? "!text-white" : "")}
                                         onClick={(e) => {
                                             e ? handleUnitSelected(e) : null;
                                         }}
                                     >
                                         {m.name}
                                     </Dropdown.Item>
-                                    <div className="flex items-center my-1.5 mx-3">
+                                    <div className={"flex items-center my-1.5 mx-3"}>
                                         {errorUnit === i ? (
                                             <div className="ml-1.5">
                                                 {IconsByName("md", messageUnit)}
@@ -206,7 +225,7 @@ export default function UnitFunded({
                                             autoFocus
                                             className="mx-3 my-2 w-auto"
                                             placeholder={Translations(
-                                                "emptyText", //"insertUnitName",
+                                                "insertUnitName", //"insertUnitName",
                                                 language
                                             )} //Type to filter...
                                             onChange={(e) =>
@@ -214,10 +233,11 @@ export default function UnitFunded({
                                             }
                                             value={unitName}
                                         />
-                                        <CapBtn
-                                            label="emptyText" //"create"
+                                        {/* <CapBtn
+                                            label="create" //"create"
                                             click={handleSave}
-                                        />
+                                        /> */}
+                                        <CapIconButton iconType="md" icon="MdOutlineCheck" size="16px" click={handleSave} />
                                     </>
                                 )}
                             </div>
@@ -230,14 +250,16 @@ export default function UnitFunded({
                             icon="FaPlus"
                             size="14px"
                             click={() => setShow(true)}
-                            css="!w-[100%] !flex justify-center"
-                            rounded=" rounded "
+                            /* css="!w-[100%] !flex justify-center"
+                            rounded=" rounded " */
                         />
                     </Dropdown.ItemText>
                     {/* <Dropdown.Item eventKey="2">Another action</Dropdown.Item>
                 <Dropdown.Item eventKey="3">Something else here</Dropdown.Item>
                 <Dropdown.Divider />
                 <Dropdown.Item eventKey="4">Separated link</Dropdown.Item> */}
+                </div>
+                </div>
                 </Dropdown.Menu>
             </Dropdown>
         </>

@@ -16,6 +16,9 @@ export default function CapIconButton({
     css = "",
     padding = "!p-[12px]",
     rounded = "!rounded-full",
+    mouseEnter = undefined,
+    mouseLeave = undefined,
+    variant = "outline-secondary",
 }: {
     icon?: string;
     iconType?: string;
@@ -27,6 +30,9 @@ export default function CapIconButton({
     css?: string;
     padding?: string;
     rounded?: string;
+    mouseEnter?: any;
+    mouseLeave?: any;
+    variant?: string;
 }) {
     const language = useLanguage();
     const toggleLanguage = useLanguageUpdate();
@@ -58,12 +64,14 @@ export default function CapIconButton({
                                 " border-0 !rounded-full !p-[12px] " +
                                 (css || css !== "" ? css : "") + " " + rounded + " " + padding
                             }
-                            variant="outline-secondary"
+                            variant={variant}
                             onClick={
                                 click
                                     ? click
                                     : () => (route ? Router.push(route) : null)
                             }
+                            onMouseEnter={mouseEnter}
+                            onMouseLeave={mouseLeave}
                         >
                             {IconsByName(iconType, icon, size)}
                         </Button>
@@ -74,6 +82,8 @@ export default function CapIconButton({
                                 (css || css !== "" ? css : "") + " " + rounded + " " + padding
                             }
                             variant="outline-secondary"
+                            onMouseEnter={mouseEnter}
+                            onMouseLeave={mouseLeave}
                         >
                             {IconsByName(iconType, icon, size)}
                         </Button>
@@ -89,12 +99,14 @@ export default function CapIconButton({
                         " border-0 !rounded-full !p-[12px] " +
                         (css || css !== "" ? css : "") + " " + rounded + " " + padding
                     }
-                    variant="outline-secondary"
+                    variant={variant}
                     onClick={
                         click
                             ? click
                             : () => (route ? Router.push(route) : null)
                     }
+                    onMouseEnter={mouseEnter}
+                    onMouseLeave={mouseLeave}
                 >
                     {IconsByName(iconType, icon, size)}
                 </Button>
@@ -105,6 +117,8 @@ export default function CapIconButton({
                         (css || css !== "" ? css : "") + " " + rounded + " " + padding
                     }
                     variant="outline-secondary"
+                    onMouseEnter={mouseEnter}
+                    onMouseLeave={mouseLeave}
                 >
                     {IconsByName(iconType, icon, size)}
                 </Button>

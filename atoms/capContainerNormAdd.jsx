@@ -5,8 +5,8 @@ import CapIconButton from "./capIconButton";
 
 export default function CapContainerNormAdd({
     components = [],
-    resultArray = [{text: ""}],
-    setResultArray = undefined,
+    resultArray = [],
+    setResultArray,
 }) {
     const [listComponents, setListComponents] = useState([components]);
 
@@ -15,9 +15,9 @@ export default function CapContainerNormAdd({
         let finalArray = [];
         list?.childNodes.forEach(function (node, index) {
             node.childNodes[0].firstChild?.lastChild?.textContent ?
-            finalArray.push({
-                "text": node.childNodes[0].firstChild?.firstChild?.nextSibling?.value
-            })
+            finalArray.push(
+                node.childNodes[0].firstChild?.firstChild?.nextSibling?.value
+            )
             : null
         });
         setResultArray(finalArray);
@@ -75,7 +75,10 @@ export default function CapContainerNormAdd({
                         )}
                     </Row>
                 ))}
-                <CapBtn label="next" iconType="" icon="" click={handleScanArray} css="mb-3" />
+                <div className="text-center">
+                    <CapIconButton iconType="bs" icon="BsSave" size="20px" click={handleScanArray} />
+                </div>
+                {/* <CapBtn label="next" iconType="" icon="" click={handleScanArray} css="mb-3" /> */}
             </div>
         </>
     );

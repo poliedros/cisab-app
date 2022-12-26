@@ -7,7 +7,7 @@ import { ProductDTO } from "pages/api/products";
 export default function CapContainerProductAdd({
     components = [],
     resultArray = [],
-    setResultArray = undefined,
+    setResultArray,
 }) {
     const [listComponents, setListComponents] = useState([components]);
 

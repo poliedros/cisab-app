@@ -1,4 +1,4 @@
-import DocumentationComp from "components/documentation/documentation";
+import DocumentationComp from "components/documentation/documentationCaps";
 
 export default function Documentation() {
     return (

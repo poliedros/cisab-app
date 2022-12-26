@@ -287,6 +287,9 @@
   "insertProductCategory": {
     "pt": "Insera uma Categoria do Produto"
   },
+  "insertProductMultiCategory": {
+    "pt": "Selecione uma ou mais Categorias"
+  },
   "image": {
     "pt": "Imagem"
   },
@@ -294,7 +297,7 @@
     "pt": "Enviar"
   },
   "emptyText": {
-    "pt": "Texto Vazio"
+    "pt": ""
   },
   "userList": {
     "pt": "Lista de Usuários do Município"
@@ -466,5 +469,47 @@
   },
   "insertNorm": {
     "pt": "Insira texto da Norma"
+  },
+  "findUnitName": {
+    "pt": "Buscar Unidade"
+  },
+  "insertUnitName": {
+    "pt": "Nome da Unidade"
+  },
+  "create": {
+    "pt": "Criar"
+  },
+  "editProduct": {
+    "pt": "Alterar Informações do Produto"
+  },
+  "productDescription": {
+    "pt": "Descrição do Produto"
+  },
+  "productData": {
+    "pt": "Informações do Produto"
+  },
+  "norms": {
+    "pt": "Normas"
+  },
+  "accessories": {
+    "pt": "Acessórios"
+  },
+  "countyAccountable": {
+    "pt": "Responsável pelo Município"
+  },
+  "autarkyAccount": {
+    "pt": "Conta da Autarquia"
+  },
+  "autarkyData": {
+    "pt": "Informações sobre a Autarquia"
+  },
+  "aurtarkyAccountable": {
+    "pt": "Responsável pela Autarquia"
+  },
+  "categoryName": {
+    "pt": "Nome da Categoria"
+  },
+  "searchCategory": {
+    "pt": "Buscar Categoria"
   }
 }

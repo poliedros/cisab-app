@@ -36,7 +36,7 @@ export default function CapPagination({
                     {content && arrayLength < 11 ? (
                         Array.apply(
                             null,
-                            Array(Math.max(0, Math.round(arrayLength+1)))
+                            Array(Math.max(0, Math.round(arrayLength))) //+ 1
                         ).map((c, i) => (
                             <div key={i}>
                                 <Pagination.Item

@@ -20,6 +20,12 @@ import { CategoryDTO } from "pages/api/categories";
 import CapContainerNormAdd from "atoms/capContainerNormAdd";
 import CapContainerProductAdd from "atoms/capContainerProductAdd";
 import CapInputAdvancedProduct from "atoms/capInputAdvancedProduct";
+import { stringify } from "querystring";
+import CapIconButton from "atoms/capIconButton";
+
+import translations from "../../lib/translations";
+import { useLanguage, useLanguageUpdate } from "../../context/languageContext";
+import CapLegend from "atoms/capLegend";
 
 export default function ProductCreation({
     product = undefined,
@@ -28,6 +34,9 @@ export default function ProductCreation({
     product?: ProductDTO | undefined;
     submit: (product: ProductDTO) => Promise<ProductDTO | undefined>;
 }) {
+    const language = useLanguage();
+    const toggleLanguage = useLanguageUpdate();
+
     const [productName, setProductName] = useState("");
 
     const [step, setStep] = useState(0);
@@ -43,6 +52,8 @@ export default function ProductCreation({
     const [list, setList] = useState([""]);
     const [listCat, setListCat] = useState([""]);
     const [listProd, setListProd] = useState([""]);
+
+    const [description, setDescription] = useState("emptyText");
 
     const [measures, setMeasures] = useState<string[]>([]);
     const [unitsValue, setUnitsValue] = useState<string[]>([]);
@@ -100,6 +111,17 @@ export default function ProductCreation({
         setUnitsSt(unitsStAlt);
     };
 
+    const saveProduct = async (product: any): Promise<ProductDTO | undefined> => {
+        delete product._id;
+        const data = await fetch("/api/products", {
+            method: "POST",
+            body: JSON.stringify(product),
+        });
+
+        alert(data.status);
+        return undefined;
+    };
+
     const handleProduct = async () => {
         alert(categories);
         const _id = product?._id;
@@ -124,12 +146,12 @@ export default function ProductCreation({
             code: code,
             accessory_ids: prodRes ?? [],
             categories: listCat ?? [],
-            photo: "",
+            //photo: "",
         };
 
-        alert(JSON.stringify(productResult));
-        alert(array);
-        console.log(array);
+        //alert(JSON.stringify(productResult))
+
+        await saveProduct(productResult);
     };
 
     if (error) return <div>failed to load</div>;
@@ -156,14 +178,15 @@ export default function ProductCreation({
                         <CapTabs
                             activeKey={step.toString()}
                             disabled={[true, true, true, true, true]}
+                            stagesTooltips={["productData", "norms", "accessories", "image", "finalize"]}
                             stagesIcons={[
                                 "MdEditNote",
-                                "GoLaw",
+                                "FaBalanceScale",
                                 "MdAddCircle",
                                 "IoImage",
                                 "RiCheckboxCircleFill",
                             ]}
-                            stagesIconsTypes={["md", "go", "md", "io5", "ri"]}
+                            stagesIconsTypes={["md", "fa", "md", "io5", "ri"]}
                             stagesBody={[
                                 <>
                                     <CapForm
@@ -193,6 +216,8 @@ export default function ProductCreation({
                                         />
                                         <Col>
                                             <CapInputAdvanced
+                                                label="productCategory"
+                                                placeholder="insertProductMultiCategory"
                                                 categories={categories}
                                                 mutate={mutate}
                                                 array={listCat}
@@ -248,6 +273,7 @@ export default function ProductCreation({
                                         //setComponents={setComponents}
                                         key={k}
                                         resultArray={array}
+                                        setResultArray={setArray}
                                     />
                                     {/* unit.map((m, i) => 
                                 <div key={i}>
@@ -291,30 +317,52 @@ export default function ProductCreation({
                                     </div>
                                     ) */}
                                     {/* <CapBtn kind="next" click={handleProduct} /> */}
-                                    <Row>
+                                    <Row className="flex justify-end items-end">
+                                        <Col>
+                                            <CapLegend label={description} />
+                                        </Col>
                                         <Col md="auto" className="!pl-0 !pr-3">
-                                            <CapBtn
+                                            <CapIconButton iconType="io5"
+                                                icon="IoImageOutline"
+                                                size="20px"
+                                                click={handleProduct}
+                                                mouseEnter={() => setDescription("finalize")}
+                                                mouseLeave={() => setDescription("emptyText")}
+                                            />
+                                            {/* <CapBtn
                                                 label="finalize"
                                                 iconType="io5"
                                                 icon="IoImageOutline"
                                                 click={handleProduct} //() => setStep(3)
-                                            />
+                                            /> */}
                                         </Col>
                                         <Col md="auto" className="!pl-0 !pr-3">
-                                            <CapBtn
+                                        <CapIconButton iconType="md"
+                                                icon="MdOutlineAddCircleOutline"
+                                                size="20px"
+                                                click={() => setStep(2)}
+                                                mouseEnter={() => setDescription("goToAccessory")}
+                                                mouseLeave={() => setDescription("emptyText")}/>
+                                            {/* <CapBtn
                                                 label="goToAccessory"
                                                 iconType="md"
                                                 icon="MdOutlineAddCircleOutline"
                                                 click={() => setStep(2)}
-                                            />
+                                            /> */}
                                         </Col>
                                         <Col md="auto" className="!pl-0">
-                                            <CapBtn
+                                        <CapIconButton iconType="md"
+                                                icon="MdNavigateNext"
+                                                size="20px"
+                                                click={() => setStep(1)}
+                                                mouseEnter={() => setDescription("continueFillingOut")}
+                                                mouseLeave={() => setDescription("emptyText")}/>
+                                            {/* <CapBtn
                                                 label="continueFillingOut"
                                                 iconType="md"
                                                 icon="MdNavigateNext"
                                                 click={() => setStep(1)}
-                                            />
+                                            /> */}
                                         </Col>
                                     </Row>
                                 </>,
@@ -331,23 +379,43 @@ export default function ProductCreation({
                                             </>,
                                         ]}
                                         resultArray={arrayNorms}
+                                        setResultArray={setArrayNorms}
                                     />
-                                    <Row>
+                                    <Row className="flex justify-end items-end">
+                                        <Col>
+                                            <CapLegend label={description} />
+                                        </Col>
                                         <Col md="auto" className="!pl-0 !pr-3">
-                                            <CapBtn
+                                            <CapIconButton
+                                                iconType="io5"
+                                                icon="IoImageOutline"
+                                                size="20px"
+                                                click={handleProduct}
+                                                mouseEnter={() => setDescription("finalize")}
+                                                mouseLeave={() => setDescription("emptyText")}
+                                            />
+                                            {/* <CapBtn
                                                 label="finalize"
                                                 iconType="io5"
                                                 icon="IoImageOutline"
                                                 click={handleProduct} //() => setStep(3)
-                                            />
+                                            /> */}
                                         </Col>
                                         <Col md="auto" className="!pl-0">
-                                            <CapBtn
+                                            <CapIconButton
+                                                iconType="md"
+                                                icon="MdNavigateNext"
+                                                size="20px"
+                                                click={() => setStep(2)}
+                                                mouseEnter={() => setDescription("continueFillingOut")}
+                                                mouseLeave={() => setDescription("emptyText")}
+                                            />
+                                            {/* <CapBtn
                                                 label="continueFillingOut"
                                                 iconType="md"
                                                 icon="MdNavigateNext"
                                                 click={() => setStep(2)}
-                                            />
+                                            /> */}
                                         </Col>
                                     </Row>
                                 </>,
@@ -360,13 +428,13 @@ export default function ProductCreation({
                                                 as={Col}
                                                 label="productName"
                                                 placeholder="insertProductName"
-                                                value={productName}
+                                                /* value={productName}
                                                 change={
                                                     (e: any) =>
                                                         setProductName(
                                                             e.target.value
                                                         ) //setProductName(e.target.value)
-                                                }
+                                                } */
                                                 legend="exampleProductName"
                                             />,
                                             <>
@@ -376,12 +444,12 @@ export default function ProductCreation({
                                                         as={Col}
                                                         label="productCode"
                                                         placeholder="insertProductCode"
-                                                        value={code}
+                                                        /* value={code}
                                                         change={(e: any) =>
                                                             setCode(
                                                                 e.target.value
                                                             )
-                                                        }
+                                                        } */
                                                     />
                                                     <Col>
                                                         <CapInputAdvanced
@@ -444,17 +512,31 @@ export default function ProductCreation({
                                                 //setComponents={setComponents}
                                                 key={k}
                                                 resultArray={array}
+                                                setResultArray={setArray}
                                             />,
                                         ]}
                                         resultArray={[]}
                                         setResultArray={undefined}
                                     />
-                                    <CapBtn
+                                    <div className="flex justify-end items-end">
+                                        <Col>
+                                            <CapLegend label={description} />
+                                        </Col>
+                                        <CapIconButton
+                                            iconType="md"
+                                            icon="MdNavigateNext"
+                                            size="20px"
+                                            click={handleProduct} //() => setStep(3)
+                                            mouseEnter={() => setDescription("continueFillingOut")}
+                                            mouseLeave={() => setDescription("emptyText")}
+                                        />
+                                    </div>
+                                    {/* <CapBtn
                                         label="continueFillingOut"
                                         iconType="md"
                                         icon="MdNavigateNext"
                                         click={handleProduct} //() => setStep(3)
-                                    />
+                                    /> */}
                                 </>,
                                 <>
                                     <CapImage key={0} src={""} />
@@ -464,12 +546,20 @@ export default function ProductCreation({
                                         /* value={countyFlag}
                                     change={(e: any) => setCountyFlag(e.target.value)} */
                                     />
-                                    <CapBtn
+                                    <Row className="flex justify-end">
+                                        <CapIconButton
+                                            iconType="ri"
+                                            icon="RiCheckboxCircleLine"
+                                            size="20px"
+                                            click={() => setStep(4)}
+                                        />
+                                    </Row>
+                                    {/* <CapBtn
                                         label="finalize"
                                         iconType="ri"
                                         icon="RiCheckboxCircleLine"
                                         click={() => setStep(4)}
-                                    />
+                                    /> */}
                                 </>,
                                 <></>,
                             ]}

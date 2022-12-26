@@ -3,6 +3,7 @@ import IconsByName from "components/iconsByName";
 import translations from "../lib/translations";
 
 import { useLanguage, useLanguageUpdate } from "../context/languageContext";
+import { useTheme, useThemeUpdate } from "../context/themeContext";
 
 export default function CapForm({
   kind = "default",
@@ -54,11 +55,14 @@ export default function CapForm({
   const language = useLanguage();
   const toggleLanguage = useLanguageUpdate();
 
+  const theme = useTheme();
+  const toggleTheme = useThemeUpdate();
+
   return (
     <>
       {kind === "default" ? (
         <Form.Group
-          className="mb-3"
+          className={(theme === "dark" ? "text-white" : "") + " mb-3"}
           controlId={controlId}
           placeholder={placeholder}
           as={as}

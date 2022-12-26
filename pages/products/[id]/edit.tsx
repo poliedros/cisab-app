@@ -6,7 +6,10 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import { ProductDTO } from "pages/api/products";
 import { useState } from "react";
+
 import CapMessageBottom from "atoms/capMessageBottom";
+
+import ProductUpdate from "components/products/productUpdate";
 
 export default function Edit() {
     const { user } = useUser({ redirectTo: "/login" });
@@ -65,13 +68,11 @@ export default function Edit() {
         return undefined;
     };
 
+    alert("love" + JSON.stringify(productRes));
+
     return (
         <>
-            {/* <CountyRegistration
-                language="pt"
-                county={countyRes}
-                submit={editCounty}
-            /> */}
+            <ProductUpdate product={productRes} submit={editProduct} />
             <>{error}</>
             <div className="flex justify-center">
                 {message === "success" ? (

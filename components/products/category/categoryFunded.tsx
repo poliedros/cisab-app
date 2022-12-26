@@ -7,6 +7,8 @@ import { RefAttributes, useEffect, useState } from "react";
 import { Button, Dropdown, Form, OverlayTrigger, Popover } from "react-bootstrap";
 import { KeyedMutator } from "swr";
 
+import { useTheme, useThemeUpdate } from "../../../context/themeContext";
+
 import {
     useLanguage,
     useLanguageUpdate,
@@ -35,6 +37,9 @@ export default function CategoryFunded({
 
     const [errorCategory, setErrorCategory] = useState(-1);
     const [messageCategory, setMessageCategory] = useState("emptyText");
+
+    const theme = useTheme();
+    const toggleTheme = useThemeUpdate();
 
     const saveCategory = async (category: any): Promise<CategoryDTO | undefined> => {
         delete category._id;
@@ -124,12 +129,19 @@ export default function CategoryFunded({
                 >
                     {IconsByName("fi", "FiEdit")}
                 </Dropdown.Toggle>
-                <Dropdown.Menu>
+                <Dropdown.Menu className="border-0 bg-transparent">
+                <div className="overflow-auto -m-6 p-4 invisibleScroll">
+                <div
+                    className={
+                        (theme === "dark" ? "bg-slate-600" : "bg-white") +
+                        " flex flex-column relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"
+                    }
+                >
                     <div className="!flex flex-column">
                         <Form.Control
                             autoFocus
                             className="mx-3 my-2 w-auto"
-                            placeholder={Translations("emptyText", language)}
+                            placeholder={Translations("searchCategory", language)}
                             onChange={(e) => setValue(e.target.value)}
                             value={value}
                         />
@@ -146,6 +158,7 @@ export default function CategoryFunded({
                                 >
                                     <Dropdown.Item
                                         eventKey={i}
+                                        className={(theme === "dark" ? "!text-white" : "")}
                                         onClick={(e) => {
                                             e ? handleCategorySelected(e) : null;
                                         }}
@@ -194,7 +207,7 @@ export default function CategoryFunded({
                                             autoFocus
                                             className="mx-3 my-2 w-auto"
                                             placeholder={Translations(
-                                                "emptyText",
+                                                "categoryName",
                                                 language
                                             )}
                                             onChange={(e) =>
@@ -202,10 +215,11 @@ export default function CategoryFunded({
                                             }
                                             value={categoryName}
                                         />
-                                        <CapBtn
+                                        {/* <CapBtn
                                             label="emptyText"
                                             click={handleSave}
-                                        />
+                                        /> */}
+                                        <CapIconButton iconType="md" icon="MdOutlineCheck" size="16px" click={handleSave} />
                                     </>
                                 )}
                             </div>
@@ -217,10 +231,12 @@ export default function CategoryFunded({
                             icon="FaPlus"
                             size="14px"
                             click={() => setShow(true)}
-                            css="!w-[100%] !flex justify-center"
-                            rounded=" rounded "
+                            /* css="!w-[100%] !flex justify-center"
+                            rounded=" rounded " */
                         />
                     </Dropdown.ItemText>
+                    </div>
+                    </div>
                 </Dropdown.Menu>
             </Dropdown>
         </>

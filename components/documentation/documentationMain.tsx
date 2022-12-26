@@ -1,12 +1,15 @@
 import CapForm from "atoms/capForm";
+import CapSubtitle from "atoms/capSubtitle";
 import CapTitle from "atoms/capTitle";
 import IconsByName from "components/iconsByName";
 import { Accordion, Card, Col, Row } from "react-bootstrap";
 
-export default function Documentation() {
+export default function DocumentationMain() {
     return (
         <>
             <CapTitle base="doc" label="documentation" />
+            <CapSubtitle literal="tabela"/>
+
             <p>Classes</p>
             <Card border="success" className="ml-12 mt-8">
                 <Card.Header className="flex items-center">

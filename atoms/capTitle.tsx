@@ -30,7 +30,7 @@ export default function CapTitle({
   };
   return (
     <>
-      <div className="flex items-end overflow-auto invisibleScroll w-full">
+      <div className="flex items-end overflow-auto invisibleScroll w-full items-center">
         {base !== "none" ? (
           <div className="bg-[#7dc523] rounded-full p-3 text-white">
             {iconItems[base]}

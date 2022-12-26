@@ -1,4 +1,5 @@
 import CapBtn from "atoms/capBtn";
+import CapIconButton from "atoms/capIconButton";
 import CapTabs from "atoms/capTabs";
 import CapTitle from "atoms/capTitle";
 import Account from "components/registration/account";
@@ -31,6 +32,8 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
     name: "",
   });
   const [error, setError] = useState("");
+
+  const [description, setDescription] = useState("emptyText");
 
   const validateEmail = (email: string) => {
     return String(email)
@@ -115,6 +118,7 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
       <CapTabs
         activeKey={activeTab.toString()}
         disabled={[true, true, true, true, true, true, true]}
+        stagesTooltips={["countyAccount", "countyData", "countyAccountable", "autarkyAccount", "autarkyData", "aurtarkyAccountable", "finalize"]}
         stagesIcons={[
           "RiAccountPinCircleFill",
           "FaCity",
@@ -133,8 +137,24 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
               kind={"county"}
             />
             <Row>
+              <div className="flex justify-end items-end">
+              <Col>
+                  <h5>{translations(description, language)}</h5>
+              </Col>
               <Col md="auto" className="!pl-0 !pr-3">
-                <CapBtn
+                <CapIconButton
+                  iconType="bi"
+                  icon="BiMailSend"
+                  size="20px"
+                  click={() => {
+                    if (!validateAccount(countyManager)) return;
+                    registerAccount(countyManager);
+                    setActiveTab(6);
+                  }}
+                  mouseEnter={() => setDescription("forwardToAccountable")}
+                  mouseLeave={() => setDescription("emptyText")}
+                />
+                {/* <CapBtn
                   label="forwardToAccountable"
                   iconType="bi"
                   icon="BiMailSend"
@@ -143,10 +163,22 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                     registerAccount(countyManager);
                     setActiveTab(6);
                   }}
-                />
+                /> */}
               </Col>
-              <Col md="auto" className="!pl-0">
-                <CapBtn
+              <Col md="auto" className="!pl-0 !pr-3">
+              <CapIconButton
+                  iconType="ri"
+                  icon="RiGovernmentLine"
+                  size="20px"
+                  click={() => {
+                    if (!validateAccount(countyManager)) return;
+                    registerAccount(countyManager);
+                    setActiveTab(3);
+                  }}
+                  mouseEnter={() => setDescription("forwardToAccountableGoToAutarky")}
+                  mouseLeave={() => setDescription("emptyText")}
+                />
+                {/* <CapBtn
                   label="forwardToAccountableGoToAutarky"
                   iconType="ri"
                   icon="RiGovernmentLine"
@@ -155,10 +187,22 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                     registerAccount(countyManager);
                     setActiveTab(3);
                   }}
-                />
+                /> */}
               </Col>
               <Col md="auto" className="!pl-0">
-                <CapBtn
+              <CapIconButton
+                  iconType="md"
+                  icon="MdNavigateNext"
+                  size="20px"
+                  click={() => {
+                    if (!validateAccount(countyManager)) return;
+                    registerAccount(countyManager);
+                    setActiveTab(1);
+                  }}
+                  mouseEnter={() => setDescription("continueFillingOut")}
+                  mouseLeave={() => setDescription("emptyText")}
+                />
+                {/* <CapBtn
                   label="continueFillingOut"
                   iconType="md"
                   icon="MdNavigateNext"
@@ -167,8 +211,9 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                     registerAccount(countyManager);
                     setActiveTab(1);
                   }}
-                />
+                /> */}
               </Col>
+              </div>
             </Row>
             {error !== "" ? (
               <Row>
