@@ -32,10 +32,6 @@ export default function CapContainerNormAdd({
         document.getElementById(String(i))?.remove();
         const list = document.getElementById("listN");
         let finalArray = [];
-        console.log("LIST");
-        list?.childNodes.forEach(function (node, index) {
-            console.log(node.childNodes[2].firstChild?.firstChild?.firstChild?.textContent);
-        });
         list?.childNodes.forEach(function (node, index) {
             node.childNodes[0].firstChild?.lastChild?.textContent ?
                 finalArray.push({
@@ -75,10 +71,11 @@ export default function CapContainerNormAdd({
                         )}
                     </Row>
                 ))}
-                <div className="text-center">
-                    <CapIconButton iconType="bs" icon="BsSave" size="20px" click={handleScanArray} />
-                </div>
+                
                 {/* <CapBtn label="next" iconType="" icon="" click={handleScanArray} css="mb-3" /> */}
+            </div>
+            <div className="text-center">
+                <CapIconButton iconType="bs" icon="BsSave" size="20px" click={handleScanArray} />
             </div>
         </>
     );

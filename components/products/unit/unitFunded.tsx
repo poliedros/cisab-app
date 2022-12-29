@@ -237,7 +237,7 @@ export default function UnitFunded({
                                             label="create" //"create"
                                             click={handleSave}
                                         /> */}
-                                        <CapIconButton iconType="md" icon="MdOutlineCheck" size="16px" click={handleSave} />
+                                        <CapIconButton iconType="fa" icon="FaCheck" size="16px" click={handleSave} />
                                     </>
                                 )}
                             </div>

@@ -13,7 +13,10 @@ export type Measure = {
 export type ProductDTO = {
     _id: string;
     name: string;
-    photo?: string;
+    photo?: {
+        photo_url?: string;
+    };
+    photo_url?: string;
     norms?: string[];
     code?: string;
     accessory_ids?: string[];

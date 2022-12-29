@@ -20,6 +20,9 @@ import useSWR from "swr";
 import useRole from "lib/useRole";
 import useUser from "lib/useUser";
 import { Role } from "lib/role.enum";
+import CapInputAdvanced from "atoms/capInputAdvanced";
+import CapLegend from "atoms/capLegend";
+import CapIconButton from "atoms/capIconButton";
 
 export default function ProductUpdate({
     product = undefined,
@@ -39,6 +42,10 @@ export default function ProductUpdate({
     const [accessoriesIds, setAccessoriesIds] = useState<string[]>([]);
 
     const [list, setList] = useState([""]);
+
+    const [description, setDescription] = useState("emptyText");
+
+    const [listCat, setListCat] = useState([""]);
 
     const { user } = useUser({ redirectTo: "/login" });
     useRole({ user, role: Role.Cisab, redirectTo: "/" });
@@ -72,13 +79,95 @@ export default function ProductUpdate({
         }
     }, [product]);
 
-    const normsD = norms.map(n => {return {"label": n, "value": n}});
+    console.log(product);
+
+    const normsD = norms.map((n) => {
+        return { label: n, value: n };
+    });
     //alert("normsD" + JSON.stringify(normsD))
 
     //const prodIds = products
 
     //alert(JSON.stringify(productCategories.filter(pc => true).map((p) => {return { "value": p, "label": p }})));
-    alert(products ? JSON.stringify(products/* .filter(f => accessoriesIds.includes(f._id)) */.map(p => { if(accessoriesIds.includes(p._id)) return { "label": p.name.toString(), "value": p._id.toString() } })) : [])
+    alert(
+        products
+            ? JSON.stringify(
+                  products /* .filter(f => accessoriesIds.includes(f._id)) */
+                      .map((p) => {
+                          if (accessoriesIds.includes(p._id))
+                              return {
+                                  label: p.name.toString(),
+                                  value: p._id.toString(),
+                              };
+                      })
+              )
+            : []
+    );
+
+    const defineValues2 = () => {
+        let a: any[] = [];
+        categories
+            ? categories.map((c) => {
+                if (product)
+                if (product.categories)
+                product.categories.map(
+                    (p) => {
+                    if (c.name.includes(p)) {                           
+                        a.push({
+                            label: c.name,
+                            value: c.name,
+                        });
+                    }
+                })
+            }) : []
+            return a;
+    };
+
+    const defineValues = () => {
+        let a: any[] = [];
+        categories
+            ? categories.map((c) => {
+                if (product)
+                if (product.categories)
+                product.categories.map(
+                    (p) => {
+                    if (c.name.includes(p)) {                           
+                        a.push({
+                            label: c.name,
+                            value: c.name,
+                        });
+                    }
+                })
+            }) : []
+            return a;
+    };
+
+    const defineValuesAccessories = () => {
+        let a: any[] = [];
+        products ? products.map((ps) => {
+            if(product)
+            if(product.accessory_ids)
+            product.accessory_ids.map((pa) => {
+                if(ps._id.includes(pa))
+                    a.push({
+                        label: ps.name,
+                        value: ps.name,
+                    });
+            })
+        }) : [];
+            return a;
+    };
+
+    const defineValuesNorms = () => {
+        let a: any[] = [];
+        product?.norms ? product?.norms.map((n) =>
+            { a.push({
+                label: n,
+                value: n,
+            }); }) : []
+        console.log(a);
+        return a;
+    };
 
     return (
         <>
@@ -93,8 +182,8 @@ export default function ProductUpdate({
                     <CapSubtitle label="productDescription" />
                     <Row className="mb-3">
                         <CapForm
-                            label="countyCityName" /* Alterado no arquivo translation.json de countyName para countyCityName */
-                            placeholder="insertCountyCityName" /* Alterado no arquivo translation.json de insertCountyName para insertCountyCityName */
+                            label="productName" /* Alterado no arquivo translation.json de countyName para countyCityName */
+                            placeholder="insertProductName" /* Alterado no arquivo translation.json de insertCountyName para insertCountyCityName */
                             value={productName}
                             change={(e: any) => setProductName(e.target.value)}
                         />
@@ -102,14 +191,39 @@ export default function ProductUpdate({
                     <Row>
                         <CapForm
                             as={Col}
-                            label="mayor"
-                            placeholder="insertMayor"
+                            label="code"
+                            placeholder="insertCode"
                             value={productCode}
                             change={(e: any) => setProductCode(e.target.value)}
                         />
                         <Col>
-                            <CapInputAdvancedBase
-                                defaultValue={productCategories.map((p) => {return {"label": p.toString(), "value": p.toString()}})}
+                            <CapInputAdvanced
+                                label="productCategory"
+                                placeholder="insertProductMultiCategory"
+                                categories={categories}
+                                mutate={function (
+                                    data?:
+                                        | CategoryDTO[]
+                                        | Promise<CategoryDTO[]>
+                                        | MutatorCallback<CategoryDTO[]>
+                                        | undefined,
+                                    opts?:
+                                        | boolean
+                                        | MutatorOptions<CategoryDTO[]>
+                                        | undefined
+                                ): Promise<CategoryDTO[] | undefined> {
+                                    throw new Error(
+                                        "Function not implemented."
+                                    );
+                                }}
+                                defaultValue={defineValues()}
+                                array={listCat}
+                                setArray={setListCat}
+                            />
+                            {/* <CapInputAdvancedBase
+                                label="productCategory"
+                                placeholder="insertProductMultiCategory"
+                                defaultValue={ defineValues() }
                                 values={categories?.map((c) => c.name)}
                                 mutate={function (
                                     data?:
@@ -126,7 +240,7 @@ export default function ProductUpdate({
                                         "Function not implemented."
                                     );
                                 }}
-                            />
+                            /> */}
                         </Col>
                     </Row>
                     {measurements ? (
@@ -147,8 +261,8 @@ export default function ProductUpdate({
                                 <CapForm
                                     key={0}
                                     as={Col}
-                                    label="unit"
-                                    placeholder="insertUnit"
+                                    label="quantity"
+                                    placeholder="insertQuantity"
                                     type="number"
                                     value={m.value}
                                     //value={measures}
@@ -171,7 +285,11 @@ export default function ProductUpdate({
                     <Row>
                         <Col>
                             <CapInputAdvancedBase
-                                defaultValue={norms ? norms.map(n => {return {"label": n, "value": n}}) : []} //norms ? norms.map(n => {return {"label": n, "value": n}}) : []
+                                label="norms"
+                                placeholder="insertMultiNorms"
+                                defaultValue={
+                                    defineValuesNorms()
+                                } //norms ? norms.map(n => {return {"label": n, "value": n}}) : []
                                 values={norms}
                                 mutate={function (
                                     data?:
@@ -192,8 +310,10 @@ export default function ProductUpdate({
                         </Col>
                         <Col>
                             <CapInputAdvancedBase
-                                defaultValue={products ? products/* .filter(f => accessoriesIds.includes(f._id)) */.map(p => { if(accessoriesIds.includes(p._id)) return { "label": p.name.toString(), "value": p._id.toString() } }) : []} //products?.filter(p => (accessoriesIds.includes(p._id))).map(p => { return {"label": p.name, "value": p._id} })
-                                values={products?.map(p => p.name)}
+                                label="accessories"
+                                placeholder="insertMultiAccessories"
+                                defaultValue={defineValuesAccessories()}
+                                values={products?.map((p) => p.name)}
                                 mutate={function (
                                     data?:
                                         | CategoryDTO[]
@@ -325,7 +445,26 @@ export default function ProductUpdate({
                             }
                         />*/}
                     </Row>
-                    <CapBtn kind="send" click={undefined} />
+                    <Row className="flex justify-end items-end">
+                                        <Col>
+                                            <CapLegend label={description} />
+                                        </Col>
+                                        <Col md="auto" className="!pl-0 !pr-3">
+                                            <CapIconButton
+                                                iconType="bs"
+                                                icon="BsSave"
+                                                size="20px"
+                                                click={undefined}
+                                                mouseEnter={() =>
+                                                    setDescription("submit")
+                                                }
+                                                mouseLeave={() =>
+                                                    setDescription("emptyText")
+                                                }
+                                            />
+                                        </Col>
+                                        </Row>
+                    {/* <CapBtn kind="send" click={undefined} /> */}
                 </Form>
             </Container>
         </>

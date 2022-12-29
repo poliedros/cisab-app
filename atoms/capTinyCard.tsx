@@ -9,12 +9,14 @@ export default function CapTinyCard({
   //baseColor = "light",
   title = "",
   subtitle = "",
+  image = "", //https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg
 }: {
   label?: string;
   literal?: string;
   //baseColor?: "light" | "dark";
   title?: string;
   subtitle?: string;
+  image?: string;
 }) {
   return (
     <>
@@ -30,11 +32,12 @@ export default function CapTinyCard({
             <div className="rot-45 w-[75px] h-[75px]">
               <CapImage
                 src={
-                  "https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"
+                  image
                 }
                 h={75}
                 w={75}
                 obj={"fill"}
+                css="rounded-2xl"
               />
             </div>
           </div>

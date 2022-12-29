@@ -105,10 +105,11 @@ export default function CapContainerAdd({
                         )}
                     </Row>
                 ))}
-                <div className="text-center">
-                    <CapIconButton iconType="bs" icon="BsSave" size="20px" click={handleScanArray} />
-                </div>
+                
                 {/* <CapBtn label="next" iconType="" icon="" click={handleScanArray} css="mb-3" /> */}
+            </div>
+            <div className="text-center">
+                <CapIconButton iconType="bs" icon="BsSave" size="20px" click={handleScanArray} />
             </div>
         </>
     );

@@ -124,7 +124,7 @@ export default function CategoryFunded({
         <>
             <Dropdown className="flex flex-column">
                 <Dropdown.Toggle
-                    className="!bg-[#7dc523] !border-0 !flex !items-center"
+                    className="!bg-[#7dc523] !border-0 !flex !items-center !z-0"
                     id="dropdown-basic"
                 >
                     {IconsByName("fi", "FiEdit")}
@@ -219,7 +219,7 @@ export default function CategoryFunded({
                                             label="emptyText"
                                             click={handleSave}
                                         /> */}
-                                        <CapIconButton iconType="md" icon="MdOutlineCheck" size="16px" click={handleSave} />
+                                        <CapIconButton iconType="fa" icon="FaCheck" size="16px" click={handleSave} />
                                     </>
                                 )}
                             </div>

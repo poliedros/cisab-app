@@ -26,7 +26,10 @@ export default function ProductList({ products }: { products: ProductDTO[] }) {
         products.slice(page * size, page * size + size)
     );
 
-    console.log(productsPage);
+    let productsPageFinal = productsPage;
+    productsPageFinal.map((p, i) => { p.photo = {photo_url: productsPage[i].photo_url} });
+    //productsPageFinal.map((p, i) => { p.photo.photo_url = productsPage[i].photo_url });
+    //console.log(productsPageFinal);
 
     useEffect(() => {
         return setProductsPage(products.slice(page * size, page * size + size));
@@ -68,9 +71,9 @@ export default function ProductList({ products }: { products: ProductDTO[] }) {
                         ) : null}
                         {format === "table" ? (
                             <CapTable
-                                data={productsPage}
+                                data={productsPageFinal}
                                 headers={["image", "products", "code"]}
-                                columns={["name", "name", "code"]}
+                                columns={["photo", "name", "code"]}
                                 numeral={true}
                                 image={1}
                                 buttonsColumns={["view", "edit", "remove"]}

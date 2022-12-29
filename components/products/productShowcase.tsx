@@ -9,7 +9,7 @@ export default function ProductShowcase({ product }: { product: ProductDTO }) {
     return (
         <>
             <Row className="flex items-center">
-                <Col sm={4} className="flex justify-center mb-12">
+                <Col sm={4} className="flex justify-center mb-16 pr-16">
                     <div className="absolute bg-[silver] w-[200px] h-[200px] rounded-full circle">
                         <ul className="menu">
                             <li>

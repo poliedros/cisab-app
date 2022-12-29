@@ -1,4 +1,6 @@
 import CapBtn from "atoms/capBtn";
+import CapIconButton from "atoms/capIconButton";
+import CapLegend from "atoms/capLegend";
 import CapMessageBottom from "atoms/capMessageBottom";
 import UserList from "components/users/userList";
 import UserRegistration from "components/users/userRegistration";
@@ -8,6 +10,7 @@ import useUser from "lib/useUser";
 import { useRouter } from "next/router";
 import { CountyUserDTO } from "pages/api/counties/[id]/users";
 import { useState } from "react";
+import { Col, Row } from "react-bootstrap";
 import useSWR from "swr";
 
 export default function Users() {
@@ -23,6 +26,8 @@ export default function Users() {
 
   const [addNewUser, setAddNewUser] = useState(false);
   const [message, setMessage] = useState("");
+
+  const [description, setDescription] = useState("emptyText");
 
   const { data: users, error } = useSWR<CountyUserDTO[]>(
     user ? `/api/counties/${id}/users` : null
@@ -57,6 +62,25 @@ export default function Users() {
   return (
     <>
       <UserList users={users} />
+
+      <Row className="flex justify-end items-end">
+              <Col>
+                <CapLegend label={description} />
+              </Col>
+                <Col md="auto" className="!pl-0">
+                <CapIconButton
+                  iconType="hi"
+                  icon="HiOutlineUserAdd"
+                  size="20px"
+                  click={() => {
+                    () => setAddNewUser(true)
+                  }}
+                  mouseEnter={() => setDescription("addUser")}
+                  mouseLeave={() => setDescription("emptyText")}
+                />
+                </Col>
+                </Row>
+
       <CapBtn
         label="addUser"
         iconType="hi"

@@ -238,7 +238,7 @@ export default function CapTable({
                               </div>
                             : image === j ? 
                             <div className="!flex !justify-center">
-                              <CapImage src={o[k].photo} //"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"
+                              <CapImage src={o[k].photo_url} //"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"
                                 w={45}
                                 h={45}
                                 css="rounded-full"

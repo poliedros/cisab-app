@@ -36,7 +36,7 @@ export default function Index() {
     return <div>404</div>;
   } */
 
-  alert(JSON.stringify(products));
+  //alert(JSON.stringify(products));
 
   return (
     <>

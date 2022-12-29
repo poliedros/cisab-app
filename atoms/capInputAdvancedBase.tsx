@@ -1,10 +1,14 @@
 import translations from "../lib/translations";
 
 import { useLanguage, useLanguageUpdate } from "../context/languageContext";
-import Select from "react-select";
+import { useTheme, useThemeUpdate } from "../context/themeContext";
+
+import Select, { SelectInstance } from "react-select";
 import { useEffect, useState } from "react";
 import { Form, InputGroup } from "react-bootstrap";
 import { KeyedMutator } from "swr";
+
+import React, { useRef } from 'react';
 
 export default function CapInputAdvancedBase({
     label = "emptyText",
@@ -28,6 +32,9 @@ export default function CapInputAdvancedBase({
     const language = useLanguage();
     const toggleLanguage = useLanguageUpdate();
 
+    const theme = useTheme();
+    const toggleTheme = useThemeUpdate();
+
     const [value, onChange] = useState(new Date());
 
     let defaultV: { value: any; label: any; }[] = [];
@@ -46,14 +53,14 @@ export default function CapInputAdvancedBase({
 
     return (
         <>
-            <Form.Label>{translations(label, language)}</Form.Label>
+            <Form.Label className={(theme === "dark" ? "text-white" : "")}>{translations(label, language)}</Form.Label>
             <InputGroup className="mb-3">
                     <div className="form-control py-0">
-                        
                         <Select
                             className="!px-0"
-                            closeMenuOnSelect={false}
-                            
+                            closeMenuOnSelect={true}
+                            //menuIsOpen={true}
+                            noOptionsMessage={() => translations("noMoreData", language)}
                             isMulti
                             options={options}
                             defaultValue={defaultOptions}
@@ -65,3 +72,4 @@ export default function CapInputAdvancedBase({
         </>
     );
 }
+  

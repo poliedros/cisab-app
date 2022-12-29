@@ -36,10 +36,6 @@ export default function CapContainerProductAdd({
         document.getElementById(String(i))?.remove();
         const list = document.getElementById("listP");
         let finalArray = [];
-        console.log("LIST");
-        list?.childNodes.forEach(function (node, index) {
-            console.log(node.childNodes[2].firstChild?.firstChild?.firstChild?.textContent);
-        });
         list?.childNodes.forEach(function (node, index) {
             finalArray.push({
                 "_id": "",
@@ -90,8 +86,11 @@ export default function CapContainerProductAdd({
                         )}
                     </Row>
                 ))}
-                <CapBtn label="next" iconType="" icon="" click={handleScanArray} css="mb-3" />
             </div>
+            <div className="text-center">
+                <CapIconButton iconType="bs" icon="BsSave" size="20px" click={handleScanArray} />
+            </div>
+            {/* <CapBtn label="next" iconType="" icon="" click={handleScanArray} css="mb-3" /> */}
         </>
     );
 }

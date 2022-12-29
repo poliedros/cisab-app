@@ -511,5 +511,74 @@
   },
   "searchCategory": {
     "pt": "Buscar Categoria"
+  },
+  "compCaps": {
+    "pt": "CAPs - Atômos CZAR+"
+  },
+  "art": {
+    "pt": "Arte"
+  },
+  "sandbox": {
+    "pt": "Caixa de Areia"
+  },
+  "colors": {
+    "pt": "Cores"
+  },
+  "fonts": {
+    "pt": "Fontes"
+  },
+  "noMoreData": {
+    "pt": "Acabaram-se os dados"
+  },
+  "project": {
+    "pt": "Projeto"
+  },
+  "testLab": {
+    "pt": "Laboratório de Teste"
+  },
+  "insertCode": {
+    "pt": "Insira o Código"
+  },
+  "quantity": {
+    "pt": "Quantidade"
+  },
+  "insertQuantity": {
+    "pt": "Insira a Quantidade"
+  },
+  "insertMultiAccessories": {
+    "pt": "Selecione um ou mais Acessórios"
+  },
+  "insertMultiNorms": {
+    "pt": "Selecione uma ou mais Normas"
+  },
+  "insertMultiProducts": {
+    "pt": "Selecione um ou mais Produtos"
+  },
+  "demands": {
+    "pt": "Licitações"
+  },
+  "createDemand": {
+    "pt": "Criar Licitação"
+  },
+  "listDemands": {
+    "pt": "Lista de Licitações"
+  },
+  "createEmployee": {
+    "pt": "Criar Funcionário"
+  },
+  "listEmployees": {
+    "pt": "Lista de Funcinários"
+  },
+  "theme": {
+    "pt": "Tema"
+  },
+  "insertTheme": {
+    "pt": "Insira Tema"
+  },
+  "saveDemand": {
+    "pt": "Salvar Demanda"
+  },
+  "unblockDemand": {
+    "pt": "Desbloquear Licitação"
   }
 }

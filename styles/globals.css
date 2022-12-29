@@ -4,6 +4,27 @@
 
 /* CSS mine */
 
+/* .datepicker-input::-webkit-calendar-picker-indicator {
+    background-color: pink;
+} */
+
+/* input {
+  color-scheme: dark;
+} */
+
+code {
+    color: #7dc523 !important;
+}
+
+.dropdown-item {
+    border-radius: 1.5rem;
+}
+
+.dropdown-item:hover {
+    background-color: #40d9f1 !important;
+    color: rgb(30 41 59 / var(--tw-bg-opacity)) !important;
+}
+
 .invisibleScroll {
     scrollbar-width: none;
 }
@@ -138,6 +159,28 @@ abbr {
     border-radius: 1.5rem !important;
     border-color: #e5e7eb !important;
     border-width: 0 !important;
+    z-index: 9999;
+}
+
+.css-1n6sfyn-MenuList {
+    scrollbar-width: none;
+}
+
+.css-1n6sfyn-MenuList::-webkit-scrollbar {
+    display: none;
+}
+
+.css-d7l1ni-option {
+    border-radius: 1.5rem;
+    background-color: transparent !important;
+}
+
+.css-d7l1ni-option:hover {
+    background-color: #40d9f1 !important;
+}
+
+.css-10wo9uf-option {
+    border-radius: 1.5rem;
 }
 
 /* .react-calendar__navigation__label {

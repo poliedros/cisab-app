@@ -21,13 +21,13 @@ export default function CapContainer({
                     <>
                         {i % 3 === 0 ? <Row>
                             {a[i] ? <Col>
-                                <CapTinyCard title={a[i].name} subtitle={a[i].code} />
+                                <CapTinyCard title={a[i].name} subtitle={a[i].code} image={a[i].photo_url} />
                             </Col> : <></>}
                             {a[i+1] ? <Col>
-                                <CapTinyCard title={a[i+1].name} subtitle={a[i+1].code} />
+                                <CapTinyCard title={a[i+1].name} subtitle={a[i+1].code} image={a[i+1].photo_url} />
                             </Col> : <></>}
                             {a[i+2] ? <Col>
-                                <CapTinyCard title={a[i+2].name} subtitle={a[i+2].code} />
+                                <CapTinyCard title={a[i+2].name} subtitle={a[i+2].code} image={a[i+2].photo_url} />
                             </Col> : <></>}
                         </Row> : <></>}
                     </>

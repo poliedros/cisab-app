@@ -9,7 +9,7 @@ export default function CapTitle({
   literal = undefined,
   additional = undefined,
 }: {
-  base?: "none" | "county" | "user" | "list" | "product" | "doc" | "diagram" | "lab";
+  base?: "none" | "county" | "user" | "list" | "product" | "demand" | "doc" | "diagram" | "lab" | "cap" | "art";
   label?: string;
   literal?: string;
   additional?: any;
@@ -23,10 +23,13 @@ export default function CapTitle({
     user: IconsByName("fa", "FaUserFriends", "32px"),
     list: IconsByName("fa", "FaThList", "32px"),
     product: IconsByName("gi", "GiCardboardBoxClosed", "32px"),
+    demand: IconsByName("ri", "RiFileList2Fill", "32px"),
 
     doc: IconsByName("hi", "HiDocumentText", "32px"),
     diagram: IconsByName("bs", "BsDiagram2Fill", "32px"),
     lab: IconsByName("ri", "RiTestTubeFill", "32px"),
+    cap: IconsByName("bs", "BsPuzzleFill", "32px"),
+    art: IconsByName("ri", "RiArtboardFill", "32px"),
   };
   return (
     <>

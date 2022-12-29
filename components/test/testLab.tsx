@@ -16,9 +16,12 @@ import useUser from "lib/useUser";
 import { Role } from "lib/role.enum";
 import CapInputAdvancedBase from "atoms/capInputAdvancedBase";
 import CapIconButton from "atoms/capIconButton";
+import CapMessageBottom from "atoms/capMessageBottom";
 
 export default function TestLab() {
     const [validated, setValidated] = useState(false);
+
+    const [successMessage, setSuccessMessage] = useState<boolean>(false);
 
     const handleSubmit = (event: any) => {
         const form = event.currentTarget;
@@ -55,6 +58,7 @@ export default function TestLab() {
 
     return (
         <>
+            <CapTitle base="lab" label="sandbox" />
             {/* <CapTitle base="lab" label="close" />
             <CapBtn kind="next" variant="light" />
             <CapForm required={true} />
@@ -156,18 +160,38 @@ export default function TestLab() {
                 </Form.Group>
                 </Row>
                 </Form> */}
-            <CapLargeCard mirror={false}/>
+            <CapLargeCard mirror={false} />
             <CapLargeCard mirror={true} />
             <CapIconButton iconType="bs" icon="BsCalendar" size={"16px"} />
             {value}
-            <CapInputRangeCalendar setDate={setValue}/>
+            <CapInputRangeCalendar setDate={setValue} />
             <CapInputAdvancedBase
                 //[{ "label": products[0].name.toString(), "value": products[0]._id.toString() }]
-                defaultValue={products ? products.map(p => { if(!p.name.includes("mangueirao")) return  { "label": p.name.toString(), "value": p._id.toString() } }) : []}
-                values={products?.map(p => p.name)} mutate={function (data?: any[] | Promise<any[]> | MutatorCallback<any[]> | undefined, opts?: boolean | MutatorOptions<any[]> | undefined): Promise<any[] | undefined> {
+                defaultValue={
+                    products
+                        ? products.map((p) => {
+                              if (!p.name.includes("mangueirao"))
+                                  return {
+                                      label: p.name.toString(),
+                                      value: p._id.toString(),
+                                  };
+                          })
+                        : []
+                }
+                values={products?.map((p) => p.name)}
+                mutate={function (
+                    data?:
+                        | any[]
+                        | Promise<any[]>
+                        | MutatorCallback<any[]>
+                        | undefined,
+                    opts?: boolean | MutatorOptions<any[]> | undefined
+                ): Promise<any[] | undefined> {
                     throw new Error("Function not implemented.");
-                } }                                
-                            />
+                }}
+            />
+            <CapBtn kind="next" click={() => setSuccessMessage(!successMessage)}/>
+            {successMessage ? <CapMessageBottom literal="Anderson" /> : <></>}
         </>
     );
 }

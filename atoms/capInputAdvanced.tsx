@@ -1,8 +1,10 @@
 import translations from "../lib/translations";
 
 import { useLanguage, useLanguageUpdate } from "../context/languageContext";
+import { useTheme, useThemeUpdate } from "../context/themeContext";
+
 import Select from "react-select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import IconsByName from "components/iconsByName";
 import CategoryFunded from "components/products/category/categoryFunded";
@@ -18,6 +20,7 @@ export default function CapInputAdvanced({
     mutate,
     array= [],
     setArray= undefined,
+    defaultValue = [],
 }: {
     label?: string;
     literal?: string;
@@ -26,9 +29,13 @@ export default function CapInputAdvanced({
     mutate: KeyedMutator<CategoryDTO[]>;
     array?: string[];
     setArray?: any;
+    defaultValue?: any[];
 }) {
     const language = useLanguage();
     const toggleLanguage = useLanguageUpdate();
+
+    const theme = useTheme();
+    const toggleTheme = useThemeUpdate();
 
     const [value, onChange] = useState(new Date());
 
@@ -40,17 +47,23 @@ export default function CapInputAdvanced({
     ;
 
     //alert(JSON.stringify(options))
+    const [defaultOptions, setDefaultOptions] = useState<any>(defaultValue);
+
+    useEffect(() => {
+        setDefaultOptions(defaultValue);
+    }, []);
 
     return (
         <>
-            <Form.Label>{translations(label, language)}</Form.Label>
+            <Form.Label className={(theme === "dark" ? "text-white" : "")}>{translations(label, language)}</Form.Label>
             <InputGroup className="mb-3">
                     <div className="form-control py-0">
                         <Select
                             className="!px-0"
                             closeMenuOnSelect={false}
                             //components={animatedComponents}
-                            //defaultValue={[]}
+                            defaultValue={defaultValue}
+                            noOptionsMessage={() => translations("noMoreData", language)}
                             isMulti
                             options={options}
                             placeholder={translations(placeholder, language)}

@@ -131,6 +131,7 @@ export default function SideBar() {
                         route="/project/documentation"
                         hoverColor="#7dc523"
                         css="mr-3"
+                        tooltip="documentation"
                     />
                     <CapIconButton
                         iconType="bs"
@@ -139,22 +140,25 @@ export default function SideBar() {
                         route="/project/diagrams"
                         hoverColor="#7dc523"
                         css="mr-3"
+                        tooltip="diagrams"
                     />
                     <CapIconButton
                         iconType="ri"
                         icon="RiArtboardFill"
                         size="24px"
-                        route="/project/diagrams"
+                        route="/project/art"
                         hoverColor="#7dc523"
                         css="mr-3"
+                        tooltip="art"
                     />
                     <CapIconButton
                         iconType="bs"
                         icon="BsPuzzleFill"
                         size="24px"
-                        route="/project/diagrams"
+                        route="/project/caps"
                         hoverColor="#7dc523"
                         css="mr-3"
+                        tooltip="compCaps"
                     />
                     <CapIconButton
                         iconType="ri"
@@ -162,6 +166,69 @@ export default function SideBar() {
                         size="24px"
                         route="/project/test"
                         hoverColor="#7dc523"
+                        tooltip="testLab"
+                    />
+                </div>
+            </div>
+        </Popover>
+    );
+
+    const demand = (
+        <Popover>
+            <div className="overflow-auto -mt-[2.5rem] -mb-6 -mx-5 p-4 invisibleScroll">
+                <div
+                    className={
+                        (theme === "dark" ? "bg-slate-900" : "bg-white") +
+                        " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"
+                    }
+                >
+                    <CapIconButton
+                        iconType="ri"
+                        icon="RiFileList2Fill"
+                        size="24px"
+                        route="/demands/create"
+                        hoverColor="#7dc523"
+                        css="mr-3"
+                        tooltip="createDemand"
+                    />
+                    <CapIconButton
+                        iconType="fa"
+                        icon="FaThList"
+                        size="24px"
+                        //route="/products"
+                        hoverColor="#7dc523"
+                        tooltip="listDemands"
+                    />
+                </div>
+            </div>
+        </Popover>
+    );
+
+    const employee = (
+        <Popover>
+            <div className="overflow-auto -mt-[2.5rem] -mb-6 -mx-5 p-4 invisibleScroll">
+                <div
+                    className={
+                        (theme === "dark" ? "bg-slate-900" : "bg-white") +
+                        " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"
+                    }
+                >
+                    <CapIconButton
+                        iconType="fa"
+                        icon="FaUserFriends"
+                        size="24px"
+                        route="/users/userRegistration"
+                        hoverColor="#7dc523"
+                        css="mr-3"
+                        tooltip="createEmployee"
+                    />
+                    <CapIconButton
+                        iconType="fa"
+                        icon="FaThList"
+                        size="24px"
+                        route={"/counties/6363c2f363e9deb5a8e1c672/users"}
+                        hoverColor="#7dc523"
+                        tooltip="listEmployees"
                     />
                 </div>
             </div>
@@ -219,7 +286,13 @@ export default function SideBar() {
                         </OverlayTrigger>
                     </>
                 ) : null}
-                <CapIconButton iconType="ri" icon="RiFileList2Fill" click={handleMain} css="mb-3" />
+                <OverlayTrigger
+                    trigger="click"
+                    placement="right"
+                    overlay={demand}
+                    rootClose
+                ><div><CapIconButton iconType="ri" icon="RiFileList2Fill" click={handleMain} css="mb-3" tooltip="demands" /></div></OverlayTrigger>
+                
                 <OverlayTrigger
                     trigger="click"
                     placement="right"
@@ -242,19 +315,22 @@ export default function SideBar() {
           rootClose
         >
           <div>
-            <CapIconButton iconType="bs" icon="BsDiagram3Fill" css="mb-3" />
+            <CapIconButton iconType="bs" icon="BsDiagram3Fill" css="mb-3" tooltip="project" />
           </div>
         </OverlayTrigger>
                 {user?.email === "cisab@cisab.com" ? (
-                    <>
-                        <CapIconButton
-                            iconType="fa"
-                            icon="FaUserFriends"
-                            route={"/counties/6363c2f363e9deb5a8e1c672/users"} // TODO: Substituir para pegar do municipio logado
-                            tooltip="employees"
-                            css="mb-3"
-                        />
-                    </>
+                    <OverlayTrigger
+                    trigger="click"
+                    placement="right"
+                    overlay={employee}
+                    rootClose
+                ><div><CapIconButton
+                iconType="fa"
+                icon="FaUserFriends"
+                //route={"/counties/6363c2f363e9deb5a8e1c672/users"} // TODO: Substituir para pegar do municipio logado
+                tooltip="employees"
+                css="mb-3"
+            /></div></OverlayTrigger>
                 ) : null}
                 <OverlayTrigger
                     trigger="click"
