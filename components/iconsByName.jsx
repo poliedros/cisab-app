@@ -2,8 +2,11 @@ import * as IconsAi from "react-icons/ai"
 import * as IconsBi from "react-icons/bi"
 import * as IconsBs from "react-icons/bs"
 import * as IconsCg from "react-icons/cg"
+import * as IconsCi from "react-icons/ci"
 import * as IconsFa from "react-icons/fa"
+import * as IconsFi from "react-icons/fi"
 import * as IconsGi from "react-icons/gi"
+import * as IconsGo from "react-icons/go"
 import * as IconsGr from "react-icons/gr"
 import * as IconsHi from "react-icons/hi"
 //import * as IconsHi2 from "react-icons/hi2"
@@ -23,9 +26,12 @@ export default function IconsByName(ico, name, size = "auto", margin="0") {
     if (ico === "ai") IconComponent = IconsAi[name];
     if (ico === "bi") IconComponent = IconsBi[name];
     if (ico === "bs") IconComponent = IconsBs[name];
+    if (ico === "ci") IconComponent = IconsCi[name];
     if (ico === "cg") IconComponent = IconsCg[name];
     if (ico === "fa") IconComponent = IconsFa[name];
+    if (ico === "fi") IconComponent = IconsFi[name];
     if (ico === "gi") IconComponent = IconsGi[name];
+    if (ico === "go") IconComponent = IconsGo[name];
     if (ico === "gr") IconComponent = IconsGr[name];
     if (ico === "hi") IconComponent = IconsHi[name];
     //if (ico === "hi2") IconComponent = IconsHi2[name];

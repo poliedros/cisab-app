@@ -7,6 +7,7 @@ import CapIconButton from "./capIconButton";
 
 import { useLanguage, useLanguageUpdate } from "../context/languageContext";
 import { useTheme, useThemeUpdate } from "../context/themeContext";
+import CapImage from "./capImage";
 
 export default function CapTable({
   label = "emptyText",
@@ -19,6 +20,8 @@ export default function CapTable({
   numeral = false,
   buttonsColumns = [],
   buttonsPaths = [],
+  striped = false,
+  image = undefined,
   search = undefined,
   searchPath = undefined,
 }: {
@@ -32,6 +35,8 @@ export default function CapTable({
   numeral?: boolean;
   buttonsColumns?: string[];
   buttonsPaths?: any[];
+  striped?: boolean;
+  image?: number;
   search?: string;
   searchPath?: string;
 }) {
@@ -99,7 +104,7 @@ export default function CapTable({
 
   return (
     <>
-      <Table striped responsive variant={theme === "dark" ? "dark" : "default"}>
+      <Table striped={striped} responsive variant={theme === "dark" ? "dark" : "default"}>
         <thead>
           <tr>
             {numeral ? (
@@ -129,25 +134,31 @@ export default function CapTable({
             )
             .map((d, i) => {
               return (
-                <tr key={i}>
+                <tr key={i} className="align-middle">
                   {columns.map((c, j) => {
                     return (
                       <td
                         className={
                           "" +
                           (c === "buttons"
-                            ? "!flex !justify-center !text-center"
-                            : "")
+                            ? " !text-center "
+                            : image === j ?
+                            " !text-center "
+                            : " !text-center ")
                         }
                         key={j}
                       >
                         {c.split(".").reduce(function (o, k) {
+                          let word = o && o[k];
+                          console.log("WORD " + k);
+                          console.log(o && o[k]);
                           return numeral && j === 0
                             ? i + 1
                             : j ===
                               columns.length +
                                 (buttonsColumns.length > 0 ? -1 : 0)
-                            ? buttonsColumns.map((bc, l) => {
+                            ? <div className="!flex !justify-center">
+                              {buttonsColumns.map((bc, l) => {
                                 return (
                                   <div key={l}>
                                     {bc === "view" ? (
@@ -180,9 +191,10 @@ export default function CapTable({
                                       placement="bottom"
                                       overlay={<Popover>
                                         <div className="overflow-auto -m-6 p-4 invisibleScroll">
-                                          <div className="flex flex-column items-center relative bg-white py-2.5 px-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl">
-                                          <p className="mb-0.5">{translations("questionRemove", language)}</p>
-                                          <CapBtn label="confirm" iconType="hi" icon="HiTrash" variant="danger" size="sm" click={() => removeCounty(buttonsPaths[l], d._id)} />
+                                          <div className={(theme === "dark" ? "bg-slate-600" : "bg-white") + " flex items-center relative py-2.5 px-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-full"}>
+                                          <p className={(theme === "dark" ? "!text-white" : "") + " mb-0.5 mr-1.5"}>{translations("questionRemove", language)}</p>
+                                          <CapIconButton css="text-white" iconType="gr" icon="GrClose" size="14px" variant="danger" click={() => removeCounty(buttonsPaths[l], d._id)} />
+                                          {/* <CapBtn label="confirm" iconType="hi" icon="HiTrash" variant="danger" size="sm" click={() => removeCounty(buttonsPaths[l], d._id)} /> */}
                                           {/* <CapIconButton
                                             iconType="gi"
                                             icon="GiCardboardBoxClosed"
@@ -222,7 +234,16 @@ export default function CapTable({
                                     ) : null}
                                   </div>
                                 );
-                              })
+                              })}
+                              </div>
+                            : image === j ? 
+                            <div className="!flex !justify-center">
+                              <CapImage src={o[k].photo_url} //"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"
+                                w={45}
+                                h={45}
+                                css="rounded-full"
+                              />
+                            </div>
                             : o && o[k];
                         }, d)}
                       </td>

@@ -15,7 +15,7 @@ export default function CountyProfile({ county }: { county: any }) {
             <div className="flex flex-column">
                 <Row className="flex items-center">
                     <Col sm={4} className="flex justify-center">
-                        <div className="absolute bg-[silver] w-[200px] h-[200px] rounded-full"></div>
+                        <div className="absolute bg-[silver] w-[200px] h-[200px] rounded-full" />
                         <CapImage
                             src={"https://mergejil.mn/mergejilmn/no-image.svg"} //county.county.flag
                             alt={county.name}

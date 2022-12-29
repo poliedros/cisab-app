@@ -2,79 +2,73 @@ import CapIconButton from "atoms/capIconButton";
 import CapBtn from "atoms/capBtn";
 import IconsByName from "components/iconsByName";
 import Translations from "lib/translations";
-import { UnitDTO } from "pages/api/units";
+import { CategoryDTO } from "pages/api/categories";
 import { RefAttributes, useEffect, useState } from "react";
-import { Dropdown, Form, OverlayTrigger, Popover } from "react-bootstrap";
+import { Button, Dropdown, Form, OverlayTrigger, Popover } from "react-bootstrap";
 import { KeyedMutator } from "swr";
-
-import { useLanguage, useLanguageUpdate } from "../../../context/languageContext";
 
 import { useTheme, useThemeUpdate } from "../../../context/themeContext";
 
-export default function UnitFunded({
-    defaultUnit = undefined,
-    units = [],
+import {
+    useLanguage,
+    useLanguageUpdate,
+} from "../../../context/languageContext";
+
+export default function CategoryFunded({
+    categories = [],
     array = [],
     setArray = undefined,
     mutate,
-}: /* county = undefined,
-    submit, */
-{
-    defaultUnit?: string;
+}: {
     array?: string[];
     setArray?: any;
-    units?: UnitDTO[];
-    mutate: KeyedMutator<UnitDTO[]>;
-    /* county: CountyDTO | undefined;
-    submit: (county: CountyDTO) => Promise<CountyDTO | undefined>; */
+    categories?: CategoryDTO[];
+    mutate: KeyedMutator<CategoryDTO[]>;
 }) {
     const language = useLanguage();
     const toggleLanguage = useLanguageUpdate();
 
-    //alert(units);
-    const [unitSelected, setUnitSelected] = useState("");
-    const [unitName, setUnitName] = useState("");
+    const [categorySelected, setCategorySelected] = useState("");
+    const [categoryName, setCategoryName] = useState("");
     const [value, setValue] = useState("");
     const [error, setError] = useState(false);
     const [show, setShow] = useState(false);
     const [message, setMessage] = useState("emptyText");
 
-    const [errorUnit, setErrorUnit] = useState(-1);
-    const [messageUnit, setMessageUnit] = useState("emptyText");
+    const [errorCategory, setErrorCategory] = useState(-1);
+    const [messageCategory, setMessageCategory] = useState("emptyText");
 
     const theme = useTheme();
     const toggleTheme = useThemeUpdate();
 
-    const saveUnit = async (unit: any): Promise<UnitDTO | undefined> => {
-        delete unit._id;
-        const data = await fetch("/api/units", {
+    const saveCategory = async (category: any): Promise<CategoryDTO | undefined> => {
+        delete category._id;
+        const data = await fetch("/api/categories", {
             method: "POST",
-            body: JSON.stringify(unit),
-        }); //.finally(() => setLoading(false));
+            body: JSON.stringify(category),
+        });
 
         alert(data.status);
         if (data.status === 201) {
-            //alert("Create County");
             setMessage("MdThumbUpAlt");
             setError(true);
-            alert(message + unitName);
+            alert(message + categoryName);
             const response = await data.json();
             return response;
         } else {
-            //setError("Create County Fault");
             setMessage("MdThumbDownAlt");
             setError(true);
-            alert(message + unitName);
+            alert(message + categoryName);
         }
         return undefined;
     };
 
     const handleSave = async () => {
-        let unitResult: UnitDTO = {
-            _id: "", //valor provisório
-            name: unitName,
+        let categoryResult: CategoryDTO = {
+            _id: "",
+            name: categoryName,
         };
-        await saveUnit(unitResult);
+        await saveCategory(categoryResult);
         mutate();
         setError(true);
         setTimeout(() => {
@@ -82,38 +76,34 @@ export default function UnitFunded({
         }, 4000);
     };
 
-    const removeUnit = async (i: string, idx: number) => {
-        //alert(i);
-        const data = await fetch(`/api/units/${i}`, {
+    const removeCategory = async (i: string, idx: number) => {
+        const data = await fetch(`/api/categories/${i}`, {
             method: "DELETE",
-        }); //.finally(() => setLoading(false));
+        });
         if (data.status === 200) {
-            setMessageUnit("MdThumbUpAlt");
-            setErrorUnit(idx);
+            setMessageCategory("MdThumbUpAlt");
+            setErrorCategory(idx);
             setTimeout(() => {
-                setErrorUnit(-1);
+                setErrorCategory(-1);
             }, 1500);
             mutate();
         } else {
-            setMessageUnit("MdThumbDownAlt");
-            setErrorUnit(idx);
+            setMessageCategory("MdThumbDownAlt");
+            setErrorCategory(idx);
             setTimeout(() => {
-                setErrorUnit(-1);
+                setErrorCategory(-1);
             }, 1500);
         }
     };
 
-    const handleUnitSelected = (e: any): any => {
-        setUnitSelected(String(e.currentTarget.textContent));
+    const handleCategorySelected = (e: any): any => {
+        setCategorySelected(String(e.currentTarget.textContent));
         let id =
             e.target.parentElement.parentElement.parentElement.parentElement
                 .parentElement.parentElement.id;
-            /* e.target.parentElement.parentElement.parentElement.parentElement
-                .parentElement.parentElement.id; */
         console.log(id);
         let name = String(e.currentTarget.textContent);
         console.log(name);
-        //func({"pos": id, "name": name});
         array[id] = name;
         console.log(array);
         setArray(array);
@@ -130,20 +120,14 @@ export default function UnitFunded({
         </Popover>
     );
 
-    /* useEffect() {
-    } */
-
     return (
         <>
             <Dropdown className="flex flex-column">
                 <Dropdown.Toggle
-                    className="!bg-[#7dc523] !border-0"
+                    className="!bg-[#7dc523] !border-0 !flex !items-center !z-0"
                     id="dropdown-basic"
                 >
-                    {defaultUnit && !unitSelected ? defaultUnit :
-                    unitSelected
-                        ? unitSelected
-                        : Translations("unit", language)}
+                    {IconsByName("fi", "FiEdit")}
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="border-0 bg-transparent">
                 <div className="overflow-auto -m-6 p-4 invisibleScroll">
@@ -157,35 +141,34 @@ export default function UnitFunded({
                         <Form.Control
                             autoFocus
                             className="mx-3 my-2 w-auto"
-                            placeholder={Translations("findUnitName", //"findUnitName",
-                            language)} //Type to filter...
+                            placeholder={Translations("searchCategory", language)}
                             onChange={(e) => setValue(e.target.value)}
                             value={value}
                         />
                     </div>
-                    {units ? (
-                        units
+                    {categories ? (
+                        categories
                             .filter(function (u) {
                                 return u.name.match(value);
                             })
                             .map((m, i) => (
                                 <div
                                     key={i}
-                                    className={"!flex justify-between items-center"}
+                                    className="!flex justify-between items-center"
                                 >
                                     <Dropdown.Item
                                         eventKey={i}
                                         className={(theme === "dark" ? "!text-white" : "")}
                                         onClick={(e) => {
-                                            e ? handleUnitSelected(e) : null;
+                                            e ? handleCategorySelected(e) : null;
                                         }}
                                     >
                                         {m.name}
                                     </Dropdown.Item>
-                                    <div className={"flex items-center my-1.5 mx-3"}>
-                                        {errorUnit === i ? (
+                                    <div className="flex items-center my-1.5 mx-3">
+                                        {errorCategory === i ? (
                                             <div className="ml-1.5">
-                                                {IconsByName("md", messageUnit)}
+                                                {IconsByName("md", messageCategory)}
                                             </div>
                                         ) : (
                                             <CapIconButton
@@ -193,12 +176,11 @@ export default function UnitFunded({
                                                 icon="IoMdTrash"
                                                 size="16px"
                                                 click={() =>
-                                                    removeUnit(m._id, i)
+                                                    removeCategory(m._id, i)
                                                 }
                                                 padding="!p-1.5"
                                             />
                                         )}
-                                        {/* IconsByName("io", "IoMdTrash") */}
                                     </div>
                                 </div>
                             ))
@@ -225,16 +207,16 @@ export default function UnitFunded({
                                             autoFocus
                                             className="mx-3 my-2 w-auto"
                                             placeholder={Translations(
-                                                "insertUnitName", //"insertUnitName",
+                                                "categoryName",
                                                 language
-                                            )} //Type to filter...
+                                            )}
                                             onChange={(e) =>
-                                                setUnitName(e.target.value)
+                                                setCategoryName(e.target.value)
                                             }
-                                            value={unitName}
+                                            value={categoryName}
                                         />
                                         {/* <CapBtn
-                                            label="create" //"create"
+                                            label="emptyText"
                                             click={handleSave}
                                         /> */}
                                         <CapIconButton iconType="fa" icon="FaCheck" size="16px" click={handleSave} />
@@ -244,7 +226,6 @@ export default function UnitFunded({
                         </Dropdown.ItemText>
                     ) : null}
                     <Dropdown.ItemText className="!flex justify-center">
-                        {/* IconsByName("fa", "FaPlus") */}
                         <CapIconButton
                             iconType="fa"
                             icon="FaPlus"
@@ -254,12 +235,8 @@ export default function UnitFunded({
                             rounded=" rounded " */
                         />
                     </Dropdown.ItemText>
-                    {/* <Dropdown.Item eventKey="2">Another action</Dropdown.Item>
-                <Dropdown.Item eventKey="3">Something else here</Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Item eventKey="4">Separated link</Dropdown.Item> */}
-                </div>
-                </div>
+                    </div>
+                    </div>
                 </Dropdown.Menu>
             </Dropdown>
         </>

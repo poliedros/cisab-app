@@ -1,9 +1,9 @@
-import DocumentationComp from "components/documentation/documentation";
+import DocumentationMain from "components/documentation/documentationMain";
 
 export default function Documentation() {
     return (
         <>
-            <DocumentationComp />
+            <DocumentationMain />
         </>
     );
 }

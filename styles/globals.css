@@ -4,6 +4,27 @@
 
 /* CSS mine */
 
+/* .datepicker-input::-webkit-calendar-picker-indicator {
+    background-color: pink;
+} */
+
+/* input {
+  color-scheme: dark;
+} */
+
+code {
+    color: #7dc523 !important;
+}
+
+.dropdown-item {
+    border-radius: 1.5rem;
+}
+
+.dropdown-item:hover {
+    background-color: #40d9f1 !important;
+    color: rgb(30 41 59 / var(--tw-bg-opacity)) !important;
+}
+
 .invisibleScroll {
     scrollbar-width: none;
 }
@@ -50,6 +71,209 @@
     .pageBase {
         flex-direction: column;
     }
+}
+
+.page-item .page-link {
+    border-radius: 9999px !important;
+    aspect-ratio: 1 / 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    line-height: 1rem;
+}
+
+/* calendar */
+
+.react-calendar__tile {
+    border-radius: 9999px;
+    aspect-ratio: 1 / 1;
+    height: 100%;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    /*padding: -0.25rem !important;
+    margin: 0.25rem !important;
+    padding: 0 !important;
+    flex: 1 1 10% !important; */
+}
+
+.react-daterange-picker__calendar {
+    z-index: 10 !important;
+}
+
+.css-13cymwt-control {
+    border: 0 !important;
+}
+
+.css-t3ipsp-control {
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+.css-3w2yfm-ValueContainer {
+    padding: 0 !important;
+}
+
+.css-1fdsijx-ValueContainer {
+    padding: 0 !important;
+}
+
+/* .react-calendar {
+    background-color: gray;
+    text-align: center;
+}
+
+.react-daterange-picker__wrapper {
+    background-color: green;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.react-daterange-picker__inputGroup__input {
+    width: auto !important;
+}
+
+.react-calendar__navigation {
+    display: flex;
+    margin-left: 1rem;
+    margin-right: 1rem;
+} */
+
+.react-calendar {
+    border: 0px !important;
+}
+
+abbr {
+    font-size: 1rem;
+}
+
+.react-calendar__navigation__arrow {
+    border-radius: 100%;
+}
+
+.css-1nmdiq5-menu {
+    padding: 1rem;
+    overflow: auto;
+    padding: 1.5rem;
+    border-radius: 1.5rem !important;
+    border-color: #e5e7eb !important;
+    border-width: 0 !important;
+    z-index: 9999;
+}
+
+.css-1n6sfyn-MenuList {
+    scrollbar-width: none;
+}
+
+.css-1n6sfyn-MenuList::-webkit-scrollbar {
+    display: none;
+}
+
+.css-d7l1ni-option {
+    border-radius: 1.5rem;
+    background-color: transparent !important;
+}
+
+.css-d7l1ni-option:hover {
+    background-color: #40d9f1 !important;
+}
+
+.css-10wo9uf-option {
+    border-radius: 1.5rem;
+}
+
+/* .react-calendar__navigation__label {
+    border-radius: 100%;
+} */
+
+.nav-item .nav-link {
+    border-radius: 100% !important;
+    padding-right: 8px;
+    padding-left: 8px;
+    margin: 0.5rem !important;
+}
+
+.nav-link.active {
+    background-color: #7dc523 !important;
+    color: white !important;
+}
+
+/* .nav-item .nav-link {
+    border-radius: 100% !important;
+    padding-right: 8px;
+    padding-left: 8px;
+    padding-bottom: 8px;
+    border-width: 0px !important;
+    margin: 0.5rem !important;
+}
+
+.nav-link.active {
+    background-color: #7dc523 !important;
+    color: white !important;
+} */
+
+/* circle */
+
+.circle {
+    /* width: 300px;
+    height: 300px; 
+    background: rgba(0, 0, 0, 0.2);*/
+    display: inline-flex;
+    border-radius: 50%;
+  }
+  
+  .menu {
+    --d:140px; /* distance from the center */
+    --i:30deg; /* the increment */
+    list-style-type: none;
+    padding: 0;
+    display:grid; /* use grid */
+    margin:auto; /* center the menu with all the items */
+  }
+  
+  .menu li {
+    grid-area:1/1; /* all of them at the same position (they overlap) */
+    /* we rotate then translate to the edge then rotate again using the opposite rotation */
+    transform:rotate(var(--r)) translateX(var(--d)) rotate(calc(-1*var(--r)));
+  }
+
+  /* adjust the angle for each icon */
+.menu li:nth-child(1) { --r: calc( 1*var(--i))} 
+.menu li:nth-child(2) { --r: calc( 2*var(--i))} 
+.menu li:nth-child(3) { --r: calc( 3*var(--i))} 
+.menu li:nth-child(4) { --r: calc( 4*var(--i))} 
+.menu li:nth-child(5) { --r: calc( 5*var(--i))} 
+.menu li:nth-child(6) { --r: calc( 6*var(--i))} 
+.menu li:nth-child(7) { --r: calc( 7*var(--i))} 
+.menu li:nth-child(8) { --r: calc( 8*var(--i))} 
+.menu li:nth-child(9) { --r: calc( 9*var(--i))} 
+.menu li:nth-child(10){ --r: calc(10*var(--i))} 
+.menu li:nth-child(11){ --r: calc(11*var(--i))} 
+.menu li:nth-child(12){ --r: calc( 0*var(--i))} 
+
+/* .menu li a {
+  display: block;
+}
+.menu li a img {
+  width: 50px;
+} */
+
+/* rotation */
+
+.rot-45 {
+    -webkit-transform: rotate3d(0, 1, 0, 30deg);
+    transform: rotate3d(0, 1, 0, 30deg);
+}
+
+.rot-minus-45 {
+    -webkit-transform: rotate3d(0, 1, 0, -5deg);
+    transform: rotate3d(0, 1, 0, -5deg);
+}
+
+.rot-minus-40 {
+    -webkit-transform: rotate3d(0, 1, 0, -5deg);
+    transform: rotate3d(0, -1, 0, -5deg);
 }
 
 /* animations */

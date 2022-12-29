@@ -2,6 +2,7 @@ import useUser from "lib/useUser";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { ProductDTO } from "pages/api/products";
+import ProductShowcase from "components/products/productShowcase";
 //import CountyProfile from "components/counties/countyProfile";
 
 export default function Get() {
@@ -21,7 +22,7 @@ export default function Get() {
 
   return (
     <>
-      {/* <CountyProfile county={county} /> */}
+      <ProductShowcase product={product}/>
     </>
   );
 }

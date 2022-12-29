@@ -6,9 +6,22 @@ import CapTitle from "atoms/capTitle";
 import { useState } from "react";
 import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
 import CapFormik from "atoms/capFormik";
+import CapLargeCard from "atoms/capLargeCard";
+import CapInputRangeCalendar from "atoms/capInputRangeCalendar";
+import useSWR, { MutatorCallback, MutatorOptions } from "swr";
+import { ProductDTO } from "pages/api/products";
+
+import useRole from "lib/useRole";
+import useUser from "lib/useUser";
+import { Role } from "lib/role.enum";
+import CapInputAdvancedBase from "atoms/capInputAdvancedBase";
+import CapIconButton from "atoms/capIconButton";
+import CapMessageBottom from "atoms/capMessageBottom";
 
 export default function TestLab() {
     const [validated, setValidated] = useState(false);
+
+    const [successMessage, setSuccessMessage] = useState<boolean>(false);
 
     const handleSubmit = (event: any) => {
         const form = event.currentTarget;
@@ -32,9 +45,21 @@ export default function TestLab() {
         terms: yup.bool().required().oneOf([true], "Terms must be accepted"),
     });
 
+    const [value, setValue] = useState("");
+
+    const { user } = useUser({ redirectTo: "/login" });
+    useRole({ user, role: Role.Cisab, redirectTo: "/" });
+
+    const {
+        data: products,
+        error: error3,
+        mutate: mutate3,
+    } = useSWR<ProductDTO[]>(user ? "/api/products" : null);
+
     return (
         <>
-            <CapTitle base="lab" label="close" />
+            <CapTitle base="lab" label="sandbox" />
+            {/* <CapTitle base="lab" label="close" />
             <CapBtn kind="next" variant="light" />
             <CapForm required={true} />
             <Row>
@@ -60,7 +85,7 @@ export default function TestLab() {
                         }) => (
                             <Form noValidate onSubmit={handleSubmit}>
                                 <Col>
-                                    {/* <FormSection1 /> */}
+                                    {/* <FormSection1 /> /}
                                     <CapFormik
                                     as={Col}
                                     md="4"
@@ -71,7 +96,7 @@ export default function TestLab() {
                                 </Col>
 
                                 <Col>
-                                    {/* <FormSection2 /> */}
+                                    {/* <FormSection2 /> /}
                                 </Col>
                                 <Col>
                                     <Form.Group>
@@ -83,13 +108,13 @@ export default function TestLab() {
                                             isInvalid={!!errors.terms}
                                             feedback={errors.terms}
                                             id="validationFormik0"
-                                        /> */}
+                                        /> /}
                                     </Form.Group>
                                 </Col>
                                 <Col>
                                     {/* <FormSectionFriends
                                         friends={values.friends}
-                                    /> */}
+                                    /> /}
                                 </Col>
 
                                 <Col>
@@ -120,7 +145,7 @@ export default function TestLab() {
                         )}
                     </Formik>
                 </Col>
-            </Row>
+            </Row> 
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <Row className="mb-3">
                 <Form.Group as={Col} md="4" controlId="validationCustom01">
@@ -134,7 +159,39 @@ export default function TestLab() {
                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
                 </Row>
-                </Form>
+                </Form> */}
+            <CapLargeCard mirror={false} />
+            <CapLargeCard mirror={true} />
+            <CapIconButton iconType="bs" icon="BsCalendar" size={"16px"} />
+            {value}
+            <CapInputRangeCalendar setDate={setValue} />
+            <CapInputAdvancedBase
+                //[{ "label": products[0].name.toString(), "value": products[0]._id.toString() }]
+                defaultValue={
+                    products
+                        ? products.map((p) => {
+                              if (!p.name.includes("mangueirao"))
+                                  return {
+                                      label: p.name.toString(),
+                                      value: p._id.toString(),
+                                  };
+                          })
+                        : []
+                }
+                values={products?.map((p) => p.name)}
+                mutate={function (
+                    data?:
+                        | any[]
+                        | Promise<any[]>
+                        | MutatorCallback<any[]>
+                        | undefined,
+                    opts?: boolean | MutatorOptions<any[]> | undefined
+                ): Promise<any[] | undefined> {
+                    throw new Error("Function not implemented.");
+                }}
+            />
+            <CapBtn kind="next" click={() => setSuccessMessage(!successMessage)}/>
+            {successMessage ? <CapMessageBottom literal="Anderson" /> : <></>}
         </>
     );
 }

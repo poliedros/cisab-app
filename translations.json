@@ -275,6 +275,21 @@
   "insertProductName": {
     "pt": "Insera o Nome do Produto"
   },
+  "productCode": {
+    "pt": "Código do Produto"
+  },
+  "insertProductCode": {
+    "pt": "Insera Código do Produto"
+  },
+  "productCategory": {
+    "pt": "Categoria do Produto"
+  },
+  "insertProductCategory": {
+    "pt": "Insera uma Categoria do Produto"
+  },
+  "insertProductMultiCategory": {
+    "pt": "Selecione uma ou mais Categorias"
+  },
   "image": {
     "pt": "Imagem"
   },
@@ -282,7 +297,7 @@
     "pt": "Enviar"
   },
   "emptyText": {
-    "pt": "Texto Vazio"
+    "pt": ""
   },
   "userList": {
     "pt": "Lista de Usuários do Município"
@@ -430,5 +445,140 @@
   },
   "themes": {
     "pt": "Temas"
+  },
+  "products": {
+    "pt": "Produtos"
+  },
+  "createProduct": {
+    "pt": "Criar Produto"
+  },
+  "listProducts": {
+    "pt": "Lista de Produtos"
+  },
+  "code": {
+    "pt": "Código"
+  },
+  "goToAccessory": {
+    "pt": "Preencher Acessórios"
+  },
+  "category": {
+    "pt": "Categoria"
+  },
+  "norm": {
+    "pt": "Norma"
+  },
+  "insertNorm": {
+    "pt": "Insira texto da Norma"
+  },
+  "findUnitName": {
+    "pt": "Buscar Unidade"
+  },
+  "insertUnitName": {
+    "pt": "Nome da Unidade"
+  },
+  "create": {
+    "pt": "Criar"
+  },
+  "editProduct": {
+    "pt": "Alterar Informações do Produto"
+  },
+  "productDescription": {
+    "pt": "Descrição do Produto"
+  },
+  "productData": {
+    "pt": "Informações do Produto"
+  },
+  "norms": {
+    "pt": "Normas"
+  },
+  "accessories": {
+    "pt": "Acessórios"
+  },
+  "countyAccountable": {
+    "pt": "Responsável pelo Município"
+  },
+  "autarkyAccount": {
+    "pt": "Conta da Autarquia"
+  },
+  "autarkyData": {
+    "pt": "Informações sobre a Autarquia"
+  },
+  "aurtarkyAccountable": {
+    "pt": "Responsável pela Autarquia"
+  },
+  "categoryName": {
+    "pt": "Nome da Categoria"
+  },
+  "searchCategory": {
+    "pt": "Buscar Categoria"
+  },
+  "compCaps": {
+    "pt": "CAPs - Atômos CZAR+"
+  },
+  "art": {
+    "pt": "Arte"
+  },
+  "sandbox": {
+    "pt": "Caixa de Areia"
+  },
+  "colors": {
+    "pt": "Cores"
+  },
+  "fonts": {
+    "pt": "Fontes"
+  },
+  "noMoreData": {
+    "pt": "Acabaram-se os dados"
+  },
+  "project": {
+    "pt": "Projeto"
+  },
+  "testLab": {
+    "pt": "Laboratório de Teste"
+  },
+  "insertCode": {
+    "pt": "Insira o Código"
+  },
+  "quantity": {
+    "pt": "Quantidade"
+  },
+  "insertQuantity": {
+    "pt": "Insira a Quantidade"
+  },
+  "insertMultiAccessories": {
+    "pt": "Selecione um ou mais Acessórios"
+  },
+  "insertMultiNorms": {
+    "pt": "Selecione uma ou mais Normas"
+  },
+  "insertMultiProducts": {
+    "pt": "Selecione um ou mais Produtos"
+  },
+  "demands": {
+    "pt": "Licitações"
+  },
+  "createDemand": {
+    "pt": "Criar Licitação"
+  },
+  "listDemands": {
+    "pt": "Lista de Licitações"
+  },
+  "createEmployee": {
+    "pt": "Criar Funcionário"
+  },
+  "listEmployees": {
+    "pt": "Lista de Funcinários"
+  },
+  "theme": {
+    "pt": "Tema"
+  },
+  "insertTheme": {
+    "pt": "Insira Tema"
+  },
+  "saveDemand": {
+    "pt": "Salvar Demanda"
+  },
+  "unblockDemand": {
+    "pt": "Desbloquear Licitação"
   }
 }
