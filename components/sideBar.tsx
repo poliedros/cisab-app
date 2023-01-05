@@ -101,6 +101,7 @@ export default function SideBar() {
                         size="24px"
                         route="/products"
                         hoverColor="#7dc523"
+                        css="mr-3"
                         tooltip="listProducts"
                     />
                     {/* <CapIconButton
@@ -110,6 +111,14 @@ export default function SideBar() {
                         route="/counties"
                         hoverColor="#7dc523"
                     /> */}
+                    <CapIconButton
+                        iconType="gi"
+                        icon="GiCardboardBox"
+                        size="24px"
+                        route="/counties/create"
+                        hoverColor="#7dc523"
+                        tooltip="productSuggestion"
+                    />
                 </div>
             </div>
         </Popover>
@@ -195,7 +204,7 @@ export default function SideBar() {
                         iconType="fa"
                         icon="FaThList"
                         size="24px"
-                        //route="/products"
+                        route="/demands"
                         hoverColor="#7dc523"
                         tooltip="listDemands"
                     />

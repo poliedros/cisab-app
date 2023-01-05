@@ -43,7 +43,7 @@ export default function CapInputRangeCalendar({
 
     return (
         <>
-            <div className="overflow-auto -m-6 p-4 invisibleScroll">
+            <div className="overflow-auto -m-6 p-4 invisibleScroll w-fit">
                 <div
                     className={
                         (theme === "dark" ? "bg-black" : "bg-white") +

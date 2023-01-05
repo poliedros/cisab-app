@@ -43,7 +43,15 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ProductDTO[]>) 
         return;
     }
 
-    const response = await fetch(process.env.API_URL + "/products", {
+    let queryString = "";
+
+    req.query.category ? (typeof req.query.category === "string") ? queryString = "?category=" + req.query.category : req.query.category.map((c, i) => {(i === 0) ? queryString = queryString + "?category=" + c + "&" : queryString = queryString + "category=" + c + "&"}) : null;
+
+    //var queryString = Object.keys(req.query).map(key => key + '=' + req.query[key]).join('&');
+
+    //console.log(queryString); ${queryString}
+
+    const response = await fetch(process.env.API_URL + `/products${queryString}`, {
         headers: { Authorization: "Bearer " + user.token },
     });
     const data = (await response.json()) as ProductDTO[];

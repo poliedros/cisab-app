@@ -28,6 +28,7 @@ import { useLanguage, useLanguageUpdate } from "../../context/languageContext";
 import CapLegend from "atoms/capLegend";
 import ProductCreationInformation from "./tabs/productCreationInformation";
 import CapMessageBottom from "atoms/capMessageBottom";
+import axios from "axios";
 
 export default function ProductCreation({
     product = undefined,
@@ -60,6 +61,9 @@ export default function ProductCreation({
     const [measures, setMeasures] = useState<string[]>([]);
     const [unitsValue, setUnitsValue] = useState<string[]>([]);
     const [unitsSt, setUnitsSt] = useState<UnitDTO[]>([]);
+
+    const [imageSt, setImageSt] = useState<File | undefined>(undefined);
+    const [bigFileWarning, setBigFileWarning] = useState(false);
 
     const [categoriesValue, setCategoriesValue] = useState<string[]>([]);
     const [categoriesSt, setCategoriesSt] = useState<CategoryDTO[]>([]);
@@ -123,8 +127,12 @@ export default function ProductCreation({
             method: "POST",
             body: JSON.stringify(product),
         });
+        alert(data.status);
 
-        //alert(data.status);
+        if(data.status === 200)
+            <CapMessageBottom literal="Salvou"/>
+        else
+            <CapMessageBottom literal="Erro"/>
         const result = await data.json();
         setProductId(result._id);
         return undefined;
@@ -152,7 +160,7 @@ export default function ProductCreation({
             measurements: meaRes ?? [],
             norms: norRes ?? [],
             code: code,
-            photo_url: "", //https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg
+            //photo_url: "", //https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg
             accessory_ids: prodRes ?? [],
             categories: listCat ?? [],
         };
@@ -162,21 +170,31 @@ export default function ProductCreation({
         await saveProduct(productResult);
     };
 
-    const handleSaveImage = async () => {
-        /* const data = await fetch(`/api/products/${productId}/image`, {
+    const saveImage = async (
+        image: any
+    ): Promise<any> => {
+        const { data } = await axios.post(`/api/products/${productId}/image`, {file: image}, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+
+        /* const data2 = await fetch(`/api/products/${productId}/image`, {
             method: "POST",
-            body: "",
-        });
+            body: JSON.stringify(image),
+        }); */
 
-        const data2 = await fetch(`/api/products/${productId}`, {
-            method: "GET",
-        });
+        alert("Image: " + data.status);
 
-        data2 */
-
-        setStep(4);
+        const result = await data.json();
         return undefined;
-    }
+    };
+
+    const handleSaveImage = async () => {
+        setStep(4);
+        console.log(imageSt);
+        await saveImage(imageSt);
+    };
 
     if (error) return <div>failed to load</div>;
     if (!units) return <div>loading...</div>;
@@ -190,120 +208,118 @@ export default function ProductCreation({
 
     return (
         <>
-                <CapTitle
-                    base="product"
-                    label="addProduct" //{county ? "editCounty" : "countyRegistration"}
-                />
-                <Form className="mt-3">
-                    <Row>
-                        <CapTabs
-                            activeKey={step.toString()}
-                            disabled={[true, true, true, true, true]}
-                            stagesTooltips={[
-                                "productData",
-                                "norms",
-                                "accessories",
-                                "image",
-                                "finalize",
-                            ]}
-                            stagesIcons={[
-                                "MdEditNote",
-                                "FaBalanceScale",
-                                "MdAddCircle",
-                                "IoImage",
-                                "RiCheckboxCircleFill",
-                            ]}
-                            stagesIconsTypes={["md", "fa", "md", "io5", "ri"]}
-                            stagesBody={[
-                                <>
-                                    {/* <ProductCreationInformation productName={""} setProductName={undefined} code={""} setCode={undefined} categories={[]} mutateCat={undefined} listCat={[]} setListCat={undefined} units={[]} mutate={undefined} list={[]} setList={undefined} description={description} setDescription={setDescription} array={undefined} setArray={undefined} setStep={undefined} handleProduct={undefined} handleUnitValue={undefined} handleProductMeasure={undefined} /> */}
+            <CapTitle
+                base="product"
+                label="addProduct" //{county ? "editCounty" : "countyRegistration"}
+            />
+            <Form className="mt-3">
+                <Row>
+                    <CapTabs
+                        activeKey={step.toString()}
+                        disabled={[true, true, true, true, true]}
+                        stagesTooltips={[
+                            "productData",
+                            "norms",
+                            "accessories",
+                            "image",
+                            "finalize",
+                        ]}
+                        stagesIcons={[
+                            "MdEditNote",
+                            "FaBalanceScale",
+                            "MdAddCircle",
+                            "IoImage",
+                            "RiCheckboxCircleFill",
+                        ]}
+                        stagesIconsTypes={["md", "fa", "md", "io5", "ri"]}
+                        stagesBody={[
+                            <>
+                                {/* <ProductCreationInformation productName={""} setProductName={undefined} code={""} setCode={undefined} categories={[]} mutateCat={undefined} listCat={[]} setListCat={undefined} units={[]} mutate={undefined} list={[]} setList={undefined} description={description} setDescription={setDescription} array={undefined} setArray={undefined} setStep={undefined} handleProduct={undefined} handleUnitValue={undefined} handleProductMeasure={undefined} /> */}
+                                <CapForm
+                                    key={0}
+                                    as={Col}
+                                    label="productName"
+                                    placeholder="insertProductName"
+                                    value={productName}
+                                    change={
+                                        (e: any) =>
+                                            setProductName(e.target.value) //setProductName(e.target.value)
+                                    }
+                                    legend="exampleProductName"
+                                />
+                                <Row className="flex items-center">
                                     <CapForm
                                         key={0}
                                         as={Col}
-                                        label="productName"
-                                        placeholder="insertProductName"
-                                        value={productName}
+                                        label="productCode"
+                                        placeholder="insertProductCode"
+                                        value={code}
                                         change={
-                                            (e: any) =>
-                                                setProductName(e.target.value) //setProductName(e.target.value)
+                                            (e: any) => setCode(e.target.value) //setProductName(e.target.value)
                                         }
-                                        legend="exampleProductName"
+                                        /* legend="exampleProductName" */
                                     />
-                                    <Row className="flex items-center">
-                                        <CapForm
-                                            key={0}
-                                            as={Col}
-                                            label="productCode"
-                                            placeholder="insertProductCode"
-                                            value={code}
-                                            change={
-                                                (e: any) =>
-                                                    setCode(e.target.value) //setProductName(e.target.value)
-                                            }
-                                            /* legend="exampleProductName" */
+                                    <Col>
+                                        <CapInputAdvanced
+                                            label="productCategory"
+                                            placeholder="insertProductMultiCategory"
+                                            categories={categories}
+                                            mutate={mutate}
+                                            array={listCat}
+                                            setArray={setListCat}
                                         />
-                                        <Col>
-                                            <CapInputAdvanced
-                                                label="productCategory"
-                                                placeholder="insertProductMultiCategory"
-                                                categories={categories}
-                                                mutate={mutate}
-                                                array={listCat}
-                                                setArray={setListCat}
-                                            />
-                                        </Col>
-                                        {/* <CapForm
+                                    </Col>
+                                    {/* <CapForm
                                             key={0}
                                             as={Col}
                                             label="productCategory"
                                             placeholder="insertProductCategory"
                                         /> */}
-                                    </Row>
-                                    {/* {
+                                </Row>
+                                {/* {
                                         setComponents()
                                     } */}
-                                    <CapContainerAdd
-                                        components={[
-                                            <CapForm
-                                                key={0}
-                                                as={Col}
-                                                label="measure" //"measure"
-                                                placeholder="insertMeasure" //"insertMeasureName"
-                                                //value={} //(e: any) => measures[e.target.parentElement.parentElement.parentElement.id]
-                                                change={
-                                                    (e: any) =>
-                                                        handleProductMeasure(e) //console.log(e.target.parentElement.parentElement.parentElement.id ) //setMeasures(e.target.value)
-                                                }
-                                                legend="exampleMeasure"
-                                            />,
-                                            <CapForm
-                                                key={0}
-                                                as={Col}
-                                                label="quantity" //"scale"
-                                                placeholder="insertQuantity" //"insertScale"
-                                                type="number"
-                                                //value={measures}
-                                                change={
-                                                    (e: any) =>
-                                                        handleUnitValue(e) //alert(e.target.value)
-                                                } //setMeasures([...measures, e.target.value])
-                                            />,
-                                            <Col key={0}>
-                                                <UnitFunded
-                                                    units={units}
-                                                    mutate={mutate}
-                                                    array={list}
-                                                    setArray={setList}
-                                                />{" "}
-                                                {/* (e: any) => setFunc(e) (e: any) => handleUnitName(e) */}
-                                            </Col>,
-                                        ]}
-                                        //setComponents={setComponents}
-                                        key={k}
-                                        resultArray={array}
-                                        setResultArray={setArray}
-                                    />
-                                    {/* unit.map((m, i) => 
+                                <CapContainerAdd
+                                    components={[
+                                        <CapForm
+                                            key={0}
+                                            as={Col}
+                                            label="measure" //"measure"
+                                            placeholder="insertMeasure" //"insertMeasureName"
+                                            //value={} //(e: any) => measures[e.target.parentElement.parentElement.parentElement.id]
+                                            change={
+                                                (e: any) =>
+                                                    handleProductMeasure(e) //console.log(e.target.parentElement.parentElement.parentElement.id ) //setMeasures(e.target.value)
+                                            }
+                                            legend="exampleMeasure"
+                                        />,
+                                        <CapForm
+                                            key={0}
+                                            as={Col}
+                                            label="quantity" //"scale"
+                                            placeholder="insertQuantity" //"insertScale"
+                                            type="number"
+                                            //value={measures}
+                                            change={
+                                                (e: any) => handleUnitValue(e) //alert(e.target.value)
+                                            } //setMeasures([...measures, e.target.value])
+                                        />,
+                                        <Col key={0}>
+                                            <UnitFunded
+                                                units={units}
+                                                mutate={mutate}
+                                                array={list}
+                                                setArray={setList}
+                                            />{" "}
+                                            {/* (e: any) => setFunc(e) (e: any) => handleUnitName(e) */}
+                                        </Col>,
+                                    ]}
+                                    //setComponents={setComponents}
+                                    key={k}
+                                    resultArray={array}
+                                    setResultArray={setArray}
+                                />
+                                {/* unit.map((m, i) => 
                                 <div key={i}>
                                     <Row className="mb-3 items-center">
                                         <CapForm
@@ -344,255 +360,57 @@ export default function ProductCreation({
                                     </Row>
                                     </div>
                                     ) */}
-                                    {/* <CapBtn kind="next" click={handleProduct} /> */}
-                                    <Row className="flex justify-end items-end">
-                                        <Col>
-                                            <CapLegend label={description} />
-                                        </Col>
-                                        <Col md="auto" className="!pl-0 !pr-3">
-                                            <CapIconButton
-                                                iconType="io5"
-                                                icon="IoImageOutline"
-                                                size="20px"
-                                                click={handleProduct}
-                                                mouseEnter={() =>
-                                                    setDescription("finalize")
-                                                }
-                                                mouseLeave={() =>
-                                                    setDescription("emptyText")
-                                                }
-                                            />
-                                            {/* <CapBtn
+                                {/* <CapBtn kind="next" click={handleProduct} /> */}
+                                <Row className="flex justify-end items-end">
+                                    <Col>
+                                        <CapLegend label={description} />
+                                    </Col>
+                                    <Col md="auto" className="!pl-0 !pr-3">
+                                        <CapIconButton
+                                            iconType="io5"
+                                            icon="IoImageOutline"
+                                            size="20px"
+                                            click={handleProduct}
+                                            mouseEnter={() =>
+                                                setDescription("finalize")
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        />
+                                        {/* <CapBtn
                                                 label="finalize"
                                                 iconType="io5"
                                                 icon="IoImageOutline"
                                                 click={handleProduct} //() => setStep(3)
                                             /> */}
-                                        </Col>
-                                        <Col md="auto" className="!pl-0 !pr-3">
-                                            <CapIconButton
-                                                iconType="md"
-                                                icon="MdOutlineAddCircleOutline"
-                                                size="20px"
-                                                click={() => setStep(2)}
-                                                mouseEnter={() =>
-                                                    setDescription(
-                                                        "goToAccessory"
-                                                    )
-                                                }
-                                                mouseLeave={() =>
-                                                    setDescription("emptyText")
-                                                }
-                                            />
-                                            {/* <CapBtn
+                                    </Col>
+                                    <Col md="auto" className="!pl-0 !pr-3">
+                                        <CapIconButton
+                                            iconType="md"
+                                            icon="MdOutlineAddCircleOutline"
+                                            size="20px"
+                                            click={() => setStep(2)}
+                                            mouseEnter={() =>
+                                                setDescription("goToAccessory")
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        />
+                                        {/* <CapBtn
                                                 label="goToAccessory"
                                                 iconType="md"
                                                 icon="MdOutlineAddCircleOutline"
                                                 click={() => setStep(2)}
                                             /> */}
-                                        </Col>
-                                        <Col md="auto" className="!pl-0">
-                                            <CapIconButton
-                                                iconType="md"
-                                                icon="MdNavigateNext"
-                                                size="20px"
-                                                click={() => setStep(1)}
-                                                mouseEnter={() =>
-                                                    setDescription(
-                                                        "continueFillingOut"
-                                                    )
-                                                }
-                                                mouseLeave={() =>
-                                                    setDescription("emptyText")
-                                                }
-                                            />
-                                            {/* <CapBtn
-                                                label="continueFillingOut"
-                                                iconType="md"
-                                                icon="MdNavigateNext"
-                                                click={() => setStep(1)}
-                                            /> */}
-                                        </Col>
-                                    </Row>
-                                </>,
-                                <>
-                                    <CapContainerNormAdd
-                                        components={[
-                                            <>
-                                                <CapForm
-                                                    asControl="textarea"
-                                                    rows={3}
-                                                    label="norm"
-                                                    placeholder="insertNorm"
-                                                />
-                                            </>,
-                                        ]}
-                                        resultArray={arrayNorms}
-                                        setResultArray={setArrayNorms}
-                                    />
-                                    <Row className="flex justify-end items-end">
-                                        <Col>
-                                            <CapLegend label={description} />
-                                        </Col>
-                                        <Col md="auto" className="!pl-0 !pr-3">
-                                            <CapIconButton
-                                                iconType="io5"
-                                                icon="IoImageOutline"
-                                                size="20px"
-                                                click={handleProduct}
-                                                mouseEnter={() =>
-                                                    setDescription("finalize")
-                                                }
-                                                mouseLeave={() =>
-                                                    setDescription("emptyText")
-                                                }
-                                            />
-                                            {/* <CapBtn
-                                                label="finalize"
-                                                iconType="io5"
-                                                icon="IoImageOutline"
-                                                click={handleProduct} //() => setStep(3)
-                                            /> */}
-                                        </Col>
-                                        <Col md="auto" className="!pl-0">
-                                            <CapIconButton
-                                                iconType="md"
-                                                icon="MdNavigateNext"
-                                                size="20px"
-                                                click={() => setStep(2)}
-                                                mouseEnter={() =>
-                                                    setDescription(
-                                                        "continueFillingOut"
-                                                    )
-                                                }
-                                                mouseLeave={() =>
-                                                    setDescription("emptyText")
-                                                }
-                                            />
-                                            {/* <CapBtn
-                                                label="continueFillingOut"
-                                                iconType="md"
-                                                icon="MdNavigateNext"
-                                                click={() => setStep(2)}
-                                            /> */}
-                                        </Col>
-                                    </Row>
-                                </>,
-                                <>
-                                    <CapInputAdvancedProduct
-                                        label="productName"
-                                        //placeholder="insertProductMultiCategory"
-                                        products={products}
-                                        setArray={setListProd}
-                                    />
-                                    <CapContainerProductAdd
-                                        components={[
-                                            <CapForm
-                                                key={0}
-                                                as={Col}
-                                                label="productName"
-                                                placeholder="insertProductName"
-                                                /* value={productName}
-                                                change={
-                                                    (e: any) =>
-                                                        setProductName(
-                                                            e.target.value
-                                                        ) //setProductName(e.target.value)
-                                                } */
-                                                legend="exampleProductName"
-                                            />,
-                                            <>
-                                                <Row className="flex items-center">
-                                                    <CapForm
-                                                        key={0}
-                                                        as={Col}
-                                                        label="productCode"
-                                                        placeholder="insertProductCode"
-                                                        /* value={code}
-                                                        change={(e: any) =>
-                                                            setCode(
-                                                                e.target.value
-                                                            )
-                                                        } */
-                                                    />
-                                                    <Col>
-                                                        <CapInputAdvanced
-                                                            label="productCategory"
-                                                            placeholder="insertProductMultiCategory"
-                                                            categories={
-                                                                categories
-                                                            }
-                                                            mutate={mutate}
-                                                            array={listCat}
-                                                            setArray={
-                                                                setListCat
-                                                            }
-                                                        />
-                                                    </Col>
-                                                </Row>
-                                            </>,
-                                            <CapContainerAdd
-                                                components={[
-                                                    <>
-                                                        <Row>
-                                                            <CapForm
-                                                                key={0}
-                                                                as={Col}
-                                                                label="measure" //"measure"
-                                                                placeholder="insertMeasure" //"insertMeasureName"
-                                                                //value={} //(e: any) => measures[e.target.parentElement.parentElement.parentElement.id]
-                                                                change={
-                                                                    (e: any) =>
-                                                                        handleProductMeasure(
-                                                                            e
-                                                                        ) //console.log(e.target.parentElement.parentElement.parentElement.id ) //setMeasures(e.target.value)
-                                                                }
-                                                                legend="exampleMeasure"
-                                                            />
-                                                        </Row>
-                                                    </>,
-                                                    <CapForm
-                                                        key={0}
-                                                        as={Col}
-                                                        label="unit" //"scale"
-                                                        placeholder="insertUnit" //"insertScale"
-                                                        type="number"
-                                                        //value={measures}
-                                                        change={
-                                                            (e: any) =>
-                                                                handleUnitValue(
-                                                                    e
-                                                                ) //alert(e.target.value)
-                                                        } //setMeasures([...measures, e.target.value])
-                                                    />,
-                                                    <Col key={0}>
-                                                        <UnitFunded
-                                                            units={units}
-                                                            mutate={mutate}
-                                                            array={list}
-                                                            setArray={setList}
-                                                        />{" "}
-                                                        {/* (e: any) => setFunc(e) (e: any) => handleUnitName(e) */}
-                                                    </Col>,
-                                                ]}
-                                                //setComponents={setComponents}
-                                                key={k}
-                                                resultArray={array}
-                                                setResultArray={setArray}
-                                            />,
-                                        ]}
-                                        resultArray={[]}
-                                        setResultArray={undefined}
-                                    />
-                                    <div className="flex justify-end items-end">
-                                        <Col>
-                                            <CapLegend label={description} />
-                                        </Col>
+                                    </Col>
+                                    <Col md="auto" className="!pl-0">
                                         <CapIconButton
                                             iconType="md"
                                             icon="MdNavigateNext"
                                             size="20px"
-                                            click={handleProduct} //() => setStep(3)
+                                            click={() => setStep(1)}
                                             mouseEnter={() =>
                                                 setDescription(
                                                     "continueFillingOut"
@@ -602,54 +420,257 @@ export default function ProductCreation({
                                                 setDescription("emptyText")
                                             }
                                         />
-                                    </div>
-                                    {/* <CapBtn
-                                        label="continueFillingOut"
-                                        iconType="md"
-                                        icon="MdNavigateNext"
-                                        click={handleProduct} //() => setStep(3)
-                                    /> */}
-                                </>,
-                                <>
-                                    <CapImage key={0} src={""} />
-                                    <CapForm
-                                        label="image"
-                                        type="file"
-                                        /* value={countyFlag}
-                                    change={(e: any) => setCountyFlag(e.target.value)} */
-                                    />
-                                    <Row className="flex justify-end items-end">
-                                        <Col>
-                                            <CapLegend label={description} />
-                                        </Col>
-                                        <Col md="auto" className="!pl-0">
+                                        {/* <CapBtn
+                                                label="continueFillingOut"
+                                                iconType="md"
+                                                icon="MdNavigateNext"
+                                                click={() => setStep(1)}
+                                            /> */}
+                                    </Col>
+                                </Row>
+                            </>,
+                            <>
+                                <CapContainerNormAdd
+                                    components={[
+                                        <>
+                                            <CapForm
+                                                asControl="textarea"
+                                                rows={3}
+                                                label="norm"
+                                                placeholder="insertNorm"
+                                            />
+                                        </>,
+                                    ]}
+                                    resultArray={arrayNorms}
+                                    setResultArray={setArrayNorms}
+                                />
+                                <Row className="flex justify-end items-end">
+                                    <Col>
+                                        <CapLegend label={description} />
+                                    </Col>
+                                    <Col md="auto" className="!pl-0 !pr-3">
                                         <CapIconButton
-                                            iconType="ri"
-                                            icon="RiCheckboxCircleLine"
+                                            iconType="io5"
+                                            icon="IoImageOutline"
                                             size="20px"
-                                            click={handleSaveImage} //() => setStep(4)
+                                            click={handleProduct}
+                                            mouseEnter={() =>
+                                                setDescription("finalize")
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        />
+                                        {/* <CapBtn
+                                                label="finalize"
+                                                iconType="io5"
+                                                icon="IoImageOutline"
+                                                click={handleProduct} //() => setStep(3)
+                                            /> */}
+                                    </Col>
+                                    <Col md="auto" className="!pl-0">
+                                        <CapIconButton
+                                            iconType="md"
+                                            icon="MdNavigateNext"
+                                            size="20px"
+                                            click={() => setStep(2)}
                                             mouseEnter={() =>
                                                 setDescription(
-                                                    "finalize"
+                                                    "continueFillingOut"
                                                 )
                                             }
                                             mouseLeave={() =>
                                                 setDescription("emptyText")
                                             }
                                         />
-                                        </Col>
-                                    </Row>
-                                    {/* <CapBtn
+                                        {/* <CapBtn
+                                                label="continueFillingOut"
+                                                iconType="md"
+                                                icon="MdNavigateNext"
+                                                click={() => setStep(2)}
+                                            /> */}
+                                    </Col>
+                                </Row>
+                            </>,
+                            <>
+                                <CapInputAdvancedProduct
+                                    label="productName"
+                                    placeholder="insertMultiProducts"
+                                    products={products}
+                                    setArray={setListProd}
+                                />
+                                <CapContainerProductAdd
+                                    components={[
+                                        <CapForm
+                                            key={0}
+                                            as={Col}
+                                            label="productName"
+                                            placeholder="insertProductName"
+                                            /* value={productName}
+                                                change={
+                                                    (e: any) =>
+                                                        setProductName(
+                                                            e.target.value
+                                                        ) //setProductName(e.target.value)
+                                                } */
+                                            legend="exampleProductName"
+                                        />,
+                                        <>
+                                            <Row className="flex items-center">
+                                                <CapForm
+                                                    key={0}
+                                                    as={Col}
+                                                    label="productCode"
+                                                    placeholder="insertProductCode"
+                                                    /* value={code}
+                                                        change={(e: any) =>
+                                                            setCode(
+                                                                e.target.value
+                                                            )
+                                                        } */
+                                                />
+                                                <Col>
+                                                    <CapInputAdvanced
+                                                        label="productCategory"
+                                                        placeholder="insertProductMultiCategory"
+                                                        categories={categories}
+                                                        mutate={mutate}
+                                                        array={listCat}
+                                                        setArray={setListCat}
+                                                    />
+                                                </Col>
+                                            </Row>
+                                        </>,
+                                        <CapContainerAdd
+                                            components={[
+                                                <>
+                                                    <Row>
+                                                        <CapForm
+                                                            key={0}
+                                                            as={Col}
+                                                            label="measure" //"measure"
+                                                            placeholder="insertMeasure" //"insertMeasureName"
+                                                            //value={} //(e: any) => measures[e.target.parentElement.parentElement.parentElement.id]
+                                                            change={
+                                                                (e: any) =>
+                                                                    handleProductMeasure(
+                                                                        e
+                                                                    ) //console.log(e.target.parentElement.parentElement.parentElement.id ) //setMeasures(e.target.value)
+                                                            }
+                                                            legend="exampleMeasure"
+                                                        />
+                                                    </Row>
+                                                </>,
+                                                <CapForm
+                                                    key={0}
+                                                    as={Col}
+                                                    label="quantity" //"scale"
+                                                    placeholder="insertQuantity" //"insertScale"
+                                                    type="number"
+                                                    //value={measures}
+                                                    change={
+                                                        (e: any) =>
+                                                            handleUnitValue(e) //alert(e.target.value)
+                                                    } //setMeasures([...measures, e.target.value])
+                                                />,
+                                                <Col key={0}>
+                                                    <UnitFunded
+                                                        units={units}
+                                                        mutate={mutate}
+                                                        array={list}
+                                                        setArray={setList}
+                                                    />{" "}
+                                                    {/* (e: any) => setFunc(e) (e: any) => handleUnitName(e) */}
+                                                </Col>,
+                                            ]}
+                                            //setComponents={setComponents}
+                                            key={k}
+                                            resultArray={array}
+                                            setResultArray={setArray}
+                                        />,
+                                    ]}
+                                    resultArray={[]}
+                                    setResultArray={undefined}
+                                />
+                                <div className="flex justify-end items-end">
+                                    <Col>
+                                        <CapLegend label={description} />
+                                    </Col>
+                                    <CapIconButton
+                                        iconType="md"
+                                        icon="MdNavigateNext"
+                                        size="20px"
+                                        click={handleProduct} //() => setStep(3)
+                                        mouseEnter={() =>
+                                            setDescription("continueFillingOut")
+                                        }
+                                        mouseLeave={() =>
+                                            setDescription("emptyText")
+                                        }
+                                    />
+                                </div>
+                                {/* <CapBtn
+                                        label="continueFillingOut"
+                                        iconType="md"
+                                        icon="MdNavigateNext"
+                                        click={handleProduct} //() => setStep(3)
+                                    /> */}
+                            </>,
+                            <>
+                                <CapImage key={0} src={""} />
+                                <CapForm
+                                    label="image"
+                                    type="file"
+                                    //value={imageSt}
+                                    change={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                        setBigFileWarning(false);
+                            
+                                        const TWO_MBs = 2097152;
+                                        const files = e.target.files;
+                            
+                                        if (!files) return;
+                            
+                                        if (files.length <= 0) return;
+                            
+                                        if (files[0].size > TWO_MBs) {
+                                          setBigFileWarning(true);
+                                          setImageSt(undefined);
+                                          return;
+                                        }
+                            
+                                        setImageSt(files[0]);
+                                      }}
+                                />
+                                <Row className="flex justify-end items-end">
+                                    <Col>
+                                        <CapLegend label={description} />
+                                    </Col>
+                                    <Col md="auto" className="!pl-0">
+                                        <CapIconButton
+                                            iconType="ri"
+                                            icon="RiCheckboxCircleLine"
+                                            size="20px"
+                                            click={handleSaveImage} //() => setStep(4)
+                                            mouseEnter={() =>
+                                                setDescription("finalize")
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        />
+                                    </Col>
+                                </Row>
+                                {/* <CapBtn
                                         label="finalize"
                                         iconType="ri"
                                         icon="RiCheckboxCircleLine"
                                         click={() => setStep(4)}
                                     /> */}
-                                </>,
-                                <></>,
-                            ]}
-                        />
-                        {/* <Row>
+                            </>,
+                            <></>,
+                        ]}
+                    />
+                    {/* <Row>
                             <Col>
                             <CapTinyCard />
                             </Col>
@@ -663,8 +684,8 @@ export default function ProductCreation({
                             <CapTinyCard />
                             </Col>
                         </Row> */}
-                    </Row>
-                </Form>
+                </Row>
+            </Form>
         </>
     );
 }

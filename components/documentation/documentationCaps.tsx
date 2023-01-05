@@ -26,8 +26,8 @@ export default function DocumentationCaps() {
     //const [boolean, setBoolean] = useState<boolean[]>([true, false, false]);
 
     const [data, setData] = useState<any[]>([]);
-    const [headers, setHeaders] = useState(["countyName", "responsible"]);
-    const [columns, setColumns] = useState(["museum.name", "museum"]);
+    const [headers, setHeaders] = useState(["noValue", "countyName", "responsible"]);
+    const [columns, setColumns] = useState(["city", "museum.name", "museum"]);
 
     () =>
         setCode(
@@ -150,7 +150,7 @@ export default function DocumentationCaps() {
                         />
                 </Col>
             </Row>
-            <CapTable data={data} headers={headers} columns={columns} image={1} />
+            <CapTable data={data} headers={headers} columns={columns} image={2} />
             <CapParagraph
                 literal={["Dados: ( ", <code key={0}>data</code>, " - formato JSON)"]}
             />

@@ -16,11 +16,11 @@ export default function Create() {
         return <div>404</div>;
     }
 
-    const saveDemand = async (product: any): Promise<any> => { //Promise<DemandDTO | undefined>
-        /* delete product._id;
-        const data = await fetch("/api/products", {
+    const saveDemand = async (demand: any): Promise<any> => { //Promise<DemandDTO | undefined>
+        delete demand._id;
+        const data = await fetch("/api/demands", {
             method: "POST",
-            body: JSON.stringify(product),
+            body: JSON.stringify(demand),
         });
         if (data.status === 200) {
             setMessage("countyCreated");
@@ -30,13 +30,15 @@ export default function Create() {
         } else {
             setMessage("countyFaulty");
             setErrorMessage(true);
-        } */
+        } /* */
         return undefined;
     };
 
     return (
         <>
-            <DemandCreation />
+            <DemandCreation submit={function (demand: any): Promise<any | undefined> {
+                throw new Error("Function not implemented.");
+            } }/>
         </>
     );
 }
