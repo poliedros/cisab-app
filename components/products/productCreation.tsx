@@ -17,9 +17,6 @@ import CapContainerAdd from "atoms/capContainerAdd";
 import CapInputAdvanced from "atoms/capInputAdvanced";
 import CategoryFunded from "./category/categoryFunded";
 import { CategoryDTO } from "pages/api/categories";
-import CapContainerNormAdd from "atoms/capContainerNormAdd";
-import CapContainerProductAdd from "atoms/capContainerProductAdd";
-import CapInputAdvancedProduct from "atoms/capInputAdvancedProduct";
 import { stringify } from "querystring";
 import CapIconButton from "atoms/capIconButton";
 
@@ -430,7 +427,8 @@ export default function ProductCreation({
                                 </Row>
                             </>,
                             <>
-                                <CapContainerNormAdd
+                                <CapContainerAdd
+                                    type="norm"
                                     components={[
                                         <>
                                             <CapForm
@@ -493,13 +491,16 @@ export default function ProductCreation({
                                 </Row>
                             </>,
                             <>
-                                <CapInputAdvancedProduct
+                                <CapInputAdvanced
+                                    kind="product"
                                     label="productName"
                                     placeholder="insertMultiProducts"
                                     products={products}
-                                    setArray={setListProd}
-                                />
-                                <CapContainerProductAdd
+                                    setArray={setListProd} mutate={function (data?: CategoryDTO[] | Promise<CategoryDTO[]> | MutatorCallback<CategoryDTO[]> | undefined, opts?: boolean | MutatorOptions<CategoryDTO[]> | undefined): Promise<CategoryDTO[] | undefined> {
+                                        throw new Error("Function not implemented.");
+                                    } }                                />
+                                <CapContainerAdd
+                                    type="product"
                                     components={[
                                         <CapForm
                                             key={0}

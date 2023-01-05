@@ -1,6 +1,5 @@
 import CapForm from "atoms/capForm";
 import CapIconButton from "atoms/capIconButton";
-import CapInputAdvancedBase from "atoms/capInputAdvancedBase";
 import { CategoryDTO } from "pages/api/categories";
 import { ProductDTO } from "pages/api/products";
 import { Col, Dropdown, OverlayTrigger, Popover, Row } from "react-bootstrap";
@@ -16,6 +15,7 @@ import CapBtn from "atoms/capBtn";
 import IconsByName from "components/iconsByName";
 import CapDropdownIconButton from "atoms/capDropdownIconButton";
 import CapMessageBottom from "atoms/capMessageBottom";
+import CapInputAdvanced from "atoms/capInputAdvanced";
 
 export default function DemandCreation({demand = undefined,
     submit,}: {demand?: any | undefined;
@@ -117,9 +117,9 @@ export default function DemandCreation({demand = undefined,
 
         //console.log(products);
         //console.log(categoriesSwr);
-        //console.log(demandResult);
-        //console.log(productsSt);
-        await saveDemand(demandResult);
+        console.log(demandResult);
+        console.log(productsSt);
+        //await saveDemand(demandResult);
     };
 
     return (
@@ -156,7 +156,8 @@ export default function DemandCreation({demand = undefined,
             </Row>
             <Row>
                 <Col>
-                    <CapInputAdvancedBase
+                    <CapInputAdvanced
+                        kind="base"
                         label="searchCategory"
                         placeholder="insertProductMultiCategory"
                         //defaultValue={defineValuesAccessories()}
@@ -190,7 +191,8 @@ export default function DemandCreation({demand = undefined,
                                       });
                               })
                             : []}
-                    <CapInputAdvancedBase
+                    <CapInputAdvanced
+                        kind="base"
                         label="products"
                         placeholder="insertMultiProducts"
                         type="product"
