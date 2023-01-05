@@ -9,9 +9,13 @@ export default function CapLargeCard({
   label = "emptyText",
   literal = undefined,
   mirror = false,
+  title = "",
+  subtitle = "",
 }: {
   label?: string;
   literal?: string;
+  title?: string;
+  subtitle?: string;
   mirror?: boolean;
 }) {
   const language = useLanguage();

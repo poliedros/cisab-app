@@ -162,6 +162,14 @@ abbr {
     z-index: 9999;
 }
 
+.css-18fyw6m-MenuList{
+    scrollbar-width: none;
+}
+
+.css-18fyw6m-MenuList::-webkit-scrollbar {
+    display: none;
+}
+
 .css-1n6sfyn-MenuList {
     scrollbar-width: none;
 }
@@ -181,6 +189,18 @@ abbr {
 
 .css-10wo9uf-option {
     border-radius: 1.5rem;
+}
+
+.css-1p3m7a8-multiValue {
+    border-radius: 9999px !important;
+    align-items: center;
+    padding: 0px 2px 0px 2px;
+}
+
+.css-12a83d4-MultiValueRemove {
+    border-radius: 9999px !important;
+    aspect-ratio: 1 / 1;
+    height: 100%;
 }
 
 /* .react-calendar__navigation__label {
@@ -212,6 +232,17 @@ abbr {
     background-color: #7dc523 !important;
     color: white !important;
 } */
+
+/* bootstrap */
+
+.icon-dropdown .dropdown-toggle::after {
+    content: none !important;
+}
+
+.icon-dropdown-menu {
+    background: transparent !important;
+    border: 0 !important;
+}
 
 /* circle */
 

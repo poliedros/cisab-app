@@ -423,7 +423,7 @@
     "pt": "Insira o Responsável pela Cisab"
   },
   "questionRemove": {
-    "pt": "Está seguro disso?"
+    "pt": "Remover permanentemente"
   },
   "noValue": {
     "pt": "Não Informado"
@@ -545,6 +545,9 @@
   "insertQuantity": {
     "pt": "Insira a Quantidade"
   },
+  "insertMultiCategories": {
+    "pt": "Selecione uma ou mais Categorias"
+  },
   "insertMultiAccessories": {
     "pt": "Selecione um ou mais Acessórios"
   },
@@ -580,5 +583,20 @@
   },
   "unblockDemand": {
     "pt": "Desbloquear Licitação"
+  },
+  "startDate": {
+    "pt": "Data de Início"
+  },
+  "insertStartDate": {
+    "pt": "Insira Data de Início"
+  },
+  "endDate": {
+    "pt": "Data de Encerramento"
+  },
+  "insertEndDate": {
+    "pt": "Insira Data de Encerramento"
+  },
+  "productSuggestion": {
+    "pt": "Sugestão de Produto"
   }
 }

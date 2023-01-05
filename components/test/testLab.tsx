@@ -14,9 +14,9 @@ import { ProductDTO } from "pages/api/products";
 import useRole from "lib/useRole";
 import useUser from "lib/useUser";
 import { Role } from "lib/role.enum";
-import CapInputAdvancedBase from "atoms/capInputAdvancedBase";
 import CapIconButton from "atoms/capIconButton";
 import CapMessageBottom from "atoms/capMessageBottom";
+import CapInputAdvanced from "atoms/capInputAdvanced";
 
 export default function TestLab() {
     const [validated, setValidated] = useState(false);
@@ -165,8 +165,9 @@ export default function TestLab() {
             <CapIconButton iconType="bs" icon="BsCalendar" size={"16px"} />
             {value}
             <CapInputRangeCalendar setDate={setValue} />
-            <CapInputAdvancedBase
+            <CapInputAdvanced
                 //[{ "label": products[0].name.toString(), "value": products[0]._id.toString() }]
+                kind="base"
                 defaultValue={
                     products
                         ? products.map((p) => {

@@ -9,7 +9,6 @@ import CapSubtitle from "atoms/capSubtitle";
 import CapForm from "atoms/capForm";
 import CapBtn from "atoms/capBtn";
 import CapImage from "atoms/capImage";
-import CapInputAdvancedBase from "atoms/capInputAdvancedBase";
 import { CategoryDTO } from "pages/api/categories";
 import { MutatorCallback, MutatorOptions } from "swr";
 import UnitFunded from "./unit/unitFunded";
@@ -284,7 +283,8 @@ export default function ProductUpdate({
                     )}
                     <Row>
                         <Col>
-                            <CapInputAdvancedBase
+                            <CapInputAdvanced
+                                kind="base"
                                 label="norms"
                                 placeholder="insertMultiNorms"
                                 defaultValue={
@@ -309,7 +309,8 @@ export default function ProductUpdate({
                             />
                         </Col>
                         <Col>
-                            <CapInputAdvancedBase
+                            <CapInputAdvanced
+                                kind="base"
                                 label="accessories"
                                 placeholder="insertMultiAccessories"
                                 defaultValue={defineValuesAccessories()}

@@ -92,7 +92,10 @@ export default function CapIconButton({
             ) : click || route ? (
                 <Button
                     className={
-                        (hoverColor === "#7dc523"
+                        (hoverColor === "transparent" ? 
+                            "hover:!bg-transparent text-white" +
+                            (css || css !== "" ? css : "") + " " + rounded + " " + padding
+                            : hoverColor === "#7dc523"
                             ? "hover:!bg-[#7dc523]" +
                             (css || css !== "" ? css : "") + " " + rounded + " " + padding 
                             : "hover:!bg-[#02aae9]") +
@@ -108,7 +111,7 @@ export default function CapIconButton({
                     onMouseEnter={mouseEnter}
                     onMouseLeave={mouseLeave}
                 >
-                    {IconsByName(iconType, icon, size)}
+                    {IconsByName(iconType, icon, size, undefined, hoverColor === "transparent" ? "white" : "current")}
                 </Button>
             ) : (
                 <Button
