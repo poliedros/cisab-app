@@ -3,6 +3,7 @@ import { Col, Row } from "react-bootstrap";
 import translations from "../lib/translations";
 import CapBtn from "./capBtn";
 import CapIconButton from "./capIconButton";
+import CapMessageBottom from "./capMessageBottom";
 
 export default function CapContainerAdd({
     type = "default",
@@ -18,6 +19,8 @@ export default function CapContainerAdd({
 }) {
     
     const [listComponents, setListComponents] = useState([components]);
+    const [successMessage, setSuccessMessage] = useState(false);
+    const [message, setMessage] = useState("");
 
     if(type === "default") {
 
@@ -35,7 +38,15 @@ export default function CapContainerAdd({
         });
         //setStep(1);
         setResultArray(finalArray);
-        alert(JSON.stringify(finalArray));
+        //alert(JSON.stringify(finalArray));
+
+        //setSuccessMessage(!successMessage);
+        setMessage(JSON.stringify(finalArray));
+
+        //if(!successMessage)
+        /* setTimeout(() => {
+            setSuccessMessage(false);
+        }, 4000); */
     };
 
     const handleArray = () => {
@@ -115,6 +126,8 @@ export default function CapContainerAdd({
             <div className="text-center">
                 <CapIconButton iconType="bs" icon="BsSave" size="20px" click={handleScanArray} />
             </div>
+            {/* {successMessage ? <CapMessageBottom literal={message} /> : <></>} */}
+            <CapMessageBottom literal={message} show={successMessage} setShow={setSuccessMessage}/>
         </>
     );
     }
@@ -130,7 +143,8 @@ export default function CapContainerAdd({
                 : null
             });
             setResultArray(finalArray);
-            alert(JSON.stringify(finalArray));
+            <CapMessageBottom literal={JSON.stringify(finalArray)} />
+            //alert(JSON.stringify(finalArray));
         };
     
         const handleArray = () => {
@@ -204,7 +218,8 @@ export default function CapContainerAdd({
                 });
             });
             setResultArray(finalArray);
-            alert(JSON.stringify(finalArray));
+            <CapMessageBottom literal={JSON.stringify(finalArray)} />
+            //alert(JSON.stringify(finalArray));
         };
     
         const handleArray = () => {

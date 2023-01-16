@@ -1,6 +1,7 @@
 import translations from "../lib/translations";
 import CapLink from "./capLink";
 
+import { useTheme, useThemeUpdate } from "../context/themeContext";
 import { useLanguage, useLanguageUpdate } from "../context/languageContext";
 
 export default function CapInfoBoard({
@@ -23,6 +24,9 @@ export default function CapInfoBoard({
     const language = useLanguage();
     const toggleLanguage = useLanguageUpdate();
 
+    const theme = useTheme();
+    const toggleTheme = useThemeUpdate();
+
     return (
         <>
             <h3 className="text-[#40d9f1] uppercase tracking-wider border-b-2 border-[#40d9f1] pt-4 pb-2 font-black">
@@ -38,7 +42,7 @@ export default function CapInfoBoard({
                               <div key={i}>
                                   <h6
                                       className={
-                                          "" +
+                                          "" + (theme === "dark" ? " text-white " : "" ) +
                                           (style[i] === "huge"
                                               ? "float-left text-2xl py-1 px-2 rounded bg-[#144974] text-white tracking-wider font-black"
                                               : style[i] === "email"

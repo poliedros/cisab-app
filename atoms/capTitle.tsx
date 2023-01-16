@@ -4,14 +4,16 @@ import translations from "../lib/translations";
 import { useLanguage, useLanguageUpdate } from "../context/languageContext";
 
 export default function CapTitle({
-  base = "none",
+  base = undefined,
   label = "emptyText",
   literal = undefined,
+  css = "",
   additional = undefined,
 }: {
   base?: "none" | "county" | "user" | "list" | "product" | "demand" | "doc" | "diagram" | "lab" | "cap" | "art";
   label?: string;
   literal?: string;
+  css?: string;
   additional?: any;
 }) {
   const language = useLanguage();
@@ -34,15 +36,15 @@ export default function CapTitle({
   return (
     <>
       <div className="flex items-end overflow-auto invisibleScroll w-full items-center">
-        {base !== "none" ? (
+        {base ? base !== "none" ? (
           <div className="bg-[#7dc523] rounded-full p-3 text-white">
             {iconItems[base]}
           </div>
-        ) : null}
+        ) : null : null}
         <h2
           className={
-            "ml-4 p-2 rounded bg-[#40d9f1] text-white uppercase tracking-wider font-semibold" +
-            (additional && additional.label ? additional.label : "")
+            (!base ? "" : "ml-4 p-2 rounded bg-[#40d9f1] ") + css + " text-white uppercase tracking-wider font-semibold " +
+            (additional && additional.label ? additional.label : "") 
           }
         >
           {literal ? literal : translations(label, language)}

@@ -14,37 +14,88 @@ import CapInputAdvanced from "atoms/capInputAdvanced";
 import CapInputRangeCalendar from "atoms/capInputRangeCalendar";
 import { CategoryDTO } from "pages/api/categories";
 import { MutatorCallback, MutatorOptions } from "swr";
+import CapSwitcher from "atoms/capSwitcher";
 
 export default function ProductList({ products }: { products: ProductDTO[] }) {
-    const [searchProduct, setSearchProduct] = useState("");
+    //const [searchProduct, setSearchProduct] = useState("");
 
-    const size = 7;
+    const size = 6;
 
-    const [format, setFormat] = useState("table");
-    const [page, setPage] = useState(0);
-    const [productsPage, setProductsPage] = useState(
-        products.slice(page * size, page * size + size)
-    );
+    //const [format, setFormat] = useState("table");
+    // const [page, setPage] = useState(0);
+    // const [productsPage, setProductsPage] = useState(
+    //     products.slice(page * size, (page + 1) * size)
+    // );
 
-    let productsPageFinal = productsPage;
-    productsPageFinal.map((p, i) => { p.photo = {photo_url: productsPage[i].photo_url} });
+    /* let productsPageFinal = productsPage;
+    productsPageFinal.map((p, i) => {
+        p.photo = { photo_url: productsPage[i].photo_url };
+    }); */
     //productsPageFinal.map((p, i) => { p.photo.photo_url = productsPage[i].photo_url });
     //console.log(productsPageFinal);
 
-    useEffect(() => {
-        return setProductsPage(products.slice(page * size, page * size + size));
-    }, [page]);
+    // useEffect(() => {
+    //     return setProductsPage(products.slice(page * size, page * size + size));
+    // }, [page]);
 
     return (
         <>
             <Container className="p-0">
                 <CapTitle base="list" label="listProducts" />
                 <div className="mb-6"></div>
-                <CapInputGroup
+                {/* <CapInputGroup
                     search={searchProduct}
                     setSearch={setSearchProduct}
+                    placeholder={"searchProductByName"}
+                /> */}
+                <CapSwitcher
+                    data={products}
+                    tableHeaders={["image", "products", "code"]}
+                    tableColumns={["photo", "name", "code"]}
+                    tableNumeral={true}
+                    tableImage={1}
+                    buttons={["view", "edit", "remove"]}
+                    buttonsPaths={[
+                        "/products/",
+                        "/products/",
+                        "/api/products/",
+                    ]}
+                    searchPath={"name"}
+                    pagesSize = {size}
+                    /* table={
+                        <CapTable
+                            data={productsPageFinal}
+                            headers={["image", "products", "code"]}
+                            columns={["photo", "name", "code"]}
+                            numeral={true}
+                            image={1}
+                            buttonsColumns={["view", "edit", "remove"]}
+                            buttonsPaths={[
+                                "/products/",
+                                "/products/",
+                                "/api/products/",
+                                "/products/",
+                            ]}
+                            search={searchProduct}
+                            searchPath={"name"}
+                        />
+                    }
+                    grid={
+                        <CapContainer
+                            data={productsPage}
+                            component="tinyCard"
+                        />
+                    } */
+                    // pagination={
+                    //     <CapPagination
+                    //         content={products}
+                    //         size={size}
+                    //         page={page}
+                    //         setPage={setPage}
+                    //     />
+                    // }
                 />
-                <Row>
+                {/* <Row>
                     <Col md="auto" className="border-r-2 mr-3 !my-6">
                         <div className="flex flex-column">
                             <CapIconButton
@@ -94,7 +145,7 @@ export default function ProductList({ products }: { products: ProductDTO[] }) {
                             setPage={setPage}
                         />
                     </Col>
-                </Row>
+                </Row> */}
                 {/* <CapInputAdvanced mutate={function (data?: CategoryDTO[] | Promise<CategoryDTO[]> | MutatorCallback<CategoryDTO[]> | undefined, opts?: boolean | MutatorOptions<CategoryDTO[]> | undefined): Promise<CategoryDTO[] | undefined> {
                     throw new Error("Function not implemented.");
                 } } />

@@ -13,6 +13,7 @@ export default function Index() {
   const { data: demands, error } = useSWR<DemandDTO[]>(
     user ? "/api/demands" : null
   );
+  console.log(demands);
 
   /* const { data: units, error: error2 } = useSWR<UnitDTO[]>(
     user ? "/api/units" : null

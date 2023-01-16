@@ -48,7 +48,7 @@ export default function CapForm({
   disabled?: boolean;
   required?: boolean;
   optionsDefault?: number;
-  options?: string[];
+  options?: (string | undefined)[];
   legend?: string;
   additional?: any;
 }) {
@@ -115,7 +115,7 @@ export default function CapForm({
         </Form.Group>
       ) : kind === "select" ? (
         <Form.Group
-          className="mb-3"
+          className={(theme === "dark" ? "text-white" : "") + " mb-3"}
           controlId={controlId}
           placeholder={placeholder}
           as={as}
@@ -142,7 +142,7 @@ export default function CapForm({
             disabled={disabled}
           >
             {options ? (
-              options.map((op: string, i: number) => (
+              options.map((op: string | undefined, i: number) => (
                 <option key={i}>{op}</option>
               ))
             ) : (
@@ -161,6 +161,9 @@ export default function CapForm({
             placeholder={translations(placeholder, language)}
             onChange={change}
           />
+          <Form.Text className="text-muted">
+            {legend !== "emptyText" ? translations(legend, language) : null}
+          </Form.Text>
         </FloatingLabel>
       ) : (
         <></>

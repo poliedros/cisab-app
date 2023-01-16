@@ -9,6 +9,8 @@ import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 
 export default function DemandView({ demand }: { demand: DemandDTO }) {
+    console.log("DEMAND");
+    console.log(demand);
     const size = 7;
 
     const [searchProduct, setSearchProduct] = useState("");
@@ -16,7 +18,7 @@ export default function DemandView({ demand }: { demand: DemandDTO }) {
     const [format, setFormat] = useState("grid");
     const [page, setPage] = useState(0);
     const [productsPage, setProductsPage] = useState(
-        demand.products.slice(page * size, page * size + size)
+        demand.product_ids.slice(page * size, page * size + size)
     );
 
     let productsPageFinal = productsPage;
@@ -81,7 +83,7 @@ export default function DemandView({ demand }: { demand: DemandDTO }) {
                         />
                     ) : null}
                     <CapPagination
-                        content={demand.products}
+                        content={demand.product_ids}
                         size={size}
                         page={page}
                         setPage={setPage}

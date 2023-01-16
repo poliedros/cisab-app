@@ -8,6 +8,10 @@
     background-color: pink;
 } */
 
+.accordion-button {
+    background-color: transparent !important;
+}
+
 /* input {
   color-scheme: dark;
 } */

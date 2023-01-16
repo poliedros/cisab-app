@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import translations from "../lib/translations";
 
 import { useLanguage, useLanguageUpdate } from "../context/languageContext";
@@ -7,23 +7,37 @@ export default function CapMessageBottom({
   label = "emptyText",
   literal = undefined,
   css = undefined,
+  show = undefined,
+  setShow = undefined,
+  time = 4,
 }: {
   label?: string;
   literal?: string;
   css?: string;
+  show?: any;
+  setShow?: any;
+  time?: number;
 }) {
   const language = useLanguage();
-  const toggleLanguage = useLanguageUpdate();
+
+  useEffect(() => {
+    //alert(show);
+    //setShow(!show);
+    if(show === true)
+      setTimeout(() => {
+        setShow(false);
+      }, time * 1000);
+  }, [show]);
 
   return (
     <>
-        <div className="messageB absolute bottom-3 flex items-center justify-between swing-in-right-bck">
-            <div className="messageB2 relative bg-white p-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-10 w-max h-max swing-in-left-bck">
+        {show ? <div className="messageB sticky top-6 bottom-3 left-2/4 flex items-center justify-center swing-in-right-bck max-w-fit z-20"> {/* messageB absolute bottom-3 left-2/4 flex items-center justify-center swing-in-right-bck max-w-fit */}
+            <div className="messageB2 /* absolute */ bg-white p-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-10 w-max h-max swing-in-left-bck">
                 <h6 className={"font-medium leading-tight m-0 " + (css)}>
                     {literal ? literal : translations(label, language)}
                 </h6>
             </div>
-        </div>
+        </div> : null}
     </>
   );
 }
