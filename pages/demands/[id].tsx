@@ -8,7 +8,7 @@ export default function Get() {
     const router = useRouter();
     const { id } = router.query;
 
-    const { data: demands, error } = useSWR<DemandDTO[]>(`/api/demands`); ///${id}
+    const { data: demands, error } = useSWR<DemandDTO[]>(`/api/demands/${id}`); //
 
     const { user } = useUser({ redirectTo: "/login" });
 

@@ -22,6 +22,7 @@ export default function CountyList({ counties }: { counties: CountyDTO[] }) {
                 <CapInputGroup
                     search={searchCounty}
                     setSearch={setSearchCounty}
+                    placeholder={"searchCountyByName"}
                 />
                 <CapTable
                     data={onlyCounties}

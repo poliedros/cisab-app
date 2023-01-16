@@ -2,7 +2,7 @@ import translations from "../lib/translations";
 
 import { useLanguage, useLanguageUpdate } from "../context/languageContext";
 import { Pagination } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function CapPagination({
     label = "emptyText",
@@ -11,6 +11,7 @@ export default function CapPagination({
     size = 1,
     page = 0,
     setPage = undefined,
+    setDataPage = undefined,
 }: {
     label?: string;
     literal?: string;
@@ -18,16 +19,26 @@ export default function CapPagination({
     size?: number;
     page?: number;
     setPage?: any;
+    setDataPage?: any;
 }) {
     const language = useLanguage();
     const toggleLanguage = useLanguageUpdate();
 
     //const [page, setPage] = useState(0);
 
-    const arrayLength: number = content.length / size;
+    const arrayLength: number = ((content.length / size) % 1) > 0 ? Math.trunc((content.length / size) + 1) : Math.trunc(content.length / size);
     /* alert(Math.round(arrayLength)); 
     alert(Math.ceil(arrayLength)); */
-    const finalArray = Array(Math.max(0, Math.ceil(arrayLength)));
+    //const finalArray = arrayLength % 1 > 0 ? arrayLength + 1 : arrayLength;
+    //alert(arrayLength);  //Array(Math.max(0, Math.ceil(arrayLength)));
+
+    /* const [dataPage, setDataPage] = useState(
+        content.slice(page * size, (page + 1) * size)
+    ); */
+
+    useEffect(() => {
+        return setDataPage(content.slice(page * size, page * size + size));
+    }, [page]); 
 
     return (
         <>

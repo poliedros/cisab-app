@@ -114,8 +114,8 @@ export default function ProductShowcase({ product }: { product: ProductDTO }) {
                         {product.categories?.map((c) => c + " ")}
                     </h6>
                     <CapInfoBoard
-                        litTitle={"Descrição do Produto"}
-                        litSubtitle="Anderson Mendes"
+                        litTitle={"Medidas"}
+                        litSubtitle=""
                         litSentences={
                             //[
                             product.measurements?.map(
@@ -130,8 +130,8 @@ export default function ProductShowcase({ product }: { product: ProductDTO }) {
                             //]
                         }
                         style={[
-                            "email",
-                            /* "huge",
+                            /* "email",
+                            "huge",
                         "email",
                         "default",
                         "default", */

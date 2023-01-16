@@ -5,12 +5,13 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { ProductDTO } from "./products";
 
 export type DemandDTO = {
-  id: string;
+  _id: string;
   name: string;
-  demandTheme: string;
-  products: ProductDTO[];
-  startDate: string;
-  endDate: string;
+  product_ids: ProductDTO[];
+  start_date: string;
+  end_date: string;
+  state: string;
+  create_on: string;
 }
 
 async function handler(req: NextApiRequest, res: NextApiResponse<DemandDTO[]>) {
@@ -19,6 +20,17 @@ async function handler(req: NextApiRequest, res: NextApiResponse<DemandDTO[]>) {
     res.status(401).json({} as DemandDTO[]);
     return;
   }
+
+//   if (req.method === "POST") {
+//     const response = await fetch(process.env.API_URL + "/demands", {
+//         headers: { Authorization: "Bearer " + user.token, "Content-Type": "application/json" },
+//         method: "POST",
+//         body: req.body
+//     });
+//     const data = (await response.json()) as DemandDTO[];
+//     res.status(200).json(data);
+//     return;
+// }
 
   /* if (req.method === "POST") {
     const response = await fetch(process.env.API_URL + "/counties", {
@@ -57,16 +69,16 @@ async function handler(req: NextApiRequest, res: NextApiResponse<DemandDTO[]>) {
     return;
   } */
 
-  const response = await fetch(process.env.API_URL + "/counties", {
+  const response = await fetch(process.env.API_URL + "/demands", {
     headers: { Authorization: "Bearer " + user.token },
   });
-  const data = ([{
+ /*  const data = ([{
     id: "string1",
-    name: "string1",
-    demandTheme: "string",
+    name: "Restauração Elétrica",
+    demandTheme: "Restauração Elétrica",
     products: [{
       "_id": "63a0ba62610ae58ba6d8f9aa",
-      "name": "mangueirao 1",
+      "name": "produto 1",
       "measurements": [
           {
               "name": "comprimento",
@@ -89,27 +101,29 @@ async function handler(req: NextApiRequest, res: NextApiResponse<DemandDTO[]>) {
       ],
       "photo_url": "https://i.ibb.co/6tmJqXm/SEM-IMAGEM.png"
   }],
-    startDate: "string",
-    endDate: "string",
+    startDate: "19/07/2023",
+    endDate: "12/08/2023",
 },
 {
     id: "string2",
-    name: "string2",
-    demandTheme: "string",
+    name: "Peças de Reposição",
+    demandTheme: "Peças de Reposição",
     products: [],
-    startDate: "string",
-    endDate: "string",
+    startDate: "03/06/2023",
+    endDate: "23/11/202320",
 },
 {
     id: "string3",
-    name: "string3",
-    demandTheme: "string",
+    name: "Equipamentos Hidráulicos",
+    demandTheme: "Equipamentos Hidráulicos",
     products: [],
-    startDate: "string",
-    endDate: "string",
-}]) as DemandDTO[];
-
-  res.status(200).json(data);
+    startDate: "01/01/2023",
+    endDate: "01/03/2023",
+}]) as DemandDTO[];  */
+const data = (await response.json()) as DemandDTO[];
+console.log("DATA");
+console.log(data);
+res.status(200).json(data);
 }
 
 export default withIronSessionApiRoute(handler, sessionOptions);

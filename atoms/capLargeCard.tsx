@@ -51,7 +51,7 @@ export default function CapLargeCard({
           }}
         >
           <Card
-            className={"w-[65vw] " + (mirror ? "rot-minus-40" : "rot-minus-45") + " !rounded-3xl pt-4"}
+            className={"w-[60vw] " + (mirror ? "rot-minus-40" : "rot-minus-45") + " !rounded-3xl pt-4"}
           >
             <Card.Body className={mirror ? "!pl-12" : "!pr-12"}>
             {mirror ?
@@ -60,9 +60,9 @@ export default function CapLargeCard({
                   <h4>{translations(label, language)}</h4>
                   <Card.Title
                   >
-                    Tema
+                    {/* Tema */}{title}
                   </Card.Title>
-                  <Card.Text>Data</Card.Text><div>
+                  <Card.Text>{/* Data */}{subtitle}</Card.Text><div>
             <CapImage src={"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"} w={35} h={35} css="rounded-full" />
             <CapImage src={"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"} w={35} h={35} css="rounded-full" />
             <CapImage src={"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"} w={35} h={35} css="rounded-full" />
@@ -94,9 +94,9 @@ export default function CapLargeCard({
                 <h4>{translations(label, language)}</h4>
                   <Card.Title
                   >
-                    Tema
+                    {title}
                   </Card.Title>
-                  <Card.Text>Data</Card.Text><div className="text-right">
+                  <Card.Text>{subtitle}</Card.Text><div className="text-right">
             <CapImage src={"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"} w={35} h={35} css="rounded-full" />
             <CapImage src={"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"} w={35} h={35} css="rounded-full" />
             <CapImage src={"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"} w={35} h={35} css="rounded-full" />

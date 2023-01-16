@@ -171,7 +171,7 @@ export default function TestLab() {
                 defaultValue={
                     products
                         ? products.map((p) => {
-                              if (!p.name.includes("mangueirao"))
+                              //if (!p.name.includes("João"))
                                   return {
                                       label: p.name.toString(),
                                       value: p._id.toString(),
@@ -192,7 +192,7 @@ export default function TestLab() {
                 }}
             />
             <CapBtn kind="next" click={() => setSuccessMessage(!successMessage)}/>
-            {successMessage ? <CapMessageBottom literal="Anderson" /> : <></>}
+            {successMessage ? <CapMessageBottom literal="Anderson" show={successMessage} setShow={setSuccessMessage} /> : <></>}
         </>
     );
 }

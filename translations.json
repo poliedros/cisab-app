@@ -275,6 +275,9 @@
   "insertProductName": {
     "pt": "Insera o Nome do Produto"
   },
+  "searchProductByName": {
+    "pt": "Buscar Produto por Nome"
+  },
   "productCode": {
     "pt": "Código do Produto"
   },
@@ -558,13 +561,13 @@
     "pt": "Selecione um ou mais Produtos"
   },
   "demands": {
-    "pt": "Licitações"
+    "pt": "Demandas"
   },
   "createDemand": {
-    "pt": "Criar Licitação"
+    "pt": "Criar Demanda"
   },
   "listDemands": {
-    "pt": "Lista de Licitações"
+    "pt": "Lista de Demanda"
   },
   "createEmployee": {
     "pt": "Criar Funcionário"
@@ -582,7 +585,7 @@
     "pt": "Salvar Demanda"
   },
   "unblockDemand": {
-    "pt": "Desbloquear Licitação"
+    "pt": "Desbloquear Demanda"
   },
   "startDate": {
     "pt": "Data de Início"
@@ -598,5 +601,26 @@
   },
   "productSuggestion": {
     "pt": "Sugestão de Produto"
+  },
+  "docLabel": {
+    "pt": "Rótulo com Tradução"
+  },
+  "docLiteral": {
+    "pt": "Rótulo Literalmente"
+  },
+  "docCss": {
+    "pt": "CSS usando Tailwind"
+  },
+  "docBase": {
+    "pt": "Base com Ícone"
+  },
+  "docKind": {
+    "pt": "Espécie"
+  },
+  "docPlaceholder": {
+    "pt": "Instruções com Tradução"
+  },
+  "docLegend": {
+    "pt": "Legenda com Tradução"
   }
 }

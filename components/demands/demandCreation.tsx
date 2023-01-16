@@ -47,6 +47,7 @@ export default function DemandCreation({demand = undefined,
     } = useSWR<CategoryDTO[]>(user ? "/api/categories" : null);
 
     const [productsSt, setProductsSt] = useState<any[]>([]);
+    const [defaultSt, setDefaultSt] = useState<any[]>([]);
 
     useEffect(() => {
         setCategoriesSwr("");
@@ -119,8 +120,48 @@ export default function DemandCreation({demand = undefined,
         //console.log(categoriesSwr);
         console.log(demandResult);
         console.log(productsSt);
-        //await saveDemand(demandResult);
+        await saveDemand(demandResult);
     };
+
+    let layout;
+
+    useEffect(() => {
+        layout = <CapInputAdvanced
+        kind="base"
+        label="products"
+        placeholder="insertMultiProducts"
+        type="product"
+        defaultValue={defaultSt.map((p) => {
+            return {
+                label: p.name.toString(),
+                value: p._id.toString(),
+            };
+        })/* products
+            ? products.map((p) => {
+                  if (!p.name.includes("mangueirao"))
+                      return {
+                          label: p.name.toString(),
+                          value: p._id.toString(),
+                      };
+              })
+            : [] */}
+        values={Array.from(new Set(handleProductCategories()))} //products?.map((p) => p.name)
+        mutate={function (
+            data?:
+                | CategoryDTO[]
+                | Promise<CategoryDTO[]>
+                | MutatorCallback<CategoryDTO[]>
+                | undefined,
+            opts?:
+                | boolean
+                | MutatorOptions<CategoryDTO[]>
+                | undefined
+        ): Promise<CategoryDTO[] | undefined> {
+            throw new Error("Function not implemented.");
+        }}
+        setArray={setProductsSt}
+    />;
+    }, [categoriesSt]);
 
     return (
         <>
@@ -191,12 +232,17 @@ export default function DemandCreation({demand = undefined,
                                       });
                               })
                             : []}
-                    <CapInputAdvanced
+                    {defaultSt.length > 0 ? <CapInputAdvanced
                         kind="base"
                         label="products"
                         placeholder="insertMultiProducts"
                         type="product"
-                        defaultValue={products
+                        defaultValue={defaultSt.map((p) => {
+                            return {
+                                label: p.name.toString(),
+                                value: p._id.toString(),
+                            };
+                        })/* products
                             ? products.map((p) => {
                                   if (!p.name.includes("mangueirao"))
                                       return {
@@ -204,7 +250,7 @@ export default function DemandCreation({demand = undefined,
                                           value: p._id.toString(),
                                       };
                               })
-                            : []}
+                            : [] */}
                         values={Array.from(new Set(handleProductCategories()))} //products?.map((p) => p.name)
                         mutate={function (
                             data?:
@@ -220,7 +266,8 @@ export default function DemandCreation({demand = undefined,
                             throw new Error("Function not implemented.");
                         }}
                         setArray={setProductsSt}
-                    />
+                    /> : <></>}
+                    <CapIconButton click={() => {setDefaultSt(Array.from(new Set(handleProductCategories()))); console.log(defaultSt) }}/>
                     </>
                 </Col>
             </Row>
