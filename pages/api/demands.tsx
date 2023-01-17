@@ -12,7 +12,7 @@ export type DemandDTO = {
   end_date: string;
   state: string;
   create_on: string;
-}
+};
 
 async function handler(req: NextApiRequest, res: NextApiResponse<DemandDTO[]>) {
   const user = req.session.user;
@@ -21,16 +21,16 @@ async function handler(req: NextApiRequest, res: NextApiResponse<DemandDTO[]>) {
     return;
   }
 
-//   if (req.method === "POST") {
-//     const response = await fetch(process.env.API_URL + "/demands", {
-//         headers: { Authorization: "Bearer " + user.token, "Content-Type": "application/json" },
-//         method: "POST",
-//         body: req.body
-//     });
-//     const data = (await response.json()) as DemandDTO[];
-//     res.status(200).json(data);
-//     return;
-// }
+  //   if (req.method === "POST") {
+  //     const response = await fetch(process.env.API_URL + "/demands", {
+  //         headers: { Authorization: "Bearer " + user.token, "Content-Type": "application/json" },
+  //         method: "POST",
+  //         body: req.body
+  //     });
+  //     const data = (await response.json()) as DemandDTO[];
+  //     res.status(200).json(data);
+  //     return;
+  // }
 
   /* if (req.method === "POST") {
     const response = await fetch(process.env.API_URL + "/counties", {
@@ -72,7 +72,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<DemandDTO[]>) {
   const response = await fetch(process.env.API_URL + "/demands", {
     headers: { Authorization: "Bearer " + user.token },
   });
- /*  const data = ([{
+  /*  const data = ([{
     id: "string1",
     name: "Restauração Elétrica",
     demandTheme: "Restauração Elétrica",
@@ -120,10 +120,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse<DemandDTO[]>) {
     startDate: "01/01/2023",
     endDate: "01/03/2023",
 }]) as DemandDTO[];  */
-const data = (await response.json()) as DemandDTO[];
-console.log("DATA");
-console.log(data);
-res.status(200).json(data);
+  const data = (await response.json()) as DemandDTO[];
+  console.log("DATA");
+  console.log(data);
+  res.status(response.status).json(data);
 }
 
 export default withIronSessionApiRoute(handler, sessionOptions);

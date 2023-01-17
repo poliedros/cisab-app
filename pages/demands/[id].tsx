@@ -5,23 +5,23 @@ import DemandView from "components/demands/demandView";
 import { DemandDTO } from "pages/api/demands";
 
 export default function Get() {
-    const router = useRouter();
-    const { id } = router.query;
+  const router = useRouter();
+  const { id } = router.query;
 
-    const { data: demands, error } = useSWR<DemandDTO[]>(`/api/demands/${id}`); //
+  const { data: demand, error } = useSWR<DemandDTO>(`/api/demands/${id}`); //
 
-    const { user } = useUser({ redirectTo: "/login" });
+  const { user } = useUser({ redirectTo: "/login" });
 
-    if (!user || user.isLoggedIn == false) {
-        return <div>404</div>;
-    }
+  if (!user || user.isLoggedIn == false) {
+    return <div>404</div>;
+  }
 
-    if (error) return <div>Not Found</div>;
-    if (!demands) return <div>loading...</div>;
+  if (error) return <div>Not Found</div>;
+  if (!demand) return <div>loading...</div>;
 
-    return (
-        <>
-            <DemandView demand={demands[0]} />
-        </>
-    );
+  return (
+    <>
+      <DemandView demand={demand} />
+    </>
+  );
 }
