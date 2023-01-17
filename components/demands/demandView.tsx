@@ -2,6 +2,7 @@ import CapContainer from "atoms/capContainer";
 import CapIconButton from "atoms/capIconButton";
 import CapImage from "atoms/capImage";
 import CapPagination from "atoms/capPagination";
+import CapSwitcher from "atoms/capSwitcher";
 import CapTable from "atoms/capTable";
 import CapTitle from "atoms/capTitle";
 import { DemandDTO } from "pages/api/demands";
@@ -43,8 +44,7 @@ export default function DemandView({ demand }: { demand: DemandDTO }) {
                 <Col><CapTitle base="none" literal={demand.name} /></Col>
             </Row>
             <Row>
-                <Col md="auto" className="border-r-2 mr-3 !my-6">
-                    <div className="flex flex-column">
+                    {/*<Col md="auto" className="border-r-2 mr-3 !my-6"> <div className="flex flex-column">
                         <CapIconButton
                             css="mb-3 mt-6"
                             iconType="fa"
@@ -87,8 +87,20 @@ export default function DemandView({ demand }: { demand: DemandDTO }) {
                         size={size}
                         page={page}
                         setPage={setPage}
+                    /> </Col>*/}
+                    <CapSwitcher
+                        data={productsPageFinal}
+                        tableHeaders={["image", "products"]}
+                        tableColumns={["photo", "name"]}
+                        tableNumeral={true}
+                        tableImage={1}
+                        buttons={["view"]}
+                        buttonsPaths={[
+                            "/products/",
+                        ]}
+                        searchPath={"name"}
+                        pagesSize = {size}
                     />
-                </Col>
             </Row>
         </>
     );
