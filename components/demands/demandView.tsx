@@ -6,10 +6,15 @@ import CapSwitcher from "atoms/capSwitcher";
 import CapTable from "atoms/capTable";
 import CapTitle from "atoms/capTitle";
 import { DemandDTO } from "pages/api/demands";
+import { ProductDTO } from "pages/api/products";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
+import useSWR, { MutatorCallback, MutatorOptions } from "swr";
+import useRole from "lib/useRole";
+import useUser from "lib/useUser";
+import { Role } from "lib/role.enum";
 
-export default function DemandView({ demand }: { demand: DemandDTO }) {
+export default function DemandView({ demand, products }: { demand: DemandDTO, products?: ProductDTO[] }) {
     console.log("DEMAND");
     console.log(demand);
     const size = 7;
@@ -18,14 +23,26 @@ export default function DemandView({ demand }: { demand: DemandDTO }) {
 
     const [format, setFormat] = useState("grid");
     const [page, setPage] = useState(0);
-    const [productsPage, setProductsPage] = useState(
+    /* const [productsPage, setProductsPage] = useState(
         demand.product_ids.slice(page * size, page * size + size)
-    );
+    ); */
 
-    let productsPageFinal = productsPage;
-    productsPageFinal.map((p, i) => {
-        p.photo = { photo_url: productsPage[i].photo_url };
-    });
+    // let productsPageFinal = productsPage;
+    // productsPageFinal.map((p, i) => {
+    //     p.photo = { photo_url: productsPage[i].photo_url };
+    // });
+
+    const { user } = useUser({ redirectTo: "/login" });
+    useRole({ user, role: Role.Cisab, redirectTo: "/" });
+
+    // const {
+    //     data: products,
+    //     error: error,
+    //     mutate: mutate,
+    // } = useSWR<ProductDTO[]>(user ? `/api/products/${demand.product_ids[0]}` : null);
+
+    console.log("PRODUCTS");
+    console.log(products);
 
     return (
         <>
@@ -89,16 +106,16 @@ export default function DemandView({ demand }: { demand: DemandDTO }) {
                         setPage={setPage}
                     /> </Col>*/}
                     <CapSwitcher
-                        data={productsPageFinal}
-                        tableHeaders={["image", "products"]}
-                        tableColumns={["photo", "name"]}
+                        data={products}
+                        tableHeaders={[/* "image", */ "products"]}
+                        tableColumns={[/* "photo", */ "name"]}
                         tableNumeral={true}
-                        tableImage={1}
+                        //tableImage={1}
                         buttons={["view"]}
                         buttonsPaths={[
                             "/products/",
                         ]}
-                        searchPath={"name"}
+                        //searchPath={"name"}
                         pagesSize = {size}
                     />
             </Row>

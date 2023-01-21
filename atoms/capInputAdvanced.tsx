@@ -1,7 +1,7 @@
 import translations from "../lib/translations";
 
-import { useLanguage, useLanguageUpdate } from "../context/languageContext";
-import { useTheme, useThemeUpdate } from "../context/themeContext";
+import { useLanguage } from "../context/languageContext";
+import { useTheme } from "../context/themeContext";
 
 import Select from "react-select";
 import { useEffect, useState } from "react";
@@ -9,7 +9,6 @@ import { Button, Form, InputGroup } from "react-bootstrap";
 import IconsByName from "components/iconsByName";
 import CategoryFunded from "components/products/category/categoryFunded";
 import { CategoryDTO } from "pages/api/categories";
-import { MutatorCallback, MutatorOptions } from "swr";
 import { KeyedMutator } from "swr";
 import { ProductDTO } from "pages/api/products";
 
@@ -43,12 +42,7 @@ export default function CapInputAdvanced({
     products?: ProductDTO[];
 }) {
     const language = useLanguage();
-    const toggleLanguage = useLanguageUpdate();
-
     const theme = useTheme();
-    const toggleTheme = useThemeUpdate();
-
-    const [value, onChange] = useState(new Date());
 
     const [defaultOptions, setDefaultOptions] = useState<any>(defaultValue);
 
@@ -60,12 +54,7 @@ export default function CapInputAdvanced({
 
     const options = 
         categories.map((c, i) => {return { value: c.name, label: c.name }})
-        /* { value: "chocolate", label: "Chocolate" },
-        { value: "strawberry", label: "Strawberry" },
-        { value: "vanilla", label: "Vanilla" }, */
     ;
-
-    //alert(JSON.stringify(options))
 
     return (
         <>
@@ -81,7 +70,7 @@ export default function CapInputAdvanced({
                             isMulti
                             options={options}
                             placeholder={translations(placeholder, language)}
-                            onChange={(e: any) => setArray(e.map((c: any) => c.label))} //.toString().replace(/\\/g, "")
+                            onChange={(e: any) => setArray(e.map((c: any) => c.label))}
                         />
                     </div>
                     <CategoryFunded 
@@ -125,12 +114,12 @@ export default function CapInputAdvanced({
     if(kind === "base") {
         let options = 
         (type === "product") ?
-            values.map((v, i) => {return { value: v._id, label: v.name }})
+         values.map((v, i) => {return { value: v._id, label: v.name }})
+        : (type === "productSpecial") ?
+        values.map((v, i) => {return { value: v._id, label: v.name }})
         : values.map((v, i) => {return { value: v, label: v }})
         //[{ value: "anderson", label: "anderson" }, { value: "mendes", label: "mendes" }, { value: "ribeiro", label: "ribeiro" }]
     ;
-
-    //alert("macaco" + JSON.stringify(defaultOptions));
 
     return (
         <>
@@ -146,7 +135,7 @@ export default function CapInputAdvanced({
                             options={options}
                             defaultValue={defaultOptions}
                             placeholder={translations(placeholder, language)}
-                            onChange={type === "product" ? (e: any) => setArray(e.map((c: any) => c.value)) : (e: any) => setArray(e.map((c: any) => c.label))}
+                            onChange={type === "product" ? (e: any) => setArray(e.map((c: any) => c.value)) : type === "productSpecial" ? (e: any) => setArray(e.map((c: any) =>values.find((v: any) => v._id === c.value)/*.map((v: any) => v)*/)/* e.map((c: any) => {c.value}) */) : (e: any) => setArray(e.map((c: any) => c.label))}
                         />
                     </div>
                     {base === "filter" ? 

@@ -67,7 +67,8 @@ export default function DemandCreation({demand = undefined,
     }, [categoriesSt]); */
 
     const handleProductCategories = () => {
-        return products?.map((p) => p);
+        if(categories && categories?.length > 0)
+            return products?.map((p) => p);
         
         /* let a: string[] = [];
         if (categoriesSt.length === 0) return products?.map((p) => p.name);
@@ -113,55 +114,117 @@ export default function DemandCreation({demand = undefined,
             start_date: startDate,
             end_date: endDate,
             draft: draft,
-            product_ids: productsSt,
+            product_ids: defaultSt.map(d => d._id),
         };
 
         //console.log(products);
         //console.log(categoriesSwr);
         console.log(demandResult);
         console.log(productsSt);
-        await saveDemand(demandResult);
+        //await saveDemand(demandResult);
     };
 
     let layout;
 
-    useEffect(() => {
-        layout = <CapInputAdvanced
-        kind="base"
-        label="products"
-        placeholder="insertMultiProducts"
-        type="product"
-        defaultValue={defaultSt.map((p) => {
-            return {
-                label: p.name.toString(),
-                value: p._id.toString(),
-            };
-        })/* products
-            ? products.map((p) => {
-                  if (!p.name.includes("mangueirao"))
-                      return {
-                          label: p.name.toString(),
-                          value: p._id.toString(),
-                      };
-              })
-            : [] */}
-        values={Array.from(new Set(handleProductCategories()))} //products?.map((p) => p.name)
-        mutate={function (
-            data?:
-                | CategoryDTO[]
-                | Promise<CategoryDTO[]>
-                | MutatorCallback<CategoryDTO[]>
-                | undefined,
-            opts?:
-                | boolean
-                | MutatorOptions<CategoryDTO[]>
-                | undefined
-        ): Promise<CategoryDTO[] | undefined> {
-            throw new Error("Function not implemented.");
-        }}
-        setArray={setProductsSt}
-    />;
-    }, [categoriesSt]);
+    // useEffect(() => {
+    //     layout = <CapInputAdvanced
+    //     kind="base"
+    //     label="products"
+    //     placeholder="insertMultiProducts"
+    //     type="product"
+    //     defaultValue={defaultSt.map((p) => {
+    //         return {
+    //             label: p.name.toString(),
+    //             value: p._id.toString(),
+    //         };
+    //     })/* products
+    //         ? products.map((p) => {
+    //               if (!p.name.includes("mangueirao"))
+    //                   return {
+    //                       label: p.name.toString(),
+    //                       value: p._id.toString(),
+    //                   };
+    //           })
+    //         : [] */}
+    //     values={Array.from(new Set(handleProductCategories()))} //products?.map((p) => p.name)
+    //     mutate={function (
+    //         data?:
+    //             | CategoryDTO[]
+    //             | Promise<CategoryDTO[]>
+    //             | MutatorCallback<CategoryDTO[]>
+    //             | undefined,
+    //         opts?:
+    //             | boolean
+    //             | MutatorOptions<CategoryDTO[]>
+    //             | undefined
+    //     ): Promise<CategoryDTO[] | undefined> {
+    //         throw new Error("Function not implemented.");
+    //     }}
+    //     setArray={setProductsSt}
+    // />;
+    // }, [categoriesSt]);
+
+    const ChildComponent = ({ value, setValue }: { value: any[], setValue: any }) => { //{ onClick, count }
+        const [prod, setProd] = useState<ProductDTO[]>([]);
+        const [prodAx, setProdAx] = useState<ProductDTO[]>([]);
+        //alert(prod.length);
+        const [def, setDef] = useState(value);
+        // useEffect(() => {
+        //     //if(products.length === 0)
+        //     //setDef(prod);
+        //         //setDef(prod);
+        // }, [prod]);
+        
+        // useEffect(() => {
+        //     // const prods = products?.find(f => prod.includes(f));
+        //     // setValue(prods);
+        //     console.log("MUDOU" + JSON.stringify(def));
+        //     setDef(def.find(f => prod.includes(f._id)));
+        // }, prod);
+
+        console.log("cat: " + categoriesSt.length);
+        console.log("def: " + JSON.stringify(def));
+        console.log("prod: " + JSON.stringify(prod));
+        console.log("prodAx: " + JSON.stringify(prodAx));
+        
+        return (
+            <CapInputAdvanced
+                kind="base"
+                label="products"
+                placeholder="insertMultiProducts"
+                type="productSpecial"
+                defaultValue={!(prod.length > 0) && categoriesSt.length > 0 ? def.map((p) => {
+                    //setProd(def);
+                    return {
+                        label: p.name.toString(),
+                        value: p._id.toString(),
+                    };
+                }) : []}
+                values={Array.from(new Set(handleProductCategories()))} //products?.map((p) => p.name)
+                mutate={function (
+                    data?:
+                        | CategoryDTO[]
+                        | Promise<CategoryDTO[]>
+                        | MutatorCallback<CategoryDTO[]>
+                        | undefined,
+                    opts?:
+                        | boolean
+                        | MutatorOptions<CategoryDTO[]>
+                        | undefined
+                ): Promise<CategoryDTO[] | undefined> {
+                    throw new Error("Function not implemented.");
+                }}
+                setArray={setValue}
+            />
+        )
+      };
+
+    //   useEffect(
+    //     () => {
+    //         if(categories && (categories.length == 0))
+    //             setDefaultSt([]);
+    //     }, [categoriesSt]
+    //   );
 
     return (
         <>
@@ -196,7 +259,8 @@ export default function DemandCreation({demand = undefined,
                 </Col> */}
             </Row>
             <Row>
-                <Col>
+                <Col className="flex items-center">
+                    <div className="w-full">
                     <CapInputAdvanced
                         kind="base"
                         label="searchCategory"
@@ -220,10 +284,13 @@ export default function DemandCreation({demand = undefined,
                         array={categoriesSt}
                         setArray={setCategoriesSt}
                     />
+                    </div>
+                    <CapIconButton css="ml-6" iconType="io5" icon="IoDownload" size="24px" click={() => { setDefaultSt(Array.from(new Set(handleProductCategories()))) }}/>
                 </Col>
                 <Col md={12}>
                     <>
-                        {products
+                        <ChildComponent value={defaultSt} setValue={setDefaultSt} />
+                        {/* {products
                             ? products.map((p) => {
                                   if (!p.name.includes("mangueirao"))
                                       console.log( {
@@ -231,8 +298,8 @@ export default function DemandCreation({demand = undefined,
                                           value: p._id.toString(),
                                       });
                               })
-                            : []}
-                    {defaultSt.length > 0 ? <CapInputAdvanced
+                            : []} */}
+                    {/* {defaultSt.length > 0 ? <CapInputAdvanced
                         kind="base"
                         label="products"
                         placeholder="insertMultiProducts"
@@ -250,7 +317,7 @@ export default function DemandCreation({demand = undefined,
                                           value: p._id.toString(),
                                       };
                               })
-                            : [] */}
+                            : [] /}
                         values={Array.from(new Set(handleProductCategories()))} //products?.map((p) => p.name)
                         mutate={function (
                             data?:
@@ -266,8 +333,7 @@ export default function DemandCreation({demand = undefined,
                             throw new Error("Function not implemented.");
                         }}
                         setArray={setProductsSt}
-                    /> : <></>}
-                    <CapIconButton click={() => {setDefaultSt(Array.from(new Set(handleProductCategories()))); console.log(defaultSt) }}/>
+                    /> : <></>} */}
                     </>
                 </Col>
             </Row>
