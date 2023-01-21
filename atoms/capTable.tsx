@@ -54,6 +54,18 @@ export default function CapTable({
         Router.push(`${p}${i}/edit`);
     };
 
+    const alerta = () => { //p: any
+        alert("CLICKED")
+        //Router.push(`${p}${i}/edit`);
+    };
+
+    const clickButton = (p: any) => { //
+        console.log(p)
+        p
+        //alerta()
+        //Router.push(`${p}${i}/edit`);
+    };
+
     const removeCounty = async (p: string, i: string) => {
         const data = await fetch(`${p}${i}`, {
             method: "DELETE",
@@ -321,6 +333,23 @@ export default function CapTable({
                                                                                                     ],
                                                                                                     d._id
                                                                                                 )
+                                                                                            }
+                                                                                        />
+                                                                                    </div>
+                                                                                ) : null}
+                                                                                {bc ===
+                                                                                "click" ? (
+                                                                                    <div className="mx-0.5">
+                                                                                        <CapBtn
+                                                                                            kind={
+                                                                                                "cartIcon"
+                                                                                            }
+                                                                                            variant={
+                                                                                                "secondary"
+                                                                                            }
+                                                                                            css="!rounded-full !p-[6px]"
+                                                                                            click={
+                                                                                                    buttonsPaths[l]
                                                                                             }
                                                                                         />
                                                                                     </div>
