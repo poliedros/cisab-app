@@ -22,6 +22,7 @@ export default function CapTable({
     buttonsPaths = [],
     striped = false,
     image = undefined,
+    date = undefined,
     search = undefined,
     searchPath = undefined,
 }: {
@@ -37,6 +38,7 @@ export default function CapTable({
     buttonsPaths?: any[];
     striped?: boolean;
     image?: number;
+    date?: number[];
     search?: string;
     searchPath?: string;
 }) {
@@ -342,6 +344,8 @@ export default function CapTable({
                                                                     css="rounded-full"
                                                                 />
                                                             </div>
+                                                        ) : date?.includes(j) ? (
+                                                            JSON.stringify(o[k]).replaceAll('"', '').split('T')[0].split("-").reverse().join("/")
                                                         ) : (
                                                             o && o[k]
                                                         );

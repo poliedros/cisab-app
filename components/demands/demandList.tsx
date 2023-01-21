@@ -15,6 +15,7 @@ export default function DemandList({ demands }: { demands: DemandDTO[] }) {
                 columns={["name", "start_date", "end_date"]}
                 buttonsColumns={["view"]}
                 buttonsPaths={["/demands/"]}
+                date={[1, 2]}
             />
         </>
     );

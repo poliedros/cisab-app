@@ -107,7 +107,7 @@ export default function ProductShowcase({ product }: { product: ProductDTO }) {
                 </Col>
                 <Col sm={8} className="flex flex-column items-start text-left">
                     <CapTitle
-                        literal={product.name}
+                        literal={product.name} base="none"
                         additional={{ label: " !text-4xl !m-0" }}
                     />
                     <h6 className="lowercase mt-2 tracking-widest text-[silver]">
