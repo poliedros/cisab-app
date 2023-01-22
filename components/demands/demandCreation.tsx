@@ -54,6 +54,8 @@ export default function DemandCreation({demand = undefined,
         categoriesSt.map(c => {
             setCategoriesSwr(categoriesSwr + "category=" + c + "&");
         });
+        if(categoriesSt.length === 0)
+            setDefaultSt([]);
  
         //setCategoriesSwr(Object.keys(categoriesSt).map(key => key + '=' + categoriesSwr[key]).join('&'));
     }, [categoriesSt]);
