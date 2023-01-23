@@ -1,13 +1,22 @@
 import { withIronSessionApiRoute } from "iron-session/next";
 import { sessionOptions } from "lib/session";
 import { NextApiRequest, NextApiResponse } from "next";
-import { ProductDTO } from "./products";
+import { Measure } from "./products";
+
+export type ProductOnCartDTO = {
+  _id: string;
+  name: string;
+  norms?: string[];
+  accessory_ids?: string[];
+  measurements?: Measure[];
+  quantity: number;
+};
 
 export type CartDTO = {
   _id: string;
-  client: string;
+  client_id: string;
   demand_id: string;
-  product: ProductDTO[];
+  products: ProductOnCartDTO[];
   state: string;
 };
 
@@ -19,7 +28,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<CartDTO[]>) {
   }
 
   const response = {
-    status: 999,
+    status: 200,
     data: [
       {
         _id: "carrinho1",
@@ -33,7 +42,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<CartDTO[]>) {
           },
           {
             _id: "63a0ba66610ae58ba6d8f9af",
-            name: "Saco de cimento",
+            name: "Cano",
             quantity: 2,
           },
         ],
