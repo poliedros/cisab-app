@@ -23,6 +23,8 @@ export default function DemandView({ demand, products }: { demand: DemandDTO, pr
 
     const [format, setFormat] = useState("grid");
     const [page, setPage] = useState(0);
+
+    const [quantity, setQuantity] = useState(0);
     /* const [productsPage, setProductsPage] = useState(
         demand.product_ids.slice(page * size, page * size + size)
     ); */
@@ -107,10 +109,14 @@ export default function DemandView({ demand, products }: { demand: DemandDTO, pr
                     /> </Col>*/}
                     <CapSwitcher
                         data={products}
-                        tableHeaders={[/* "image", */ "products"]}
+                        tableHeaders={[/* "image", */ "products", "quantity"]}
                         tableColumns={[/* "photo", */ "name"]}
                         tableNumeral={true}
                         //tableImage={1}
+                        input={2}
+                        inputValue={quantity}
+                        inputSetValue={setQuantity}
+                        //getInput={setQuantity}
                         buttons={["view"]}
                         buttonsPaths={[
                             "/products/",
@@ -118,6 +124,23 @@ export default function DemandView({ demand, products }: { demand: DemandDTO, pr
                         //searchPath={"name"}
                         pagesSize = {size}
                     />
+                    <CapTable
+                            data={products ? products : []}
+                            headers={["image", "products", "quantity"]}
+                            columns={["photo", "name", "name"]}
+                            numeral={true}
+                            image={1}
+                            input={3}
+                            inputValue={quantity}
+                            inputSetValue={setQuantity}
+                            buttonsColumns={["view"]}
+                            buttonsPaths={[
+                                "/products/",
+                            ]}
+                            search={searchProduct}
+                            searchPath={"name"}
+                        />
+                        {quantity}
             </Row>
         </>
     );

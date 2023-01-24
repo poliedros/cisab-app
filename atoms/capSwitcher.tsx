@@ -28,6 +28,11 @@ export default function CapSwitcher({
     table = undefined,
     grid = undefined,
     pagination = undefined,
+
+    input = undefined,
+    inputValue = undefined,
+    inputSetValue = undefined,
+    getInput = undefined,
 }: {
     data?: any[];
     searchPath?: string;
@@ -45,6 +50,11 @@ export default function CapSwitcher({
     table?: any;
     grid?: any;
     pagination?: any;
+
+    input?: number;
+    inputValue?: string | number;
+    inputSetValue?: any;
+    getInput?: any;
 }) {
     const language = useLanguage();
 
@@ -106,7 +116,8 @@ export default function CapSwitcher({
                 </Col>
                 <Col>
                     {format === "grid" ? (
-                        <CapContainer data={search || search !== "" && (data === dataPage) ? data : dataPage} component={cardType} buttons={buttons} buttonsPath={buttonsPaths} />
+                        <CapContainer data={search || search !== "" && (data === dataPage) ? data : dataPage} component={cardType} buttons={buttons} buttonsPath={buttonsPaths} inputValue={inputValue}
+                        inputSetValue={inputSetValue} />
                     ) : format === "table" ? (
                         <CapTable
                             data={search || search !== "" && (dataFixImage === dataPage) ? dataFixImage : dataPage}
@@ -114,6 +125,10 @@ export default function CapSwitcher({
                             columns={tableColumns}
                             numeral={tableNumeral}
                             image={tableImage}
+                            input={input}
+                            inputValue={inputValue}
+                            inputSetValue={inputSetValue}
+                            getInput={getInput}
                             buttonsColumns={buttons}
                             buttonsPaths={buttonsPaths}
                         />

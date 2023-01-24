@@ -1,11 +1,19 @@
+import { useTheme, useThemeUpdate } from "context/themeContext";
 import { Accordion } from "react-bootstrap";
 import CapSubtitle from "./capSubtitle";
 
-export default function CapAccordion({}: {}) {
+export default function CapAccordion({
+    css = "",
+}: {
+    css?: string;
+}) {
+    const theme = useTheme();
+    const toggleTheme = useThemeUpdate();
+
     return <>
         <Accordion defaultActiveKey="0" flush>
             <Accordion.Item eventKey="0" className="bg-transparent">
-                <Accordion.Header><CapSubtitle literal="Anderson"/></Accordion.Header>
+                <Accordion.Header className={theme === "dark" ? "accordion-button.collapsed-dark" : ""}><CapSubtitle literal="Anderson" css="w-[inherit] mr-1.5 !my-0"/></Accordion.Header>
                 <Accordion.Body>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
