@@ -80,12 +80,8 @@ export default function Login() {
             css="text-white"
           />
         </div>
+        <CapMessageBottom label={"loginError"} css="text-red-600" externCss={"-bottom-[15vh]"} show={errorMessage} setShow={setErrorMessage} />
       </div>
-      {errorMessage ? (
-        <CapMessageBottom label={"loginError"} css="text-red-600" />
-      ) : (
-        <></>
-      )}
     </>
   );
 }

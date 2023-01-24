@@ -10,14 +10,21 @@ export default function CapContainer({
     buttons = [],
     buttonsPath = [],
     component = "",
+    inputValue = undefined,
+    inputSetValue = undefined,
 }: {
     data?: any;
     buttons?: string[];
     buttonsPath?: string[];
     component?: string;
+    inputValue?: string | number;
+    inputSetValue?: any;
 }) {
     const language = useLanguage();
     const toggleLanguage = useLanguageUpdate();
+
+    console.log("DATINHA");
+    console.log(data);
 
     return (
         <>
@@ -26,14 +33,14 @@ export default function CapContainer({
                 component === "tinyCard" ? (
                     <>
                         {i % 3 === 0 ? <Row>
-                            {a[i] ? <Col>
-                                <CapTinyCard title={a[i].name} subtitle={a[i].code} image={a[i].photo_url} buttons={buttons} buttonsPath={buttonsPath} id={a[i]._id} />
+                            {a[i] ? <Col style={{ whiteSpace: "pre-line" }}>
+                                <CapTinyCard inputValue={inputValue} inputSetValue={inputSetValue} title={a[i].name} subtitle={(a[i].measurements[0] ? a[i].measurements[0].name + ": " + a[i].measurements[0].value + a[i].measurements[0].unit + "\n" : "") + (a[i].measurements[1] ? a[i].measurements[1].name + ": " + a[i].measurements[1].value + a[i].measurements[1].unit + "\n" : "") + (a[i].measurements[2] ? a[i].measurements[2].name + ": " + a[i].measurements[2].value + a[i].measurements[2].unit : "")} image={a[i].photo_url} buttons={buttons} buttonsPath={buttonsPath} id={a[i]._id} />
                             </Col> : <></>}
-                            {a[i+1] ? <Col>
-                                <CapTinyCard title={a[i+1].name} subtitle={a[i+1].code} image={a[i+1].photo_url} buttons={buttons} buttonsPath={buttonsPath} id={a[i+1]._id} />
+                            {a[i+1] ? <Col style={{ whiteSpace: "pre-line" }}>
+                                <CapTinyCard inputValue={inputValue} inputSetValue={inputSetValue} title={a[i+1].name} subtitle={(a[i+1].measurements[0] ? a[i+1].measurements[0].name + ": " + a[i+1].measurements[0].value + a[i+1].measurements[0].unit + "\n" : "") + (a[i+1].measurements[1] ? a[i+1].measurements[1].name + ": " + a[i+1].measurements[1].value + a[i+1].measurements[1].unit + "\n" : "") + (a[i+1].measurements[2] ? a[i].measurements[2].name + ": " + a[i+1].measurements[2].value + a[i+1].measurements[2].unit : "")} image={a[i+1].photo_url} buttons={buttons} buttonsPath={buttonsPath} id={a[i+1]._id} />
                             </Col> : <></>}
-                            {a[i+2] ? <Col>
-                                <CapTinyCard title={a[i+2].name} subtitle={a[i+2].code} image={a[i+2].photo_url} buttons={buttons} buttonsPath={buttonsPath} id={a[i+2]._id} />
+                            {a[i+2] ? <Col style={{ whiteSpace: "pre-line" }}>
+                                <CapTinyCard inputValue={inputValue} inputSetValue={inputSetValue} title={a[i+2].name} subtitle={(a[i+2].measurements[0] ? a[i+2].measurements[0].name + ": " + a[i+2].measurements[0].value + a[i+1].measurements[0].unit + "\n" : "") + (a[i+2].measurements[1] ? a[i+2].measurements[1].name + ": " + a[i+2].measurements[1].value + a[i+2].measurements[1].unit + "\n" : "") + (a[i+2].measurements[2] ? a[i].measurements[2].name + ": " + a[i+2].measurements[2].value + a[i+2].measurements[2].unit : "")} image={a[i+2].photo_url} buttons={buttons} buttonsPath={buttonsPath} id={a[i+2]._id} />
                             </Col> : <></>}
                         </Row> : <></>}
                     </>
@@ -41,7 +48,7 @@ export default function CapContainer({
                     <>
                         <Container>
                             <Col>
-                                <CapLargeCard mirror={i % 2 === 0 ? true : false} title={d.name} subtitle={d.code} />
+                                <CapLargeCard mirror={i % 2 === 0 ? true : false} title={d.name} subtitle={JSON.stringify(d.start_date).replaceAll('"', '').split('T')[0].split("-").reverse().join("/") + " - " + JSON.stringify(d.end_date).replaceAll('"', '').split('T')[0].split("-").reverse().join("/")} />
                             </Col>
                         </Container>
                         {/* {i % 3 === 0 ? <Row>

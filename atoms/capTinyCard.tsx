@@ -1,6 +1,7 @@
 import Router from "next/router";
 import { Card, Col, Row } from "react-bootstrap";
 import translations from "../lib/translations";
+import CapForm from "./capForm";
 import CapIconButton from "./capIconButton";
 import CapImage from "./capImage";
 
@@ -13,6 +14,8 @@ export default function CapTinyCard({
   image = "", //https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg
   buttons = [],
   buttonsPath = [],
+  inputValue = undefined,
+  inputSetValue = undefined,
 }: {
   label?: string;
   literal?: string;
@@ -22,6 +25,8 @@ export default function CapTinyCard({
   image?: string;
   buttons?: string[];
   buttonsPath?: string[];
+  inputValue?: string | number;
+  inputSetValue?: any;
 }) {
 
   const view = (p: string, i: string) => {
@@ -78,7 +83,7 @@ const remove = async (p: string, i: string) => {
             className="rot-minus-45 !rounded-3xl pt-4"
             //bg={baseColor === "dark" ? "dark" : "white"}
           >
-            <Card.Body className="!pl-12" onClick={() => buttons.map((b, i) => {b === "view" ? view(buttonsPath[i], id) : null})} >
+            <Card.Body className="!pl-12" onClick={() => buttons.map((b, i) => {b === "view" && (!inputValue && !inputSetValue) ? view(buttonsPath[i], id) : null})} >
               <Row className="!flex-nowrap">
                 <Col xs={8}>
                   <Card.Title
@@ -87,6 +92,7 @@ const remove = async (p: string, i: string) => {
                     {title}
                   </Card.Title>
                   <Card.Text>{subtitle}</Card.Text>
+                  {inputValue || inputSetValue ? <CapForm value={inputValue} type={"number"} placeholder={"quantity"} change={(e: any) => inputSetValue(e.target.value)} css={" w-[125px] mx-auto "} /> : null}
                 </Col>
                 <Col xs={4}>
                   <>

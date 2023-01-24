@@ -13,6 +13,7 @@ import useRole from "lib/useRole";
 import useUser from "lib/useUser";
 import { Role } from "lib/role.enum";
 import CapParagraph from "atoms/capParagraph";
+import CapSwitcher from "atoms/capSwitcher";
 
 export default function ProductShowcase({ product }: { product: ProductDTO }) {
     const { user } = useUser({ redirectTo: "/login" });
@@ -107,7 +108,7 @@ export default function ProductShowcase({ product }: { product: ProductDTO }) {
                 </Col>
                 <Col sm={8} className="flex flex-column items-start text-left">
                     <CapTitle
-                        literal={product.name}
+                        literal={product.name} base="none"
                         additional={{ label: " !text-4xl !m-0" }}
                     />
                     <h6 className="lowercase mt-2 tracking-widest text-[silver]">
@@ -143,8 +144,8 @@ export default function ProductShowcase({ product }: { product: ProductDTO }) {
                 {product.norms ? product.norms.map((n, i) => {return <Col key={i} md={12}><CapParagraph literal={n}/>
                 </Col>}) : []}
             </Row> : <></>}
-            {screens === "accessories" ? <Row className="mt-3 pt-3 border-t-2">
-                <Col md="auto" className="border-r-2 mr-3 !my-6">
+            {screens === "accessories" ? <Row className="mt-3 pt-3 border-t-2 justify-center">
+                {/* <Col md="auto" className="border-r-2 mr-3 !my-6">
                     <div className="flex flex-column">
                         <CapIconButton
                             css="mb-3 mt-6"
@@ -189,7 +190,20 @@ export default function ProductShowcase({ product }: { product: ProductDTO }) {
                         page={page}
                         setPage={setPage}
                     />
-                </Col>
+                </Col> */}
+                <CapSwitcher
+                    data={accessories}
+                    tableHeaders={["image", "products"]}
+                    tableColumns={["photo", "name"]}
+                    tableNumeral={true}
+                    tableImage={1}
+                    buttons={["view"]}
+                    buttonsPaths={[
+                        "/products/",
+                    ]}
+                    searchPath={"name"}
+                    pagesSize={6}
+                />
             </Row> : <></>}
         </>
     );
