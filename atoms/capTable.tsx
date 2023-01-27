@@ -1,5 +1,5 @@
 import Router from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { OverlayTrigger, Popover, Table } from "react-bootstrap";
 import translations from "../lib/translations";
 import CapBtn from "./capBtn";
@@ -8,6 +8,7 @@ import CapIconButton from "./capIconButton";
 import { useLanguage, useLanguageUpdate } from "../context/languageContext";
 import { useTheme, useThemeUpdate } from "../context/themeContext";
 import CapImage from "./capImage";
+import CapForm from "./capForm";
 
 export default function CapTable({
     label = "emptyText",
@@ -22,8 +23,13 @@ export default function CapTable({
     buttonsPaths = [],
     striped = false,
     image = undefined,
+    date = undefined,
     search = undefined,
     searchPath = undefined,
+    input = undefined,
+    inputValue = undefined,
+    inputSetValue = undefined,
+    getInput = undefined,
 }: {
     label?: string;
     literal?: string;
@@ -37,8 +43,13 @@ export default function CapTable({
     buttonsPaths?: any[];
     striped?: boolean;
     image?: number;
+    date?: number[];
     search?: string;
     searchPath?: string;
+    input?: number;
+    inputValue?: string | number;
+    inputSetValue?: any;
+    getInput?: any;
 }) {
     const language = useLanguage();
     const toggleLanguage = useLanguageUpdate();
@@ -81,6 +92,8 @@ export default function CapTable({
     const userCounty = async (p: string, i: string) => {
         Router.push(`${p}${i}/users`);
     };
+
+    const [value, setValue] = useState(0);
 
     /* useEffect(() => {
         if (numeral)
@@ -371,6 +384,11 @@ export default function CapTable({
                                                                     css="rounded-full"
                                                                 />
                                                             </div>
+                                                        ) : date?.includes(j) ? (
+                                                            JSON.stringify(o[k]).replaceAll('"', '').split('T')[0].split("-").reverse().join("/")
+                                                        ) : input === j ? (
+                                                            <CapForm value={inputValue} type={"number"} change={(e: any) => inputSetValue(e.target.value)} css={" w-[100px] mx-auto "} />
+                                                            // <CapForm value={value} type={"number"} change={(e: any) => {setValue(e.target.value); getInput(value)}} css={" w-[100px] mx-auto "} />
                                                         ) : (
                                                             o && o[k]
                                                         );

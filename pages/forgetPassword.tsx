@@ -5,6 +5,8 @@ import CapForm from "atoms/capForm";
 import CapBtn from "atoms/capBtn";
 import CapMessageBottom from "atoms/capMessageBottom";
 import CapImage from "atoms/capImage";
+import CapTitle from "atoms/capTitle";
+import CapLink from "atoms/capLink";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
@@ -34,6 +36,7 @@ export default function Login() {
         <div className="flex flex-column items-center">
           <CapImage src={"/cisabLogo.svg"} w={196} h={128} obj="contain" />{" "}
           {/* process.env.PUBLIC_URL + '/vercel.svg' */}
+          {/* <CapTitle literal={"Recuperar Senha"} /> */}
         </div>
         <div className="m-6 text-white">
           <CapForm
@@ -43,32 +46,35 @@ export default function Login() {
             change={(e: any) => setEmail(e.target.value)}
           />
         </div>
-        <div className="flex items-center justify-between flex-column">
+        <div className="flex items-center justify-between flex-column mb-6">
           {loading ? (
             <Spinner />
           ) : (
             <CapBtn
               label="submit"
               iconType="bi"
-              icon="BiLogInCircle"
+              icon="BiMailSend"
               click={handleButton}
             />
           )}
         </div>
-      </div>
-      {errorMessage ? (
-        <CapMessageBottom label={"recoverPasswordError"} css="text-red-600" />
-      ) : (
-        <></>
-      )}
-      {successMessage ? (
+        <CapLink
+            label="returnToLogin"
+            icon="BiLogInCircle"
+            iconType="bi"
+            iconColor="text-white"
+            href="/login"
+            css="text-white"
+        />
+        <CapMessageBottom label={"recoverPasswordError"} css="text-red-600" externCss={"-bottom-[15vh]"} show={errorMessage} setShow={setErrorMessage} />
         <CapMessageBottom
           label={"recoverPasswordSuccess"}
           css="text-green-600"
+          externCss={"-bottom-[15vh]"}
+          show={successMessage}
+          setShow={setSuccessMessage}
         />
-      ) : (
-        <></>
-      )}
+      </div>
     </>
   );
 }

@@ -66,10 +66,10 @@ export default function DocumentationCaps() {
             <ItemTabs />
             <CapSubtitle literal="link" />
             <CapSubtitle literal="carta/lista (fazer)" />
-            <ItemSwitcher />
+            {/* <ItemSwitcher /> */}
             <CapSubtitle literal="tabela" />
             <ItemTable />
-            {/* <CapAccordion /> */}
+            <CapAccordion />
         </>
     );
 }

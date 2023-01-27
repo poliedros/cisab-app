@@ -4,6 +4,7 @@ import translations from "../lib/translations";
 
 import { useLanguage, useLanguageUpdate } from "../context/languageContext";
 import { useTheme, useThemeUpdate } from "../context/themeContext";
+import { string } from "yup";
 
 export default function CapForm({
   kind = "default",
@@ -28,6 +29,7 @@ export default function CapForm({
   options = [],
   legend = "emptyText",
   additional = undefined,
+  css = undefined,
 }: {
   kind?: "default" | "floating" | "select";
   label?: string;
@@ -51,6 +53,7 @@ export default function CapForm({
   options?: (string | undefined)[];
   legend?: string;
   additional?: any;
+  css?: string;
 }) {
   const language = useLanguage();
   const toggleLanguage = useLanguageUpdate();
@@ -62,13 +65,13 @@ export default function CapForm({
     <>
       {kind === "default" ? (
         <Form.Group
-          className={(theme === "dark" ? "text-white" : "") + " mb-3"}
+          className={(theme === "dark" ? "text-white" : "") + (css ? css : " mb-3")}
           controlId={controlId}
           placeholder={placeholder}
           as={as}
         >
           {label !== "text" ? (
-            <Form.Label
+            label !== "emptyText" ? <Form.Label
               column={column}
               type={type}
               htmlFor={htmlFor}
@@ -78,7 +81,7 @@ export default function CapForm({
                 &nbsp;
                 {translations(label, language)}
               </div>
-            </Form.Label>
+            </Form.Label> : null
           ) : null}
           {required ? <Form.Control
             required
@@ -121,7 +124,7 @@ export default function CapForm({
           as={as}
         >
           {label !== "text" ? (
-            <Form.Label
+            label !== "emptyText" ? <Form.Label
               column={column}
               type={type}
               htmlFor={htmlFor}
@@ -131,7 +134,7 @@ export default function CapForm({
                 &nbsp;
                 {translations(label, language)}
               </div>
-            </Form.Label>
+            </Form.Label> : null
           ) : null}
           <Form.Select
             defaultValue={

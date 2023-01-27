@@ -567,7 +567,7 @@
     "pt": "Criar Demanda"
   },
   "listDemands": {
-    "pt": "Lista de Demanda"
+    "pt": "Lista de Demandas"
   },
   "createEmployee": {
     "pt": "Criar Funcionário"
@@ -622,6 +622,9 @@
   },
   "docLegend": {
     "pt": "Legenda com Tradução"
+  },
+  "returnToLogin": {
+    "pt": "Retornar a página de Acesso"
   },
   "cart": {
     "pt": "Carrinho"
