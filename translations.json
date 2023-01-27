@@ -625,5 +625,11 @@
   },
   "returnToLogin": {
     "pt": "Retornar a página de Acesso"
+  },
+  "successOperation": {
+    "pt": "Operação realizada com sucesso"
+  },
+  "errorOperation": {
+    "pt": "Erro na operação"
   }
 }
