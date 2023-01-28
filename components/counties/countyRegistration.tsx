@@ -401,13 +401,13 @@ export default function CountyRegistration({
                     note: countyNote,
                   },
                   contact: {
-                    address: countyContactAddress,
-                    zipCode: countyContactZipCode,
-                    phone: countyContactPhone,
+                    address: countyAddress,
+                    zipCode: countyZipCode,
+                    phone: countyPhone,
                     speakTo: countyContactWith,
-                    note: countyContactNote,
-                    email: countyContactEmail,
-                    socialMedias: countyContactSocialMedias,
+                    note: countyNote,
+                    email: countyEmail,
+                    socialMedias: countySocialMedias,
                   },
                 };
                 const response = await submit(countyReq);
