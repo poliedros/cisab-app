@@ -24,7 +24,7 @@ export default function DemandView({ demand, products }: { demand: DemandDTO, pr
     const [format, setFormat] = useState("grid");
     const [page, setPage] = useState(0);
 
-    const [quantity, setQuantity] = useState(0);
+    const [quantity, setQuantity] = useState<(string | number)[]>([]);
     /* const [productsPage, setProductsPage] = useState(
         demand.product_ids.slice(page * size, page * size + size)
     ); */

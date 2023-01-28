@@ -1,37 +1,81 @@
-import { useState } from "react";
+import { ForwardedRef, forwardRef, useImperativeHandle, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import translations from "../lib/translations";
 import CapBtn from "./capBtn";
 import CapIconButton from "./capIconButton";
 import CapMessageBottom from "./capMessageBottom";
 
-export default function CapContainerAdd({
-    type = "default",
-    components = [],
-    setComponents = undefined,
-    key = undefined,
-    resultArray = [],
-    setResultArray,
-    scanArray = undefined,
-    //scanArray = [],
-    //setScanArray = undefined,
-    setStep = undefined,
-}) {
-    
+const CapContainerAdd = forwardRef((
+    {
+        type = "default",
+        components = [],
+        setComponents = undefined,
+        key = undefined,
+        resultArray = [],
+        setResultArray,
+        scanArray = undefined,
+        //scanArray = [],
+        //setScanArray = undefined,
+        setStep = undefined,
+        handleContainer = undefined,
+        //ref = undefined,
+    } : {
+        type?: string;
+        components?: any[];
+        setComponents?: any;
+        key?: any;
+        resultArray?: any;
+        setResultArray?: any;
+        scanArray?: any;
+        //scanArray = [],
+        //setScanArray = undefined,
+        setStep?: any;
+        handleContainer?: any;
+        //ref?: ForwardedRef<unknown>;
+    }, ref
+    //props, ref
+) => {
+
     const [listComponents, setListComponents] = useState([components]);
     const [successMessage, setSuccessMessage] = useState(false);
     const [message, setMessage] = useState("");
+
+    const [showNorm, setShowNorm] = useState(false);
+    
+    useImperativeHandle(ref, () => ({
+
+        getAlert() {
+          alert(type);
+        },
+
+        handleContainer() {
+            let finalArray: any[] = [];
+            const list = document.getElementById("listN");
+            
+            list?.childNodes.forEach(function (node, index) {
+                node.childNodes[0].firstChild?.lastChild?.textContent ?
+                finalArray.push(
+                    (node.childNodes[0].firstChild?.firstChild?.nextSibling as HTMLInputElement)?.value
+                )
+                : null
+            });
+            setResultArray(finalArray);
+            setShowNorm(true);
+            alert(JSON.stringify(finalArray));
+        }
+    
+    }));
 
     if(type === "default") {
 
     const handleScanArray = () => {
         const list = document.getElementById("list");
-        let finalArray = [];
+        let finalArray: { name: any; value: any; unit: string; }[] = [];
         list?.childNodes.forEach(function (node, index) {
             node.childNodes[0].firstChild?.lastChild?.textContent && node.childNodes[1].firstChild?.lastChild?.textContent && node.childNodes[2].firstChild?.firstChild?.firstChild?.textContent ?
                 finalArray.push({
-                    "name": node.childNodes[0].firstChild?.firstChild?.nextSibling?.value,
-                    "value": node.childNodes[1].firstChild?.firstChild?.nextSibling?.value,
+                    "name": (node.childNodes[0].firstChild?.firstChild?.nextSibling as HTMLInputElement)?.value,
+                    "value": (node.childNodes[1].firstChild?.firstChild?.nextSibling as HTMLInputElement)?.value,
                     "unit": node.childNodes[2].firstChild?.firstChild?.firstChild?.textContent
                 })
             : null
@@ -53,7 +97,7 @@ export default function CapContainerAdd({
         setListComponents([...listComponents, components]);
     };
 
-    const handleArrayMinus = (i) => {
+    const handleArrayMinus = (i: number) => {
         document.getElementById(String(i))?.remove();
         const list = document.getElementById("list");
         /* let finalArray: string[] = [];
@@ -66,7 +110,7 @@ export default function CapContainerAdd({
                     : ""
             );
         }); */
-        let finalArray = [];
+        let finalArray: { name: any; value: any; unit: string; }[] = [];
         console.log("LIST");
         list?.childNodes.forEach(function (node, index) {
             console.log(node.childNodes[2].firstChild?.firstChild?.firstChild?.textContent);
@@ -74,8 +118,8 @@ export default function CapContainerAdd({
         list?.childNodes.forEach(function (node, index) {
             node.childNodes[0].firstChild?.lastChild?.textContent && node.childNodes[1].firstChild?.lastChild?.textContent && node.childNodes[2].firstChild?.firstChild?.firstChild?.textContent ?
                 finalArray.push({
-                    "name": node.childNodes[0].firstChild?.firstChild?.nextSibling?.value,
-                    "value": node.childNodes[1].firstChild?.firstChild?.nextSibling?.value,
+                    "name": (node.childNodes[0].firstChild?.firstChild?.nextSibling as HTMLInputElement)?.value,
+                    "value": (node.childNodes[1].firstChild?.firstChild?.nextSibling as HTMLInputElement)?.value,
                     "unit": node.childNodes[2].firstChild?.firstChild?.firstChild?.textContent
                 })
             : null
@@ -83,7 +127,7 @@ export default function CapContainerAdd({
         list?.childNodes.forEach(function (node, index) {
                 node.childNodes[1].firstChild?.lastChild
                     ?.textContent
-                    ? console.log(node.childNodes[1].firstChild?.lastChild?.value)
+                    ? console.log((node.childNodes[1].firstChild?.lastChild as HTMLInputElement)?.value)
                     : ""
         });
         let finalArrayD = [...resultArray, finalArray];
@@ -132,33 +176,34 @@ export default function CapContainerAdd({
     );
     }
     if(type === "norm") {
-        const handleScanArray = () => {
+        let finalArray: any[] = [];
+        handleContainer = () => {
             const list = document.getElementById("listN");
-            let finalArray = [];
+            
             list?.childNodes.forEach(function (node, index) {
                 node.childNodes[0].firstChild?.lastChild?.textContent ?
                 finalArray.push(
-                    node.childNodes[0].firstChild?.firstChild?.nextSibling?.value
+                    (node.childNodes[0].firstChild?.firstChild?.nextSibling as HTMLInputElement)?.value
                 )
                 : null
             });
             setResultArray(finalArray);
-            <CapMessageBottom literal={JSON.stringify(finalArray)} />
-            //alert(JSON.stringify(finalArray));
+            setShowNorm(true);
+            alert(JSON.stringify(finalArray));
         };
     
         const handleArray = () => {
             setListComponents([...listComponents, components]);
         };
     
-        const handleArrayMinus = (i) => {
+        const handleArrayMinus = (i: number) => {
             document.getElementById(String(i))?.remove();
             const list = document.getElementById("listN");
-            let finalArray = [];
+            let finalArray: { text: any; }[] = [];
             list?.childNodes.forEach(function (node, index) {
                 node.childNodes[0].firstChild?.lastChild?.textContent ?
                     finalArray.push({
-                        "text": node.childNodes[0].firstChild?.firstChild?.nextSibling?.value
+                        "text": (node.childNodes[0].firstChild?.firstChild?.nextSibling as HTMLInputElement)?.value
                     })
                 : null
             });
@@ -198,21 +243,22 @@ export default function CapContainerAdd({
                     {/* <CapBtn label="next" iconType="" icon="" click={handleScanArray} css="mb-3" /> */}
                 </div>
                 <div className="text-center">
-                    <CapIconButton iconType="bs" icon="BsSave" size="20px" click={handleScanArray} />
+                    <CapIconButton iconType="bs" icon="BsSave" size="20px" />
                 </div>
+                <CapMessageBottom show={showNorm} setShow={setShowNorm} literal={resultArray} />
             </>
         );
     }
     if(type === "product") {
         const handleScanArray = () => {
             const list = document.getElementById("listP");
-            let finalArray = [];
+            let finalArray: { _id: string; name: any; photo: string; }[] = [];
             list?.childNodes.forEach(function (node, index) {
                 finalArray.push({
                     "_id": "",
                     "name": node.childNodes[0].firstChild?.lastChild
                         ?.textContent
-                        ? node.childNodes[0].firstChild?.firstChild?.nextSibling?.value
+                        ? (node.childNodes[0].firstChild?.firstChild?.nextSibling as HTMLInputElement)?.value
                         : "",
                     "photo": ""
                 });
@@ -226,16 +272,16 @@ export default function CapContainerAdd({
             setListComponents([...listComponents, components]);
         };
     
-        const handleArrayMinus = (i) => {
+        const handleArrayMinus = (i: number) => {
             document.getElementById(String(i))?.remove();
             const list = document.getElementById("listP");
-            let finalArray = [];
+            let finalArray: { _id: string; name: any; photo: string; }[] = [];
             list?.childNodes.forEach(function (node, index) {
                 finalArray.push({
                     "_id": "",
                     "name": node.childNodes[0].firstChild?.lastChild
                         ?.textContent
-                        ? node.childNodes[0].firstChild?.firstChild?.nextSibling?.value
+                        ? (node.childNodes[0].firstChild?.firstChild?.nextSibling as HTMLInputElement)?.value
                         : "",
                     "photo": ""
                 });
@@ -243,7 +289,7 @@ export default function CapContainerAdd({
             list?.childNodes.forEach(function (node, index) {
                     node.childNodes[1].firstChild?.lastChild
                         ?.textContent
-                        ? console.log(node.childNodes[1].firstChild?.lastChild?.value)
+                        ? console.log((node.childNodes[1].firstChild?.lastChild as HTMLInputElement)?.value)
                         : ""
             });
             setResultArray(finalArray);
@@ -289,4 +335,8 @@ export default function CapContainerAdd({
         );
     }
     return (<></>);
-}
+})
+
+CapContainerAdd.displayName = 'CapContainerAdd';
+
+export default CapContainerAdd;

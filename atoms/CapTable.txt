@@ -5,12 +5,14 @@ import translations from "../lib/translations";
 import CapBtn from "./capBtn";
 import CapIconButton from "./capIconButton";
 
-import { useLanguage } from "../context/languageContext";
-import { useTheme } from "../context/themeContext";
+import { useLanguage, useLanguageUpdate } from "../context/languageContext";
+import { useTheme, useThemeUpdate } from "../context/themeContext";
 import CapImage from "./capImage";
 import CapForm from "./capForm";
 
 export default function CapTable({
+    label = "emptyText",
+    literal = undefined,
     data = [],
     headers = [],
     literalHeaders = [],
@@ -54,7 +56,10 @@ export default function CapTable({
     currentPage?: any;
 }) {
     const language = useLanguage();
+    const toggleLanguage = useLanguageUpdate();
+
     const theme = useTheme();
+    const toggleTheme = useThemeUpdate();
 
     const viewCounty = (p: string, i: string) => {
         Router.push(`${p}${i}`);
@@ -64,11 +69,24 @@ export default function CapTable({
         Router.push(`${p}${i}/edit`);
     };
 
+    const alerta = () => { //p: any
+        alert("CLICKED")
+        //Router.push(`${p}${i}/edit`);
+    };
+
+    const clickButton = (p: any) => { //
+        console.log(p)
+        p
+        //alerta()
+        //Router.push(`${p}${i}/edit`);
+    };
+
     const removeCounty = async (p: string, i: string) => {
         const data = await fetch(`${p}${i}`, {
             method: "DELETE",
-        });
+        }); //.finally(() => setLoading(false));
         if (data.status === 200) {
+            //--counties = counties.filter((c) => (c._id !== i)); //passar o setCounties
             alert("Delete County");
         } else {
             alert("Delete County Fault");
@@ -79,6 +97,10 @@ export default function CapTable({
         Router.push(`${p}${i}/users`);
     };
 
+    /* useEffect(() => {
+        if (numeral)
+            columns.unshift("numeral");
+    }, []); */
 
     if (numeral && columns.length < headers.length + 1)
         columns.unshift("numeral");
@@ -90,44 +112,73 @@ export default function CapTable({
     )
         columns.push("buttons");
 
+    /* const confirmRemove = (
+      <Popover>
+        <div className="overflow-auto -m-6 p-4 invisibleScroll">
+          <div className="flex relative bg-white px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5">
+          <CapIconButton
+            iconType="gi"
+            icon="GiCardboardBoxClosed"
+            size="24px"
+            click={() => removeCounty(buttonsPaths[l], d._id)}
+            route="/products/create"
+            hoverColor="#7dc523"
+          />
+          </div>
+        </div>
+      </Popover>
+    ); */
+
+    //const [value, setValue] = useState(inputValue);
     let elems = inputValue;
     const [values, setValues] = useState(inputValue);
 
-    console.log("INPUTVALUE");
+    console.log("VALUES");
     console.log(values);
 
-    useEffect(() => {
-        console.log("VALUES");
-        let final = values ? values.filter((value, index, self) =>
-            index === self.findIndex((t) => (
-                 t.id === value.id && t.value === value.value
-             ))
-         ) : [];
-        console.log(final);
-      },[values])
-      
-
     const handleChange = (i: number, e: any) => {
+        //elems = value;
         let values2 = values;
-        //elems = values2.slice(currentPage * pageSize, currentPage * pageSize + pageSize).map(el => el.id === i ? {id: el.id, value: e.target.value} : el);
-        setValues(values2.map(el => el.id === i ? {id: el.id, value: parseInt(e.target.value)} : el));
-        console.log("CRY");
-        console.log(values);
+        console.log("ELEMS");
+        console.log(i);
+        //console.log(elems.filter(el => el.id === i).map(em => em.value = e.target.value));
+        console.log(values2.map(el => el.id === i ? {id: el.id, value: e.target.value} : el));
+        elems = values2.slice(currentPage * pageSize, currentPage * pageSize + pageSize).map(el => el.id === i ? {id: el.id, value: e.target.value} : el);
+        console.log("PATRICIA");
+        console.log(values2.map(el => el.id === i ? {id: el.id, value: e.target.value} : el));
+        setValues(values2.map(el => el.id === i ? {id: el.id, value: e.target.value} : el));
+        //elems[i] = e.target.value;
+        //alert(elems);
+        
+        //setValue([]);
+        //setValue(elems);
     };
 
     let [brasil, setBrasil] = useState<any[]>(inputValue);
 
     const handleChangeValue = () => {
-        setBrasil(values.map((d) => (({id: d.id, value: document.getElementById("table-" + d.id) !== null ? parseInt((document.getElementById("table-" + d.id)?.firstChild?.firstChild as HTMLInputElement)?.value) : parseInt(d.value)}))));
-        console.log("BRASIL");
-
-        brasil = brasil ? brasil.filter((value, index, self) =>
-                index === self.findIndex((t) => (
-                    t.id === value.id && t.value === value.value
-                ))
-            ) : [];
+        let array: any[] = [];
+        //for (let index = 0; index < data.length; index++) {
+        //data.map((d) => (array.push((document.getElementById("table-" + d._id)?.firstChild?.firstChild as HTMLInputElement)?.value))); //index.toString()
+        //}
+        
+        //data.slice(currentPage * pageSize, (currentPage * pageSize) + pageSize).map((d) => (brasil.push({id: d._id, value: (document.getElementById("table-" + d._id)?.firstChild?.firstChild as HTMLInputElement)?.value})));
+        setBrasil(inputValue.map((d) => (({id: d.id, value: (document.getElementById("table-" + d.id)?.firstChild?.firstChild as HTMLInputElement)?.value}))));
+        //for (let index = 0; index < pageSize; index++)
+            //data.slice(currentPage * pageSize, (currentPage * pageSize) + pageSize).map((d) => (array.push((document.getElementById("table-" + d._id)?.firstChild?.firstChild as HTMLInputElement)?.value)));
+        //inputSetValue(array);
+        //alert(array);
+        console.log("consolo");
         console.log(brasil);
     };
+
+    console.log("Palhaço");
+    console.log(data);
+
+    /* useEffect(() => {
+        let elems = value;
+        inputSetValue(elems);
+    }, [inputSetValue, inputValue, value]); */
 
     return (
         <>
@@ -146,6 +197,11 @@ export default function CapTable({
                         {headers.map((h, i) => (
                             <th key={i}>{translations(h, language)}</th>
                         ))}
+                        {/* {buttonsPaths.length > 0 ? (
+                            <th key={-1}>
+                                
+                            </th>
+                        ) : null} */}
                     </tr>
                 </thead>
                 <tbody>
@@ -293,6 +349,15 @@ export default function CapTable({
                                                                                                                 )
                                                                                                             }
                                                                                                         />
+                                                                                                        {/* <CapBtn label="confirm" iconType="hi" icon="HiTrash" variant="danger" size="sm" click={() => removeCounty(buttonsPaths[l], d._id)} /> */}
+                                                                                                        {/* <CapIconButton
+                                            iconType="gi"
+                                            icon="GiCardboardBoxClosed"
+                                            size="24px"
+                                            click={() => removeCounty(buttonsPaths[l], d._id)}
+                                            route="/products/create"
+                                            hoverColor="#7dc523"
+                                          /> */}
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </Popover>
@@ -308,6 +373,10 @@ export default function CapTable({
                                                                                                     "danger"
                                                                                                 }
                                                                                                 css="!rounded-full !p-[6px]"
+                                                                                                /* click={() =>
+                                            null
+                                            //removeCounty(buttonsPaths[l], d._id)
+                                          } */
                                                                                             />
                                                                                         </div>
                                                                                     </OverlayTrigger>
@@ -362,7 +431,7 @@ export default function CapTable({
                                                                     src={
                                                                         o[k]
                                                                             .photo_url
-                                                                    }
+                                                                    } //"https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"
                                                                     w={45}
                                                                     h={45}
                                                                     css="rounded-full"
@@ -372,10 +441,12 @@ export default function CapTable({
                                                             JSON.stringify(o[k]).replaceAll('"', '').split('T')[0].split("-").reverse().join("/")
                                                         ) : input === j ? (
                                                             <div id={"table-" + d._id} className="flex">
-                                                                <CapForm value={values[i + (currentPage * pageSize)].value} type={"number"} change={(e: any) => handleChange(d._id, e)} css={" w-[100px] mx-auto "} />
-                                                                {/* {values[i + (currentPage * pageSize)].id + " " + values[i + (currentPage * pageSize)].value}
-                                                                {i + (currentPage * pageSize)} */}
+                                                                <CapForm value={values[i + (currentPage * pageSize)].value /* elems[i].value  value[i].value */} type={"number"} change={(e: any) => handleChange(d._id, e)} css={" w-[100px] mx-auto "} />
+                                                                {values[i + (currentPage * pageSize)].id + " " + values[i + (currentPage * pageSize)].value}
+                                                                {i + (currentPage * pageSize)}
+                                                                {/* <CapIconButton iconType="" icon="" size="16px" click={() => {handleChangeValue()/* console.log((document.getElementById("table-" + i.toString())?.firstChild?.firstChild as HTMLInputElement)?.value) /}} /> */}
                                                             </div>
+                                                            // <CapForm value={value} type={"number"} change={(e: any) => {setValue(e.target.value); getInput(value)}} css={" w-[100px] mx-auto "} />
                                                         ) : (
                                                             o && o[k]
                                                         );
@@ -390,7 +461,7 @@ export default function CapTable({
                 </tbody>
             </Table>
             <div className="flex justify-end">
-                <CapIconButton iconType="bs" icon="BsSave" size="14px" click={() => {handleChangeValue()}} />
+                <CapIconButton iconType="bs" icon="BsSave" size="14px" click={() => {handleChangeValue()/* console.log((document.getElementById("table-" + i.toString())?.firstChild?.firstChild as HTMLInputElement)?.value) */}} />
             </div>
         </>
     );

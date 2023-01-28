@@ -38,6 +38,8 @@ export default function ProductList({ products }: { products: ProductDTO[] }) {
     //     return setProductsPage(products.slice(page * size, page * size + size));
     // }, [page]);
 
+    const [quantity, setQuantity] = useState<any[]>([]);
+
     return (
         <>
             <Container className="p-0">
@@ -150,6 +152,24 @@ export default function ProductList({ products }: { products: ProductDTO[] }) {
                     throw new Error("Function not implemented.");
                 } } />
                 <CapInputRangeCalendar /> */}
+                <CapSwitcher
+                    data={products}
+                    tableHeaders={["image", "products", "code", "name"]}
+                    tableColumns={["photo", "name", "code", "name"]}
+                    tableNumeral={true}
+                    input={4}
+                    inputValue={quantity}
+                    inputSetValue={setQuantity}
+                    tableImage={1}
+                    buttons={["view", "edit", "remove"]}
+                    buttonsPaths={[
+                        "/products/",
+                        "/products/",
+                        "/api/products/",
+                    ]}
+                    searchPath={"name"}
+                    pagesSize = {size}
+                />
             </Container>
         </>
     );

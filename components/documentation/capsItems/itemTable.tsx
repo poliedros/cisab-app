@@ -5,6 +5,8 @@ import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 
 export default function ItemTable() {
+    const [quant, setQuant] = useState([1, 2, 3]);
+
     const [code, setCode] = useState("");
     const [labels, setLabels] = useState([
         {
@@ -24,6 +26,31 @@ export default function ItemTable() {
         },
     ]);
 
+    let json = [
+        {
+          _id: '63c2e43983b35b203bba221e',
+          name: 'demanda 01-3',
+          start_date: '2023-01-01T00:00:00.000Z',
+          end_date: '2025-01-01T00:00:00.000Z',
+          product_ids: [
+            {
+                name: 'prod1',
+                quantity: null
+            },
+            {
+                name: 'prod2',
+                quantity: null
+            },
+            {
+                name: 'prod3',
+                quantity: null
+            }
+          ],
+          state: 'DRAFT',
+          created_on: '2023-01-14T17:19:53.143Z'
+        }
+      ];
+
     //const [boolean, setBoolean] = useState<boolean[]>([true, false, false]);
 
     const [data, setData] = useState<any[]>([]);
@@ -31,8 +58,9 @@ export default function ItemTable() {
         "noValue",
         "countyName",
         "responsible",
+        "name",
     ]);
-    const [columns, setColumns] = useState(["city", "museum.name", "museum"]);
+    const [columns, setColumns] = useState(["city", "museum.name", "museum", "city"]);
 
     () =>
         setCode(
@@ -61,7 +89,11 @@ export default function ItemTable() {
                 headers={headers}
                 columns={columns}
                 image={2}
+                input={3}
+                inputValue={quant}
+                inputSetValue={setQuant}
             />
+            {quant}
         </Row>
             <Row>
                 <Col>

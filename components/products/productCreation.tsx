@@ -7,7 +7,7 @@ import useRole from "lib/useRole";
 import useUser from "lib/useUser";
 import { Measure, ProductDTO } from "pages/api/products";
 import { UnitDTO } from "pages/api/units";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import { Role } from "lib/role.enum";
 import useSWR, { MutatorCallback, MutatorOptions } from "swr";
@@ -94,6 +94,8 @@ export default function ProductCreation({
         error: error3,
         mutate: mutate3,
     } = useSWR<ProductDTO[]>(user ? "/api/products" : null);
+
+    const childRef = useRef<any>();
 
     const handleProductMeasure = (e: any) => {
         let measuresAlt: string[] = measures;
@@ -428,6 +430,7 @@ export default function ProductCreation({
                             </>,
                             <>
                                 <CapContainerAdd
+                                    ref={childRef}
                                     type="norm"
                                     components={[
                                         <>
@@ -442,6 +445,8 @@ export default function ProductCreation({
                                     resultArray={arrayNorms}
                                     setResultArray={setArrayNorms}
                                 />
+                                <CapIconButton iconType="" icon="" click={() => childRef.current ? childRef.current.handleContainer() : null} />
+                                {arrayNorms}
                                 <Row className="flex justify-end items-end">
                                     <Col>
                                         <CapLegend label={description} />
@@ -471,7 +476,7 @@ export default function ProductCreation({
                                             iconType="md"
                                             icon="MdNavigateNext"
                                             size="20px"
-                                            click={() => setStep(2)}
+                                            click={() => {childRef.current ? childRef.current.handleContainer() : null; setStep(2)}}
                                             mouseEnter={() =>
                                                 setDescription(
                                                     "continueFillingOut"
