@@ -69,10 +69,7 @@ export default function Edit() {
 
   return (
     <>
-      <CountyRegistration
-        county={countyRes}
-        submit={editCounty}
-      />
+      <CountyRegistration county={countyRes} submit={editCounty} />
       <>{error}</>
       <div className="flex justify-center">
         {message === "success" ? (
