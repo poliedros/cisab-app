@@ -7,7 +7,7 @@ import { ProductDTO } from "./products";
 export type DemandDTO = {
   _id: string;
   name: string;
-  product_ids: ProductDTO[];
+  products: ProductDTO[];
   start_date: string;
   end_date: string;
   state: string;

@@ -126,7 +126,7 @@ export default function CapSwitcher({
                 </Col>
                 <Col>
                     {format === "grid" ? (
-                        <CapContainer data={search || search !== "" && (data === dataPage) ? data : dataPage} component={cardType} buttons={buttons} buttonsPath={buttonsPaths} inputValue={inputValue}
+                        <CapContainer data={search || search !== "" && (data === dataPage) ? data : dataPage} component={cardType} buttons={buttons} buttonsPath={buttonsPaths} /* inputValue={inputValue} */
                         inputSetValue={inputSetValue} />
                     ) : format === "table" ? (
                         <CapTable
@@ -137,7 +137,7 @@ export default function CapSwitcher({
                             image={tableImage}
                             input={input}
                             inputValue={inputValue}
-                            inputSetValue={inputSetValue}
+                            //inputSetValue={inputSetValue}
                             getInput={getInput}
                             buttonsColumns={buttons}
                             buttonsPaths={buttonsPaths}

@@ -26,7 +26,7 @@ export default function CapTable({
     searchPath = undefined,
     input = undefined,
     inputValue = [],
-    inputSetValue = undefined,
+    //inputSetValue = undefined,
     getInput = undefined,
     pageSize = undefined,
     currentPage = undefined,
@@ -48,7 +48,7 @@ export default function CapTable({
     searchPath?: string;
     input?: number;
     inputValue?: any[];
-    inputSetValue?: any;
+    //inputSetValue?: any;
     getInput?: any;
     pageSize?: any;
     currentPage?: any;
@@ -103,7 +103,8 @@ export default function CapTable({
                  t.id === value.id && t.value === value.value
              ))
          ) : [];
-        console.log(final);
+         if(getInput)
+            getInput(final);
       },[values])
       
 
@@ -389,9 +390,9 @@ export default function CapTable({
                         
                 </tbody>
             </Table>
-            <div className="flex justify-end">
+            {/* <div className="flex justify-end">
                 <CapIconButton iconType="bs" icon="BsSave" size="14px" click={() => {handleChangeValue()}} />
-            </div>
+            </div> */}
         </>
     );
 }

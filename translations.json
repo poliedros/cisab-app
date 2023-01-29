@@ -625,5 +625,8 @@
   },
   "returnToLogin": {
     "pt": "Retornar a página de Acesso"
+  },
+  "placeOrder": {
+    "pt": "Fazer o Pedido"
   }
 }

@@ -14,7 +14,7 @@ import useRole from "lib/useRole";
 import useUser from "lib/useUser";
 import { Role } from "lib/role.enum";
 
-export default function DemandView({ demand, products }: { demand: DemandDTO, products?: ProductDTO[] }) {
+export default function DemandView({ demand }: { demand: DemandDTO }) {
     console.log("DEMAND");
     console.log(demand);
     const size = 7;
@@ -25,6 +25,7 @@ export default function DemandView({ demand, products }: { demand: DemandDTO, pr
     const [page, setPage] = useState(0);
 
     const [quantity, setQuantity] = useState<(string | number)[]>([]);
+    const [products, setProducts] = useState<ProductDTO[]>(demand.products);
     /* const [productsPage, setProductsPage] = useState(
         demand.product_ids.slice(page * size, page * size + size)
     ); */
@@ -124,7 +125,7 @@ export default function DemandView({ demand, products }: { demand: DemandDTO, pr
                         //searchPath={"name"}
                         pagesSize = {size}
                     />
-                    <CapTable
+                    {/* <CapTable
                             data={products ? products : []}
                             headers={["image", "products", "quantity"]}
                             columns={["photo", "name", "name"]}
@@ -132,7 +133,7 @@ export default function DemandView({ demand, products }: { demand: DemandDTO, pr
                             image={1}
                             input={3}
                             inputValue={quantity}
-                            inputSetValue={setQuantity}
+                            //inputSetValue={setQuantity}
                             buttonsColumns={["view"]}
                             buttonsPaths={[
                                 "/products/",
@@ -140,7 +141,7 @@ export default function DemandView({ demand, products }: { demand: DemandDTO, pr
                             search={searchProduct}
                             searchPath={"name"}
                         />
-                        {quantity}
+                        {quantity} */}
             </Row>
         </>
     );

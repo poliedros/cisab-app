@@ -73,7 +73,7 @@ export default function Users() {
                   icon="HiOutlineUserAdd"
                   size="20px"
                   click={() => {
-                    () => setAddNewUser(true)
+                    setAddNewUser(true)
                   }}
                   mouseEnter={() => setDescription("addUser")}
                   mouseLeave={() => setDescription("emptyText")}
@@ -81,12 +81,12 @@ export default function Users() {
                 </Col>
                 </Row>
 
-      <CapBtn
+      {/* <CapBtn
         label="addUser"
         iconType="hi"
         icon="HiOutlineUserAdd"
         click={() => setAddNewUser(true)}
-      />
+      /> */}
       {addNewUser ? (
         <>
           <UserRegistration

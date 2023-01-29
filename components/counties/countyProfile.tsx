@@ -8,6 +8,7 @@ import CapTextShowData from "atoms/capTextShowData";
 import CapInfoBoard from "atoms/capInfoBoard";
 import CapLink from "atoms/capLink";
 import translations from "lib/translations";
+import CapParagraph from "atoms/capParagraph";
 
 export default function CountyProfile({ county }: { county: any }) {
     return (
@@ -29,17 +30,21 @@ export default function CountyProfile({ county }: { county: any }) {
                         className="flex flex-column items-start text-left"
                     >
                         <CapTitle
+                            base={"none"}
                             literal={county.name}
                             additional={{ label: " !text-4xl !m-0" }}
                         />
                         <h6 className="lowercase tracking-widest text-[silver]">
                             MG
                         </h6>
-                        <h3 className="font-black">
+                        <CapParagraph literal={county.contact
+                                ? county.contact.phone
+                                : translations("noValue", "pt")} />
+                        {/* <h3 className="font-black">
                             {county.contact
                                 ? county.contact.phone
                                 : translations("noValue", "pt")}
-                        </h3>
+                        </h3> */}
                         <CapLink
                             literal={
                                 county.contact
@@ -143,16 +148,14 @@ export default function CountyProfile({ county }: { county: any }) {
                             href={`${county.county.site}`}
                         /> */}
                     </Col>
-                    <h6>
-                        {county.contact
+                    <CapParagraph literal={county.contact
                             ? county.contact.socialMedias
-                            : translations("noValue", "pt")}
-                    </h6>
-                    <h5>
-                        {county.contact
+                            : translations("noValue", "pt")} />
+                    <CapParagraph
+                        literal={county.contact
                             ? county.contact.note
                             : translations("noValue", "pt")}
-                    </h5>
+                    />
                 </Row>
             </div>
         </>

@@ -15,6 +15,7 @@ import CapInputRangeCalendar from "atoms/capInputRangeCalendar";
 import { CategoryDTO } from "pages/api/categories";
 import { MutatorCallback, MutatorOptions } from "swr";
 import CapSwitcher from "atoms/capSwitcher";
+import CapLegend from "atoms/capLegend";
 
 export default function ProductList({ products }: { products: ProductDTO[] }) {
     //const [searchProduct, setSearchProduct] = useState("");
@@ -39,6 +40,8 @@ export default function ProductList({ products }: { products: ProductDTO[] }) {
     // }, [page]);
 
     const [quantity, setQuantity] = useState<any[]>([]);
+    const [description, setDescription] = useState("emptyText");
+    const [getInput, setGetInput] = useState();
 
     return (
         <>
@@ -50,7 +53,7 @@ export default function ProductList({ products }: { products: ProductDTO[] }) {
                     setSearch={setSearchProduct}
                     placeholder={"searchProductByName"}
                 /> */}
-                <CapSwitcher
+                {/* <CapSwitcher
                     data={products}
                     tableHeaders={["image", "products", "code"]}
                     tableColumns={["photo", "name", "code"]}
@@ -63,8 +66,8 @@ export default function ProductList({ products }: { products: ProductDTO[] }) {
                         "/api/products/",
                     ]}
                     searchPath={"name"}
-                    pagesSize = {size}
-                    /* table={
+                    pagesSize = {size} */}
+                    {/* table={
                         <CapTable
                             data={productsPageFinal}
                             headers={["image", "products", "code"]}
@@ -87,8 +90,8 @@ export default function ProductList({ products }: { products: ProductDTO[] }) {
                             data={productsPage}
                             component="tinyCard"
                         />
-                    } */
-                    // pagination={
+                    } */}
+                    {/* pagination={
                     //     <CapPagination
                     //         content={products}
                     //         size={size}
@@ -96,7 +99,7 @@ export default function ProductList({ products }: { products: ProductDTO[] }) {
                     //         setPage={setPage}
                     //     />
                     // }
-                />
+                 />*/}
                 {/* <Row>
                     <Col md="auto" className="border-r-2 mr-3 !my-6">
                         <div className="flex flex-column">
@@ -169,7 +172,25 @@ export default function ProductList({ products }: { products: ProductDTO[] }) {
                     ]}
                     searchPath={"name"}
                     pagesSize = {size}
+                    getInput={setGetInput}
                 />
+                <Row className="flex justify-end items-end">
+              <Col>
+                <CapLegend label={description} />
+              </Col>
+                <Col md="auto" className="!pl-0">
+                <CapIconButton
+                  iconType="ri"
+                  icon="RiShoppingBasket2Line"
+                  size="20px"
+                  click={() => {
+                    alert(JSON.stringify(getInput))//setAddNewUser(true)
+                  }}
+                  mouseEnter={() => setDescription("placeOrder")}
+                  mouseLeave={() => setDescription("emptyText")}
+                />
+                </Col>
+            </Row>
             </Container>
         </>
     );
