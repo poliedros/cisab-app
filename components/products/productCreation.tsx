@@ -8,7 +8,7 @@ import useUser from "lib/useUser";
 import { Measure, ProductDTO } from "pages/api/products";
 import { UnitDTO } from "pages/api/units";
 import { useRef, useState } from "react";
-import { Col, Container, Form, Row } from "react-bootstrap";
+import { Col, Container, Form, OverlayTrigger, Popover, Row } from "react-bootstrap";
 import { Role } from "lib/role.enum";
 import useSWR, { MutatorCallback, MutatorOptions } from "swr";
 import UnitFunded from "./unit/unitFunded";
@@ -96,6 +96,7 @@ export default function ProductCreation({
     } = useSWR<ProductDTO[]>(user ? "/api/products" : null);
 
     const childRef = useRef<any>();
+    const measurementRef = useRef<any>();
 
     const handleProductMeasure = (e: any) => {
         let measuresAlt: string[] = measures;
@@ -279,6 +280,7 @@ export default function ProductCreation({
                                         setComponents()
                                     } */}
                                 <CapContainerAdd
+                                    ref={measurementRef}
                                     components={[
                                         <CapForm
                                             key={0}
@@ -405,11 +407,73 @@ export default function ProductCreation({
                                             /> */}
                                     </Col>
                                     <Col md="auto" className="!pl-0">
+                                    <OverlayTrigger
+                                        trigger="click"
+                                        placement="bottom-end"
+                                        overlay={
+                                            <Popover>
+                                                <div className="overflow-auto -m-6 p-4 invisibleScroll">
+                                                    <div
+                                                        className={
+                                                            ("dark" ===
+                                                            "dark"
+                                                                ? "bg-slate-600"
+                                                                : "bg-white") +
+                                                            " flex items-center relative py-2.5 px-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-full swing-in-right-bck"
+                                                        }
+                                                    >
+                                                        <p
+                                                            className={
+                                                                ("dark" ===
+                                                                "dark"
+                                                                    ? "!text-white"
+                                                                    : "") +
+                                                                " mb-0.5 mr-1.5"
+                                                            }
+                                                        >
+                                                            {translations(
+                                                                "questionRemove",
+                                                                language
+                                                            )}
+                                                        </p>
+                                                        <CapIconButton
+                                                            css="text-white"
+                                                            iconType="gr"
+                                                            icon="GrClose"
+                                                            size="14px"
+                                                            variant="danger"
+                                                            hoverColor="transparent"
+                                                            click={() =>
+                                                               {}
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </Popover>
+                                        }
+                                        rootClose
+                                    >
                                         <CapIconButton
                                             iconType="md"
                                             icon="MdNavigateNext"
                                             size="20px"
-                                            click={() => setStep(1)}
+                                            click={() => {measurementRef.current ? measurementRef.current.handleScanArray() : null; setStep(1)}}
+                                            mouseEnter={() =>
+                                                setDescription(
+                                                    "continueFillingOut"
+                                                )
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        />
+                                    </OverlayTrigger>
+
+                                        <CapIconButton
+                                            iconType="md"
+                                            icon="MdNavigateNext"
+                                            size="20px"
+                                            click={() => {measurementRef.current ? measurementRef.current.handleScanArray() : null; setStep(1)}}
                                             mouseEnter={() =>
                                                 setDescription(
                                                     "continueFillingOut"
@@ -445,8 +509,8 @@ export default function ProductCreation({
                                     resultArray={arrayNorms}
                                     setResultArray={setArrayNorms}
                                 />
-                                <CapIconButton iconType="" icon="" click={() => childRef.current ? childRef.current.handleContainer() : null} />
-                                {arrayNorms}
+                                {/* <CapIconButton iconType="" icon="" click={() => childRef.current ? childRef.current.handleContainer() : null} />
+                                {arrayNorms} */}
                                 <Row className="flex justify-end items-end">
                                     <Col>
                                         <CapLegend label={description} />

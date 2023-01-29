@@ -162,7 +162,7 @@ export default function ProductList({ products }: { products: ProductDTO[] }) {
                     tableNumeral={true}
                     input={4}
                     inputValue={quantity}
-                    inputSetValue={setQuantity}
+                    //inputSetValue={setQuantity}
                     tableImage={1}
                     buttons={["view", "edit", "remove"]}
                     buttonsPaths={[
