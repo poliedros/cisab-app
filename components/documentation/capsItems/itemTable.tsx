@@ -91,7 +91,7 @@ export default function ItemTable() {
                 image={2}
                 input={3}
                 inputValue={quant}
-                inputSetValue={setQuant}
+                //inputSetValue={setQuant}
             />
             {quant}
         </Row>
