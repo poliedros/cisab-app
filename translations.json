@@ -634,5 +634,8 @@
   },
   "errorOperation": {
     "pt": "Erro na operação"
+  },
+  "addProductsFromCategory": {
+    "pt": "Adicionar todos os produtos dessa(s) categoria(s)"
   }
 }
