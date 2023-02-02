@@ -305,6 +305,7 @@ export default function DemandCreation({
           </div>
           <CapIconButton
             css="ml-6"
+            tooltip="addProductsFromCategory"
             iconType="io5"
             icon="IoDownload"
             size="24px"
