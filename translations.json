@@ -637,5 +637,11 @@
   },
   "addProductsFromCategory": {
     "pt": "Adicionar todos os produtos dessa(s) categoria(s)"
+  },
+  "suggestProduct": {
+    "pt": "Sugerir um novo produto"
+  },
+  "suggestObs": {
+    "pt": "O produto criado aqui irá passar por uma validação da CISAB."
   }
 }

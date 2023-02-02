@@ -26,13 +26,18 @@ import CapLegend from "atoms/capLegend";
 import ProductCreationInformation from "./tabs/productCreationInformation";
 import CapMessageBottom from "atoms/capMessageBottom";
 import axios from "axios";
+import CapParagraph from "atoms/capParagraph";
 
 export default function ProductCreation({
   product = undefined,
   submit,
+  title,
+  suggest,
 }: {
   product?: ProductDTO | undefined;
   submit: (product: ProductDTO) => Promise<ProductDTO | undefined>;
+  title?: string;
+  suggest?: boolean;
 }) {
   const language = useLanguage();
   const toggleLanguage = useLanguageUpdate();
@@ -124,7 +129,7 @@ export default function ProductCreation({
       method: "POST",
       body: JSON.stringify(product),
     });
-    alert(data.status);
+    // alert(data.status);
 
     if (data.status === 200) <CapMessageBottom literal="Salvou" />;
     else <CapMessageBottom literal="Erro" />;
@@ -181,7 +186,7 @@ export default function ProductCreation({
             body: JSON.stringify(image),
         }); */
 
-    alert("Image: " + data.status);
+    // alert("Image: " + data.status);
 
     const result = await data.json();
     return undefined;
@@ -207,7 +212,11 @@ export default function ProductCreation({
     <>
       <CapTitle
         base="product"
-        label="addProduct" //{county ? "editCounty" : "countyRegistration"}
+        label={suggest ? "suggestProduct" : "addProduct"} //{county ? "editCounty" : "countyRegistration"}
+      />
+      <CapParagraph
+        label={"suggestObs"}
+        // show={suggest}
       />
       <Form className="mt-3">
         <Row>
