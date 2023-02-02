@@ -7,13 +7,7 @@ import CapTable from "atoms/capTable";
 import CapTitle from "atoms/capTitle";
 import CapInputGroup from "atoms/capInputGroup";
 
-export default function UserList(
-  {
-    users,
-  }: {
-    users: CountyUserDTO[];
-  }
-) {
+export default function UserList({ users }: { users: CountyUserDTO[] }) {
   const [searchUser, setSearchUser] = useState("");
 
   return (
@@ -29,8 +23,8 @@ export default function UserList(
           numeral={true}
           buttonsColumns={["edit"]}
           buttonsPaths={["/users/"]}
-          search={searchUser}
-          searchPath={"name"}
+          // search={searchUser}
+          // searchPath={"name"}
         />
       </Container>
     </>

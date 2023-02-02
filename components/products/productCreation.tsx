@@ -26,7 +26,7 @@ import CapLegend from "atoms/capLegend";
 import ProductCreationInformation from "./tabs/productCreationInformation";
 import CapMessageBottom from "atoms/capMessageBottom";
 import axios from "axios";
-import CapTextShowData from "atoms/capTextShowData";
+import CapParagraph from "atoms/capParagraph";
 
 export default function ProductCreation({
   product = undefined,
@@ -214,7 +214,7 @@ export default function ProductCreation({
         base="product"
         label={suggest ? "suggestProduct" : "addProduct"} //{county ? "editCounty" : "countyRegistration"}
       />
-      <CapTextShowData
+      <CapParagraph
         label={"suggestObs"}
         // show={suggest}
       />
