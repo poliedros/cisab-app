@@ -37,6 +37,9 @@ export default function DemandCreation({
   const [categoriesSt, setCategoriesSt] = useState<any[]>([]);
   const [categoriesSwr, setCategoriesSwr] = useState<string>("");
 
+  const [errorMessage, setErrorMessage] = useState<boolean>(false);
+  const [successMessage, setSuccessMessage] = useState<boolean>(false);
+
   const {
     data: products,
     error: error,
@@ -95,10 +98,13 @@ export default function DemandCreation({
       method: "POST",
       body: JSON.stringify(demand),
     });
-    alert(data.status);
 
-    if (data.status === 200) <CapMessageBottom literal="Salvou" />;
-    else <CapMessageBottom literal="Erro" />;
+    // if (data.status === 200) <CapMessageBottom literal="Salvou" />;
+    // else <CapMessageBottom literal="Erro" />;
+
+    if (data.status === 201) setSuccessMessage(true);
+    else setSuccessMessage(false);
+
     const result = await data.json();
     setDemandId(result._id);
     return undefined;
@@ -123,7 +129,7 @@ export default function DemandCreation({
     //console.log(categoriesSwr);
     console.log(demandResult);
     console.log(productsSt);
-    //await saveDemand(demandResult);
+    await saveDemand(demandResult);
   };
 
   let layout;
@@ -400,17 +406,21 @@ export default function DemandCreation({
             mouseLeave={() => setDescription("emptyText")}
           />
         </Col>
-        <Col md="auto" className="!pl-0">
-          <CapIconButton
-            iconType="ri"
-            icon="RiEyeLine"
-            size="20px"
-            //click={() => setStep(1)}
-            mouseEnter={() => setDescription("unblockDemand")}
-            mouseLeave={() => setDescription("emptyText")}
-          />
-        </Col>
       </Row>
+      <CapMessageBottom
+        label={"ErrorOperation"}
+        css="text-red-600"
+        externCss={"-bottom-[15vh]"}
+        show={errorMessage}
+        setShow={setErrorMessage}
+      />
+      <CapMessageBottom
+        label={"successOperation"}
+        css="text-green-600"
+        externCss={"-bottom-[15vh]"}
+        show={successMessage}
+        setShow={setSuccessMessage}
+      />
     </>
   );
 }
