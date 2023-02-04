@@ -8,7 +8,7 @@ import useUser from "lib/useUser";
 import { Measure, ProductDTO } from "pages/api/products";
 import { UnitDTO } from "pages/api/units";
 import { useRef, useState } from "react";
-import { Col, Container, Form, Row } from "react-bootstrap";
+import { Col, Container, Form, OverlayTrigger, Popover, Row } from "react-bootstrap";
 import { Role } from "lib/role.enum";
 import useSWR, { MutatorCallback, MutatorOptions } from "swr";
 import UnitFunded from "./unit/unitFunded";
@@ -27,6 +27,8 @@ import ProductCreationInformation from "./tabs/productCreationInformation";
 import CapMessageBottom from "atoms/capMessageBottom";
 import axios from "axios";
 import CapParagraph from "atoms/capParagraph";
+import { useTheme } from "context/themeContext";
+import CapOverlayTrigger from "atoms/capOverlayTrigger";
 
 export default function ProductCreation({
   product = undefined,
@@ -39,8 +41,9 @@ export default function ProductCreation({
   title?: string;
   suggest?: boolean;
 }) {
-  const language = useLanguage();
-  const toggleLanguage = useLanguageUpdate();
+    const theme = useTheme();
+    const language = useLanguage();
+    const toggleLanguage = useLanguageUpdate();
 
   const [productName, setProductName] = useState("");
 
@@ -78,9 +81,14 @@ export default function ProductCreation({
   const [categorySt, setcategorySt] = useState([""]);
 
   const [productId, setProductId] = useState();
+    const [showSave, setShowSave] = useState(false);
+    const [showError, setShowError] = useState(false);
+    const [showBlocked, setShowBlocked] = useState(true);
 
-  const { user } = useUser({ redirectTo: "/login" });
-  useRole({ user, role: Role.Cisab, redirectTo: "/" });
+    const ref = useRef();
+
+    const { user } = useUser({ redirectTo: "/login" });
+    useRole({ user, role: Role.Cisab, redirectTo: "/" });
 
   const {
     data: units,
@@ -101,6 +109,7 @@ export default function ProductCreation({
   } = useSWR<ProductDTO[]>(user ? "/api/products" : null);
 
   const childRef = useRef<any>();
+    const measurementRef = useRef<any>();
 
   const handleProductMeasure = (e: any) => {
     let measuresAlt: string[] = measures;
@@ -123,20 +132,25 @@ export default function ProductCreation({
     setUnitsSt(unitsStAlt);
   };
 
-  const saveProduct = async (product: any): Promise<ProductDTO | undefined> => {
-    delete product._id;
-    const data = await fetch("/api/products", {
-      method: "POST",
-      body: JSON.stringify(product),
-    });
-    // alert(data.status);
+    const saveProduct = async (
+        product: any
+    ): Promise<ProductDTO | undefined> => {
+        delete product._id;
+        const data = await fetch("/api/products", {
+            method: "POST",
+            body: JSON.stringify(product),
+        });
+        //alert(data.status);
 
-    if (data.status === 200) <CapMessageBottom literal="Salvou" />;
-    else <CapMessageBottom literal="Erro" />;
-    const result = await data.json();
-    setProductId(result._id);
-    return undefined;
-  };
+        if(data.status === 200)
+            setShowSave(true); //<CapMessageBottom literal="Salvou" show={showSave} setShow={setShowSave} />
+        else
+            setShowError(true); //<CapMessageBottom literal="Erro" show={showError} setShow={setShowError} />
+        const result = await data.json();
+        setProductId(result._id);
+        alert(JSON.stringify(result));
+        return undefined;
+    };
 
   const handleProduct = async () => {
     //alert(categories);
@@ -198,83 +212,159 @@ export default function ProductCreation({
     await saveImage(imageSt);
   };
 
-  if (error) return <div>failed to load</div>;
-  if (!units) return <div>loading...</div>;
+    const [showOT, setShowOT] = useState(false);
+    const [showOT1, setShowOT1] = useState(false);
+    const [showOT2, setShowOT2] = useState(false);
+    const [showOT3, setShowOT3] = useState(false);
+    const [mesuamentSt, setMesuamentSt] = useState([]);
+
+    if (error) return <div>failed to load</div>;
+    if (!units) return <div>loading...</div>;
 
   if (!user || user.isLoggedIn == false) {
     return <div>404</div>;
   }
-
+    
   //console.log(array);
   //console.log(list);
 
-  return (
-    <>
-      <CapTitle
-        base="product"
-        label={suggest ? "suggestProduct" : "addProduct"} //{county ? "editCounty" : "countyRegistration"}
-      />
-      <CapParagraph
-        label={"suggestObs"}
-        // show={suggest}
-      />
-      <Form className="mt-3">
-        <Row>
-          <CapTabs
-            activeKey={step.toString()}
-            disabled={[true, true, true, true, true]}
-            stagesTooltips={[
-              "productData",
-              "norms",
-              "accessories",
-              "image",
-              "finalize",
-            ]}
-            stagesIcons={[
-              "MdEditNote",
-              "FaBalanceScale",
-              "MdAddCircle",
-              "IoImage",
-              "RiCheckboxCircleFill",
-            ]}
-            stagesIconsTypes={["md", "fa", "md", "io5", "ri"]}
-            stagesBody={[
-              <>
-                {/* <ProductCreationInformation productName={""} setProductName={undefined} code={""} setCode={undefined} categories={[]} mutateCat={undefined} listCat={[]} setListCat={undefined} units={[]} mutate={undefined} list={[]} setList={undefined} description={description} setDescription={setDescription} array={undefined} setArray={undefined} setStep={undefined} handleProduct={undefined} handleUnitValue={undefined} handleProductMeasure={undefined} /> */}
-                <CapForm
-                  key={0}
-                  as={Col}
-                  label="productName"
-                  placeholder="insertProductName"
-                  value={productName}
-                  change={
-                    (e: any) => setProductName(e.target.value) //setProductName(e.target.value)
-                  }
-                  legend="exampleProductName"
-                />
-                <Row className="flex items-center">
-                  <CapForm
-                    key={0}
-                    as={Col}
-                    label="productCode"
-                    placeholder="insertProductCode"
-                    value={code}
-                    change={
-                      (e: any) => setCode(e.target.value) //setProductName(e.target.value)
-                    }
-                    /* legend="exampleProductName" */
-                  />
-                  <Col>
-                    <CapInputAdvanced
-                      label="productCategory"
-                      placeholder="insertProductMultiCategory"
-                      categories={categories}
-                      mutate={mutate}
-                      array={listCat}
-                      setArray={setListCat}
-                    />
-                  </Col>
-                  {/* <CapForm
+    const Overlay = (show: boolean, setShow: any) => {
+        return (
+            <OverlayTrigger
+                                        //ref="overlay"
+                                        trigger="click"
+                                        placement="top-end"
+                                        show={show}
+                                        onToggle={() => setShow(!show)}
+                                        overlay={
+                                            <Popover>
+                                                <div className="overflow-auto -m-6 p-4 invisibleScroll">
+                                                    <div
+                                                        className={
+                                                            (theme === "dark"
+                                                                ? "bg-slate-600"
+                                                                : "bg-white") +
+                                                            " flex font-[Jost] items-center relative py-2.5 px-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-2xl swing-in-right-bck"
+                                                        }
+                                                    >
+                                                        <p
+                                                            className={
+                                                                (theme === "dark"
+                                                                    ? "!text-white"
+                                                                    : "") +
+                                                                " px-2 mb-0.5 mr-1.5 whitespace-pre-line text-base"
+                                                            }
+                                                        >
+                                                            {productName && productName !== "" ? (<><span className="uppercase text-xs tracking-widest text-slate-300">{translations("productName", language)}</span><br/> {productName} <br/></>) : <><span className="uppercase text-xs tracking-widest text-[#f62217]">{translations("productNameRequired", language)}</span><br/></>}
+                                                            {code && code !== "" ? (<><span className="uppercase text-xs tracking-widest text-slate-300">{translations("code", language)}</span><br/> {code} <br/></>) : <><span className="uppercase text-xs tracking-widest text-slate-300">{translations("code", language)}</span><br/>{translations("noCodeAdded", language)}<br/></>}
+                                                            {listCat.length > 0 && listCat[0].length !== 0 ? (<><span className="uppercase text-xs tracking-widest text-slate-300">{translations("categories", language)}</span><br/> {listCat.join(", ")} <br/></>) : <><span className="uppercase text-xs tracking-widest text-[#f62217]">{translations("atLeastOneCategoryRequired", language)}</span><br/></>}
+                                                            {/* Medidas: {measures.join(", ")} <br/>
+                                                            Tamanhos: {unitsValue.join(", ")} <br/> */}
+                                                            <span className="uppercase text-xs tracking-widest text-slate-300">{translations("measures", language)}</span><br/>
+                                                            { mesuamentSt ? mesuamentSt.map((m: any) => {return (m.name && m.name !== "" && m.value && m.value !== "" && m.unit && m.unit !== "Unidade") ? m.name + ": " + m.value + " " + m.unit : !(m.name && m.name !== "" && m.value && m.value !== "" && m.unit && m.unit !== "Unidade") ? translations("incorrectedMeasureAdded", language) : translations("noMeasureAdded", language)}).join("\n") : null}
+                                                            {/* {measurementRef.current ? measurementRef.current.handleScanArray() : null} */}
+                                                        </p>
+                                                        <CapIconButton
+                                                            css="!bg-[#7dc523]"
+                                                            iconType="gr"
+                                                            icon="GrCheckmark"
+                                                            size="14px"
+                                                            //variant="success"
+                                                            hoverColor="transparent"
+                                                            click={() =>
+                                                               { setShow(false); setStep(1)} //this.refs.overlay.hide();
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </Popover>
+                                        }
+                                        rootClose
+                                    >
+                                        <div>
+                                        <CapIconButton
+                                            iconType="md"
+                                            icon="MdNavigateNext"
+                                            size="20px"
+                                            click={() => {setShow(true); measurementRef.current ? setMesuamentSt(measurementRef.current.handleScanArray()) : null}} //{measurementRef.current ? measurementRef.current.handleScanArray() : null; setStep(1)}
+                                            mouseEnter={() =>
+                                                setDescription(
+                                                    "continueFillingOut"
+                                                )
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        />
+                                        </div>
+                                    </OverlayTrigger>
+        )
+    }
+
+    return (
+        <>
+            <CapTitle
+                base="product"
+                label="addProduct" //{county ? "editCounty" : "countyRegistration"}
+            />
+            <Form className="mt-3">
+                <Row>
+                    <CapTabs
+                        activeKey={step.toString()}
+                        disabled={[true, true, true, true, true]}
+                        stagesTooltips={[
+                            "productData",
+                            "norms",
+                            "accessories",
+                            "image",
+                            "finalize",
+                        ]}
+                        stagesIcons={[
+                            "MdEditNote",
+                            "FaBalanceScale",
+                            "MdAddCircle",
+                            "IoImage",
+                            "RiCheckboxCircleFill",
+                        ]}
+                        stagesIconsTypes={["md", "fa", "md", "io5", "ri"]}
+                        stagesBody={[
+                            <>
+                                {/* <ProductCreationInformation productName={""} setProductName={undefined} code={""} setCode={undefined} categories={[]} mutateCat={undefined} listCat={[]} setListCat={undefined} units={[]} mutate={undefined} list={[]} setList={undefined} description={description} setDescription={setDescription} array={undefined} setArray={undefined} setStep={undefined} handleProduct={undefined} handleUnitValue={undefined} handleProductMeasure={undefined} /> */}
+                                <CapForm
+                                    key={0}
+                                    as={Col}
+                                    label="productName"
+                                    placeholder="insertProductName"
+                                    value={productName}
+                                    change={
+                                        (e: any) =>
+                                            setProductName(e.target.value) //setProductName(e.target.value)
+                                    }
+                                    legend="exampleProductName"
+                                />
+                                <Row className="flex items-center">
+                                    <CapForm
+                                        key={0}
+                                        as={Col}
+                                        label="productCode"
+                                        placeholder="insertProductCode"
+                                        value={code}
+                                        change={
+                                            (e: any) => setCode(e.target.value) //setProductName(e.target.value)
+                                        }
+                                        /* legend="exampleProductName" */
+                                    />
+                                    <Col>
+                                        <CapInputAdvanced
+                                            label="productCategory"
+                                            placeholder="insertProductMultiCategory"
+                                            categories={categories}
+                                            mutate={mutate}
+                                            array={listCat}
+                                            setArray={setListCat}
+                                        />
+                                    </Col>
+                                    {/* <CapForm
                                             key={0}
                                             as={Col}
                                             label="productCategory"
@@ -284,46 +374,48 @@ export default function ProductCreation({
                 {/* {
                                         setComponents()
                                     } */}
-                <CapContainerAdd
-                  components={[
-                    <CapForm
-                      key={0}
-                      as={Col}
-                      label="measure" //"measure"
-                      placeholder="insertMeasure" //"insertMeasureName"
-                      //value={} //(e: any) => measures[e.target.parentElement.parentElement.parentElement.id]
-                      change={
-                        (e: any) => handleProductMeasure(e) //console.log(e.target.parentElement.parentElement.parentElement.id ) //setMeasures(e.target.value)
-                      }
-                      legend="exampleMeasure"
-                    />,
-                    <CapForm
-                      key={0}
-                      as={Col}
-                      label="quantity" //"scale"
-                      placeholder="insertQuantity" //"insertScale"
-                      type="number"
-                      //value={measures}
-                      change={
-                        (e: any) => handleUnitValue(e) //alert(e.target.value)
-                      } //setMeasures([...measures, e.target.value])
-                    />,
-                    <Col key={0}>
-                      <UnitFunded
-                        units={units}
-                        mutate={mutate}
-                        array={list}
-                        setArray={setList}
-                      />{" "}
-                      {/* (e: any) => setFunc(e) (e: any) => handleUnitName(e) */}
-                    </Col>,
-                  ]}
-                  //setComponents={setComponents}
-                  key={k}
-                  resultArray={array}
-                  setResultArray={setArray}
-                />
-                {/* unit.map((m, i) => 
+                                <CapContainerAdd
+                                    ref={measurementRef}
+                                    components={[
+                                        <CapForm
+                                            key={0}
+                                            as={Col}
+                                            label="measure" //"measure"
+                                            placeholder="insertMeasure" //"insertMeasureName"
+                                            //value={} //(e: any) => measures[e.target.parentElement.parentElement.parentElement.id]
+                                            change={
+                                                (e: any) =>
+                                                    handleProductMeasure(e) //console.log(e.target.parentElement.parentElement.parentElement.id ) //setMeasures(e.target.value)
+                                            }
+                                            legend="exampleMeasure"
+                                        />,
+                                        <CapForm
+                                            key={0}
+                                            as={Col}
+                                            label="quantity" //"scale"
+                                            placeholder="insertQuantity" //"insertScale"
+                                            type="number"
+                                            //value={measures}
+                                            change={
+                                                (e: any) => handleUnitValue(e) //alert(e.target.value)
+                                            } //setMeasures([...measures, e.target.value])
+                                        />,
+                                        <Col key={0}>
+                                            <UnitFunded
+                                                units={units}
+                                                mutate={mutate}
+                                                array={list}
+                                                setArray={setList}
+                                            />{" "}
+                                            {/* (e: any) => setFunc(e) (e: any) => handleUnitName(e) */}
+                                        </Col>,
+                                    ]}
+                                    //setComponents={setComponents}
+                                    key={k}
+                                    resultArray={array}
+                                    setResultArray={setArray}
+                                />
+                                {/* unit.map((m, i) => 
                                 <div key={i}>
                                     <Row className="mb-3 items-center">
                                         <CapForm
@@ -364,121 +456,412 @@ export default function ProductCreation({
                                     </Row>
                                     </div>
                                     ) */}
-                {/* <CapBtn kind="next" click={handleProduct} /> */}
-                <Row className="flex justify-end items-end">
-                  <Col>
-                    <CapLegend label={description} />
-                  </Col>
-                  <Col md="auto" className="!pl-0 !pr-3">
-                    <CapIconButton
-                      iconType="io5"
-                      icon="IoImageOutline"
-                      size="20px"
-                      click={handleProduct}
-                      mouseEnter={() => setDescription("finalize")}
-                      mouseLeave={() => setDescription("emptyText")}
-                    />
-                    {/* <CapBtn
+                                {/* <CapBtn kind="next" click={handleProduct} /> */}
+                                <Row className="flex justify-end items-end">
+                                    <Col>
+                                        <CapLegend label={description} />
+                                    </Col>
+                                    <Col md="auto" className="!pl-0 !pr-3">
+                                    <CapOverlayTrigger listCat={listCat} handleProduct={handleProduct} code={code} show={showOT2} setShow={setShowOT2} step={3} productName={productName} mesuamentSt={mesuamentSt} setMesuamentSt={setMesuamentSt} setStep={setStep} setDescription={setDescription} handleScanArray={() => measurementRef.current.handleScanArray()} button={<CapIconButton
+                                            iconType="io5"
+                                            icon="IoImageOutline"
+                                            size="20px"
+                                            click={() => {
+                                                setShowOT2(true);
+                                                //measurementRef.current
+                                                //handleScanArray
+                                                    //?
+                                                    setMesuamentSt(
+                                                        measurementRef.current.handleScanArray()
+                                                      )
+                                                    //: null;
+                                            }}
+                                            mouseEnter={() =>
+                                                setDescription("finalize")
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        />}/>
+                                        {/* <CapIconButton
+                                            iconType="io5"
+                                            icon="IoImageOutline"
+                                            size="20px"
+                                            click={handleProduct}
+                                            mouseEnter={() =>
+                                                setDescription("finalize")
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        /> */}
+                                        {/* <CapBtn
                                                 label="finalize"
                                                 iconType="io5"
                                                 icon="IoImageOutline"
                                                 click={handleProduct} //() => setStep(3)
                                             /> */}
-                  </Col>
-                  <Col md="auto" className="!pl-0 !pr-3">
-                    <CapIconButton
-                      iconType="md"
-                      icon="MdOutlineAddCircleOutline"
-                      size="20px"
-                      click={() => setStep(2)}
-                      mouseEnter={() => setDescription("goToAccessory")}
-                      mouseLeave={() => setDescription("emptyText")}
-                    />
-                    {/* <CapBtn
+                                    </Col>
+                                    <Col md="auto" className="!pl-0 !pr-3">
+                                    <CapOverlayTrigger listCat={listCat} code={code} show={showOT1} setShow={setShowOT1} productName={productName} mesuamentSt={mesuamentSt} setMesuamentSt={setMesuamentSt} setStep={setStep} step={2} setDescription={setDescription} handleScanArray={() => measurementRef.current.handleScanArray()} button={<CapIconButton
+                                            iconType="md"
+                                            icon="MdOutlineAddCircleOutline"
+                                            size="20px"
+                                            click={() => {
+                                                setShowOT1(true);
+                                                //measurementRef.current
+                                                //handleScanArray
+                                                    //?
+                                                    setMesuamentSt(
+                                                        measurementRef.current.handleScanArray()
+                                                      )
+                                                    //: null;
+                                            }}
+                                            mouseEnter={() =>
+                                                setDescription("goToAccessory")
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        />}/>
+                                        {/* <CapIconButton
+                                            iconType="md"
+                                            icon="MdOutlineAddCircleOutline"
+                                            size="20px"
+                                            click={() => setStep(2)}
+                                            mouseEnter={() =>
+                                                setDescription("goToAccessory")
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        /> */}
+                                        {/* <CapBtn
                                                 label="goToAccessory"
                                                 iconType="md"
                                                 icon="MdOutlineAddCircleOutline"
                                                 click={() => setStep(2)}
                                             /> */}
-                  </Col>
-                  <Col md="auto" className="!pl-0">
-                    <CapIconButton
-                      iconType="md"
-                      icon="MdNavigateNext"
-                      size="20px"
-                      click={() => setStep(1)}
-                      mouseEnter={() => setDescription("continueFillingOut")}
-                      mouseLeave={() => setDescription("emptyText")}
-                    />
-                    {/* <CapBtn
+                                    </Col>
+                                    <Col md="auto" className="!pl-0">
+                                    <CapOverlayTrigger listCat={listCat} code={code} show={showOT} setShow={setShowOT} productName={productName} mesuamentSt={mesuamentSt} setMesuamentSt={setMesuamentSt} setStep={setStep} step={1} setDescription={setDescription} handleScanArray={() => measurementRef.current.handleScanArray()} button={<CapIconButton
+                        iconType="md"
+                        icon="MdNavigateNext"
+                        size="20px"
+                        click={() => {
+                            setShowOT(true);
+                            //measurementRef.current
+                            //handleScanArray
+                                //?
+                                setMesuamentSt(
+                                    measurementRef.current.handleScanArray()
+                                  )
+                                //: null;
+                        }} //{measurementRef.current ? measurementRef.current.handleScanArray() : null; setStep(1)}
+                        mouseEnter={() => setDescription("continueFillingOut")}
+                        mouseLeave={() => setDescription("emptyText")}
+                    />}/>
+                                    {/* <OverlayTrigger
+                                        //ref="overlay"
+                                        trigger="click"
+                                        placement="top-end"
+                                        show={showOT}
+                                        onToggle={() => setShowOT(!showOT)}
+                                        overlay={
+                                            <Popover>
+                                                <div className="overflow-auto -m-6 p-4 invisibleScroll">
+                                                    <div
+                                                        className={
+                                                            (theme === "dark"
+                                                                ? "bg-slate-600"
+                                                                : "bg-white") +
+                                                            " flex font-[Jost] items-center relative py-2.5 px-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-2xl swing-in-right-bck"
+                                                        }
+                                                    >
+                                                        <p
+                                                            className={
+                                                                (theme === "dark"
+                                                                    ? "!text-white"
+                                                                    : "") +
+                                                                " px-2 mb-0.5 mr-1.5 whitespace-pre-line text-base"
+                                                            }
+                                                        >
+                                                            {productName && productName !== "" ? (<><span className="uppercase text-xs tracking-widest text-slate-300">{translations("productName", language)}</span><br/> {productName} <br/></>) : <><span className="uppercase text-xs tracking-widest text-[#f62217]">{translations("productNameRequired", language)}</span><br/></>}
+                                                            {code && code !== "" ? (<><span className="uppercase text-xs tracking-widest text-slate-300">{translations("code", language)}</span><br/> {code} <br/></>) : <><span className="uppercase text-xs tracking-widest text-slate-300">{translations("code", language)}</span><br/>{translations("noCodeAdded", language)}<br/></>}
+                                                            {listCat.length > 0 && listCat[0].length !== 0 ? (<><span className="uppercase text-xs tracking-widest text-slate-300">{translations("categories", language)}</span><br/> {listCat.join(", ")} <br/></>) : <><span className="uppercase text-xs tracking-widest text-[#f62217]">{translations("atLeastOneCategoryRequired", language)}</span><br/></>}
+                                                            
+                                                            <span className="uppercase text-xs tracking-widest text-slate-300">{translations("measures", language)}</span><br/>
+                                                            { mesuamentSt ? mesuamentSt.map((m: any) => {return (m.name && m.name !== "" && m.value && m.value !== "" && m.unit && m.unit !== "Unidade") ? m.name + ": " + m.value + " " + m.unit : !(m.name && m.name !== "" && m.value && m.value !== "" && m.unit && m.unit !== "Unidade") ? translations("incorrectedMeasureAdded", language) : translations("noMeasureAdded", language)}).join("\n") : null}
+                                                            
+                                                        </p>
+                                                        <CapIconButton
+                                                            css="!bg-[#7dc523]"
+                                                            iconType="gr"
+                                                            icon="GrCheckmark"
+                                                            size="14px"
+                                                            //variant="success"
+                                                            hoverColor="transparent"
+                                                            click={() =>
+                                                               { setShowOT(false); setStep(1)} //this.refs.overlay.hide();
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </Popover>
+                                        }
+                                        rootClose
+                                    >
+                                        <div>
+                                        <CapIconButton
+                                            iconType="md"
+                                            icon="MdNavigateNext"
+                                            size="20px"
+                                            click={() => {setShowOT(true); measurementRef.current ? setMesuamentSt(measurementRef.current.handleScanArray()) : null}} //{measurementRef.current ? measurementRef.current.handleScanArray() : null; setStep(1)}
+                                            mouseEnter={() =>
+                                                setDescription(
+                                                    "continueFillingOut"
+                                                )
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        />
+                                        </div>
+                                    </OverlayTrigger> */}
+                                        {/* <CapIconButton
+                                            iconType="md"
+                                            icon="MdNavigateNext"
+                                            size="20px"
+                                            click={() => {measurementRef.current ? measurementRef.current.handleScanArray() : null; setStep(1)}}
+                                            mouseEnter={() =>
+                                                setDescription(
+                                                    "continueFillingOut"
+                                                )
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        /> */}
+                                        {/* <CapBtn
                                                 label="continueFillingOut"
                                                 iconType="md"
                                                 icon="MdNavigateNext"
                                                 click={() => setStep(1)}
                                             /> */}
-                  </Col>
-                </Row>
-              </>,
-              <>
-                <CapContainerAdd
-                  ref={childRef}
-                  type="norm"
-                  components={[
-                    <>
-                      <CapForm
-                        asControl="textarea"
-                        rows={3}
-                        label="norm"
-                        placeholder="insertNorm"
-                      />
-                    </>,
-                  ]}
-                  resultArray={arrayNorms}
-                  setResultArray={setArrayNorms}
-                />
-                <CapIconButton
-                  iconType=""
-                  icon=""
-                  click={() =>
-                    childRef.current ? childRef.current.handleContainer() : null
-                  }
-                />
-                {arrayNorms}
-                <Row className="flex justify-end items-end">
-                  <Col>
-                    <CapLegend label={description} />
-                  </Col>
-                  <Col md="auto" className="!pl-0 !pr-3">
-                    <CapIconButton
-                      iconType="io5"
-                      icon="IoImageOutline"
-                      size="20px"
-                      click={handleProduct}
-                      mouseEnter={() => setDescription("finalize")}
-                      mouseLeave={() => setDescription("emptyText")}
-                    />
-                    {/* <CapBtn
+                                    </Col>
+                                </Row>
+                            </>,
+                            <>
+                                <CapContainerAdd
+                                    ref={childRef}
+                                    type="norm"
+                                    components={[
+                                        <>
+                                            <CapForm
+                                                asControl="textarea"
+                                                rows={3}
+                                                label="norm"
+                                                placeholder="insertNorm"
+                                            />
+                                        </>,
+                                    ]}
+                                    resultArray={arrayNorms}
+                                    setResultArray={setArrayNorms}
+                                />
+                                {/* <CapIconButton iconType="" icon="" click={() => childRef.current ? childRef.current.handleContainer() : null} />
+                                {arrayNorms} */}
+                                <Row className="flex justify-end items-end">
+                                    <Col>
+                                        <CapLegend label={description} />
+                                    </Col>
+                                    <Col md="auto" className="!pl-0 !pr-3">
+                                        <OverlayTrigger
+                                        //ref="overlay"
+                                        trigger="click"
+                                        placement="top-end"
+                                        show={showOT3}
+                                        onToggle={() => setShowOT3(!showOT3)}
+                                        overlay={
+                                            <Popover>
+                                                <div className="overflow-auto -m-6 p-4 invisibleScroll">
+                                                    <div
+                                                        className={
+                                                            (theme === "dark"
+                                                                ? "bg-slate-600"
+                                                                : "bg-white") +
+                                                            " flex items-center relative py-2.5 px-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-2xl swing-in-right-bck"
+                                                        }
+                                                    >
+                                                        <p
+                                                            className={
+                                                                (theme === "dark"
+                                                                    ? "!text-white"
+                                                                    : "") +
+                                                                " px-2 mb-0.5 mr-1.5 whitespace-pre-line"
+                                                            }
+                                                        >
+                                                            <span className="uppercase text-xs tracking-widest text-slate-300">{translations("norms", language)}</span><br/>
+                                                            {arrayNorms.map(an => {return an}).join("\n")}
+                                                            {/* {measurementRef.current ? measurementRef.current.handleScanArray() : null} */}
+                                                        </p>
+                                                        <CapIconButton
+                                                            css="!bg-[#7dc523]"
+                                                            iconType="gr"
+                                                            icon="GrCheckmark"
+                                                            size="14px"
+                                                            //variant="success"
+                                                            hoverColor="transparent"
+                                                            click={() =>
+                                                               { setShowOT3(false); handleProduct() } //this.refs.overlay.hide();
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </Popover>
+                                        }
+                                        rootClose
+                                    >
+                                        <div>
+                                        <CapIconButton
+                                            iconType="io5"
+                                            icon="IoImageOutline"
+                                            size="20px"
+                                            click={() => {setShowOT3(true); childRef.current ? setArrayNorms(childRef.current.handleContainer()) : null }}
+                                            mouseEnter={() =>
+                                                setDescription("finalize")
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        />
+                                        {/* <CapIconButton
+                                            iconType="md"
+                                            icon="MdNavigateNext"
+                                            size="20px"
+                                            click={() => setShowOT(true)} //{measurementRef.current ? measurementRef.current.handleScanArray() : null; setStep(1)}
+                                            mouseEnter={() =>
+                                                setDescription(
+                                                    "continueFillingOut"
+                                                )
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        /> */}
+                                        </div>
+                                    </OverlayTrigger>
+                                        {/* <CapIconButton
+                                            iconType="io5"
+                                            icon="IoImageOutline"
+                                            size="20px"
+                                            click={handleProduct}
+                                            mouseEnter={() =>
+                                                setDescription("finalize")
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        /> */}
+                                        {/* <CapBtn
                                                 label="finalize"
                                                 iconType="io5"
                                                 icon="IoImageOutline"
                                                 click={handleProduct} //() => setStep(3)
                                             /> */}
-                  </Col>
-                  <Col md="auto" className="!pl-0">
-                    <CapIconButton
-                      iconType="md"
-                      icon="MdNavigateNext"
-                      size="20px"
-                      click={() => {
-                        childRef.current
-                          ? childRef.current.handleContainer()
-                          : null;
-                        setStep(2);
-                      }}
-                      mouseEnter={() => setDescription("continueFillingOut")}
-                      mouseLeave={() => setDescription("emptyText")}
-                    />
-                    {/* <CapBtn
+                                    </Col>
+                                    <Col md="auto" className="!pl-0">
+                                        <OverlayTrigger
+                                        //ref="overlay"
+                                        trigger="click"
+                                        placement="top-end"
+                                        show={showOT}
+                                        onToggle={() => setShowOT(!showOT)}
+                                        overlay={
+                                            <Popover>
+                                                <div className="overflow-auto -m-6 p-4 invisibleScroll">
+                                                    <div
+                                                        className={
+                                                            (theme === "dark"
+                                                                ? "bg-slate-600"
+                                                                : "bg-white") +
+                                                            " flex items-center relative py-2.5 px-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-2xl swing-in-right-bck"
+                                                        }
+                                                    >
+                                                        <p
+                                                            className={
+                                                                (theme === "dark"
+                                                                    ? "!text-white"
+                                                                    : "") +
+                                                                " px-2 mb-0.5 mr-1.5 whitespace-pre-line"
+                                                            }
+                                                        >
+                                                            <span className="uppercase text-xs tracking-widest text-slate-300">{translations("norms", language)}</span><br/>
+                                                            {arrayNorms.map(an => {return an}).join("\n")}
+                                                            {/* {measurementRef.current ? measurementRef.current.handleScanArray() : null} */}
+                                                        </p>
+                                                        <CapIconButton
+                                                            css="!bg-[#7dc523]"
+                                                            iconType="gr"
+                                                            icon="GrCheckmark"
+                                                            size="14px"
+                                                            //variant="success"
+                                                            hoverColor="transparent"
+                                                            click={() =>
+                                                               { setShowOT(false); setStep(2) } //this.refs.overlay.hide();
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </Popover>
+                                        }
+                                        rootClose
+                                    >
+                                        <div>
+                                            <CapIconButton
+                                            iconType="md"
+                                            icon="MdNavigateNext"
+                                            size="20px"
+                                            click={() => {setShowOT(true); childRef.current ? setArrayNorms(childRef.current.handleContainer()) : null }}
+                                            mouseEnter={() =>
+                                                setDescription(
+                                                    "continueFillingOut"
+                                                )
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        />
+                                        {/* <CapIconButton
+                                            iconType="md"
+                                            icon="MdNavigateNext"
+                                            size="20px"
+                                            click={() => setShowOT(true)} //{measurementRef.current ? measurementRef.current.handleScanArray() : null; setStep(1)}
+                                            mouseEnter={() =>
+                                                setDescription(
+                                                    "continueFillingOut"
+                                                )
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        /> */}
+                                        </div>
+                                    </OverlayTrigger>
+                                        {/* <CapIconButton
+                                            iconType="md"
+                                            icon="MdNavigateNext"
+                                            size="20px"
+                                            click={() => {childRef.current ? childRef.current.handleContainer() : null; setStep(2)}}
+                                            mouseEnter={() =>
+                                                setDescription(
+                                                    "continueFillingOut"
+                                                )
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        /> */}
+                                        {/* <CapBtn
                                                 label="continueFillingOut"
                                                 iconType="md"
                                                 icon="MdNavigateNext"
@@ -535,80 +918,164 @@ export default function ProductCreation({
                                                                 e.target.value
                                                             )
                                                         } */
-                        />
-                        <Col>
-                          <CapInputAdvanced
-                            label="productCategory"
-                            placeholder="insertProductMultiCategory"
-                            categories={categories}
-                            mutate={mutate}
-                            array={listCat}
-                            setArray={setListCat}
-                          />
-                        </Col>
-                      </Row>
-                    </>,
-                    <CapContainerAdd
-                      components={[
-                        <>
-                          <Row>
-                            <CapForm
-                              key={0}
-                              as={Col}
-                              label="measure" //"measure"
-                              placeholder="insertMeasure" //"insertMeasureName"
-                              //value={} //(e: any) => measures[e.target.parentElement.parentElement.parentElement.id]
-                              change={
-                                (e: any) => handleProductMeasure(e) //console.log(e.target.parentElement.parentElement.parentElement.id ) //setMeasures(e.target.value)
-                              }
-                              legend="exampleMeasure"
-                            />
-                          </Row>
-                        </>,
-                        <CapForm
-                          key={0}
-                          as={Col}
-                          label="quantity" //"scale"
-                          placeholder="insertQuantity" //"insertScale"
-                          type="number"
-                          //value={measures}
-                          change={
-                            (e: any) => handleUnitValue(e) //alert(e.target.value)
-                          } //setMeasures([...measures, e.target.value])
-                        />,
-                        <Col key={0}>
-                          <UnitFunded
-                            units={units}
-                            mutate={mutate}
-                            array={list}
-                            setArray={setList}
-                          />{" "}
-                          {/* (e: any) => setFunc(e) (e: any) => handleUnitName(e) */}
-                        </Col>,
-                      ]}
-                      //setComponents={setComponents}
-                      key={k}
-                      resultArray={array}
-                      setResultArray={setArray}
-                    />,
-                  ]}
-                  resultArray={[]}
-                  setResultArray={undefined}
-                />
-                <div className="flex justify-end items-end">
-                  <Col>
-                    <CapLegend label={description} />
-                  </Col>
-                  <CapIconButton
-                    iconType="md"
-                    icon="MdNavigateNext"
-                    size="20px"
-                    click={handleProduct} //() => setStep(3)
-                    mouseEnter={() => setDescription("continueFillingOut")}
-                    mouseLeave={() => setDescription("emptyText")}
-                  />
-                </div>
-                {/* <CapBtn
+                                                />
+                                                <Col>
+                                                    <CapInputAdvanced
+                                                        label="productCategory"
+                                                        placeholder="insertProductMultiCategory"
+                                                        categories={categories}
+                                                        mutate={mutate}
+                                                        array={listCat}
+                                                        setArray={setListCat}
+                                                    />
+                                                </Col>
+                                            </Row>
+                                        </>,
+                                        <CapContainerAdd
+                                            id="123"
+                                            components={[
+                                                <>
+                                                    <Row>
+                                                        <CapForm
+                                                            key={0}
+                                                            as={Col}
+                                                            label="measure" //"measure"
+                                                            placeholder="insertMeasure" //"insertMeasureName"
+                                                            //value={} //(e: any) => measures[e.target.parentElement.parentElement.parentElement.id]
+                                                            change={
+                                                                (e: any) =>
+                                                                    handleProductMeasure(
+                                                                        e
+                                                                    ) //console.log(e.target.parentElement.parentElement.parentElement.id ) //setMeasures(e.target.value)
+                                                            }
+                                                            legend="exampleMeasure"
+                                                        />
+                                                    </Row>
+                                                </>,
+                                                <CapForm
+                                                    key={0}
+                                                    as={Col}
+                                                    label="quantity" //"scale"
+                                                    placeholder="insertQuantity" //"insertScale"
+                                                    type="number"
+                                                    //value={measures}
+                                                    change={
+                                                        (e: any) =>
+                                                            handleUnitValue(e) //alert(e.target.value)
+                                                    } //setMeasures([...measures, e.target.value])
+                                                />,
+                                                <Col key={0}>
+                                                    <UnitFunded
+                                                        units={units}
+                                                        mutate={mutate}
+                                                        array={list}
+                                                        setArray={setList}
+                                                    />{" "}
+                                                    {/* (e: any) => setFunc(e) (e: any) => handleUnitName(e) */}
+                                                </Col>,
+                                            ]}
+                                            //setComponents={setComponents}
+                                            key={k}
+                                            resultArray={array}
+                                            setResultArray={setArray}
+                                        />,
+                                    ]}
+                                    resultArray={[]}
+                                    setResultArray={undefined}
+                                />
+                                <div className="flex justify-end items-end">
+                                    <Col>
+                                        <CapLegend label={description} />
+                                    </Col>
+                                    <OverlayTrigger
+                                        //ref="overlay"
+                                        trigger="click"
+                                        placement="top-end"
+                                        show={showOT}
+                                        onToggle={() => setShowOT(!showOT)}
+                                        overlay={
+                                            <Popover>
+                                                <div className="overflow-auto -m-6 p-4 invisibleScroll">
+                                                    <div
+                                                        className={
+                                                            (theme === "dark"
+                                                                ? "bg-slate-600"
+                                                                : "bg-white") +
+                                                            " flex items-center relative py-2.5 px-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-2xl swing-in-right-bck"
+                                                        }
+                                                    >
+                                                        <p
+                                                            className={
+                                                                (theme === "dark"
+                                                                    ? "!text-white"
+                                                                    : "") +
+                                                                " px-2 mb-0.5 mr-1.5 whitespace-pre-line"
+                                                            }
+                                                        >
+                                                            <span className="uppercase text-xs tracking-widest text-slate-300">{translations("accessories", language)}</span><br/>
+                                                            {products?.map(p => { if(listProd.includes(p._id)) {return p.name} }).join(" ") }
+                                                            {/* {measurementRef.current ? measurementRef.current.handleScanArray() : null} */}
+                                                        </p>
+                                                        <CapIconButton
+                                                            css="!bg-[#7dc523]"
+                                                            iconType="gr"
+                                                            icon="GrCheckmark"
+                                                            size="14px"
+                                                            //variant="success"
+                                                            hoverColor="transparent"
+                                                            click={
+                                                               handleProduct //this.refs.overlay.hide();
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </Popover>
+                                        }
+                                        rootClose
+                                    >
+                                        <div>
+                                            {/* <CapIconButton
+                                            iconType="md"
+                                            icon="MdNavigateNext"
+                                            size="20px"
+                                            click={() => setShowOT(true)}
+                                            mouseEnter={() =>
+                                                setDescription(
+                                                    "continueFillingOut"
+                                                )
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        /> */}
+                                        <CapIconButton
+                                        iconType="md"
+                                        icon="MdNavigateNext"
+                                        size="20px"
+                                        click={() => setShowOT(true)}
+                                        mouseEnter={() =>
+                                            setDescription("continueFillingOut")
+                                        }
+                                        mouseLeave={() =>
+                                            setDescription("emptyText")
+                                        }
+                                    />
+                                        </div>
+                                    </OverlayTrigger>
+                                    {/* <CapIconButton
+                                        iconType="md"
+                                        icon="MdNavigateNext"
+                                        size="20px"
+                                        click={handleProduct} //() => setStep(3)
+                                        mouseEnter={() =>
+                                            setDescription("continueFillingOut")
+                                        }
+                                        mouseLeave={() =>
+                                            setDescription("emptyText")
+                                        }
+                                    /> */}
+                                </div>
+                                {/* <CapBtn
                                         label="continueFillingOut"
                                         iconType="md"
                                         icon="MdNavigateNext"
@@ -661,11 +1128,15 @@ export default function ProductCreation({
                                         icon="RiCheckboxCircleLine"
                                         click={() => setStep(4)}
                                     /> */}
-              </>,
-              <></>,
-            ]}
-          />
-          {/* <Row>
+                            </>,
+                            <></>,
+                        ]}
+                    />
+                    
+                    <CapMessageBottom literal="Salvou" show={showSave} setShow={setShowSave} />
+                    <CapMessageBottom literal="Erro" show={showError} setShow={setShowError} />
+
+                    {/* <Row>
                             <Col>
                             <CapTinyCard />
                             </Col>
@@ -679,8 +1150,9 @@ export default function ProductCreation({
                             <CapTinyCard />
                             </Col>
                         </Row> */}
-        </Row>
-      </Form>
-    </>
-  );
+                </Row>
+            </Form>
+            {/* <CapMessageBottom literal="Bloqueado" show={showBlocked} setShow={setShowBlocked} externCss="-mt-6" /> */}
+        </>
+    );
 }
