@@ -88,10 +88,10 @@ export default function ProductUpdate({
     //const prodIds = products
 
     //alert(JSON.stringify(productCategories.filter(pc => true).map((p) => {return { "value": p, "label": p }})));
-    alert(
+/*  alert(
         products
             ? JSON.stringify(
-                  products /* .filter(f => accessoriesIds.includes(f._id)) */
+                  products /* .filter(f => accessoriesIds.includes(f._id)) /
                       .map((p) => {
                           if (accessoriesIds.includes(p._id))
                               return {
@@ -101,7 +101,7 @@ export default function ProductUpdate({
                       })
               )
             : []
-    );
+    ); */
 
     const defineValues2 = () => {
         let a: any[] = [];

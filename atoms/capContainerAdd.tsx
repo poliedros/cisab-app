@@ -7,6 +7,7 @@ import CapMessageBottom from "./capMessageBottom";
 
 const CapContainerAdd = forwardRef((
     {
+        id = "",
         type = "default",
         components = [],
         setComponents = undefined,
@@ -20,6 +21,7 @@ const CapContainerAdd = forwardRef((
         handleContainer = undefined,
         //ref = undefined,
     } : {
+        id?: string;
         type?: string;
         components?: any[];
         setComponents?: any;
@@ -61,11 +63,12 @@ const CapContainerAdd = forwardRef((
             });
             setResultArray(finalArray);
             setShowNorm(true);
-            alert(JSON.stringify(finalArray));
+            //alert(JSON.stringify(finalArray));
+            return finalArray;
         },
 
-        handleScanArray() {
-            const list = document.getElementById("list");
+        handleScanArray(): any[] {
+            const list = document.getElementById("list" + id);
             let finalArray: { name: any; value: any; unit: string; }[] = [];
             list?.childNodes.forEach(function (node, index) {
                 node.childNodes[0].firstChild?.lastChild?.textContent && node.childNodes[1].firstChild?.lastChild?.textContent && node.childNodes[2].firstChild?.firstChild?.firstChild?.textContent ?
@@ -77,15 +80,16 @@ const CapContainerAdd = forwardRef((
                 : null
             });
             setResultArray(finalArray);
-            alert(JSON.stringify(finalArray));
+            //alert(JSON.stringify(finalArray));
             setMessage(JSON.stringify(finalArray));
+            return finalArray;
         }
     }));
 
     if(type === "default") {
 
     const handleScanArray = () => {
-        const list = document.getElementById("list");
+        const list = document.getElementById("list" + id);
         let finalArray: { name: any; value: any; unit: string; }[] = [];
         list?.childNodes.forEach(function (node, index) {
             node.childNodes[0].firstChild?.lastChild?.textContent && node.childNodes[1].firstChild?.lastChild?.textContent && node.childNodes[2].firstChild?.firstChild?.firstChild?.textContent ?
@@ -102,6 +106,7 @@ const CapContainerAdd = forwardRef((
 
         //setSuccessMessage(!successMessage);
         setMessage(JSON.stringify(finalArray));
+        return finalArray;
 
         //if(!successMessage)
         /* setTimeout(() => {
@@ -115,7 +120,7 @@ const CapContainerAdd = forwardRef((
 
     const handleArrayMinus = (i: number) => {
         document.getElementById(String(i))?.remove();
-        const list = document.getElementById("list");
+        const list = document.getElementById("list" + id);
         /* let finalArray: string[] = [];
         list?.childNodes.forEach(function (node, index) {
             finalArray.push(
@@ -153,7 +158,7 @@ const CapContainerAdd = forwardRef((
 
     return (
         <>
-            <div id="list">
+            <div id={"list" + id}>
                 {listComponents.map((el, i) => (
                     <Row id={String(i)} key={i} className="mb-3 items-center">
                         {components.map((c, j) => (
@@ -261,7 +266,7 @@ const CapContainerAdd = forwardRef((
                 {/* <div className="text-center">
                     <CapIconButton iconType="bs" icon="BsSave" size="20px" />
                 </div> */}
-                <CapMessageBottom show={showNorm} setShow={setShowNorm} literal={resultArray} />
+                {/* <CapMessageBottom show={showNorm} setShow={setShowNorm} literal={resultArray} /> */}
             </>
         );
     }

@@ -68,7 +68,7 @@ export default function Edit() {
         return undefined;
     };
 
-    alert("love" + JSON.stringify(productRes));
+    //alert("love" + JSON.stringify(productRes));
 
     return (
         <>

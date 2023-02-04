@@ -26,6 +26,9 @@ import CapLegend from "atoms/capLegend";
 import ProductCreationInformation from "./tabs/productCreationInformation";
 import CapMessageBottom from "atoms/capMessageBottom";
 import axios from "axios";
+import CapParagraph from "atoms/capParagraph";
+import { useTheme } from "context/themeContext";
+import CapOverlayTrigger from "atoms/capOverlayTrigger";
 
 export default function ProductCreation({
     product = undefined,
@@ -34,6 +37,7 @@ export default function ProductCreation({
     product?: ProductDTO | undefined;
     submit: (product: ProductDTO) => Promise<ProductDTO | undefined>;
 }) {
+    const theme = useTheme();
     const language = useLanguage();
     const toggleLanguage = useLanguageUpdate();
 
@@ -73,6 +77,11 @@ export default function ProductCreation({
     const [categorySt, setcategorySt] = useState([""]);
 
     const [productId, setProductId] = useState();
+    const [showSave, setShowSave] = useState(false);
+    const [showError, setShowError] = useState(false);
+    const [showBlocked, setShowBlocked] = useState(true);
+
+    const ref = useRef();
 
     const { user } = useUser({ redirectTo: "/login" });
     useRole({ user, role: Role.Cisab, redirectTo: "/" });
@@ -127,14 +136,15 @@ export default function ProductCreation({
             method: "POST",
             body: JSON.stringify(product),
         });
-        alert(data.status);
+        //alert(data.status);
 
         if(data.status === 200)
-            <CapMessageBottom literal="Salvou"/>
+            setShowSave(true); //<CapMessageBottom literal="Salvou" show={showSave} setShow={setShowSave} />
         else
-            <CapMessageBottom literal="Erro"/>
+            setShowError(true); //<CapMessageBottom literal="Erro" show={showError} setShow={setShowError} />
         const result = await data.json();
         setProductId(result._id);
+        alert(JSON.stringify(result));
         return undefined;
     };
 
@@ -196,15 +206,94 @@ export default function ProductCreation({
         await saveImage(imageSt);
     };
 
+    const [showOT, setShowOT] = useState(false);
+    const [showOT1, setShowOT1] = useState(false);
+    const [showOT2, setShowOT2] = useState(false);
+    const [showOT3, setShowOT3] = useState(false);
+    const [mesuamentSt, setMesuamentSt] = useState([]);
+
     if (error) return <div>failed to load</div>;
     if (!units) return <div>loading...</div>;
 
     if (!user || user.isLoggedIn == false) {
         return <div>404</div>;
     }
-
+    
     //console.log(array);
     //console.log(list);
+
+    const Overlay = (show: boolean, setShow: any) => {
+        return (
+            <OverlayTrigger
+                                        //ref="overlay"
+                                        trigger="click"
+                                        placement="top-end"
+                                        show={show}
+                                        onToggle={() => setShow(!show)}
+                                        overlay={
+                                            <Popover>
+                                                <div className="overflow-auto -m-6 p-4 invisibleScroll">
+                                                    <div
+                                                        className={
+                                                            (theme === "dark"
+                                                                ? "bg-slate-600"
+                                                                : "bg-white") +
+                                                            " flex font-[Jost] items-center relative py-2.5 px-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-2xl swing-in-right-bck"
+                                                        }
+                                                    >
+                                                        <p
+                                                            className={
+                                                                (theme === "dark"
+                                                                    ? "!text-white"
+                                                                    : "") +
+                                                                " px-2 mb-0.5 mr-1.5 whitespace-pre-line text-base"
+                                                            }
+                                                        >
+                                                            {productName && productName !== "" ? (<><span className="uppercase text-xs tracking-widest text-slate-300">{translations("productName", language)}</span><br/> {productName} <br/></>) : <><span className="uppercase text-xs tracking-widest text-[#f62217]">{translations("productNameRequired", language)}</span><br/></>}
+                                                            {code && code !== "" ? (<><span className="uppercase text-xs tracking-widest text-slate-300">{translations("code", language)}</span><br/> {code} <br/></>) : <><span className="uppercase text-xs tracking-widest text-slate-300">{translations("code", language)}</span><br/>{translations("noCodeAdded", language)}<br/></>}
+                                                            {listCat.length > 0 && listCat[0].length !== 0 ? (<><span className="uppercase text-xs tracking-widest text-slate-300">{translations("categories", language)}</span><br/> {listCat.join(", ")} <br/></>) : <><span className="uppercase text-xs tracking-widest text-[#f62217]">{translations("atLeastOneCategoryRequired", language)}</span><br/></>}
+                                                            {/* Medidas: {measures.join(", ")} <br/>
+                                                            Tamanhos: {unitsValue.join(", ")} <br/> */}
+                                                            <span className="uppercase text-xs tracking-widest text-slate-300">{translations("measures", language)}</span><br/>
+                                                            { mesuamentSt ? mesuamentSt.map((m: any) => {return (m.name && m.name !== "" && m.value && m.value !== "" && m.unit && m.unit !== "Unidade") ? m.name + ": " + m.value + " " + m.unit : !(m.name && m.name !== "" && m.value && m.value !== "" && m.unit && m.unit !== "Unidade") ? translations("incorrectedMeasureAdded", language) : translations("noMeasureAdded", language)}).join("\n") : null}
+                                                            {/* {measurementRef.current ? measurementRef.current.handleScanArray() : null} */}
+                                                        </p>
+                                                        <CapIconButton
+                                                            css="!bg-[#7dc523]"
+                                                            iconType="gr"
+                                                            icon="GrCheckmark"
+                                                            size="14px"
+                                                            //variant="success"
+                                                            hoverColor="transparent"
+                                                            click={() =>
+                                                               { setShow(false); setStep(1)} //this.refs.overlay.hide();
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </Popover>
+                                        }
+                                        rootClose
+                                    >
+                                        <div>
+                                        <CapIconButton
+                                            iconType="md"
+                                            icon="MdNavigateNext"
+                                            size="20px"
+                                            click={() => {setShow(true); measurementRef.current ? setMesuamentSt(measurementRef.current.handleScanArray()) : null}} //{measurementRef.current ? measurementRef.current.handleScanArray() : null; setStep(1)}
+                                            mouseEnter={() =>
+                                                setDescription(
+                                                    "continueFillingOut"
+                                                )
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        />
+                                        </div>
+                                    </OverlayTrigger>
+        )
+    }
 
     return (
         <>
@@ -367,7 +456,28 @@ export default function ProductCreation({
                                         <CapLegend label={description} />
                                     </Col>
                                     <Col md="auto" className="!pl-0 !pr-3">
-                                        <CapIconButton
+                                    <CapOverlayTrigger listCat={listCat} handleProduct={handleProduct} code={code} show={showOT2} setShow={setShowOT2} step={3} productName={productName} mesuamentSt={mesuamentSt} setMesuamentSt={setMesuamentSt} setStep={setStep} setDescription={setDescription} handleScanArray={() => measurementRef.current.handleScanArray()} button={<CapIconButton
+                                            iconType="io5"
+                                            icon="IoImageOutline"
+                                            size="20px"
+                                            click={() => {
+                                                setShowOT2(true);
+                                                //measurementRef.current
+                                                //handleScanArray
+                                                    //?
+                                                    setMesuamentSt(
+                                                        measurementRef.current.handleScanArray()
+                                                      )
+                                                    //: null;
+                                            }}
+                                            mouseEnter={() =>
+                                                setDescription("finalize")
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        />}/>
+                                        {/* <CapIconButton
                                             iconType="io5"
                                             icon="IoImageOutline"
                                             size="20px"
@@ -378,7 +488,7 @@ export default function ProductCreation({
                                             mouseLeave={() =>
                                                 setDescription("emptyText")
                                             }
-                                        />
+                                        /> */}
                                         {/* <CapBtn
                                                 label="finalize"
                                                 iconType="io5"
@@ -387,7 +497,28 @@ export default function ProductCreation({
                                             /> */}
                                     </Col>
                                     <Col md="auto" className="!pl-0 !pr-3">
-                                        <CapIconButton
+                                    <CapOverlayTrigger listCat={listCat} code={code} show={showOT1} setShow={setShowOT1} productName={productName} mesuamentSt={mesuamentSt} setMesuamentSt={setMesuamentSt} setStep={setStep} step={2} setDescription={setDescription} handleScanArray={() => measurementRef.current.handleScanArray()} button={<CapIconButton
+                                            iconType="md"
+                                            icon="MdOutlineAddCircleOutline"
+                                            size="20px"
+                                            click={() => {
+                                                setShowOT1(true);
+                                                //measurementRef.current
+                                                //handleScanArray
+                                                    //?
+                                                    setMesuamentSt(
+                                                        measurementRef.current.handleScanArray()
+                                                      )
+                                                    //: null;
+                                            }}
+                                            mouseEnter={() =>
+                                                setDescription("goToAccessory")
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        />}/>
+                                        {/* <CapIconButton
                                             iconType="md"
                                             icon="MdOutlineAddCircleOutline"
                                             size="20px"
@@ -398,7 +529,7 @@ export default function ProductCreation({
                                             mouseLeave={() =>
                                                 setDescription("emptyText")
                                             }
-                                        />
+                                        /> */}
                                         {/* <CapBtn
                                                 label="goToAccessory"
                                                 iconType="md"
@@ -407,44 +538,65 @@ export default function ProductCreation({
                                             /> */}
                                     </Col>
                                     <Col md="auto" className="!pl-0">
-                                    <OverlayTrigger
+                                    <CapOverlayTrigger listCat={listCat} code={code} show={showOT} setShow={setShowOT} productName={productName} mesuamentSt={mesuamentSt} setMesuamentSt={setMesuamentSt} setStep={setStep} step={1} setDescription={setDescription} handleScanArray={() => measurementRef.current.handleScanArray()} button={<CapIconButton
+                        iconType="md"
+                        icon="MdNavigateNext"
+                        size="20px"
+                        click={() => {
+                            setShowOT(true);
+                            //measurementRef.current
+                            //handleScanArray
+                                //?
+                                setMesuamentSt(
+                                    measurementRef.current.handleScanArray()
+                                  )
+                                //: null;
+                        }} //{measurementRef.current ? measurementRef.current.handleScanArray() : null; setStep(1)}
+                        mouseEnter={() => setDescription("continueFillingOut")}
+                        mouseLeave={() => setDescription("emptyText")}
+                    />}/>
+                                    {/* <OverlayTrigger
+                                        //ref="overlay"
                                         trigger="click"
-                                        placement="bottom-end"
+                                        placement="top-end"
+                                        show={showOT}
+                                        onToggle={() => setShowOT(!showOT)}
                                         overlay={
                                             <Popover>
                                                 <div className="overflow-auto -m-6 p-4 invisibleScroll">
                                                     <div
                                                         className={
-                                                            ("dark" ===
-                                                            "dark"
+                                                            (theme === "dark"
                                                                 ? "bg-slate-600"
                                                                 : "bg-white") +
-                                                            " flex items-center relative py-2.5 px-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-full swing-in-right-bck"
+                                                            " flex font-[Jost] items-center relative py-2.5 px-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-2xl swing-in-right-bck"
                                                         }
                                                     >
                                                         <p
                                                             className={
-                                                                ("dark" ===
-                                                                "dark"
+                                                                (theme === "dark"
                                                                     ? "!text-white"
                                                                     : "") +
-                                                                " mb-0.5 mr-1.5"
+                                                                " px-2 mb-0.5 mr-1.5 whitespace-pre-line text-base"
                                                             }
                                                         >
-                                                            {translations(
-                                                                "questionRemove",
-                                                                language
-                                                            )}
+                                                            {productName && productName !== "" ? (<><span className="uppercase text-xs tracking-widest text-slate-300">{translations("productName", language)}</span><br/> {productName} <br/></>) : <><span className="uppercase text-xs tracking-widest text-[#f62217]">{translations("productNameRequired", language)}</span><br/></>}
+                                                            {code && code !== "" ? (<><span className="uppercase text-xs tracking-widest text-slate-300">{translations("code", language)}</span><br/> {code} <br/></>) : <><span className="uppercase text-xs tracking-widest text-slate-300">{translations("code", language)}</span><br/>{translations("noCodeAdded", language)}<br/></>}
+                                                            {listCat.length > 0 && listCat[0].length !== 0 ? (<><span className="uppercase text-xs tracking-widest text-slate-300">{translations("categories", language)}</span><br/> {listCat.join(", ")} <br/></>) : <><span className="uppercase text-xs tracking-widest text-[#f62217]">{translations("atLeastOneCategoryRequired", language)}</span><br/></>}
+                                                            
+                                                            <span className="uppercase text-xs tracking-widest text-slate-300">{translations("measures", language)}</span><br/>
+                                                            { mesuamentSt ? mesuamentSt.map((m: any) => {return (m.name && m.name !== "" && m.value && m.value !== "" && m.unit && m.unit !== "Unidade") ? m.name + ": " + m.value + " " + m.unit : !(m.name && m.name !== "" && m.value && m.value !== "" && m.unit && m.unit !== "Unidade") ? translations("incorrectedMeasureAdded", language) : translations("noMeasureAdded", language)}).join("\n") : null}
+                                                            
                                                         </p>
                                                         <CapIconButton
-                                                            css="text-white"
+                                                            css="!bg-[#7dc523]"
                                                             iconType="gr"
-                                                            icon="GrClose"
+                                                            icon="GrCheckmark"
                                                             size="14px"
-                                                            variant="danger"
+                                                            //variant="success"
                                                             hoverColor="transparent"
                                                             click={() =>
-                                                               {}
+                                                               { setShowOT(false); setStep(1)} //this.refs.overlay.hide();
                                                             }
                                                         />
                                                     </div>
@@ -453,7 +605,24 @@ export default function ProductCreation({
                                         }
                                         rootClose
                                     >
+                                        <div>
                                         <CapIconButton
+                                            iconType="md"
+                                            icon="MdNavigateNext"
+                                            size="20px"
+                                            click={() => {setShowOT(true); measurementRef.current ? setMesuamentSt(measurementRef.current.handleScanArray()) : null}} //{measurementRef.current ? measurementRef.current.handleScanArray() : null; setStep(1)}
+                                            mouseEnter={() =>
+                                                setDescription(
+                                                    "continueFillingOut"
+                                                )
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        />
+                                        </div>
+                                    </OverlayTrigger> */}
+                                        {/* <CapIconButton
                                             iconType="md"
                                             icon="MdNavigateNext"
                                             size="20px"
@@ -466,23 +635,7 @@ export default function ProductCreation({
                                             mouseLeave={() =>
                                                 setDescription("emptyText")
                                             }
-                                        />
-                                    </OverlayTrigger>
-
-                                        <CapIconButton
-                                            iconType="md"
-                                            icon="MdNavigateNext"
-                                            size="20px"
-                                            click={() => {measurementRef.current ? measurementRef.current.handleScanArray() : null; setStep(1)}}
-                                            mouseEnter={() =>
-                                                setDescription(
-                                                    "continueFillingOut"
-                                                )
-                                            }
-                                            mouseLeave={() =>
-                                                setDescription("emptyText")
-                                            }
-                                        />
+                                        /> */}
                                         {/* <CapBtn
                                                 label="continueFillingOut"
                                                 iconType="md"
@@ -516,7 +669,82 @@ export default function ProductCreation({
                                         <CapLegend label={description} />
                                     </Col>
                                     <Col md="auto" className="!pl-0 !pr-3">
+                                        <OverlayTrigger
+                                        //ref="overlay"
+                                        trigger="click"
+                                        placement="top-end"
+                                        show={showOT3}
+                                        onToggle={() => setShowOT3(!showOT3)}
+                                        overlay={
+                                            <Popover>
+                                                <div className="overflow-auto -m-6 p-4 invisibleScroll">
+                                                    <div
+                                                        className={
+                                                            (theme === "dark"
+                                                                ? "bg-slate-600"
+                                                                : "bg-white") +
+                                                            " flex items-center relative py-2.5 px-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-2xl swing-in-right-bck"
+                                                        }
+                                                    >
+                                                        <p
+                                                            className={
+                                                                (theme === "dark"
+                                                                    ? "!text-white"
+                                                                    : "") +
+                                                                " px-2 mb-0.5 mr-1.5 whitespace-pre-line"
+                                                            }
+                                                        >
+                                                            <span className="uppercase text-xs tracking-widest text-slate-300">{translations("norms", language)}</span><br/>
+                                                            {arrayNorms.map(an => {return an}).join("\n")}
+                                                            {/* {measurementRef.current ? measurementRef.current.handleScanArray() : null} */}
+                                                        </p>
+                                                        <CapIconButton
+                                                            css="!bg-[#7dc523]"
+                                                            iconType="gr"
+                                                            icon="GrCheckmark"
+                                                            size="14px"
+                                                            //variant="success"
+                                                            hoverColor="transparent"
+                                                            click={() =>
+                                                               { setShowOT3(false); handleProduct() } //this.refs.overlay.hide();
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </Popover>
+                                        }
+                                        rootClose
+                                    >
+                                        <div>
                                         <CapIconButton
+                                            iconType="io5"
+                                            icon="IoImageOutline"
+                                            size="20px"
+                                            click={() => {setShowOT3(true); childRef.current ? setArrayNorms(childRef.current.handleContainer()) : null }}
+                                            mouseEnter={() =>
+                                                setDescription("finalize")
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        />
+                                        {/* <CapIconButton
+                                            iconType="md"
+                                            icon="MdNavigateNext"
+                                            size="20px"
+                                            click={() => setShowOT(true)} //{measurementRef.current ? measurementRef.current.handleScanArray() : null; setStep(1)}
+                                            mouseEnter={() =>
+                                                setDescription(
+                                                    "continueFillingOut"
+                                                )
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        /> */}
+                                        </div>
+                                    </OverlayTrigger>
+                                        {/* <CapIconButton
                                             iconType="io5"
                                             icon="IoImageOutline"
                                             size="20px"
@@ -527,7 +755,7 @@ export default function ProductCreation({
                                             mouseLeave={() =>
                                                 setDescription("emptyText")
                                             }
-                                        />
+                                        /> */}
                                         {/* <CapBtn
                                                 label="finalize"
                                                 iconType="io5"
@@ -536,7 +764,84 @@ export default function ProductCreation({
                                             /> */}
                                     </Col>
                                     <Col md="auto" className="!pl-0">
-                                        <CapIconButton
+                                        <OverlayTrigger
+                                        //ref="overlay"
+                                        trigger="click"
+                                        placement="top-end"
+                                        show={showOT}
+                                        onToggle={() => setShowOT(!showOT)}
+                                        overlay={
+                                            <Popover>
+                                                <div className="overflow-auto -m-6 p-4 invisibleScroll">
+                                                    <div
+                                                        className={
+                                                            (theme === "dark"
+                                                                ? "bg-slate-600"
+                                                                : "bg-white") +
+                                                            " flex items-center relative py-2.5 px-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-2xl swing-in-right-bck"
+                                                        }
+                                                    >
+                                                        <p
+                                                            className={
+                                                                (theme === "dark"
+                                                                    ? "!text-white"
+                                                                    : "") +
+                                                                " px-2 mb-0.5 mr-1.5 whitespace-pre-line"
+                                                            }
+                                                        >
+                                                            <span className="uppercase text-xs tracking-widest text-slate-300">{translations("norms", language)}</span><br/>
+                                                            {arrayNorms.map(an => {return an}).join("\n")}
+                                                            {/* {measurementRef.current ? measurementRef.current.handleScanArray() : null} */}
+                                                        </p>
+                                                        <CapIconButton
+                                                            css="!bg-[#7dc523]"
+                                                            iconType="gr"
+                                                            icon="GrCheckmark"
+                                                            size="14px"
+                                                            //variant="success"
+                                                            hoverColor="transparent"
+                                                            click={() =>
+                                                               { setShowOT(false); setStep(2) } //this.refs.overlay.hide();
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </Popover>
+                                        }
+                                        rootClose
+                                    >
+                                        <div>
+                                            <CapIconButton
+                                            iconType="md"
+                                            icon="MdNavigateNext"
+                                            size="20px"
+                                            click={() => {setShowOT(true); childRef.current ? setArrayNorms(childRef.current.handleContainer()) : null }}
+                                            mouseEnter={() =>
+                                                setDescription(
+                                                    "continueFillingOut"
+                                                )
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        />
+                                        {/* <CapIconButton
+                                            iconType="md"
+                                            icon="MdNavigateNext"
+                                            size="20px"
+                                            click={() => setShowOT(true)} //{measurementRef.current ? measurementRef.current.handleScanArray() : null; setStep(1)}
+                                            mouseEnter={() =>
+                                                setDescription(
+                                                    "continueFillingOut"
+                                                )
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        /> */}
+                                        </div>
+                                    </OverlayTrigger>
+                                        {/* <CapIconButton
                                             iconType="md"
                                             icon="MdNavigateNext"
                                             size="20px"
@@ -549,7 +854,7 @@ export default function ProductCreation({
                                             mouseLeave={() =>
                                                 setDescription("emptyText")
                                             }
-                                        />
+                                        /> */}
                                         {/* <CapBtn
                                                 label="continueFillingOut"
                                                 iconType="md"
@@ -612,6 +917,7 @@ export default function ProductCreation({
                                             </Row>
                                         </>,
                                         <CapContainerAdd
+                                            id="123"
                                             components={[
                                                 <>
                                                     <Row>
@@ -666,7 +972,82 @@ export default function ProductCreation({
                                     <Col>
                                         <CapLegend label={description} />
                                     </Col>
-                                    <CapIconButton
+                                    <OverlayTrigger
+                                        //ref="overlay"
+                                        trigger="click"
+                                        placement="top-end"
+                                        show={showOT}
+                                        onToggle={() => setShowOT(!showOT)}
+                                        overlay={
+                                            <Popover>
+                                                <div className="overflow-auto -m-6 p-4 invisibleScroll">
+                                                    <div
+                                                        className={
+                                                            (theme === "dark"
+                                                                ? "bg-slate-600"
+                                                                : "bg-white") +
+                                                            " flex items-center relative py-2.5 px-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-2xl swing-in-right-bck"
+                                                        }
+                                                    >
+                                                        <p
+                                                            className={
+                                                                (theme === "dark"
+                                                                    ? "!text-white"
+                                                                    : "") +
+                                                                " px-2 mb-0.5 mr-1.5 whitespace-pre-line"
+                                                            }
+                                                        >
+                                                            <span className="uppercase text-xs tracking-widest text-slate-300">{translations("accessories", language)}</span><br/>
+                                                            {products?.map(p => { if(listProd.includes(p._id)) {return p.name} }).join(" ") }
+                                                            {/* {measurementRef.current ? measurementRef.current.handleScanArray() : null} */}
+                                                        </p>
+                                                        <CapIconButton
+                                                            css="!bg-[#7dc523]"
+                                                            iconType="gr"
+                                                            icon="GrCheckmark"
+                                                            size="14px"
+                                                            //variant="success"
+                                                            hoverColor="transparent"
+                                                            click={
+                                                               handleProduct //this.refs.overlay.hide();
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </Popover>
+                                        }
+                                        rootClose
+                                    >
+                                        <div>
+                                            {/* <CapIconButton
+                                            iconType="md"
+                                            icon="MdNavigateNext"
+                                            size="20px"
+                                            click={() => setShowOT(true)}
+                                            mouseEnter={() =>
+                                                setDescription(
+                                                    "continueFillingOut"
+                                                )
+                                            }
+                                            mouseLeave={() =>
+                                                setDescription("emptyText")
+                                            }
+                                        /> */}
+                                        <CapIconButton
+                                        iconType="md"
+                                        icon="MdNavigateNext"
+                                        size="20px"
+                                        click={() => setShowOT(true)}
+                                        mouseEnter={() =>
+                                            setDescription("continueFillingOut")
+                                        }
+                                        mouseLeave={() =>
+                                            setDescription("emptyText")
+                                        }
+                                    />
+                                        </div>
+                                    </OverlayTrigger>
+                                    {/* <CapIconButton
                                         iconType="md"
                                         icon="MdNavigateNext"
                                         size="20px"
@@ -677,7 +1058,7 @@ export default function ProductCreation({
                                         mouseLeave={() =>
                                             setDescription("emptyText")
                                         }
-                                    />
+                                    /> */}
                                 </div>
                                 {/* <CapBtn
                                         label="continueFillingOut"
@@ -740,6 +1121,10 @@ export default function ProductCreation({
                             <></>,
                         ]}
                     />
+                    
+                    <CapMessageBottom literal="Salvou" show={showSave} setShow={setShowSave} />
+                    <CapMessageBottom literal="Erro" show={showError} setShow={setShowError} />
+
                     {/* <Row>
                             <Col>
                             <CapTinyCard />
@@ -756,6 +1141,7 @@ export default function ProductCreation({
                         </Row> */}
                 </Row>
             </Form>
+            {/* <CapMessageBottom literal="Bloqueado" show={showBlocked} setShow={setShowBlocked} externCss="-mt-6" /> */}
         </>
     );
 }

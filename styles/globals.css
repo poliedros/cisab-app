@@ -63,6 +63,13 @@ code {
 .bs-popover-bottom {
     background-color: transparent !important;
     border-color: transparent !important;
+    /* scrollbar-width: none;
+    display: none; */
+}
+
+.bs-popover-top {
+    background-color: transparent !important;
+    border-color: transparent !important;
 }
 
 @media screen and (max-width: 640px) {
