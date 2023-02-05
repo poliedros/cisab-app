@@ -20,6 +20,7 @@ export default function Account({ kind, handleAccount }: AccountProps) {
   const [countyName, setCountyName] = useState("");
 
   const [cities, setCities] = useState<any[]>([]);
+  const [city, setCity] = useState<any>();
 
   const getCities = async () => {
     const data = await fetch("/api/ibge/mgCounties", {
@@ -38,7 +39,7 @@ export default function Account({ kind, handleAccount }: AccountProps) {
     <>
       {/* <CapSubtitle label="account" /> */}
       <Row>
-        <CapForm
+        {/* <CapForm
           as={Col}
           label={kind === "county" ? "countyName" : "autarkyName"}
           placeholder={
@@ -55,26 +56,29 @@ export default function Account({ kind, handleAccount }: AccountProps) {
               kind
             );
           }}
-        />
-        <CapInputAdvanced
-          kind="base"
-          label="searchCountyByName"
-          placeholder="insertCountyName"
-          base="filter"
-          values={cities?.map((c) => c.name)}
-          array={cities}
-          setArray={setCities}
-          mutate={function (
-            data?:
-              | CategoryDTO[]
-              | Promise<CategoryDTO[]>
-              | MutatorCallback<CategoryDTO[]>
-              | undefined,
-            opts?: boolean | MutatorOptions<CategoryDTO[]> | undefined
-          ): Promise<CategoryDTO[] | undefined> {
-            throw new Error("Function not implemented.");
-          }}
-        />
+        /> */}
+        <Col>
+          <CapInputAdvanced
+            kind="base"
+            label="searchCountyByName"
+            placeholder="insertCountyName"
+            values={cities?.map((c) => c.name)}
+            isMulti={false}
+            value={city}
+            setValue={setCity}
+            mutate={function (
+              data?:
+                | CategoryDTO[]
+                | Promise<CategoryDTO[]>
+                | MutatorCallback<CategoryDTO[]>
+                | undefined,
+              opts?: boolean | MutatorOptions<CategoryDTO[]> | undefined
+            ): Promise<CategoryDTO[] | undefined> {
+              throw new Error("Function not implemented.");
+            }}
+          />
+          {city}
+        </Col>
         <CapForm
           as={Col}
           label="responsibleEmail"

@@ -20,10 +20,13 @@ export default function CapInputAdvanced({
     kind = "default",
     base = "",
     type = "",
+    isMulti = true,
     categories= [],
     mutate,
-    array= [],
-    setArray= undefined,
+    array = [],
+    setArray = undefined,
+    value = undefined,
+    setValue = undefined,
     defaultValue = [],
     products = [],
 }: {
@@ -34,10 +37,13 @@ export default function CapInputAdvanced({
     kind?: string;
     base?: string;
     type?: string;
+    isMulti?: boolean;
     categories?: CategoryDTO[];
     mutate: KeyedMutator<CategoryDTO[]>;
     array?: string[];
     setArray?: any;
+    value?: any;
+    setValue?: any;
     defaultValue?: any[];
     products?: ProductDTO[];
 }) {
@@ -126,6 +132,7 @@ export default function CapInputAdvanced({
             <Form.Label className={(theme === "dark" ? "text-white" : "")}>{translations(label, language)}</Form.Label>
             <InputGroup className="mb-3">
                     <div className="form-control py-0">
+                        {isMulti ?
                         <Select
                             className="!px-0"
                             closeMenuOnSelect={true}
@@ -136,7 +143,19 @@ export default function CapInputAdvanced({
                             defaultValue={defaultOptions}
                             placeholder={translations(placeholder, language)}
                             onChange={type === "product" ? (e: any) => setArray(e.map((c: any) => c.value)) : type === "productSpecial" ? (e: any) => setArray(e.map((c: any) =>values.find((v: any) => v._id === c.value)/*.map((v: any) => v)*/)/* e.map((c: any) => {c.value}) */) : (e: any) => setArray(e.map((c: any) => c.label))}
+                        /> : 
+                        <Select
+                            className="!px-0"
+                            closeMenuOnSelect={true}
+                            //menuIsOpen={true}
+                            noOptionsMessage={() => translations("noMoreData", language)}
+                            options={options}
+                            defaultValue={defaultOptions}
+                            placeholder={translations(placeholder, language)}
+                            //onChange={type === "product" ? (e: any) => setArray(e.map((c: any) => c.value)) : type === "productSpecial" ? (e: any) => setArray(e.map((c: any) =>values.find((v: any) => v._id === c.value)/*.map((v: any) => v)*/)/* e.map((c: any) => {c.value}) */) : (e: any) => setArray(e.map((c: any) => c.label))}
+                            onChange={(e: any) => setValue(e.label)}
                         />
+                        }
                     </div>
                     {base === "filter" ? 
                     <Button variant="outline-secondary" id="button-addon2">
