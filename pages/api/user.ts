@@ -17,6 +17,7 @@ async function userRoute(req: NextApiRequest, res: NextApiResponse<User>) {
       ...req.session.user,
       isLoggedIn: true,
     });
+    console.log(req.session.user);
   } else {
     res.json({
       isLoggedIn: false,

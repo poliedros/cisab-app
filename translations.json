@@ -670,5 +670,11 @@
   },
   "cisab": {
     "pt": "CISAB"
+  },
+  "autarkyList": {
+    "pt": "Lista de Autarquias"
+  },
+  "profile": {
+    "pt": "Perfil"
   }
 }
