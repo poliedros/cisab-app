@@ -20,7 +20,7 @@ export default function Account({ kind, handleAccount }: AccountProps) {
   const [countyName, setCountyName] = useState("");
 
   const [cities, setCities] = useState<any[]>([]);
-  const [city, setCity] = useState<any>();
+  // const [countyName, setCity] = useState<any>();
 
   const getCities = async () => {
     const data = await fetch("/api/ibge/mgCounties", {
@@ -64,8 +64,8 @@ export default function Account({ kind, handleAccount }: AccountProps) {
             placeholder="insertCountyName"
             values={cities?.map((c) => c.name)}
             isMulti={false}
-            value={city}
-            setValue={setCity}
+            value={countyName}
+            setValue={setCountyName}
             mutate={function (
               data?:
                 | CategoryDTO[]
@@ -77,7 +77,6 @@ export default function Account({ kind, handleAccount }: AccountProps) {
               throw new Error("Function not implemented.");
             }}
           />
-          {city}
         </Col>
         <CapForm
           as={Col}
