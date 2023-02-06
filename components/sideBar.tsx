@@ -10,6 +10,8 @@ import CapIconButton from "atoms/capIconButton";
 
 import { useTheme, useThemeUpdate } from "../context/themeContext";
 
+import { Role } from "lib/role.enum";
+
 export default function SideBar() {
   const [side, setSide] = useState(false);
 
@@ -22,6 +24,7 @@ export default function SideBar() {
   const handleMain = () => setMain(true);
 
   const { user, mutateUser } = useUser();
+
   const router = useRouter();
 
   const logout = () => {
@@ -45,6 +48,8 @@ export default function SideBar() {
       setIconBrightness("MdBrightness4");
     } else null;
   };
+
+  console.log(user);
 
   const county = (
     <Popover>
@@ -77,6 +82,77 @@ export default function SideBar() {
     </Popover>
   );
 
+  const autarky = (
+    <Popover>
+      <div className="overflow-auto -mt-[2.5rem] -mb-6 -mx-5 p-4 invisibleScroll">
+        <div
+          className={
+            (theme === "dark" ? "bg-slate-900" : "bg-white") +
+            " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"
+          }
+        >
+          <CapIconButton
+            iconType="fa"
+            icon="FaCity"
+            size="24px"
+            route="/counties/index"
+            hoverColor="#7dc523"
+            tooltip="countyData"
+            css="mr-3"
+          />
+          {user?.roles.includes(Role.Townhall) ||
+          user?.roles.includes(Role.Admin) ? (
+            <>
+              <CapIconButton
+                iconType="fa"
+                icon="FaThList"
+                size="24px"
+                route="/counties"
+                hoverColor="#7dc523"
+                tooltip="autarkyList"
+              />
+            </>
+          ) : null}
+          {user?.roles.includes(Role.Autarky) ||
+          user?.roles.includes(Role.Admin) ? (
+            <>
+              <CapIconButton
+                iconType="ri"
+                icon="RiGovernmentFill"
+                size="24px"
+                route="/counties/index"
+                hoverColor="#7dc523"
+                tooltip="autarkyData"
+              />
+            </>
+          ) : null}
+        </div>
+      </div>
+    </Popover>
+  );
+
+  const order = (
+    <Popover>
+      <div className="overflow-auto -mt-[2.5rem] -mb-6 -mx-5 p-4 invisibleScroll">
+        <div
+          className={
+            (theme === "dark" ? "bg-slate-900" : "bg-white") +
+            " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"
+          }
+        >
+          <CapIconButton
+            iconType="md"
+            icon={iconBrightness}
+            size="24px"
+            //click={handleBrightness}
+            hoverColor="#7dc523"
+            tooltip="themes"
+          />
+        </div>
+      </div>
+    </Popover>
+  );
+
   const product = (
     <Popover>
       <div className="overflow-auto -mt-[2.5rem] -mb-6 -mx-5 p-4 invisibleScroll">
@@ -103,21 +179,6 @@ export default function SideBar() {
             hoverColor="#7dc523"
             css="mr-3"
             tooltip="listProducts"
-          />
-          {/* <CapIconButton
-                        iconType="md"
-                        icon="MdLinearScale"
-                        size="24px"
-                        route="/counties"
-                        hoverColor="#7dc523"
-                    /> */}
-          <CapIconButton
-            iconType="gi"
-            icon="GiCardboardBox"
-            size="24px"
-            route="/products/suggest"
-            hoverColor="#7dc523"
-            tooltip="productSuggestion"
           />
         </div>
       </div>
@@ -269,14 +330,23 @@ export default function SideBar() {
   return (
     <>
       <div className="flex flex-column">
-        <CapIconButton
-          iconType="ai"
-          icon="AiFillHome"
-          route="/"
-          tooltip="home"
-          css="mb-3"
-        />
-        {user?.email === "cisab@cisab.com" ? (
+        {/* Home */}
+        {user?.roles.includes(Role.Cisab) ||
+        user?.roles.includes(Role.Admin) ? (
+          <>
+            <CapIconButton
+              iconType="ai"
+              icon="AiFillHome"
+              route="/"
+              tooltip="home"
+              css="mr-3"
+            />
+          </>
+        ) : null}
+
+        {/* County Overlay */}
+        {user?.roles.includes(Role.Cisab) ||
+        user?.roles.includes(Role.Admin) ? (
           <>
             <OverlayTrigger
               trigger="click"
@@ -295,54 +365,112 @@ export default function SideBar() {
             </OverlayTrigger>
           </>
         ) : null}
-        <OverlayTrigger
-          trigger="click"
-          placement="right"
-          overlay={demand}
-          rootClose
-        >
-          <div>
-            <CapIconButton
-              iconType="ri"
-              icon="RiFileList2Fill"
-              click={handleMain}
-              css="mb-3"
-              tooltip="demands"
-            />
-          </div>
-        </OverlayTrigger>
 
-        <OverlayTrigger
-          trigger="click"
-          placement="right"
-          overlay={product}
-          rootClose
-        >
-          <div>
+        {/* Autarky Overlay */}
+        {user?.roles.includes(Role.Townhall) ||
+        user?.roles.includes(Role.Autarky) ? (
+          <>
+            <OverlayTrigger
+              trigger="click"
+              placement="right"
+              overlay={autarky}
+              rootClose
+            >
+              <div>
+                <CapIconButton
+                  iconType="fa"
+                  icon="FaCity"
+                  tooltip="counties"
+                  css="mb-3"
+                />
+              </div>
+            </OverlayTrigger>
+          </>
+        ) : null}
+
+        {/* User Institution */}
+        {user?.roles.includes(Role.Employee) ? (
+          <>
             <CapIconButton
-              iconType="gi"
-              icon="GiCardboardBoxClosed"
-              css="mb-3"
-              tooltip="products"
+              iconType="fa"
+              icon="FaCity"
+              route="/counties/index"
+              tooltip="countyData"
+              css="mr-3"
             />
-          </div>
-        </OverlayTrigger>
-        <OverlayTrigger
-          trigger="click"
-          placement="right"
-          overlay={project}
-          rootClose
-        >
-          <div>
-            <CapIconButton
-              iconType="bs"
-              icon="BsDiagram3Fill"
-              css="mb-3"
-              tooltip="project"
-            />
-          </div>
-        </OverlayTrigger>
-        {user?.email === "cisab@cisab.com" ? (
+          </>
+        ) : null}
+
+        {/* Demand Overlay */}
+        {user?.roles.includes(Role.Cisab) ||
+        user?.roles.includes(Role.Admin) ? (
+          <>
+            <OverlayTrigger
+              trigger="click"
+              placement="right"
+              overlay={demand}
+              rootClose
+            >
+              <div>
+                <CapIconButton
+                  iconType="ri"
+                  icon="RiFileList2Fill"
+                  click={handleMain}
+                  css="mb-3"
+                  tooltip="demands"
+                />
+              </div>
+            </OverlayTrigger>
+          </>
+        ) : null}
+
+        {/* Order Overlay */}
+        {!user?.roles.includes(Role.Cisab) ? (
+          <>
+            <OverlayTrigger
+              trigger="click"
+              placement="right"
+              overlay={order}
+              rootClose
+            >
+              <div>
+                <CapIconButton
+                  iconType="ri"
+                  icon="RiBillFill"
+                  click={handleMain}
+                  css="mb-3"
+                  tooltip="orders"
+                />
+              </div>
+            </OverlayTrigger>
+          </>
+        ) : null}
+
+        {/* Product Overlay */}
+        {user?.roles.includes(Role.Cisab) ||
+        user?.roles.includes(Role.Admin) ? (
+          <>
+            <OverlayTrigger
+              trigger="click"
+              placement="right"
+              overlay={product}
+              rootClose
+            >
+              <div>
+                <CapIconButton
+                  iconType="gi"
+                  icon="GiCardboardBoxClosed"
+                  css="mb-3"
+                  tooltip="products"
+                />
+              </div>
+            </OverlayTrigger>
+          </>
+        ) : null}
+
+        {/* Employee Overlay */}
+        {user?.roles.includes(Role.Townhall) ||
+        user?.roles.includes(Role.Autarky) ? (
           <OverlayTrigger
             trigger="click"
             placement="right"
@@ -360,6 +488,50 @@ export default function SideBar() {
             </div>
           </OverlayTrigger>
         ) : null}
+
+        {/* User Profile */}
+        <CapIconButton
+          iconType="fa"
+          icon="FaUserAlt"
+          css="mr-3"
+          tooltip="profile"
+        />
+
+        {/* Product Suggestion */}
+        {!user?.roles.includes(Role.Cisab) ? (
+          <>
+            <CapIconButton
+              iconType="gi"
+              icon="GiCardboardBox"
+              route="/products/suggest"
+              tooltip="productSuggestion"
+              css="mr-3"
+            />
+          </>
+        ) : null}
+
+        {/* Project Overlay */}
+        {user?.roles.includes(Role.Admin) ? (
+          <>
+            <OverlayTrigger
+              trigger="click"
+              placement="right"
+              overlay={project}
+              rootClose
+            >
+              <div>
+                <CapIconButton
+                  iconType="bs"
+                  icon="BsDiagram3Fill"
+                  css="mb-3"
+                  tooltip="project"
+                />
+              </div>
+            </OverlayTrigger>
+          </>
+        ) : null}
+
+        {/* Settings Overlay */}
         <OverlayTrigger
           trigger="click"
           placement="right"
@@ -375,11 +547,14 @@ export default function SideBar() {
             />
           </div>
         </OverlayTrigger>
+
+        {/* Logout */}
         <CapIconButton
           iconType="io5"
           icon="IoLogOut"
           click={logout}
           tooltip="logout"
+          css="mr-3"
         />
       </div>
     </>
