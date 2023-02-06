@@ -11,6 +11,9 @@ import CapImage from "atoms/capImage";
 import CountyImageModal from "./countyImageModal";
 import { info } from "console";
 import CapMessageBottom from "atoms/capMessageBottom";
+import CapInputAdvanced from "atoms/capInputAdvanced";
+import useSWR, { MutatorCallback, MutatorOptions } from "swr";
+import { CategoryDTO } from "pages/api/categories";
 
 export default function CountyRegistration({
   county = undefined,
