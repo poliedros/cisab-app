@@ -147,10 +147,8 @@ export default function ProductCreation({
     });
     //alert(data.status);
 
-    if (data.status === 200)
-      setShowSave(
-        true
-      ); //<CapMessageBottom literal="Salvou" show={showSave} setShow={setShowSave} />
+    if (data.status === 200) setShowSave(true);
+    //<CapMessageBottom literal="Salvou" show={showSave} setShow={setShowSave} />
     else setShowError(true); //<CapMessageBottom literal="Erro" show={showError} setShow={setShowError} />
     const result = await data.json();
     setProductId(result._id);
@@ -378,8 +376,13 @@ export default function ProductCreation({
     <>
       <CapTitle
         base="product"
-        label="addProduct" //{county ? "editCounty" : "countyRegistration"}
+        label={suggest ? "suggestProduct" : "addProduct"} //{county ? "editCounty" : "countyRegistration"}
       />
+      <CapParagraph
+        label={"suggestObs"}
+        // show={suggest}
+      />
+
       <Form className="mt-3">
         <Row>
           <CapTabs
