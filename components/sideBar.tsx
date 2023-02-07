@@ -141,12 +141,12 @@ export default function SideBar() {
           }
         >
           <CapIconButton
-            iconType="md"
-            icon={iconBrightness}
+            iconType="fa"
+            icon="FaThList"
             size="24px"
-            //click={handleBrightness}
+            route="/demands/viewer"
             hoverColor="#7dc523"
-            tooltip="themes"
+            tooltip="listDemands"
           />
         </div>
       </div>
