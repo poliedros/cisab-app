@@ -38,6 +38,7 @@ export default function Edit() {
   const editCounty = async (
     county: CountyDTO
   ): Promise<CountyDTO | undefined> => {
+    console.log(county);
     const data = await fetch(`/api/counties/${id}`, {
       method: "PUT",
       body: JSON.stringify(county),
@@ -69,10 +70,7 @@ export default function Edit() {
 
   return (
     <>
-      <CountyRegistration
-        county={countyRes}
-        submit={editCounty}
-      />
+      <CountyRegistration county={countyRes} submit={editCounty} />
       <>{error}</>
       <div className="flex justify-center">
         {message === "success" ? (

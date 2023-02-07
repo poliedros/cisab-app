@@ -257,6 +257,15 @@
   "measure": {
     "pt": "Medida"
   },
+  "measures": {
+    "pt": "Medidas"
+  },
+  "noMeasureAdded": {
+    "pt": "Medida não Incluída"
+  },
+  "incorrectedMeasureAdded": {
+    "pt": "Medida Incorreta"
+  },
   "insertUnit": {
     "pt": "Insira a quantidade"
   },
@@ -271,6 +280,9 @@
   },
   "productName": {
     "pt": "Nome do Produto"
+  },
+  "productNameRequired": {
+    "pt": "Nome do Produto é Obrigatório"
   },
   "insertProductName": {
     "pt": "Insera o Nome do Produto"
@@ -461,11 +473,20 @@
   "code": {
     "pt": "Código"
   },
+  "noCodeAdded": {
+    "pt": "Nenhum Código Incluído"
+  },
   "goToAccessory": {
     "pt": "Preencher Acessórios"
   },
   "category": {
     "pt": "Categoria"
+  },
+  "categories": {
+    "pt": "Categorias"
+  },
+  "atLeastOneCategoryRequired": {
+    "pt": "Ao menos uma Categoria é Obrigatória"
   },
   "norm": {
     "pt": "Norma"
@@ -626,7 +647,34 @@
   "returnToLogin": {
     "pt": "Retornar a página de Acesso"
   },
-  "cart": {
-    "pt": "Carrinho"
+  "placeOrder": {
+    "pt": "Fazer Pedido"
+  },
+  "successOperation": {
+    "pt": "Operação realizada com sucesso"
+  },
+  "errorOperation": {
+    "pt": "Erro na operação"
+  },
+  "addProductsFromCategory": {
+    "pt": "Adicionar todos os produtos dessa(s) categoria(s)"
+  },
+  "suggestProduct": {
+    "pt": "Sugerir um novo produto"
+  },
+  "suggestObs": {
+    "pt": "O produto criado aqui irá passar por uma validação da CISAB."
+  },
+  "orders": {
+    "pt": "Pedidos"
+  },
+  "cisab": {
+    "pt": "CISAB"
+  },
+  "autarkyList": {
+    "pt": "Lista de Autarquias"
+  },
+  "profile": {
+    "pt": "Perfil"
   }
 }

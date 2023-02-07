@@ -1,14 +1,415 @@
 import CapForm from "atoms/capForm";
+import CapIconButton from "atoms/capIconButton";
 import CapSubtitle from "atoms/capSubtitle";
 import CapTitle from "atoms/capTitle";
 import IconsByName from "components/iconsByName";
-import { Accordion, Card, Col, Row } from "react-bootstrap";
+import { useTheme, useThemeUpdate } from "context/themeContext";
+import { useState } from "react";
+import {
+    Accordion,
+    Card,
+    Col,
+    OverlayTrigger,
+    Popover,
+    Row,
+} from "react-bootstrap";
+
+const SideBarExample = ({userSb}: {userSb: string}) => {
+    const theme = useTheme();
+    const toggleTheme = useThemeUpdate();
+    const [iconBrightness, setIconBrightness] = useState("MdBrightness4");
+
+    const county = (
+        <Popover>
+            <div className="overflow-auto -mt-[2.5rem] -mb-6 -mx-5 p-4 invisibleScroll">
+                <div
+                    className={
+                        (theme === "dark" ? "bg-slate-900" : "bg-white") +
+                        " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"
+                    }
+                >
+                    <CapIconButton
+                        iconType="fa"
+                        icon="FaCity"
+                        size="24px"
+                        route="/registration"
+                        hoverColor="#7dc523"
+                        tooltip="createCounty"
+                        css="mr-3"
+                    />
+                    {userSb === "admin" || userSb === "cisab" ? (<>
+                    <CapIconButton
+                        iconType="fa"
+                        icon="FaThList"
+                        size="24px"
+                        route="/counties"
+                        hoverColor="#7dc523"
+                        tooltip="listCounties"
+                        css="mr-3"
+                    />
+                    </>) : null}
+                    {userSb === "admin" || userSb === "cisab" || userSb === "townhall" || userSb === "autarky" ? (<>
+                    <CapIconButton
+                        iconType="ri"
+                        icon="RiGovernmentFill"
+                        size="24px"
+                        route="/registration"
+                        hoverColor="#7dc523"
+                        tooltip="createCounty"
+                        css="mr-3"
+                    />
+                    {userSb !== "autarky" ? (
+                    <CapIconButton
+                        iconType="fa"
+                        icon="FaThList"
+                        size="24px"
+                        route="/counties"
+                        hoverColor="#7dc523"
+                        tooltip="listCounties"
+                    />
+                    ) : null}
+                    </>) : null}
+                </div>
+            </div>
+        </Popover>
+    );
+
+    const product = (
+        <Popover>
+            <div className="overflow-auto -mt-[2.5rem] -mb-6 -mx-5 p-4 invisibleScroll">
+                <div
+                    className={
+                        (theme === "dark" ? "bg-slate-900" : "bg-white") +
+                        " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"
+                    }
+                >
+                    <CapIconButton
+                        iconType="gi"
+                        icon="GiCardboardBoxClosed"
+                        size="24px"
+                        route="/products/create"
+                        hoverColor="#7dc523"
+                        css="mr-3"
+                        tooltip="createProduct"
+                    />
+                    <CapIconButton
+                        iconType="fa"
+                        icon="FaThList"
+                        size="24px"
+                        route="/products"
+                        hoverColor="#7dc523"
+                        css="mr-3"
+                        tooltip="listProducts"
+                    />
+                    {/* <CapIconButton
+                        iconType="md"
+                        icon="MdLinearScale"
+                        size="24px"
+                        route="/counties"
+                        hoverColor="#7dc523"
+                    /> */}
+                    <CapIconButton
+                        iconType="gi"
+                        icon="GiCardboardBox"
+                        size="24px"
+                        route="/counties/create"
+                        hoverColor="#7dc523"
+                        tooltip="productSuggestion"
+                    />
+                </div>
+            </div>
+        </Popover>
+    );
+
+    const demand = (
+        <Popover>
+            <div className="overflow-auto -mt-[2.5rem] -mb-6 -mx-5 p-4 invisibleScroll">
+                <div
+                    className={
+                        (theme === "dark" ? "bg-slate-900" : "bg-white") +
+                        " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"
+                    }
+                >
+                    <CapIconButton
+                        iconType="ri"
+                        icon="RiFileList2Fill"
+                        size="24px"
+                        route="/demands/create"
+                        hoverColor="#7dc523"
+                        css="mr-3"
+                        tooltip="createDemand"
+                    />
+                    <CapIconButton
+                        iconType="fa"
+                        icon="FaThList"
+                        size="24px"
+                        route="/demands"
+                        hoverColor="#7dc523"
+                        tooltip="listDemands"
+                    />
+                </div>
+            </div>
+        </Popover>
+    );
+
+    const employee = (
+        <Popover>
+            <div className="overflow-auto -mt-[2.5rem] -mb-6 -mx-5 p-4 invisibleScroll">
+                <div
+                    className={
+                        (theme === "dark" ? "bg-slate-900" : "bg-white") +
+                        " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"
+                    }
+                >
+                    <CapIconButton
+                        iconType="fa"
+                        icon="FaUserFriends"
+                        size="24px"
+                        route="/users/userRegistration"
+                        hoverColor="#7dc523"
+                        css="mr-3"
+                        tooltip="createEmployee"
+                    />
+                    {userSb !== "employee" ? (
+                    <CapIconButton
+                        iconType="fa"
+                        icon="FaThList"
+                        size="24px"
+                        route={"/counties/6363c2f363e9deb5a8e1c672/users"}
+                        hoverColor="#7dc523"
+                        tooltip="listEmployees"
+                    />
+                    ) : null}
+                </div>
+            </div>
+        </Popover>
+    );
+
+    const order = (
+        <Popover>
+            <div className="overflow-auto -mt-[2.5rem] -mb-6 -mx-5 p-4 invisibleScroll">
+                <div
+                    className={
+                        (theme === "dark" ? "bg-slate-900" : "bg-white") +
+                        " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"
+                    }
+                >
+                    <CapIconButton
+                        iconType="md"
+                        icon={iconBrightness}
+                        size="24px"
+                        //click={handleBrightness}
+                        hoverColor="#7dc523"
+                        tooltip="themes"
+                    />
+                </div>
+            </div>
+        </Popover>
+    );
+    
+    const setting = (
+        <Popover>
+            <div className="overflow-auto -mt-[2.5rem] -mb-6 -mx-5 p-4 invisibleScroll">
+                <div
+                    className={
+                        (theme === "dark" ? "bg-slate-900" : "bg-white") +
+                        " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"
+                    }
+                >
+                    <CapIconButton
+                        iconType="md"
+                        icon={iconBrightness}
+                        size="24px"
+                        //click={handleBrightness}
+                        hoverColor="#7dc523"
+                        tooltip="themes"
+                    />
+                </div>
+            </div>
+        </Popover>
+    );
+
+    return (<>{userSb}<div className="overflow-auto p-6 swing-in-right-bck invisibleScroll w-auto flex">
+    <div className="relative bg-white px-[1rem] pt-[2rem] pb-[1.5rem] shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-[2rem]">
+        <Row>
+            <div className="flex flex-column">
+                {userSb === "admin" || userSb === "cisab" ? (
+                <CapIconButton
+                    iconType="ai"
+                    icon="AiFillHome"
+                    //route="/"
+                    tooltip="home"
+                    css="mb-3"
+                />
+                ) : null}
+                {userSb === "cisab" ? (
+                <CapIconButton
+                    iconType="md"
+                    icon="MdWaterDrop"
+                    //route="/"
+                    tooltip="home"
+                    css="mb-3"
+                />
+                ) : null}
+                {true ? ( //user?.email
+                    <>
+                        <OverlayTrigger
+                            trigger="click"
+                            placement="right"
+                            overlay={county}
+                            rootClose
+                        >
+                            <div>
+                                <CapIconButton
+                                    iconType={userSb === "autarky" ? "ri" : "fa"}
+                                    icon={userSb === "autarky" ? "RiGovernmentFill" : "FaCity"}
+                                    tooltip="counties"
+                                    css="mb-3"
+                                />
+                            </div>
+                        </OverlayTrigger>
+                    </>
+                ) : null}
+                {userSb === "cisab" || userSb === "admin" ? (
+                <OverlayTrigger
+                    trigger="click"
+                    placement="right"
+                    overlay={demand}
+                    rootClose
+                >
+                    <div>
+                        <CapIconButton
+                            iconType="ri"
+                            icon="RiFileList2Fill"
+                            /* click={handleMain} */ css="mb-3"
+                            tooltip="demands"
+                        />
+                    </div>
+                </OverlayTrigger>
+                ) : null}
+                {userSb !== "cisab" ? (
+                <OverlayTrigger
+                    trigger="click"
+                    placement="right"
+                    //overlay={demand}
+                    overlay={setting}
+                    rootClose
+                >
+                    <div>
+                        <CapIconButton
+                            iconType="ri"
+                            icon="RiFileListFill"
+                            /* click={handleMain} */ css="mb-3"
+                            tooltip="orders"
+                        />
+                    </div>
+                </OverlayTrigger>
+                ) : null}
+                {userSb === "cisab" || userSb === "admin" ? (
+                <OverlayTrigger
+                    trigger="click"
+                    placement="right"
+                    overlay={product}
+                    rootClose
+                >
+                    <div>
+                        <CapIconButton
+                            iconType="gi"
+                            icon="GiCardboardBoxClosed"
+                            css="mb-3"
+                            tooltip="products"
+                        />
+                    </div>
+                </OverlayTrigger>
+                ) : null}
+                {userSb !== "employee" ? (
+                <OverlayTrigger
+                    trigger="click"
+                    placement="right"
+                    //overlay={project}
+                    overlay={order}
+                    rootClose
+                >
+                    <div>
+                        <CapIconButton
+                            iconType="bs"
+                            icon="BsDiagram3Fill"
+                            css="mb-3"
+                            tooltip="project"
+                        />
+                    </div>
+                </OverlayTrigger>
+                ) : null}
+                {userSb === "townhall" || userSb === "autarky" || userSb === "manager" || userSb === "employee" ? ( //user?.email
+                    <OverlayTrigger
+                        trigger="click"
+                        placement="right"
+                        overlay={employee}
+                        rootClose
+                    >
+                        <div>
+                            <CapIconButton
+                                iconType="fa"
+                                icon="FaUserFriends"
+                                //route={"/counties/6363c2f363e9deb5a8e1c672/users"} // TODO: Substituir para pegar do municipio logado
+                                tooltip="employees"
+                                css="mb-3"
+                            />
+                        </div>
+                    </OverlayTrigger>
+                ) : null}
+                <OverlayTrigger
+                    trigger="click"
+                    placement="right"
+                    overlay={setting}
+                    rootClose
+                >
+                    <div>
+                        <CapIconButton
+                            iconType="bs"
+                            icon="BsGearFill"
+                            tooltip="settings"
+                            css="mb-3"
+                        />
+                    </div>
+                </OverlayTrigger>
+                <CapIconButton
+                    iconType="io5"
+                    icon="IoLogOut"
+                    //click={logout}
+                    tooltip="logout"
+                />
+            </div>
+        </Row>
+    </div>
+</div></>);
+};
 
 export default function DocumentationMain() {
     return (
         <>
             <CapTitle base="doc" label="documentation" />
-            <CapSubtitle literal="tabela"/>
+            <CapSubtitle literal="tabela" />
+            <Row>
+                <Col>
+                    <SideBarExample userSb={"admin"} />
+                </Col>
+                <Col>
+                    <SideBarExample userSb={"cisab"} />
+                </Col>
+                <Col>
+                    <SideBarExample userSb={"townhall"} />
+                </Col>
+                <Col>
+                    <SideBarExample userSb={"autarky"} />
+                </Col>
+                <Col>
+                    <SideBarExample userSb={"manager"} />
+                </Col>
+                <Col>
+                    <SideBarExample userSb={"employee"} />
+                </Col>
+            </Row>
 
             <p>Classes</p>
             <Card border="success" className="ml-12 mt-8">
@@ -26,7 +427,6 @@ export default function DocumentationMain() {
                     </Card.Text>
                 </Card.Body>
             </Card>
-            
             <Card border="success" className="ml-12 mt-8">
                 <Card.Header className="flex items-center">
                     <div className="bg-white rounded-full -ml-12 -mt-10">
@@ -92,7 +492,10 @@ export default function DocumentationMain() {
                     <div className="bg-white rounded-full -ml-12 -mt-10">
                         {IconsByName("ri", "RiFileListFill", "64px")}
                     </div>{" "}
-                    {IconsByName("ri", "RiBillFill", "32px")} {IconsByName("ri", "RiFileList2Fill", "32px")} {IconsByName("bs", "BsFileEarmarkTextFill", "32px")} {IconsByName("fa", "FaFileContract", "32px")} Demand
+                    {IconsByName("ri", "RiBillFill", "32px")}{" "}
+                    {IconsByName("ri", "RiFileList2Fill", "32px")}{" "}
+                    {IconsByName("bs", "BsFileEarmarkTextFill", "32px")}{" "}
+                    {IconsByName("fa", "FaFileContract", "32px")} Demand
                 </Card.Header>
                 <Card.Body>
                     <Card.Title>Success Card Title</Card.Title>
@@ -102,7 +505,6 @@ export default function DocumentationMain() {
                     </Card.Text>
                 </Card.Body>
             </Card>
-
             <Card border="success" style={{ width: "18rem" }}>
                 <Card.Header>
                     {IconsByName("fa", "FaCity", "32px")} County

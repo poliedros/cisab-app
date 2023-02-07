@@ -1,6 +1,8 @@
 import CapContainer from "atoms/capContainer";
 import CapForm from "atoms/capForm";
+import CapIconButton from "atoms/capIconButton";
 import CapParagraph from "atoms/capParagraph";
+import CapSwitcher from "atoms/capSwitcher";
 import CapTitle from "atoms/capTitle";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -10,11 +12,33 @@ export default function ItemSwitcher() {
     const [label, setLabel] = useState(undefined);
     const [literal, setLiteral] = useState("CZAR");
     const [css, setCss] = useState("");
+    const [data, setData] = useState([
+        {_id: "kjash", name: "México"},
+        {_id: "skjah", name: "Austria"},
+        {_id: "iaudh", name: "Camboja"}]);
+    const [quantity, setQuantity] = useState([]);
+    const [getInput, setGetInput] = useState([]);
 
     return <>
         <Row className="mb-3">
-            <CapContainer data={[{name: "cano", code: "982", photo_url: "https://3.imimg.com/data3/MX/LT/MY-731815/q-trap-250x250.jpg"}]} component="tinyCard" />
+            {/* <CapContainer data={[{name: "cano", code: "982", photo_url: "https://3.imimg.com/data3/MX/LT/MY-731815/q-trap-250x250.jpg"}]} component="tinyCard" /> */}
+            <CapSwitcher
+                data={data}
+                tableHeaders={["name", "name"]}
+                tableColumns={["name", "name"]}
+                input={1}
+                inputValue={quantity}
+                pagesSize={2}
+                getInput={setGetInput}
+            />
         </Row>
+        <CapIconButton
+                  iconType="ri"
+                  icon="RiShoppingBasket2Line"
+                  size="20px"
+                  click={() => {
+                    alert(JSON.stringify(getInput))
+                  }}/>
         <Row>
             <Col>
                 <CapForm kind="select" label="docLabel" options={[undefined, "emptyText", "name"]} change={(e: any) => { setLabel(e.target.value); }} />

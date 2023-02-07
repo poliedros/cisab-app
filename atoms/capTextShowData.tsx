@@ -1,6 +1,7 @@
 import translations from "../lib/translations";
 
 import { useLanguage, useLanguageUpdate } from "../context/languageContext";
+import { useTheme } from "context/themeContext";
 
 export default function CapTextShowData({
     label = "emptyText",
@@ -13,6 +14,7 @@ export default function CapTextShowData({
 }) {
     const language = useLanguage();
     const toggleLanguage = useLanguageUpdate();
+    const theme = useTheme();
 
     return (
         <>
@@ -21,7 +23,7 @@ export default function CapTextShowData({
                     {literal ? literal : translations(label, language)}:{" "}
                 </h6>
                 &nbsp;
-                <h5 className="text-right">{info}</h5>
+                <h5 className={(theme === "dark" ? "text-white" : "") + " text-right"}>{info}</h5>
             </div>
         </>
     );

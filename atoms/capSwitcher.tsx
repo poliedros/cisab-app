@@ -52,7 +52,7 @@ export default function CapSwitcher({
     pagination?: any;
 
     input?: number;
-    inputValue?: string | number;
+    inputValue?: any[] | undefined;
     inputSetValue?: any;
     getInput?: any;
 }) {
@@ -62,6 +62,16 @@ export default function CapSwitcher({
     const [search, setSearch] = useState();
     //const [dataPage, setDataPage] = useState();
     const [page, setPage] = useState(0);
+
+    data.map((d) => {
+        inputValue?.push({id: d._id, value: 0})
+    });
+
+    // inputValue = inputValue ? inputValue.filter((value, index, self) =>
+    //     index === self.findIndex((t) => (
+    //         t.id === value.id && t.value === value.value
+    //     ))
+    // ) : [];
 
     data = data.filter((f) =>
         searchPath
@@ -116,7 +126,7 @@ export default function CapSwitcher({
                 </Col>
                 <Col>
                     {format === "grid" ? (
-                        <CapContainer data={search || search !== "" && (data === dataPage) ? data : dataPage} component={cardType} buttons={buttons} buttonsPath={buttonsPaths} inputValue={inputValue}
+                        <CapContainer data={search || search !== "" && (data === dataPage) ? data : dataPage} component={cardType} buttons={buttons} buttonsPath={buttonsPaths} /* inputValue={inputValue} */
                         inputSetValue={inputSetValue} />
                     ) : format === "table" ? (
                         <CapTable
@@ -127,10 +137,12 @@ export default function CapSwitcher({
                             image={tableImage}
                             input={input}
                             inputValue={inputValue}
-                            inputSetValue={inputSetValue}
+                            //inputSetValue={inputSetValue}
                             getInput={getInput}
                             buttonsColumns={buttons}
                             buttonsPaths={buttonsPaths}
+                            pageSize={pagesSize}
+                            currentPage={page}
                         />
                     ) : null}
                     <CapPagination
