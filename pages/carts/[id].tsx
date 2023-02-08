@@ -1,10 +1,10 @@
+import CartView from "components/carts/cartView";
+import DemandView from "components/demands/demandView";
 import ProductList from "components/products/productList";
-import { Role } from "lib/role.enum";
-import useRole from "lib/useRole";
 import useUser from "lib/useUser";
+import { useRouter } from "next/router";
 import useSWR from "swr";
-import { CartDTO } from "./api/cart";
-import { ProductDTO } from "./api/products";
+import { CartDTO } from "../api/carts/[id]";
 
 // async function getCart() {
 //   const response = await fetch(`api/cart`, {
@@ -28,9 +28,12 @@ import { ProductDTO } from "./api/products";
 
 export default function Cart() {
   const { user } = useUser({ redirectTo: "/login" });
-  useRole({ user, role: Role.Cisab, redirectTo: "/" });
+  const router = useRouter();
+  const { id } = router.query;
 
-  const { data: cart, error } = useSWR<CartDTO>(user ? "/api/cart" : null);
+  const { data: cart, error } = useSWR<CartDTO>(
+    user ? `/api/carts/${id}` : null
+  );
   if (!cart) return <div>loading...</div>;
 
   if (!user || user.isLoggedIn == false) {
@@ -38,6 +41,6 @@ export default function Cart() {
   }
 
   // const cart = await getCart();
-
-  return <>{<ProductList products={cart.products} />}</>;
+  return <>{<CartView cart={cart} />}</>;
+  // return <>{<ProductList products={cart?.products} />}</>;
 }

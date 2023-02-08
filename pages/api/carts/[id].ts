@@ -1,7 +1,7 @@
 import { withIronSessionApiRoute } from "iron-session/next";
 import { sessionOptions } from "lib/session";
 import { NextApiRequest, NextApiResponse } from "next";
-import { Measure } from "./products";
+import { Measure } from "../products";
 
 export type ProductOnCartDTO = {
   _id: string;
@@ -14,8 +14,8 @@ export type ProductOnCartDTO = {
 
 export type CartDTO = {
   _id: string;
-  client_id: string;
-  demand_id: string;
+  client_name: string;
+  demand_name: string;
   products: ProductOnCartDTO[];
   state: string;
 };
@@ -29,26 +29,24 @@ async function handler(req: NextApiRequest, res: NextApiResponse<CartDTO[]>) {
 
   const response = {
     status: 200,
-    data: [
-      {
-        _id: "carrinho1",
-        client_id: "prefeitura1",
-        demand_id: "63c69bf8305c75d2b98d5989",
-        products: [
-          {
-            _id: "63a0ba62610ae58ba6d8f9aa",
-            name: "Tabua",
-            quantity: 4,
-          },
-          {
-            _id: "63a0ba66610ae58ba6d8f9af",
-            name: "Cano",
-            quantity: 2,
-          },
-        ],
-        state: "open",
-      },
-    ],
+    data: {
+      _id: "carrinho1",
+      client_name: "prefeitura1",
+      demand_name: "Demanda para construção",
+      products: [
+        {
+          _id: "63a5ada6fb0b8389f8bbcced",
+          name: "Tabua",
+          quantity: 4,
+        },
+        {
+          _id: "63a0ba66610ae58ba6d8f9af",
+          name: "Cano",
+          quantity: 2,
+        },
+      ],
+      state: "open",
+    },
   };
 
   const data = response.data as unknown as CartDTO[];
