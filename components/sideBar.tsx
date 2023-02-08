@@ -49,7 +49,7 @@ export default function SideBar() {
     } else null;
   };
 
-  console.log(user);
+  console.log("User: ", user);
 
   const county = (
     <Popover>
