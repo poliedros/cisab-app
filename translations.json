@@ -23,6 +23,12 @@
   "editedCountyFault": {
     "pt": "Falha ao Editar o Município. Tente novamente."
   },
+  "removedCounty": {
+    "pt": "Município Removido Corretamente."
+  },
+  "removedCountyFault": {
+    "pt": "Falha ao Remover Município."
+  },
   "countyRegistration": {
     "pt": "Cadastro de Município"
   },
