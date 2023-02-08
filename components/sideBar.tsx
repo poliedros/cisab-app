@@ -287,7 +287,7 @@ export default function SideBar() {
             iconType="fa"
             icon="FaUserFriends"
             size="24px"
-            route="/users/userRegistration"
+            route="/users/create"
             hoverColor="#7dc523"
             css="mr-3"
             tooltip="createEmployee"

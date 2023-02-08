@@ -41,6 +41,7 @@ export default function UserRegistration({
         <CapForm
           as={Col}
           label="email"
+          type="email"
           placeholder="insertEmail"
           value={countyUserEmail}
           change={(e: any) => {
@@ -50,6 +51,7 @@ export default function UserRegistration({
         <CapForm
           as={Col}
           label="password"
+          type="password"
           placeholder="insertPassword"
           value={countyUserPassword}
           change={(e: any) => {

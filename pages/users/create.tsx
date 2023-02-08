@@ -6,6 +6,7 @@ import { useState } from "react";
 
 export default function Create() {
   const { user } = useUser({ redirectTo: "/login" });
+  const county_id = "6363c2f363e9deb5a8e1c672"; // TODO: Pegar do Contexto depois que ele estiver lá
 
   const [message, setMessage] = useState("emptyText");
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
@@ -18,7 +19,7 @@ export default function Create() {
     countyUser: any
   ): Promise<CountyUserDTO | undefined> => {
     delete countyUser._id;
-    const data = await fetch("/api/counties", {
+    const data = await fetch(`/api/counties/${county_id}/users`, {
       method: "POST",
       body: JSON.stringify(countyUser),
     }); //.finally(() => setLoading(false));
@@ -38,12 +39,19 @@ export default function Create() {
 
   return (
     <>
-      {/* <UserRegistration
-        language={"pt"}
-        user={undefined}
+      <UserRegistration
         submit={saveCountyUser}
-      /> */}
-      {/*<>{error}</>*/}
+        countyUser={{
+          _id: "",
+          email: "",
+          name: "",
+          surname: "",
+          password: undefined,
+          properties: {
+            profession: undefined,
+          },
+        }}
+      />
       <div className="flex justify-center">
         {errorMessage ? (
           <CapMessageBottom
