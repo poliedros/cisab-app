@@ -100,7 +100,8 @@ export default function SideBar() {
             tooltip="countyData"
             css="mr-3"
           />
-          {user?.roles.includes(Role.Townhall) ||
+          {/* TODO: Idealmente isso deveria aparecer somente para o município */}
+          {/* {user?.roles.includes(Role.Manager) || 
           user?.roles.includes(Role.Admin) ? (
             <>
               <CapIconButton
@@ -112,8 +113,9 @@ export default function SideBar() {
                 tooltip="autarkyList"
               />
             </>
-          ) : null}
-          {user?.roles.includes(Role.Autarky) ||
+          ) : null} */}
+          {/* TODO: Idealmente isso deveria aparecer somente para a autarquia */}
+          {/* {user?.roles.includes(Role.Manager) || 
           user?.roles.includes(Role.Admin) ? (
             <>
               <CapIconButton
@@ -125,7 +127,7 @@ export default function SideBar() {
                 tooltip="autarkyData"
               />
             </>
-          ) : null}
+          ) : null} */}
         </div>
       </div>
     </Popover>
@@ -367,8 +369,8 @@ export default function SideBar() {
         ) : null}
 
         {/* Autarky Overlay */}
-        {user?.roles.includes(Role.Townhall) ||
-        user?.roles.includes(Role.Autarky) ? (
+        {user?.roles.includes(Role.Manager) ||
+        user?.roles.includes(Role.Admin) ? (
           <>
             <OverlayTrigger
               trigger="click"
@@ -469,8 +471,8 @@ export default function SideBar() {
         ) : null}
 
         {/* Employee Overlay */}
-        {user?.roles.includes(Role.Townhall) ||
-        user?.roles.includes(Role.Autarky) ? (
+        {user?.roles.includes(Role.Manager) ||
+        user?.roles.includes(Role.Admin) ? (
           <OverlayTrigger
             trigger="click"
             placement="right"
@@ -490,12 +492,12 @@ export default function SideBar() {
         ) : null}
 
         {/* User Profile */}
-        <CapIconButton
+        {/* <CapIconButton
           iconType="fa"
           icon="FaUserAlt"
           css="mr-3"
           tooltip="profile"
-        />
+        /> */}
 
         {/* Product Suggestion */}
         {!user?.roles.includes(Role.Cisab) ? (
