@@ -11,6 +11,7 @@ import CapIconButton from "atoms/capIconButton";
 import { useTheme, useThemeUpdate } from "../context/themeContext";
 
 import { Role } from "lib/role.enum";
+import useRole from "lib/useRole";
 
 export default function SideBar() {
   const [side, setSide] = useState(false);

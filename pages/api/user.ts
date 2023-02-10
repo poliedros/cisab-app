@@ -16,7 +16,6 @@ async function userRoute(req: NextApiRequest, res: NextApiResponse<User>) {
     res.json({
       ...req.session.user,
       isLoggedIn: true,
-      roles: ["manager"],
     });
     console.log(req.session.user);
   } else {
