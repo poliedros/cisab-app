@@ -9,6 +9,7 @@ import { useLanguage } from "../context/languageContext";
 import { useTheme } from "../context/themeContext";
 import CapImage from "./capImage";
 import CapForm from "./capForm";
+import CapMessageBottom from "./capMessageBottom";
 
 export default function CapTable({
     data = [],
@@ -56,6 +57,9 @@ export default function CapTable({
     const language = useLanguage();
     const theme = useTheme();
 
+    const [message, setMessage] = useState(false);
+    const [messageContent, setMessageContent] = useState("");
+
     const viewCounty = (p: string, i: string) => {
         Router.push(`${p}${i}`);
     };
@@ -69,14 +73,20 @@ export default function CapTable({
             method: "DELETE",
         });
         if (data.status === 200) {
-            alert("Delete County");
+            setMessage(true); 
+            setMessageContent("removedCounty");
         } else {
-            alert("Delete County Fault");
+            setMessage(true);
+            setMessageContent("removedCountyFault");
         }
     };
 
     const userCounty = async (p: string, i: string) => {
         Router.push(`${p}${i}/users`);
+    };
+
+    const autarkyCounty = (p: string, i: string) => {
+        Router.push(`${p}${i}/autarkies`);
     };
 
 
@@ -336,6 +346,28 @@ export default function CapTable({
                                                                                     </div>
                                                                                 ) : null}
                                                                                 {bc ===
+                                                                                "autarkies" ? (
+                                                                                    <div className="mx-0.5">
+                                                                                        <CapBtn
+                                                                                            kind={
+                                                                                                "autarkyIcon"
+                                                                                            }
+                                                                                            variant={
+                                                                                                "secondary"
+                                                                                            }
+                                                                                            css="!rounded-full !p-[6px]"
+                                                                                            click={() =>
+                                                                                                autarkyCounty(
+                                                                                                    buttonsPaths[
+                                                                                                        l
+                                                                                                    ],
+                                                                                                    d._id
+                                                                                                )
+                                                                                            }
+                                                                                        />
+                                                                                    </div>
+                                                                                ) : null}
+                                                                                {bc ===
                                                                                 "click" ? (
                                                                                     <div className="mx-0.5">
                                                                                         <CapBtn
@@ -390,6 +422,7 @@ export default function CapTable({
                         
                 </tbody>
             </Table>
+            <CapMessageBottom label={messageContent} show={message} setShow={setMessage} />
             {/* <div className="flex justify-end">
                 <CapIconButton iconType="bs" icon="BsSave" size="14px" click={() => {handleChangeValue()}} />
             </div> */}

@@ -4,6 +4,10 @@
 
 /* CSS mine */
 
+.width-f-available {
+    width: -webkit-fill-available !important;
+}
+
 /* .datepicker-input::-webkit-calendar-picker-indicator {
     background-color: pink;
 } */

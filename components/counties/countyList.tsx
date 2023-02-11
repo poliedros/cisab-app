@@ -29,11 +29,12 @@ export default function CountyList({ counties }: { counties: CountyDTO[] }) {
                     headers={["countyName", "responsible"]}
                     columns={["name", "contact.speakTo"]}
                     numeral={true}
-                    buttonsColumns={["view", "edit", "remove", "users"]}
+                    buttonsColumns={["view", "edit", "remove", "users", "autarkies"]}
                     buttonsPaths={[
                         "/counties/",
                         "/counties/",
                         "/api/counties/",
+                        "/counties/",
                         "/counties/",
                     ]}
                     search={searchCounty}
