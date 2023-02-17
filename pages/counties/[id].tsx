@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import { CountyDTO } from "pages/api/counties";
 import CountyProfile from "components/counties/countyProfile";
+import CountyAutarkyProfile from "components/autarkies/countyAutarkyProfile";
 
 export default function Get() {
   const router = useRouter();
@@ -23,7 +24,19 @@ export default function Get() {
 
   return (
     <>
-      <CountyProfile county={county} />
+      {county.county_id ? (
+        <CountyAutarkyProfile
+          county={{
+            _id: "",
+            name: "",
+            county_id: undefined,
+            info: undefined,
+            contact: undefined,
+          }}
+        />
+      ) : (
+        <CountyProfile county={county} />
+      )}
     </>
   );
 }

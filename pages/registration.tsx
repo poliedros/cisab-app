@@ -102,7 +102,11 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
 
   function accountCreated() {
     const email = countyManager.email + ", " + autarkyManager.email;
-    return <CapParagraph literal={translations("accountCreated", language) + " " + email} />; //translations("accountCreated", language) + " " + email;
+    return (
+      <CapParagraph
+        literal={translations("accountCreated", language) + " " + email}
+      />
+    ); //translations("accountCreated", language) + " " + email;
   }
 
   async function registerCounty(county: CountyDTO, id: string) {
@@ -120,24 +124,29 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
       <CapTabs
         activeKey={activeTab.toString()}
         disabled={[true, true, true, true, true, true, true]}
-        stagesTooltips={["countyAccount", "countyData", "countyAccountable", "autarkyAccount", "autarkyData", "aurtarkyAccountable", "finalize"]}
+        stagesTooltips={[
+          "countyAccount",
+          "countyData",
+          "countyAccountable",
+          "autarkyAccount",
+          "autarkyData",
+          "aurtarkyAccountable",
+          "finalize",
+        ]}
         stagesIcons={[
-          "RiAccountPinCircleFill",
-          "FaCity",
-          "HiOfficeBuilding",
-          "RiAccountPinCircleFill",
+          "RiAccountCircleFill",
+          "HiLibrary",
+          "HiClipboardList",
+          "RiAccountCircleFill",
           "RiGovernmentFill",
-          "HiOfficeBuilding",
+          "HiClipboardList",
           "RiCheckboxCircleFill",
         ]}
-        stagesIconsTypes={["ri", "fa", "hi", "ri", "ri", "hi", "ri"]}
+        stagesIconsTypes={["ri", "hi", "hi", "ri", "ri", "hi", "ri"]}
         stagesBody={[
           // 0. County Manager Registration
           <>
-            <Account
-              handleAccount={handleAccount}
-              kind={"county"}
-            />
+            <Account handleAccount={handleAccount} kind={"county"} />
             <Row className="flex justify-end items-end">
               <Col>
                 <CapLegend label={description} />
@@ -167,7 +176,7 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                 /> */}
               </Col>
               <Col md="auto" className="!pl-0 !pr-3">
-              <CapIconButton
+                <CapIconButton
                   iconType="ri"
                   icon="RiGovernmentLine"
                   size="20px"
@@ -176,7 +185,9 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                     registerAccount(countyManager);
                     setActiveTab(3);
                   }}
-                  mouseEnter={() => setDescription("forwardToAccountableGoToAutarky")}
+                  mouseEnter={() =>
+                    setDescription("forwardToAccountableGoToAutarky")
+                  }
                   mouseLeave={() => setDescription("emptyText")}
                 />
                 {/* <CapBtn
@@ -191,7 +202,7 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                 /> */}
               </Col>
               <Col md="auto" className="!pl-0">
-              <CapIconButton
+                <CapIconButton
                   iconType="md"
                   icon="MdNavigateNext"
                   size="20px"
@@ -240,20 +251,17 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                   icon="MdNavigateNext"
                   size="20px"
                   click={() => {
-                    setActiveTab(2)
+                    setActiveTab(2);
                   }}
                   mouseEnter={() => setDescription("continueFillingOut")}
                   mouseLeave={() => setDescription("emptyText")}
                 />
-                </Col>
-                </Row>
+              </Col>
+            </Row>
           </>,
           // 2. County Contact
           <>
-            <Contact
-              handleContact={handleContact}
-              kind={"county"}
-            />
+            <Contact handleContact={handleContact} kind={"county"} />
             <Row className="flex justify-end items-end">
               <Col>
                 <CapLegend label={description} />
@@ -270,8 +278,8 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                   mouseEnter={() => setDescription("insertAutarky")}
                   mouseLeave={() => setDescription("emptyText")}
                 />
-                </Col>
-                <Col md="auto" className="!pl-0">
+              </Col>
+              <Col md="auto" className="!pl-0">
                 <CapIconButton
                   iconType="bi"
                   icon="BiMailSend"
@@ -283,8 +291,8 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                   mouseEnter={() => setDescription("finalize")}
                   mouseLeave={() => setDescription("emptyText")}
                 />
-                </Col>
-                </Row>
+              </Col>
+            </Row>
 
             {/* <Row>
               <Col md="auto" className="!pl-0 !pr-3">
@@ -313,10 +321,7 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
           </>,
           // 3. Autarky Manager Registration
           <>
-            <Account
-              handleAccount={handleAccount}
-              kind={"autarky"}
-            />
+            <Account handleAccount={handleAccount} kind={"autarky"} />
             {/* <p>{translations("additionalDataQuestion", language)}</p> */}
             <Row className="flex justify-end items-end">
               <Col>
@@ -338,8 +343,8 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                   mouseEnter={() => setDescription("forwardToAccountable")}
                   mouseLeave={() => setDescription("emptyText")}
                 />
-                </Col>
-                <Col md="auto" className="!pl-0">
+              </Col>
+              <Col md="auto" className="!pl-0">
                 <CapIconButton
                   iconType="md"
                   icon="MdNavigateNext"
@@ -355,8 +360,8 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                   mouseEnter={() => setDescription("continueFillingOut")}
                   mouseLeave={() => setDescription("emptyText")}
                 />
-                </Col>
-                </Row>
+              </Col>
+            </Row>
 
             {/* <Row>
               <Col md="auto" className="!pl-0 !pr-3">
@@ -400,7 +405,7 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
           </>,
           // 4. Autarky Info
           <>
-            <Info handleInfo={handleInfo} kind={"autarky"}  />
+            <Info handleInfo={handleInfo} kind={"autarky"} />
             {/* <CapBtn kind="next" click={() => setActiveTab(5)} /> */}
 
             <Row className="flex justify-end items-end">
@@ -413,20 +418,17 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                   icon="MdNavigateNext"
                   size="20px"
                   click={() => {
-                    setActiveTab(5)
+                    setActiveTab(5);
                   }}
                   mouseEnter={() => setDescription("continueFillingOut")}
                   mouseLeave={() => setDescription("emptyText")}
                 />
-                </Col>
-                </Row>
+              </Col>
+            </Row>
           </>,
           // 5. Autarky Contact
           <>
-            <Contact
-              handleContact={handleContact}
-              kind={"autarky"}
-            />
+            <Contact handleContact={handleContact} kind={"autarky"} />
             {/* <CapBtn
               label="finalize"
               iconType="md"
@@ -464,8 +466,8 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                   mouseEnter={() => setDescription("finalize")}
                   mouseLeave={() => setDescription("emptyText")}
                 />
-                </Col>
-                </Row>
+              </Col>
+            </Row>
           </>,
           // 6. Account Created
           <>{error !== "" ? <h1>{error}</h1> : accountCreated()}</>,

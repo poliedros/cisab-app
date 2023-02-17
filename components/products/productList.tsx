@@ -18,42 +18,42 @@ import CapSwitcher from "atoms/capSwitcher";
 import CapLegend from "atoms/capLegend";
 
 export default function ProductList({ products }: { products: ProductDTO[] }) {
-    //const [searchProduct, setSearchProduct] = useState("");
+  //const [searchProduct, setSearchProduct] = useState("");
 
-    const size = 6;
+  const size = 6;
 
-    //const [format, setFormat] = useState("table");
-    // const [page, setPage] = useState(0);
-    // const [productsPage, setProductsPage] = useState(
-    //     products.slice(page * size, (page + 1) * size)
-    // );
+  //const [format, setFormat] = useState("table");
+  // const [page, setPage] = useState(0);
+  // const [productsPage, setProductsPage] = useState(
+  //     products.slice(page * size, (page + 1) * size)
+  // );
 
-    /* let productsPageFinal = productsPage;
+  /* let productsPageFinal = productsPage;
     productsPageFinal.map((p, i) => {
         p.photo = { photo_url: productsPage[i].photo_url };
     }); */
-    //productsPageFinal.map((p, i) => { p.photo.photo_url = productsPage[i].photo_url });
-    //console.log(productsPageFinal);
+  //productsPageFinal.map((p, i) => { p.photo.photo_url = productsPage[i].photo_url });
+  //console.log(productsPageFinal);
 
-    // useEffect(() => {
-    //     return setProductsPage(products.slice(page * size, page * size + size));
-    // }, [page]);
+  // useEffect(() => {
+  //     return setProductsPage(products.slice(page * size, page * size + size));
+  // }, [page]);
 
-    const [quantity, setQuantity] = useState<any[]>([]);
-    const [description, setDescription] = useState("emptyText");
-    const [getInput, setGetInput] = useState();
+  const [quantity, setQuantity] = useState<any[]>([]);
+  const [description, setDescription] = useState("emptyText");
+  const [getInput, setGetInput] = useState();
 
-    return (
-        <>
-            <Container className="p-0">
-                <CapTitle base="list" label="listProducts" />
-                <div className="mb-6"></div>
-                {/* <CapInputGroup
+  return (
+    <>
+      <Container className="p-0">
+        <CapTitle base="list" label="listProducts" />
+        <div className="mb-6"></div>
+        {/* <CapInputGroup
                     search={searchProduct}
                     setSearch={setSearchProduct}
                     placeholder={"searchProductByName"}
                 /> */}
-                {/* <CapSwitcher
+        {/* <CapSwitcher
                     data={products}
                     tableHeaders={["image", "products", "code"]}
                     tableColumns={["photo", "name", "code"]}
@@ -67,7 +67,7 @@ export default function ProductList({ products }: { products: ProductDTO[] }) {
                     ]}
                     searchPath={"name"}
                     pagesSize = {size} */}
-                    {/* table={
+        {/* table={
                         <CapTable
                             data={productsPageFinal}
                             headers={["image", "products", "code"]}
@@ -91,7 +91,7 @@ export default function ProductList({ products }: { products: ProductDTO[] }) {
                             component="tinyCard"
                         />
                     } */}
-                    {/* pagination={
+        {/* pagination={
                     //     <CapPagination
                     //         content={products}
                     //         size={size}
@@ -100,7 +100,7 @@ export default function ProductList({ products }: { products: ProductDTO[] }) {
                     //     />
                     // }
                  />*/}
-                {/* <Row>
+        {/* <Row>
                     <Col md="auto" className="border-r-2 mr-3 !my-6">
                         <div className="flex flex-column">
                             <CapIconButton
@@ -151,47 +151,43 @@ export default function ProductList({ products }: { products: ProductDTO[] }) {
                         />
                     </Col>
                 </Row> */}
-                {/* <CapInputAdvanced mutate={function (data?: CategoryDTO[] | Promise<CategoryDTO[]> | MutatorCallback<CategoryDTO[]> | undefined, opts?: boolean | MutatorOptions<CategoryDTO[]> | undefined): Promise<CategoryDTO[] | undefined> {
+        {/* <CapInputAdvanced mutate={function (data?: CategoryDTO[] | Promise<CategoryDTO[]> | MutatorCallback<CategoryDTO[]> | undefined, opts?: boolean | MutatorOptions<CategoryDTO[]> | undefined): Promise<CategoryDTO[] | undefined> {
                     throw new Error("Function not implemented.");
                 } } />
                 <CapInputRangeCalendar /> */}
-                <CapSwitcher
-                    data={products}
-                    tableHeaders={["image", "products", "code", "name"]}
-                    tableColumns={["photo", "name", "code", "name"]}
-                    tableNumeral={true}
-                    input={4}
-                    inputValue={quantity}
-                    //inputSetValue={setQuantity}
-                    tableImage={1}
-                    buttons={["view", "edit", "remove"]}
-                    buttonsPaths={[
-                        "/products/",
-                        "/products/",
-                        "/api/products/",
-                    ]}
-                    searchPath={"name"}
-                    pagesSize = {size}
-                    getInput={setGetInput}
-                />
-                <Row className="flex justify-end items-end">
-              <Col>
-                <CapLegend label={description} />
-              </Col>
-                <Col md="auto" className="!pl-0">
-                <CapIconButton
-                  iconType="ri"
-                  icon="RiShoppingBasket2Line"
-                  size="20px"
-                  click={() => {
-                    alert(JSON.stringify(getInput))//setAddNewUser(true)
-                  }}
-                  mouseEnter={() => setDescription("placeOrder")}
-                  mouseLeave={() => setDescription("emptyText")}
-                />
-                </Col>
-            </Row>
-            </Container>
-        </>
-    );
+        <CapSwitcher
+          data={products}
+          tableHeaders={["image", "products" /* , "name" */]}
+          tableColumns={["photo", "name" /* , "name" */]}
+          tableNumeral={true}
+          // input={4}
+          inputValue={quantity}
+          //inputSetValue={setQuantity}
+          tableImage={1}
+          buttons={["view", "edit", "remove"]}
+          buttonsPaths={["/products/", "/products/", "/api/products/"]}
+          searchPath={"name"}
+          pagesSize={size}
+          getInput={setGetInput}
+        />
+        <Row className="flex justify-end items-end">
+          <Col>
+            <CapLegend label={description} />
+          </Col>
+          <Col md="auto" className="!pl-0">
+            <CapIconButton
+              iconType="ri"
+              icon="RiShoppingBasket2Line"
+              size="20px"
+              click={() => {
+                alert(JSON.stringify(getInput)); //setAddNewUser(true)
+              }}
+              mouseEnter={() => setDescription("placeOrder")}
+              mouseLeave={() => setDescription("emptyText")}
+            />
+          </Col>
+        </Row>
+      </Container>
+    </>
+  );
 }

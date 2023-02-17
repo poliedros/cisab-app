@@ -93,13 +93,21 @@ export default function SideBar() {
           }
         >
           <CapIconButton
-            iconType="fa"
-            icon="FaCity"
+            iconType="hi"
+            icon="HiLibrary"
             size="24px"
-            route="/counties/index"
+            route="/counties"
             hoverColor="#7dc523"
             tooltip="countyData"
             css="mr-3"
+          />
+          <CapIconButton
+            iconType="ri"
+            icon="RiGovernmentFill"
+            size="24px"
+            route="/counties"
+            hoverColor="#7dc523"
+            tooltip="countyData"
           />
           {/* TODO: Idealmente isso deveria aparecer somente para o município */}
           {/* {user?.roles.includes(Role.Manager) || 
@@ -148,7 +156,6 @@ export default function SideBar() {
             icon={iconBrightness}
             size="24px"
             //click={handleBrightness}
-            hoverColor="#7dc523"
             tooltip="themes"
           />
         </div>
@@ -342,7 +349,7 @@ export default function SideBar() {
               icon="AiFillHome"
               route="/"
               tooltip="home"
-              css="mr-3"
+              css="mb-3"
             />
           </>
         ) : null}
@@ -395,11 +402,18 @@ export default function SideBar() {
         {user?.roles.includes(Role.Employee) ? (
           <>
             <CapIconButton
-              iconType="fa"
-              icon="FaCity"
+              iconType="ri"
+              icon="RiAccountCircleFill"
+              route="/users/63ed868da3c0ad39824d89c5"
+              tooltip="userProfile"
+              css="mb-3"
+            />
+            <CapIconButton
+              iconType="hi"
+              icon="HiLibrary"
               route="/counties/index"
-              tooltip="countyData"
-              css="mr-3"
+              tooltip="townhallView"
+              css="mb-3"
             />
           </>
         ) : null}
@@ -430,22 +444,13 @@ export default function SideBar() {
         {/* Order Overlay */}
         {!user?.roles.includes(Role.Cisab) ? (
           <>
-            <OverlayTrigger
-              trigger="click"
-              placement="right"
-              overlay={order}
-              rootClose
-            >
-              <div>
-                <CapIconButton
-                  iconType="ri"
-                  icon="RiBillFill"
-                  click={handleMain}
-                  css="mb-3"
-                  tooltip="orders"
-                />
-              </div>
-            </OverlayTrigger>
+            <CapIconButton
+              iconType="ri"
+              icon="RiFileListFill"
+              route="/demands/viewer"
+              css="mb-3"
+              tooltip="placeOrder"
+            />
           </>
         ) : null}
 
@@ -508,7 +513,7 @@ export default function SideBar() {
               icon="GiCardboardBox"
               route="/products/suggest"
               tooltip="productSuggestion"
-              css="mr-3"
+              css="mb-3"
             />
           </>
         ) : null}
@@ -557,7 +562,6 @@ export default function SideBar() {
           icon="IoLogOut"
           click={logout}
           tooltip="logout"
-          css="mr-3"
         />
       </div>
     </>

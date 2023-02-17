@@ -147,10 +147,8 @@ export default function ProductCreation({
     });
     //alert(data.status);
 
-    if (data.status === 200)
-      setShowSave(
-        true
-      ); //<CapMessageBottom literal="Salvou" show={showSave} setShow={setShowSave} />
+    if (data.status === 200) setShowSave(true);
+    //<CapMessageBottom literal="Salvou" show={showSave} setShow={setShowSave} />
     else setShowError(true); //<CapMessageBottom literal="Erro" show={showError} setShow={setShowError} />
     const result = await data.json();
     setProductId(result._id);
@@ -395,11 +393,11 @@ export default function ProductCreation({
             stagesIcons={[
               "MdEditNote",
               "FaBalanceScale",
-              "MdAddCircle",
+              "BsNutFill",
               "IoImage",
               "RiCheckboxCircleFill",
             ]}
-            stagesIconsTypes={["md", "fa", "md", "io5", "ri"]}
+            stagesIconsTypes={["md", "fa", "bs", "io5", "ri"]}
             stagesBody={[
               <>
                 {/* <ProductCreationInformation productName={""} setProductName={undefined} code={""} setCode={undefined} categories={[]} mutateCat={undefined} listCat={[]} setListCat={undefined} units={[]} mutate={undefined} list={[]} setList={undefined} description={description} setDescription={setDescription} array={undefined} setArray={undefined} setStep={undefined} handleProduct={undefined} handleUnitValue={undefined} handleProductMeasure={undefined} /> */}
@@ -604,8 +602,8 @@ export default function ProductCreation({
                       }
                       button={
                         <CapIconButton
-                          iconType="md"
-                          icon="MdOutlineAddCircleOutline"
+                          iconType="bs"
+                          icon="BsNut"
                           size="20px"
                           click={() => {
                             setShowOT1(true);

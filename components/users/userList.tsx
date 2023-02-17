@@ -13,13 +13,13 @@ export default function UserList({ users }: { users: CountyUserDTO[] }) {
   return (
     <>
       <Container className="p-0">
-        <CapTitle base="list" label="userList" />
+        <CapTitle base="list" label="userListOf" />
         <div className="mb-6"></div>
         <CapInputGroup search={searchUser} setSearch={setSearchUser} />
         <CapTable
           data={users}
-          headers={["userName"]}
-          columns={["name"]}
+          headers={["userName", "userEmail"]}
+          columns={["name", "email"]}
           numeral={true}
           buttonsColumns={["edit"]}
           buttonsPaths={["/users/"]}

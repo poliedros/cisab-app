@@ -74,6 +74,12 @@
   "insertCountyName": {
     "pt": "Insira o Nome do Município"
   },
+  "townhallView": {
+    "pt": "Dados da Prefeitura"
+  },
+  "autarkyView": {
+    "pt": "Dados da Autarquia"
+  },
   "countyData": {
     "pt": "Informações sobre o Município"
   },
@@ -323,8 +329,17 @@
   "userList": {
     "pt": "Lista de Usuários do Município"
   },
+  "userListOf": {
+    "pt": "Lista de Usuários de "
+  },
   "userName": {
     "pt": "Nome do Usuário"
+  },
+  "userEmail": {
+    "pt": "Email do Usuário"
+  },
+  "userProfile": {
+    "pt": "Perfil do Usuário"
   },
   "searchUserByName": {
     "pt": "Buscar Usuário por Nome"
@@ -679,6 +694,18 @@
   },
   "autarkyList": {
     "pt": "Lista de Autarquias"
+  },
+  "createAutarky": {
+    "pt": "Criar Autarquia"
+  },
+  "autarkiesListOf": {
+    "pt": "Lista de Autarquias de "
+  },
+  "listOffers": {
+    "pt": "Lista de Ofertas"
+  },
+  "lastActions": {
+    "pt": "Últimas Alterações"
   },
   "profile": {
     "pt": "Perfil"
