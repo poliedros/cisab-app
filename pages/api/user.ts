@@ -7,6 +7,7 @@ export type User = {
   token: string;
   email: string;
   roles: string[];
+  county_id?: string;
 };
 
 async function userRoute(req: NextApiRequest, res: NextApiResponse<User>) {
