@@ -24,7 +24,7 @@ export default function Get() {
 
   return (
     <>
-      <UserProfile countyUser={countyUser} />
+      <UserProfile />
     </>
   );
 }

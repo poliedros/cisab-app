@@ -709,5 +709,8 @@
   },
   "profile": {
     "pt": "Perfil"
+  },
+  "myProfile": {
+    "pt": "Meu Perfil"
   }
 }

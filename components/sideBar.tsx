@@ -406,7 +406,7 @@ export default function SideBar() {
               iconType="ri"
               icon="RiAccountCircleFill"
               route="/users/63ed868da3c0ad39824d89c5"
-              tooltip="userProfile"
+              tooltip="myProfile"
               css="mb-3"
             />
             <CapIconButton
@@ -499,12 +499,12 @@ export default function SideBar() {
         ) : null}
 
         {/* User Profile */}
-        <CapIconButton
+        {/* <CapIconButton
           iconType="fa"
           icon="FaUserAlt"
           css="mr-3"
           tooltip="profile"
-        />
+        /> */}
 
         {/* Product Suggestion */}
         {!user?.roles.includes(Role.Cisab) ? (
