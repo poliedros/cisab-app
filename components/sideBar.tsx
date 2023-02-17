@@ -50,7 +50,7 @@ export default function SideBar() {
     } else null;
   };
 
-  console.log(user);
+  console.log("User: ", user);
 
   const county = (
     <Popover>
@@ -144,12 +144,12 @@ export default function SideBar() {
           }
         >
           <CapIconButton
-            iconType="md"
-            icon={iconBrightness}
+            iconType="fa"
+            icon="FaThList"
             size="24px"
-            //click={handleBrightness}
+            route="/demands/viewer"
             hoverColor="#7dc523"
-            tooltip="themes"
+            tooltip="listDemands"
           />
         </div>
       </div>

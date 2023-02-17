@@ -16,9 +16,8 @@ export default function Create() {
   }
 
   const suggestProduct = async (
-    product: any
+    product: ProductDTO | undefined
   ): Promise<ProductDTO | undefined> => {
-    delete product._id;
     const data = await fetch("/api/suggestProduct", {
       method: "POST",
       body: JSON.stringify(product),
@@ -36,17 +35,7 @@ export default function Create() {
   return (
     <>
       <ProductCreation submit={suggestProduct} suggest={true} />
-      {/*<>{error}</>*/}
-      <div className="flex justify-center">
-        {errorMessage ? (
-          <CapMessageBottom
-            label={message}
-            css={message === "countyFaulty" ? "text-red-600" : "text-green-600"}
-          />
-        ) : (
-          <></>
-        )}
-      </div>
+
       <CapMessageBottom
         label={"ErrorOperation"}
         css="text-red-600"
