@@ -1,7 +1,6 @@
 export enum Role {
   Admin = "admin",
   Cisab = "cisab",
-  Townhall = "townhall",
-  Autarky = "autarky",
+  Manager = "manager",
   Employee = "employee",
 }

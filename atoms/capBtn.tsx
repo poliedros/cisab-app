@@ -33,7 +33,8 @@ export default function CapBtn({
     | "editIcon"
     | "removeIcon"
     | "userIcon"
-    | "cartIcon";
+    | "cartIcon"
+    | "autarkyIcon";
   label?: string;
   variant?: string;
   size?: "sm" | "lg" | undefined;
@@ -65,6 +66,7 @@ export default function CapBtn({
     removeIcon: IconsByName("ri", "RiDeleteBin6Fill"),
     userIcon: IconsByName("fa", "FaUserFriends"),
     cartIcon: IconsByName("md", "MdShoppingCart"),
+    autarkyIcon: IconsByName("ri", "RiGovernmentFill"),
   };
   let labelItems = {
     default: "",
@@ -78,6 +80,7 @@ export default function CapBtn({
     removeIcon: translations("emptyText", language),
     userIcon: translations("emptyText", language),
     cartIcon: translations("emptyText", language),
+    autarkyIcon: translations("emptyText", language),
   };
   return (
     <>
