@@ -376,8 +376,13 @@ export default function ProductCreation({
     <>
       <CapTitle
         base="product"
-        label="addProduct" //{county ? "editCounty" : "countyRegistration"}
+        label={suggest ? "suggestProduct" : "addProduct"} //{county ? "editCounty" : "countyRegistration"}
       />
+      <CapParagraph
+        label={"suggestObs"}
+        // show={suggest}
+      />
+
       <Form className="mt-3">
         <Row>
           <CapTabs
