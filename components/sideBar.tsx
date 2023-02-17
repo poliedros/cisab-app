@@ -493,12 +493,12 @@ export default function SideBar() {
         ) : null}
 
         {/* User Profile */}
-        {/* <CapIconButton
+        <CapIconButton
           iconType="fa"
           icon="FaUserAlt"
           css="mr-3"
           tooltip="profile"
-        /> */}
+        />
 
         {/* Product Suggestion */}
         {!user?.roles.includes(Role.Cisab) ? (

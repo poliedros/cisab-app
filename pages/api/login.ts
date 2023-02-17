@@ -10,6 +10,7 @@ export type UserJwt = {
   roles: string[];
   iat: number;
   exp: number;
+  county_id: string;
 };
 
 async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
@@ -36,9 +37,15 @@ async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
     const data = await response.json();
 
     const token = data.access_token;
-    const { roles } = parseJwt(token);
+    const { roles, county_id } = parseJwt(token);
 
-    const user = { isLoggedIn: true, email, token, roles } as User;
+    const user = {
+      isLoggedIn: true,
+      email,
+      token,
+      roles,
+      county_id,
+    } as User;
     req.session.user = user;
     await req.session.save();
     res.json(user);
