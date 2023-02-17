@@ -51,7 +51,7 @@ async function handler(
   );
   const data = (await response.json()) as CountyUserDTO[];
 
-  res.status(200).json(data);
+  res.status(response.status).json(data);
 }
 
 export default withIronSessionApiRoute(handler, sessionOptions);
