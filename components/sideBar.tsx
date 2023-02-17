@@ -102,7 +102,7 @@ export default function SideBar() {
             css="mr-3"
           />
           {/* TODO: Idealmente isso deveria aparecer somente para o município */}
-          {/* {user?.roles.includes(Role.Manager) || 
+          {user?.roles.includes(Role.Manager) ||
           user?.roles.includes(Role.Admin) ? (
             <>
               <CapIconButton
@@ -114,9 +114,9 @@ export default function SideBar() {
                 tooltip="autarkyList"
               />
             </>
-          ) : null} */}
+          ) : null}
           {/* TODO: Idealmente isso deveria aparecer somente para a autarquia */}
-          {/* {user?.roles.includes(Role.Manager) || 
+          {user?.roles.includes(Role.Manager) ||
           user?.roles.includes(Role.Admin) ? (
             <>
               <CapIconButton
@@ -128,7 +128,7 @@ export default function SideBar() {
                 tooltip="autarkyData"
               />
             </>
-          ) : null} */}
+          ) : null}
         </div>
       </div>
     </Popover>
@@ -493,12 +493,12 @@ export default function SideBar() {
         ) : null}
 
         {/* User Profile */}
-        {/* <CapIconButton
+        <CapIconButton
           iconType="fa"
           icon="FaUserAlt"
           css="mr-3"
           tooltip="profile"
-        /> */}
+        />
 
         {/* Product Suggestion */}
         {!user?.roles.includes(Role.Cisab) ? (
