@@ -8,7 +8,7 @@ export default function DemandListView({ demands }: { demands: DemandDTO[] }) {
   return (
     <>
       <div className="mb-3">
-        <CapTitle base="list" label="listDemands" />
+        <CapTitle base="list" label="listOffers" />
       </div>
       <CapContainer
         data={demands}

@@ -16,7 +16,9 @@ export default function Viewer() {
   }
 
   const openDemands = demands?.filter(
-    (d) => Date.parse(d.start_date) > Date.now()
+    (d) =>
+      Date.parse(d.start_date) < Date.now() &&
+      Date.now() < Date.parse(d.end_date)
   );
 
   return (

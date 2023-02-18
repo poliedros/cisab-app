@@ -4,9 +4,9 @@ import useUser from "lib/useUser";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
-import CountyAutarkyList from "components/autarky/countyAutarkyList";
+import CountyAutarkyList from "components/autarkies/countyAutarkyList";
 import { CountyDTO } from "pages/api/counties";
-import CountyAutarkyProfile from "components/autarky/countyAutarkyProfile";
+import CountyAutarkyProfile from "components/autarkies/countyAutarkyProfile";
 
 export default function Autarkies() {
   const { user } = useUser({ redirectTo: "/login" });
@@ -15,8 +15,8 @@ export default function Autarkies() {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data: autarkies, error } = useSWR<CountyDTO>(
-    user ? `/api/counties/${id}` : null
+  const { data: autarkies, error } = useSWR<CountyDTO[]>(
+    user ? `/api/counties/${id}/autarkies` : null
   );
 
   if (error) return <div>failed to load</div>;
@@ -26,13 +26,10 @@ export default function Autarkies() {
     return <div>404</div>;
   }
 
-  console.log("AUTARKIES");
-  console.log(autarkies);
-
   return (
     <>
       {/* <CountyAutarkyList autarkies={[]} /> */}
-      <CountyAutarkyProfile county={autarkies} />
+      <CountyAutarkyList autarkies={autarkies} />
     </>
   );
 }
