@@ -96,20 +96,20 @@ export default function SideBar() {
             iconType="hi"
             icon="HiLibrary"
             size="24px"
-            route="/counties"
+            route="/counties/index"
             hoverColor="#7dc523"
             tooltip="countyData"
             css="mr-3"
           />
-          <CapIconButton
+          {/* <CapIconButton
             iconType="ri"
             icon="RiGovernmentFill"
             size="24px"
             route="/counties"
             hoverColor="#7dc523"
             tooltip="countyData"
-          />
-          {/* TODO: Idealmente isso deveria aparecer somente para o município */}
+          /> */}
+          {/* TODO: Idealmente isso deveria aparecer somente para o município
           {user?.roles.includes(Role.Manager) ||
           user?.roles.includes(Role.Admin) ? (
             <>
@@ -122,9 +122,9 @@ export default function SideBar() {
                 tooltip="autarkyList"
               />
             </>
-          ) : null}
+          ) : null} */}
           {/* TODO: Idealmente isso deveria aparecer somente para a autarquia */}
-          {user?.roles.includes(Role.Manager) ||
+          {/* {user?.roles.includes(Role.Manager) ||
           user?.roles.includes(Role.Admin) ? (
             <>
               <CapIconButton
@@ -136,7 +136,7 @@ export default function SideBar() {
                 tooltip="autarkyData"
               />
             </>
-          ) : null}
+          ) : null} */}
         </div>
       </div>
     </Popover>
@@ -356,8 +356,13 @@ export default function SideBar() {
         ) : null}
 
         {/* County Overlay */}
-        {user?.roles.includes(Role.Cisab) ||
-        user?.roles.includes(Role.Admin) ? (
+        <CapIconButton
+          iconType="fa"
+          icon="FaCity"
+          route="/counties/index"
+          css="mb-3"
+        />
+        {user?.roles.includes(Role.Cisab) ? (
           <>
             <OverlayTrigger
               trigger="click"
@@ -377,9 +382,8 @@ export default function SideBar() {
           </>
         ) : null}
 
-        {/* Autarky Overlay */}
-        {user?.roles.includes(Role.Manager) ||
-        user?.roles.includes(Role.Admin) ? (
+        {/* Autarky Overlay
+        {user?.roles.includes(Role.Manager) ? (
           <>
             <OverlayTrigger
               trigger="click"
@@ -397,7 +401,7 @@ export default function SideBar() {
               </div>
             </OverlayTrigger>
           </>
-        ) : null}
+        ) : null} */}
 
         {/* User Institution */}
         {user?.roles.includes(Role.Employee) ? (
@@ -420,8 +424,7 @@ export default function SideBar() {
         ) : null}
 
         {/* Demand Overlay */}
-        {user?.roles.includes(Role.Cisab) ||
-        user?.roles.includes(Role.Admin) ? (
+        {user?.roles.includes(Role.Cisab) ? (
           <>
             <OverlayTrigger
               trigger="click"
@@ -456,8 +459,7 @@ export default function SideBar() {
         ) : null}
 
         {/* Product Overlay */}
-        {user?.roles.includes(Role.Cisab) ||
-        user?.roles.includes(Role.Admin) ? (
+        {user?.roles.includes(Role.Cisab) ? (
           <>
             <OverlayTrigger
               trigger="click"
@@ -478,8 +480,7 @@ export default function SideBar() {
         ) : null}
 
         {/* Employee Overlay */}
-        {user?.roles.includes(Role.Manager) ||
-        user?.roles.includes(Role.Admin) ? (
+        {user?.roles.includes(Role.Manager) ? (
           <OverlayTrigger
             trigger="click"
             placement="right"
@@ -520,7 +521,8 @@ export default function SideBar() {
         ) : null}
 
         {/* Project Overlay */}
-        {user?.roles.includes(Role.Admin) ? (
+        {user?.roles.includes(Role.Cisab) ||
+        user?.roles.includes(Role.Admin) ? (
           <>
             <OverlayTrigger
               trigger="click"
