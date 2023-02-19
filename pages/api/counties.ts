@@ -47,7 +47,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<CountyDTO[]>) {
       body: req.body,
     });
     const data = (await response.json()) as CountyDTO[];
-    res.status(200).json(data);
+    res.status(response.status).json(data);
     return;
   }
 
@@ -56,7 +56,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<CountyDTO[]>) {
   });
   const data = (await response.json()) as CountyDTO[];
 
-  res.status(200).json(data);
+  res.status(response.status).json(data);
 }
 
 export default withIronSessionApiRoute(handler, sessionOptions);
