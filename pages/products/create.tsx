@@ -6,45 +6,56 @@ import { ProductDTO } from "pages/api/products";
 import { useState } from "react";
 
 export default function Create() {
-    const { user } = useUser({ redirectTo: "/login" });
+  const { user } = useUser({ redirectTo: "/login" });
 
-    const [message, setMessage] = useState("emptyText");
-    const [errorMessage, setErrorMessage] = useState<boolean>(false);
-    //const [error, setError] = useState("");
+  const [message, setMessage] = useState("emptyText");
+  const [errorMessage, setErrorMessage] = useState<boolean>(false);
+  //const [error, setError] = useState("");
 
-    if (!user || user.isLoggedIn == false) {
-        return <div>404</div>;
+  if (!user || user.isLoggedIn == false) {
+    return <div>404</div>;
+  }
+
+  const saveProduct = async (product: any): Promise<ProductDTO | undefined> => {
+    delete product._id;
+    const data = await fetch("/api/products", {
+      method: "POST",
+      body: JSON.stringify(product),
+    }); //.finally(() => setLoading(false));
+    if (data.status === 201) {
+      //alert("Create County");
+      setMessage("countyCreated");
+      setErrorMessage(true);
+      const response = await data.json();
+      return response;
+    } else {
+      //setError("Create County Fault");
+      setMessage("countyFaulty");
+      setErrorMessage(true);
     }
+    return undefined;
+  };
 
-    const saveProduct = async (product: any): Promise<ProductDTO | undefined> => {
-        delete product._id;
-        const data = await fetch("/api/products", {
-            method: "POST",
-            body: JSON.stringify(product),
-        }); //.finally(() => setLoading(false));
-        if (data.status === 200) {
-            //alert("Create County");
-            setMessage("countyCreated");
-            setErrorMessage(true);
-            const response = await data.json();
-            return response;
-        } else {
-            //setError("Create County Fault");
-            setMessage("countyFaulty");
-            setErrorMessage(true);
-        }
-        return undefined;
-    };
-
-    return (
-        <>
-            <ProductCreation submit={function (product: ProductDTO): Promise<ProductDTO | undefined> {
-                throw new Error("Function not implemented.");
-            } } />
-            {/*<>{error}</>*/}
-            <div className="flex justify-center">
-                { errorMessage ? <CapMessageBottom label={message} css={message === "countyFaulty" ? "text-red-600" : "text-green-600"} /> : <></> }
-            </div>
-        </>
-    );
+  return (
+    <>
+      <ProductCreation
+        submit={function (
+          product: ProductDTO
+        ): Promise<ProductDTO | undefined> {
+          throw new Error("Function not implemented.");
+        }}
+      />
+      {/*<>{error}</>*/}
+      <div className="flex justify-center">
+        {errorMessage ? (
+          <CapMessageBottom
+            label={message}
+            css={message === "countyFaulty" ? "text-red-600" : "text-green-600"}
+          />
+        ) : (
+          <></>
+        )}
+      </div>
+    </>
+  );
 }
