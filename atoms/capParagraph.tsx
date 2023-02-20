@@ -6,9 +6,11 @@ import { useTheme, useThemeUpdate } from "../context/themeContext";
 export default function CapParagraph({
   label = "emptyText",
   literal = undefined,
+  show = true,
 }: {
   label?: string;
   literal?: any;
+  show?: boolean;
 }) {
   const language = useLanguage();
   const toggleLanguage = useLanguageUpdate();
@@ -18,9 +20,13 @@ export default function CapParagraph({
 
   return (
     <>
-      <h6 className={(theme === "dark" ? "text-white" : "") + " my-3"}>
-        {literal ? literal : translations(label, language)}
-      </h6>
+      {show ? (
+        <h6 className={(theme === "dark" ? "text-white" : "") + " my-3"}>
+          {literal ? literal : translations(label, language)}
+        </h6>
+      ) : (
+        <></>
+      )}
     </>
   );
 }

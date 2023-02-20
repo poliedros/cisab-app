@@ -681,7 +681,7 @@
     "pt": "Adicionar todos os produtos dessa(s) categoria(s)"
   },
   "suggestProduct": {
-    "pt": "Sugerir um novo produto"
+    "pt": "Sugerir Produto"
   },
   "suggestObs": {
     "pt": "O produto criado aqui irá passar por uma validação da CISAB."
@@ -712,5 +712,8 @@
   },
   "myProfile": {
     "pt": "Meu Perfil"
+  },
+  "viewOffer": {
+    "pt": "Ver Oferta"
   }
 }
