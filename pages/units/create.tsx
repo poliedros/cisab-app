@@ -6,45 +6,52 @@ import { UnitDTO } from "pages/api/units";
 import { useState } from "react";
 
 export default function Create() {
-    const { user } = useUser({ redirectTo: "/login" });
+  const { user } = useUser({ redirectTo: "/login" });
 
-    const [message, setMessage] = useState("emptyText");
-    const [errorMessage, setErrorMessage] = useState<boolean>(false);
-    //const [error, setError] = useState("");
+  const [message, setMessage] = useState("emptyText");
+  const [errorMessage, setErrorMessage] = useState<boolean>(false);
+  //const [error, setError] = useState("");
 
-    if (!user || user.isLoggedIn == false) {
-        return <div>404</div>;
+  if (!user || user.isLoggedIn == false) {
+    return <div>404</div>;
+  }
+
+  const saveUnit = async (unit: any): Promise<UnitDTO | undefined> => {
+    delete unit._id;
+    const data = await fetch("/api/units", {
+      method: "POST",
+      body: JSON.stringify(unit),
+    }); //.finally(() => setLoading(false));
+    if (data.status === 201) {
+      //alert("Create County");
+      setMessage("countyCreated");
+      setErrorMessage(true);
+      const response = await data.json();
+      return response;
+    } else {
+      //setError("Create County Fault");
+      setMessage("countyFaulty");
+      setErrorMessage(true);
     }
+    return undefined;
+  };
 
-    const saveUnit = async (unit: any): Promise<UnitDTO | undefined> => {
-        delete unit._id;
-        const data = await fetch("/api/units", {
-            method: "POST",
-            body: JSON.stringify(unit),
-        }); //.finally(() => setLoading(false));
-        if (data.status === 200) {
-            //alert("Create County");
-            setMessage("countyCreated");
-            setErrorMessage(true);
-            const response = await data.json();
-            return response;
-        } else {
-            //setError("Create County Fault");
-            setMessage("countyFaulty");
-            setErrorMessage(true);
-        }
-        return undefined;
-    };
-
-    return (
-        <>
-            {/* <ProductCreation
+  return (
+    <>
+      {/* <ProductCreation
                 language={"pt"}
     /> */}
-            {/*<>{error}</>*/}
-            <div className="flex justify-center">
-                { errorMessage ? <CapMessageBottom label={message} css={message === "countyFaulty" ? "text-red-600" : "text-green-600"} /> : <></> }
-            </div>
-        </>
-    );
+      {/*<>{error}</>*/}
+      <div className="flex justify-center">
+        {errorMessage ? (
+          <CapMessageBottom
+            label={message}
+            css={message === "countyFaulty" ? "text-red-600" : "text-green-600"}
+          />
+        ) : (
+          <></>
+        )}
+      </div>
+    </>
+  );
 }

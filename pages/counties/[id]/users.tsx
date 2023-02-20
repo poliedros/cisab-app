@@ -15,7 +15,7 @@ import useSWR from "swr";
 
 export default function Users() {
   const { user } = useUser({ redirectTo: "/login" });
-  useRole({ user, role: Role.Cisab, redirectTo: "/" });
+  useRole({ user, role: Role.Manager || Role.Cisab, redirectTo: "/" });
 
   const router = useRouter();
   const { id } = router.query;
@@ -64,22 +64,22 @@ export default function Users() {
       <UserList users={users} />
 
       <Row className="flex justify-end items-end">
-              <Col>
-                <CapLegend label={description} />
-              </Col>
-                <Col md="auto" className="!pl-0">
-                <CapIconButton
-                  iconType="hi"
-                  icon="HiOutlineUserAdd"
-                  size="20px"
-                  click={() => {
-                    setAddNewUser(true)
-                  }}
-                  mouseEnter={() => setDescription("addUser")}
-                  mouseLeave={() => setDescription("emptyText")}
-                />
-                </Col>
-                </Row>
+        <Col>
+          <CapLegend label={description} />
+        </Col>
+        <Col md="auto" className="!pl-0">
+          <CapIconButton
+            iconType="hi"
+            icon="HiOutlineUserAdd"
+            size="20px"
+            click={() => {
+              setAddNewUser(true);
+            }}
+            mouseEnter={() => setDescription("addUser")}
+            mouseLeave={() => setDescription("emptyText")}
+          />
+        </Col>
+      </Row>
 
       {/* <CapBtn
         label="addUser"
@@ -89,10 +89,7 @@ export default function Users() {
       /> */}
       {addNewUser ? (
         <>
-          <UserRegistration
-            countyUser={newUserData}
-            submit={registerUser}
-          />
+          <UserRegistration countyUser={newUserData} submit={registerUser} />
         </>
       ) : (
         <></>

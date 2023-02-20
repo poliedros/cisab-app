@@ -11,7 +11,6 @@ import CapIconButton from "atoms/capIconButton";
 import { useTheme, useThemeUpdate } from "../context/themeContext";
 
 import { Role } from "lib/role.enum";
-import useRole from "lib/useRole";
 
 export default function SideBar() {
   const [side, setSide] = useState(false);
@@ -50,8 +49,6 @@ export default function SideBar() {
     } else null;
   };
 
-  console.log("User: ", user);
-
   const county = (
     <Popover>
       <div className="overflow-auto -mt-[2.5rem] -mb-6 -mx-5 p-4 invisibleScroll">
@@ -77,87 +74,6 @@ export default function SideBar() {
             route="/counties"
             hoverColor="#7dc523"
             tooltip="listCounties"
-          />
-        </div>
-      </div>
-    </Popover>
-  );
-
-  const autarky = (
-    <Popover>
-      <div className="overflow-auto -mt-[2.5rem] -mb-6 -mx-5 p-4 invisibleScroll">
-        <div
-          className={
-            (theme === "dark" ? "bg-slate-900" : "bg-white") +
-            " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"
-          }
-        >
-          <CapIconButton
-            iconType="hi"
-            icon="HiLibrary"
-            size="24px"
-            route="/counties"
-            hoverColor="#7dc523"
-            tooltip="countyData"
-            css="mr-3"
-          />
-          <CapIconButton
-            iconType="ri"
-            icon="RiGovernmentFill"
-            size="24px"
-            route="/counties"
-            hoverColor="#7dc523"
-            tooltip="countyData"
-          />
-          {/* TODO: Idealmente isso deveria aparecer somente para o município */}
-          {user?.roles.includes(Role.Manager) ||
-          user?.roles.includes(Role.Admin) ? (
-            <>
-              <CapIconButton
-                iconType="fa"
-                icon="FaThList"
-                size="24px"
-                route="/counties"
-                hoverColor="#7dc523"
-                tooltip="autarkyList"
-              />
-            </>
-          ) : null}
-          {/* TODO: Idealmente isso deveria aparecer somente para a autarquia */}
-          {user?.roles.includes(Role.Manager) ||
-          user?.roles.includes(Role.Admin) ? (
-            <>
-              <CapIconButton
-                iconType="ri"
-                icon="RiGovernmentFill"
-                size="24px"
-                route="/counties/index"
-                hoverColor="#7dc523"
-                tooltip="autarkyData"
-              />
-            </>
-          ) : null}
-        </div>
-      </div>
-    </Popover>
-  );
-
-  const order = (
-    <Popover>
-      <div className="overflow-auto -mt-[2.5rem] -mb-6 -mx-5 p-4 invisibleScroll">
-        <div
-          className={
-            (theme === "dark" ? "bg-slate-900" : "bg-white") +
-            " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"
-          }
-        >
-          <CapIconButton
-            iconType="fa"
-            icon="FaThList"
-            size="24px"
-            route="/demands/viewer"
-            hoverColor="#7dc523"
-            tooltip="listDemands"
           />
         </div>
       </div>
@@ -307,7 +223,7 @@ export default function SideBar() {
             iconType="fa"
             icon="FaThList"
             size="24px"
-            route={"/counties/6363c2f363e9deb5a8e1c672/users"}
+            route={`/counties/${user?.county_id}/users`}
             hoverColor="#7dc523"
             tooltip="listEmployees"
           />
@@ -341,23 +257,16 @@ export default function SideBar() {
   return (
     <>
       <div className="flex flex-column">
-        {/* Home */}
-        {user?.roles.includes(Role.Cisab) ||
-        user?.roles.includes(Role.Admin) ? (
-          <>
-            <CapIconButton
-              iconType="ai"
-              icon="AiFillHome"
-              route="/"
-              tooltip="home"
-              css="mb-3"
-            />
-          </>
-        ) : null}
-
         {/* County Overlay */}
-        {user?.roles.includes(Role.Cisab) ||
-        user?.roles.includes(Role.Admin) ? (
+        {!user?.roles.includes(Role.Cisab) ? (
+          <CapIconButton
+            iconType="fa"
+            icon="FaCity"
+            route={`/counties/${user?.county_id}`}
+            css="mb-3"
+          />
+        ) : null}
+        {user?.roles.includes(Role.Cisab) ? (
           <>
             <OverlayTrigger
               trigger="click"
@@ -377,51 +286,17 @@ export default function SideBar() {
           </>
         ) : null}
 
-        {/* Autarky Overlay */}
-        {user?.roles.includes(Role.Manager) ||
-        user?.roles.includes(Role.Admin) ? (
-          <>
-            <OverlayTrigger
-              trigger="click"
-              placement="right"
-              overlay={autarky}
-              rootClose
-            >
-              <div>
-                <CapIconButton
-                  iconType="fa"
-                  icon="FaCity"
-                  tooltip="counties"
-                  css="mb-3"
-                />
-              </div>
-            </OverlayTrigger>
-          </>
-        ) : null}
-
-        {/* User Institution */}
-        {user?.roles.includes(Role.Employee) ? (
-          <>
-            <CapIconButton
-              iconType="ri"
-              icon="RiAccountCircleFill"
-              route="/users/63ed868da3c0ad39824d89c5"
-              tooltip="myProfile"
-              css="mb-3"
-            />
-            <CapIconButton
-              iconType="hi"
-              icon="HiLibrary"
-              route="/counties/index"
-              tooltip="townhallView"
-              css="mb-3"
-            />
-          </>
-        ) : null}
+        {/* User Profile */}
+        <CapIconButton
+          iconType="ri"
+          icon="RiAccountCircleFill"
+          route={`/users/${user?.email}`} // TODO: Trocar para o id depois?
+          tooltip="myProfile"
+          css="mb-3"
+        />
 
         {/* Demand Overlay */}
-        {user?.roles.includes(Role.Cisab) ||
-        user?.roles.includes(Role.Admin) ? (
+        {user?.roles.includes(Role.Cisab) ? (
           <>
             <OverlayTrigger
               trigger="click"
@@ -456,8 +331,7 @@ export default function SideBar() {
         ) : null}
 
         {/* Product Overlay */}
-        {user?.roles.includes(Role.Cisab) ||
-        user?.roles.includes(Role.Admin) ? (
+        {user?.roles.includes(Role.Cisab) ? (
           <>
             <OverlayTrigger
               trigger="click"
@@ -478,8 +352,7 @@ export default function SideBar() {
         ) : null}
 
         {/* Employee Overlay */}
-        {user?.roles.includes(Role.Manager) ||
-        user?.roles.includes(Role.Admin) ? (
+        {user?.roles.includes(Role.Manager) ? (
           <OverlayTrigger
             trigger="click"
             placement="right"
@@ -490,21 +363,12 @@ export default function SideBar() {
               <CapIconButton
                 iconType="fa"
                 icon="FaUserFriends"
-                //route={"/counties/6363c2f363e9deb5a8e1c672/users"} // TODO: Substituir para pegar do municipio logado
                 tooltip="employees"
                 css="mb-3"
               />
             </div>
           </OverlayTrigger>
         ) : null}
-
-        {/* User Profile */}
-        {/* <CapIconButton
-          iconType="fa"
-          icon="FaUserAlt"
-          css="mr-3"
-          tooltip="profile"
-        /> */}
 
         {/* Product Suggestion */}
         {!user?.roles.includes(Role.Cisab) ? (
@@ -520,7 +384,8 @@ export default function SideBar() {
         ) : null}
 
         {/* Project Overlay */}
-        {user?.roles.includes(Role.Admin) ? (
+        {user?.roles.includes(Role.Cisab) ||
+        user?.roles.includes(Role.Admin) ? (
           <>
             <OverlayTrigger
               trigger="click"

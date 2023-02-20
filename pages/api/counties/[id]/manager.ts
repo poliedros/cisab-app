@@ -29,7 +29,7 @@ async function handler(
       body: req.body,
     });
     const data = (await response.json()) as CountyManagerDTO[];
-    res.status(200).json(data);
+    res.status(response.status).json(data);
     return;
   }
 }
