@@ -15,56 +15,57 @@ import useUser from "lib/useUser";
 import { Role } from "lib/role.enum";
 
 export default function DemandView({ demand }: { demand: DemandDTO }) {
-    console.log("DEMAND");
-    console.log(demand);
-    const size = 7;
+  console.log("DEMAND");
+  console.log(demand);
+  const size = 7;
 
-    const [searchProduct, setSearchProduct] = useState("");
+  const [searchProduct, setSearchProduct] = useState("");
 
-    const [format, setFormat] = useState("grid");
-    const [page, setPage] = useState(0);
+  const [format, setFormat] = useState("grid");
+  const [page, setPage] = useState(0);
 
-    const [quantity, setQuantity] = useState<(string | number)[]>([]);
-    const [products, setProducts] = useState<ProductDTO[]>(demand.products);
-    /* const [productsPage, setProductsPage] = useState(
+  const [quantity, setQuantity] = useState<(string | number)[]>([]);
+  const [products, setProducts] = useState<ProductDTO[]>(demand.products);
+  /* const [productsPage, setProductsPage] = useState(
         demand.product_ids.slice(page * size, page * size + size)
     ); */
 
-    // let productsPageFinal = productsPage;
-    // productsPageFinal.map((p, i) => {
-    //     p.photo = { photo_url: productsPage[i].photo_url };
-    // });
+  // let productsPageFinal = productsPage;
+  // productsPageFinal.map((p, i) => {
+  //     p.photo = { photo_url: productsPage[i].photo_url };
+  // });
 
-    const { user } = useUser({ redirectTo: "/login" });
-    useRole({ user, role: Role.Cisab, redirectTo: "/" });
+  const { user } = useUser({ redirectTo: "/login" });
+  useRole({ user, role: Role.Cisab, redirectTo: "/" });
 
-    // const {
-    //     data: products,
-    //     error: error,
-    //     mutate: mutate,
-    // } = useSWR<ProductDTO[]>(user ? `/api/products/${demand.product_ids[0]}` : null);
+  // const {
+  //     data: products,
+  //     error: error,
+  //     mutate: mutate,
+  // } = useSWR<ProductDTO[]>(user ? `/api/products/${demand.product_ids[0]}` : null);
 
-    console.log("PRODUCTS");
-    console.log(products);
+  console.log("PRODUCTS");
+  console.log(demand);
 
-    return (
-        <>
-            <Row>
-            <Col sm={4} className="flex justify-center mb-16 pr-16">
-                    <div className="absolute bg-[silver] w-[200px] h-[200px] rounded-full circle">
-                    </div>
-                    <CapImage
-                        src={"https://mergejil.mn/mergejilmn/no-image.svg"} //county.county.flag
-                        //alt={county.name}
-                        w={200}
-                        h={200}
-                        obj="contain"
-                    />
-                </Col>
-                <Col><CapTitle base="none" literal={demand.name} /></Col>
-            </Row>
-            <Row>
-                    {/*<Col md="auto" className="border-r-2 mr-3 !my-6"> <div className="flex flex-column">
+  return (
+    <>
+      <Row>
+        <Col sm={4} className="flex justify-center mb-16 pr-16">
+          <div className="absolute bg-[silver] w-[200px] h-[200px] rounded-full circle"></div>
+          <CapImage
+            src={"https://mergejil.mn/mergejilmn/no-image.svg"} //county.county.flag
+            //alt={county.name}
+            w={200}
+            h={200}
+            obj="contain"
+          />
+        </Col>
+        <Col>
+          <CapTitle base="none" literal={demand.name} />
+        </Col>
+      </Row>
+      <Row>
+        {/*<Col md="auto" className="border-r-2 mr-3 !my-6"> <div className="flex flex-column">
                         <CapIconButton
                             css="mb-3 mt-6"
                             iconType="fa"
@@ -108,24 +109,22 @@ export default function DemandView({ demand }: { demand: DemandDTO }) {
                         page={page}
                         setPage={setPage}
                     /> </Col>*/}
-                    <CapSwitcher
-                        data={products}
-                        tableHeaders={[/* "image", */ "products", "quantity"]}
-                        tableColumns={[/* "photo", */ "name"]}
-                        tableNumeral={true}
-                        //tableImage={1}
-                        input={2}
-                        inputValue={quantity}
-                        inputSetValue={setQuantity}
-                        //getInput={setQuantity}
-                        buttons={["view"]}
-                        buttonsPaths={[
-                            "/products/",
-                        ]}
-                        //searchPath={"name"}
-                        pagesSize = {size}
-                    />
-                    {/* <CapTable
+        <CapSwitcher
+          data={products}
+          tableHeaders={[/* "image", */ "products"]} //, "quantity"
+          tableColumns={[/* "photo", */ "name"]}
+          tableNumeral={true}
+          //tableImage={1}
+          //input={2}
+          inputValue={quantity}
+          inputSetValue={setQuantity}
+          //getInput={setQuantity}
+          buttons={["view"]}
+          buttonsPaths={["/products/"]}
+          //searchPath={"name"}
+          pagesSize={size}
+        />
+        {/* <CapTable
                             data={products ? products : []}
                             headers={["image", "products", "quantity"]}
                             columns={["photo", "name", "name"]}
@@ -142,7 +141,7 @@ export default function DemandView({ demand }: { demand: DemandDTO }) {
                             searchPath={"name"}
                         />
                         {quantity} */}
-            </Row>
-        </>
-    );
+      </Row>
+    </>
+  );
 }

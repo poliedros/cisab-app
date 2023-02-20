@@ -17,6 +17,7 @@ import CapSwitcher from "atoms/capSwitcher";
 
 export default function ProductShowcase({ product }: { product: ProductDTO }) {
   const { user } = useUser({ redirectTo: "/login" });
+  useRole({ user, role: Role.Cisab, redirectTo: "/" });
 
   const {
     data: products,
@@ -67,8 +68,8 @@ export default function ProductShowcase({ product }: { product: ProductDTO }) {
               </li>
               <li>
                 <CapIconButton
-                  iconType="md"
-                  icon="MdAddCircle"
+                  iconType="bs"
+                  icon="BsNutFill"
                   size="24px"
                   click={() => {
                     setScreens("accessories");

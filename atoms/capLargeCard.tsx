@@ -13,6 +13,7 @@ import CapIconButton from "./capIconButton";
 import CapImage from "./capImage";
 import { useTheme } from "context/themeContext";
 import IconsByName from "components/iconsByName";
+import Router from "next/router";
 
 export default function CapLargeCard({
   label = "emptyText",
@@ -21,18 +22,32 @@ export default function CapLargeCard({
   title = "",
   subtitle = "",
   elements = [],
+  id = "",
+  buttons = [],
+  buttonsPath = [],
 }: {
   label?: string;
   literal?: string;
   title?: string;
   subtitle?: string;
   mirror?: boolean;
+  id?: string;
   elements?: any[];
+  buttons?: string[];
+  buttonsPath?: string[];
 }) {
   const language = useLanguage();
   const toggleLanguage = useLanguageUpdate();
 
   const theme = useTheme();
+
+  const view = (p: string, i: string) => {
+    Router.push(`${p}${i}`);
+  };
+
+  const suggest = (p: string) => {
+    Router.push(`${p}`);
+  };
 
   return (
     <>
@@ -157,7 +172,7 @@ export default function CapLargeCard({
                         w={35}
                         h={35}
                         css="rounded-full"
-                      />
+                        />
                       <CapImage
                         src={
                           "https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg"
@@ -213,29 +228,73 @@ export default function CapLargeCard({
                     xs={4}
                     className="text-right flex justify-end items-center"
                   >
-                    <CapIconButton
-                      iconType="ri"
-                      icon="RiEyeFill"
-                      size="21px"
-                      css="mr-1.5"
-                    />
-                    <CapIconButton
+                    {buttons.map((b, i) => {
+                      return (
+                        <div key={i}>
+                          {b === "view" ? (
+                            <CapIconButton
+                              iconType="ri"
+                              icon="RiEyeFill"
+                              tooltip="viewOffer"
+                              size="21px"
+                              css="mr-1.5"
+                              click={() => view(buttonsPath[i], id)}
+                            />
+                          ) : b === "suggest" ? (
+                            <CapIconButton
+                              iconType="gi"
+                              icon="GiCardboardBox"
+                              tooltip="suggestProduct"
+                              size="21px"
+                              click={() => suggest(buttonsPath[i])}
+                            />
+                          ) : (
+                            <></>
+                          )}
+                        </div>
+                      );
+                    })}
+                    {/* <CapIconButton
                       iconType="bs"
                       icon="BsPenFill"
                       size="21px"
                       css="mr-1.5"
-                    />
-                    <CapIconButton
-                      iconType="gi"
-                      icon="GiCardboardBox"
-                      size="21px"
-                    />
+                    /> */}
                   </Col>
                 </Row>
               ) : (
                 <Row className="!flex-nowrap">
                   <Col xs={4} className="flex justify-start items-center">
-                    <CapIconButton
+                    {buttons
+                      // .slice(0)
+                      // .reverse()
+                      .map((b, i) => {
+                        return (
+                          <div key={i}>
+                            {b === "view" ? (
+                              <CapIconButton
+                                iconType="ri"
+                                icon="RiEyeFill"
+                                tooltip="viewOffer"
+                                size="21px"
+                                click={() => view(buttonsPath[i], id)}
+                              />
+                            ) : b === "suggest" ? (
+                              <CapIconButton
+                                iconType="gi"
+                                icon="GiCardboardBox"
+                                size="21px"
+                                tooltip="suggestProduct"
+                                css="mr-1.5"
+                                click={() => suggest(buttonsPath[i])}
+                              />
+                            ) : (
+                              <></>
+                            )}
+                          </div>
+                        );
+                      })}
+                    {/* <CapIconButton
                       iconType="gi"
                       icon="GiCardboardBox"
                       size="21px"
@@ -249,7 +308,7 @@ export default function CapLargeCard({
                       size="21px"
                       css="mr-1.5"
                     />
-                    <CapIconButton iconType="ri" icon="RiEyeFill" size="21px" />
+                    <CapIconButton iconType="ri" icon="RiEyeFill" size="21px" /> */}
                   </Col>
                   <Col xs={8} className="text-right">
                     <h4>{translations(label, language)}</h4>
