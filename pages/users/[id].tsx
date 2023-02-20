@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import { CountyUserDTO } from "pages/api/counties/[id]/users";
 import UserProfile from "components/users/userProfile";
-//import CountyProfile from "components/counties/countyProfile";
 
 export default function Get() {
   const router = useRouter();

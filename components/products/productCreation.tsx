@@ -147,7 +147,7 @@ export default function ProductCreation({
     });
     //alert(data.status);
 
-    if (data.status === 200) setShowSave(true);
+    if (data.status === 201) setShowSave(true);
     //<CapMessageBottom literal="Salvou" show={showSave} setShow={setShowSave} />
     else setShowError(true); //<CapMessageBottom literal="Erro" show={showError} setShow={setShowError} />
     const result = await data.json();
