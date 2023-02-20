@@ -17,6 +17,7 @@ import CapIconButton from "atoms/capIconButton";
 import IconsByName from "components/iconsByName";
 import useUser from "lib/useUser";
 import useSWR from "swr";
+import { CountyDTO } from "pages/api/counties";
 
 export default function UserProfile({}: //countyUser,
 {
@@ -26,35 +27,15 @@ export default function UserProfile({}: //countyUser,
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
 
   const router = useRouter();
-  const { id } = router.query;
 
   const { user, mutateUser } = useUser();
 
-  async function registerUser(countyUser: CountyUserDTO) {
-    setErrorMessage(false);
-    setSuccessMessage(false);
-
-    const response = await fetch(`/api/counties/${id}/users`, {
-      method: "POST",
-      body: JSON.stringify(countyUser),
-    });
-
-    if (response.status !== 200) {
-      setErrorMessage(true);
-      return;
-    }
-
-    const status = await response.json();
-    setSuccessMessage(true);
-  }
-
-  const { data: countyUser, error } = useSWR<CountyUserDTO>(
-    `/api/counties/${window.location.pathname.split("/")[2]}/users` //${window.location.pathname.split("/")[2]}
+  const { data: county, error } = useSWR<CountyDTO>(
+    `/api/counties/${user?.county_id}`
   );
-  if (error) return <div>Not Found</div>;
-  if (!countyUser) return <div>loading...</div>;
 
-  alert(JSON.stringify(countyUser));
+  if (error) return <div>Not Found</div>;
+  if (!county) return <div>loading...</div>;
 
   return (
     <>
@@ -127,13 +108,11 @@ export default function UserProfile({}: //countyUser,
             <Row className="width-f-available">
               <CapTitle
                 base={"none"}
-                literal={countyUser.name + countyUser.surname}
+                literal={county.name}
                 additional={{ label: " !text-4xl !m-0" }}
               />
               <h6 className="lowercase tracking-widest text-[silver]">
-                {countyUser.properties
-                  ? countyUser.properties.profession
-                  : translations("noValue", "pt")}
+                {user ? user.roles : translations("noValue", "pt")}
               </h6>
               {/* <CapParagraph
                 literal={
@@ -143,17 +122,11 @@ export default function UserProfile({}: //countyUser,
                 }
               /> */}
               <CapLink
-                literal={
-                  countyUser.email
-                    ? countyUser.email
-                    : translations("noValue", "pt")
-                }
+                literal={user ? user.email : translations("noValue", "pt")}
                 icon="MdAlternateEmail"
                 iconType="md"
                 iconColor="text-[#144974]"
-                href={`mailto:${
-                  countyUser.email ? countyUser.email : null
-                }?subject=`}
+                href={`mailto:${user ? user.email : null}?subject=`}
               />
               {/* <h5 className="text-[#dd823b] my-2">
                 {countyUser.name
@@ -165,11 +138,7 @@ export default function UserProfile({}: //countyUser,
               <Col className="text-left my-2">
                 <CapTextShowData
                   label={"county"}
-                  info={
-                    countyUser.email
-                      ? countyUser.email
-                      : translations("noValue", "pt")
-                  }
+                  info={county ? county.name : translations("noValue", "pt")}
                 />
                 {/* <CapTextShowData
                   label={"zipCode"}

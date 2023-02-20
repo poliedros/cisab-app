@@ -13,8 +13,8 @@ export default function DemandListView({ demands }: { demands: DemandDTO[] }) {
       <CapContainer
         data={demands}
         component="largeCard"
-        buttons={["view"]}
-        buttonsPath={["/carts/"]}
+        buttons={["view", "suggest"]}
+        buttonsPath={["/carts/", "/products/suggest"]}
       />
     </>
   );

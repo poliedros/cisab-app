@@ -175,6 +175,9 @@ export default function CapContainer({
                         : ""
                     }
                     elements={d.products}
+                    id={d._id}
+                    buttons={buttons}
+                    buttonsPath={buttonsPath}
                   />
                 </Col>
               </Container>

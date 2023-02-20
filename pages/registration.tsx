@@ -37,7 +37,7 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
 
   const [description, setDescription] = useState("emptyText");
 
-  const validateEmail = (email: string) => {
+  const validateEmail: any = (email: string) => {
     return String(email)
       .toLowerCase()
       .match(
