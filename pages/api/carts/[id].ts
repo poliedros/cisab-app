@@ -20,12 +20,32 @@ export type CartDTO = {
   state: string;
 };
 
-async function handler(req: NextApiRequest, res: NextApiResponse<CartDTO[]>) {
+async function handler(req: NextApiRequest, res: NextApiResponse<CartDTO>) {
   const user = req.session.user;
   if (!user) {
-    res.status(401).json({} as CartDTO[]);
+    res.status(401).json({} as CartDTO);
     return;
   }
+
+  if (req.method === "POST") {
+    const response = await fetch(process.env.API_URL + "carts", {
+      headers: {
+        Authorization: "Bearer " + user.token,
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: req.body,
+    });
+    const data = (await response.json()) as CartDTO;
+    res.status(response.status).json(data);
+    return;
+  }
+  // TODO: descomentar depois que a API estiver pronta e remover dados de mockup
+  // const response = await fetch(
+  //   process.env.API_URL + `/carts/${req.query.demand_id}`,
+  //   { headers: { Authorization: "Bearer " + user.token } }
+  // );
+  // const data = (await response.json()) as CartDTO;
 
   const response = {
     status: 200,
@@ -49,7 +69,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<CartDTO[]>) {
     },
   };
 
-  const data = response.data as unknown as CartDTO[];
+  const data = response.data as unknown as CartDTO;
   console.log("DATA");
   console.log(data);
   res.status(response.status).json(data);
