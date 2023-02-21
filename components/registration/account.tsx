@@ -57,27 +57,46 @@ export default function Account({ kind, handleAccount }: AccountProps) {
             );
           }}
         /> */}
-        <Col>
-          <CapInputAdvanced
-            kind="base"
-            label="searchCountyByName"
-            placeholder="insertCountyName"
-            values={cities?.map((c) => c.name)}
-            isMulti={false}
+        {kind === "autarky" ? (
+          <CapForm
+            as={Col}
+            label="autarkyName"
+            placeholder="insertAutarkyName"
             value={countyName}
-            setValue={setCountyName}
-            mutate={function (
-              data?:
-                | CategoryDTO[]
-                | Promise<CategoryDTO[]>
-                | MutatorCallback<CategoryDTO[]>
-                | undefined,
-              opts?: boolean | MutatorOptions<CategoryDTO[]> | undefined
-            ): Promise<CategoryDTO[] | undefined> {
-              throw new Error("Function not implemented.");
+            change={(e: any) => {
+              setCountyName(e.target.value);
+              handleAccount(
+                {
+                  name: e.target.value,
+                  email: e.target.value,
+                },
+                kind
+              );
             }}
           />
-        </Col>
+        ) : (
+          <Col>
+            <CapInputAdvanced
+              kind="base"
+              label="searchCountyByName"
+              placeholder="insertCountyName"
+              values={cities?.map((c) => c.name)}
+              isMulti={false}
+              value={countyName}
+              setValue={setCountyName}
+              mutate={function (
+                data?:
+                  | CategoryDTO[]
+                  | Promise<CategoryDTO[]>
+                  | MutatorCallback<CategoryDTO[]>
+                  | undefined,
+                opts?: boolean | MutatorOptions<CategoryDTO[]> | undefined
+              ): Promise<CategoryDTO[] | undefined> {
+                throw new Error("Function not implemented.");
+              }}
+            />
+          </Col>
+        )}
         <CapForm
           as={Col}
           label="responsibleEmail"

@@ -90,7 +90,7 @@
     "pt": "Insira o Nome"
   },
   "insertPassword": {
-    "pt": "Insira Senha"
+    "pt": "Insira a Senha"
   },
   "account": {
     "pt": "Conta"
@@ -405,16 +405,16 @@
     "pt": "Finalizar"
   },
   "passwordRegistration": {
-    "pt": "Cadastro de senha"
+    "pt": "Cadastro de Senha"
   },
   "passwordValidation": {
-    "pt": "As senhas não coincidem."
+    "pt": "Senhas Não Coincidem."
   },
   "requiredField": {
-    "pt": "Este é um campo obrigatório!"
+    "pt": "Este é um Campo Obrigatório!"
   },
   "passwordError": {
-    "pt": "Erro ao cadastrar a senha. Tente novamente."
+    "pt": "Erro ao Cadastrar a Senha. Tente novamente."
   },
   "passwordSuccess": {
     "pt": "Senha cadastrada com sucesso."
@@ -721,5 +721,8 @@
   },
   "createdUserFault": {
     "pt": "Falha ao Criar o Usuário. Tente novamente."
+  },
+  "autarkyRegistration": {
+    "pt": "Cadastro de Autarquia"
   }
 }

@@ -82,6 +82,7 @@ export default function CapTable({
   };
 
   const userCounty = async (p: string, i: string) => {
+    //alert(`${p}${i}/users`);
     Router.push(`${p}${i}/users`);
   };
 

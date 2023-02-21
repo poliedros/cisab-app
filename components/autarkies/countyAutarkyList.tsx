@@ -46,9 +46,10 @@ export default function CountyAutarkyList({
               iconType="ri"
               icon="RiGovernmentLine"
               size="20px"
-              click={() => {
-                //setAddNewUser(true)
-              }}
+              route="/counties/autarky/create"
+              // click={() => {
+              //   //setAddNewUser(true)
+              // }}
               mouseEnter={() => setDescription("createAutarky")}
               mouseLeave={() => setDescription("emptyText")}
             />

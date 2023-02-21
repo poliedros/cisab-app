@@ -154,8 +154,8 @@ export default function SideBar() {
             tooltip="art"
           />
           <CapIconButton
-            iconType="bs"
-            icon="BsPuzzleFill"
+            iconType="bi"
+            icon="BiAtom"
             size="24px"
             route="/project/caps"
             hoverColor="#7dc523"
