@@ -41,13 +41,13 @@ async function handler(req: NextApiRequest, res: NextApiResponse<CartDTO>) {
     return;
   }
   // TODO: descomentar depois que a API estiver pronta e remover dados de mockup
-  // const response = await fetch(
-  //   process.env.API_URL + `/carts/${req.query.demand_id}`,
-  //   { headers: { Authorization: "Bearer " + user.token } }
-  // );
-  // const data = (await response.json()) as CartDTO;
+  const response = await fetch(
+    process.env.API_URL + `/carts/${req.query.demand_id}`,
+    { headers: { Authorization: "Bearer " + user.token } }
+  );
+  const data = (await response.json()) as CartDTO;
 
-  const response = {
+  const response2 = {
     status: 200,
     data: {
       _id: "carrinho1",
@@ -69,10 +69,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse<CartDTO>) {
     },
   };
 
-  const data = response.data as unknown as CartDTO;
+  const data2 = response2.data as unknown as CartDTO;
   console.log("DATA");
   console.log(data);
-  res.status(response.status).json(data);
+  res.status(response.status).json(data2);
 }
 
 export default withIronSessionApiRoute(handler, sessionOptions);

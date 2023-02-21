@@ -20,10 +20,12 @@ async function updateCart(cart: CartDTO): Promise<CartDTO | undefined> {
 export default function Cart() {
   const { user } = useUser({ redirectTo: "/login" });
   const router = useRouter();
-  const { demand_id } = router.query;
+  const { id } = router.query; // Reffers to demand_id
+
+  console.log(id);
 
   const { data: cart, error } = useSWR<CartDTO>(
-    user ? `/api/carts/${demand_id}` : null
+    user ? `/api/carts/${id}` : null
   );
   if (!cart) return <div>loading...</div>;
 
