@@ -67,7 +67,12 @@ export default function ForgetPassword() {
             <CapTitle base="none" label={"passwordRegistration"} />
             <Password handleSubmitFunction={registerPassword} />
             {errorMessage ? (
-              <CapMessageBottom label={"passwordError"} css="text-red-600" />
+              <CapMessageBottom
+                label={"passwordError"}
+                css="text-red-600"
+                show={errorMessage}
+                setShow={setErrorMessage}
+              />
             ) : (
               <></>
             )}
@@ -75,6 +80,8 @@ export default function ForgetPassword() {
               <CapMessageBottom
                 label={"passwordSuccess"}
                 css="text-green-600"
+                show={successMessage}
+                setShow={setSuccessMessage}
               />
             ) : (
               <></>

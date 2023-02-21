@@ -1,12 +1,15 @@
 import CapSwitcher from "atoms/capSwitcher";
 import CapTitle from "atoms/capTitle";
 import { CartDTO, ProductOnCartDTO } from "pages/api/carts/[id]";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 
-import useUser from "lib/useUser";
+type CartProps = {
+  cart: CartDTO;
+  update: (cart: CartDTO) => Promise<CartDTO | undefined>;
+};
 
-export default function CartView({ cart }: { cart: CartDTO }) {
+export default function CartView({ cart, update }: CartProps) {
   const size = 7;
 
   const [format, setFormat] = useState("grid");
@@ -15,7 +18,9 @@ export default function CartView({ cart }: { cart: CartDTO }) {
   const [quantity, setQuantity] = useState<(string | number)[]>([]);
   const [products, setProducts] = useState<ProductOnCartDTO[]>(cart.products);
 
-  const { user } = useUser({ redirectTo: "/login" });
+  useEffect(() => {
+    update(cart);
+  }, [quantity]);
 
   return (
     <>
