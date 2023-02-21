@@ -37,7 +37,7 @@ async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
     const data = await response.json();
 
     const token = data.access_token;
-    const { roles, county_id } = parseJwt(token);
+    const { roles, county_id, sub: user_id } = parseJwt(token);
 
     const user = {
       isLoggedIn: true,
@@ -45,6 +45,7 @@ async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
       token,
       roles,
       county_id,
+      user_id,
     } as User;
     req.session.user = user;
     await req.session.save();

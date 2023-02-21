@@ -292,13 +292,6 @@ export default function SideBar() {
 
         {/* User Profile */}
         {user?.roles.includes(Role.Cisab) ? (
-          // <CapIconButton
-          //   iconType="ri"
-          //   icon="RiAccountCircleFill"
-          //   route={`/users/${user?.email}`} // TODO: Trocar para o id depois?
-          //   tooltip="myProfile"
-          //   css="mb-3"
-          // />
           <OverlayTrigger
             placement="bottom"
             delay={{ show: 400, hide: 700 }}
@@ -321,7 +314,7 @@ export default function SideBar() {
           <CapIconButton
             iconType="hi"
             icon="HiLibrary"
-            route={`/users/profile`} // TODO: Trocar para o id depois?
+            route={`/users/profile`}
             tooltip="myProfile"
             css="mb-3"
           />
@@ -330,7 +323,7 @@ export default function SideBar() {
           <CapIconButton
             iconType="ri"
             icon="RiAccountCircleFill"
-            route={`/users/${user?.email}`} // TODO: Trocar para o id depois?
+            route={`/users/${user?.user_id}`}
             tooltip="myProfile"
             css="mb-3"
           />
