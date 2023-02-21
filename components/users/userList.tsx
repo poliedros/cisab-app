@@ -9,10 +9,14 @@ import CapInputGroup from "atoms/capInputGroup";
 import useUser from "lib/useUser";
 import { CountyDTO } from "pages/api/counties";
 import useSWR from "swr";
+import { useRouter } from "next/router";
 
 export default function UserList({ users }: { users: CountyUserDTO[] }) {
   const [searchUser, setSearchUser] = useState("");
   const { user, mutateUser } = useUser();
+
+  const router = useRouter();
+  const { id } = router.query;
 
   //alert(JSON.stringify(user?.county_id));
 
@@ -21,7 +25,7 @@ export default function UserList({ users }: { users: CountyUserDTO[] }) {
   });
 
   const { data: county, error } = useSWR<CountyDTO>(
-    `/api/counties/${user?.county_id}`
+    user?.county_id ? `/api/counties/${user?.county_id}` : `/api/counties/${id}`
   );
 
   if (error) return <div>Not Found</div>;

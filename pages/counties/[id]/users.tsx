@@ -8,7 +8,7 @@ import useSWR from "swr";
 
 export default function Users() {
   const { user } = useUser({ redirectTo: "/login" });
-  useRole({ user, role: Role.Manager || Role.Cisab, redirectTo: "/" });
+  // useRole({ user, role: Role.Manager || Role.Cisab, redirectTo: "/" });
 
   const router = useRouter();
   const { id } = router.query;
@@ -24,7 +24,7 @@ export default function Users() {
     return <div>404</div>;
   }
 
-  console.log(users);
+  console.log("USERS:", users);
   return (
     <>
       <UserList users={users} />
