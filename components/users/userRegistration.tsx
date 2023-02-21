@@ -1,5 +1,7 @@
 import CapBtn from "atoms/capBtn";
 import CapForm from "atoms/capForm";
+import CapIconButton from "atoms/capIconButton";
+import CapLegend from "atoms/capLegend";
 import CapSubtitle from "atoms/capSubtitle";
 import CapTitle from "atoms/capTitle";
 import { CountyUserDTO } from "pages/api/counties/[id]/users";
@@ -20,6 +22,8 @@ export default function UserRegistration({
   const [countyUserSurname, setCountyUserSurname] = useState("");
   const [countyUserPassword, setCountyUserPassword] = useState("");
   const [countyUserJob, setCountyUserJob] = useState<string | undefined>("");
+
+  const [description, setDescription] = useState("emptyText");
 
   useEffect(() => {
     if (countyUser) {
@@ -93,7 +97,32 @@ export default function UserRegistration({
           }}
         />
       </Row>
-      <CapBtn
+      <Row className="flex justify-end items-end">
+        <Col>
+          <CapLegend label={description} />
+        </Col>
+        <Col md="auto" className="!pl-0">
+          <CapIconButton
+            iconType="bs"
+            icon="BsSave"
+            size="20px"
+            click={() => {
+              const countyUserReq: CountyUserDTO = {
+                _id: countyUser._id,
+                name: countyUserName,
+                surname: countyUserSurname,
+                email: countyUserEmail,
+                password: countyUserPassword,
+                properties: { profession: countyUserJob },
+              };
+              submit(countyUserReq);
+            }}
+            mouseEnter={() => setDescription("addUser")}
+            mouseLeave={() => setDescription("emptyText")}
+          />
+        </Col>
+      </Row>
+      {/* <CapBtn
         kind="send"
         click={() => {
           const countyUserReq: CountyUserDTO = {
@@ -106,7 +135,7 @@ export default function UserRegistration({
           };
           submit(countyUserReq);
         }}
-      />
+      /> */}
     </>
   );
 }

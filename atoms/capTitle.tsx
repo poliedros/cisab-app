@@ -10,7 +10,19 @@ export default function CapTitle({
   css = "",
   additional = undefined,
 }: {
-  base?: "none" | "county" | "user" | "list" | "product" | "demand" | "doc" | "diagram" | "lab" | "cap" | "art";
+  base?:
+    | "none"
+    | "county"
+    | "autarky"
+    | "user"
+    | "list"
+    | "product"
+    | "demand"
+    | "doc"
+    | "diagram"
+    | "lab"
+    | "cap"
+    | "art";
   label?: string;
   literal?: string;
   css?: string;
@@ -22,6 +34,7 @@ export default function CapTitle({
   let iconItems = {
     none: "",
     county: IconsByName("fa", "FaCity", "32px"),
+    autarky: IconsByName("ri", "RiGovernmentFill", "32px"),
     user: IconsByName("fa", "FaUserFriends", "32px"),
     list: IconsByName("fa", "FaThList", "32px"),
     product: IconsByName("gi", "GiCardboardBoxClosed", "32px"),
@@ -36,15 +49,19 @@ export default function CapTitle({
   return (
     <>
       <div className="flex items-end overflow-auto invisibleScroll w-full items-center">
-        {base ? base !== "none" ? (
-          <div className="bg-[#7dc523] rounded-full p-3 text-white">
-            {iconItems[base]}
-          </div>
-        ) : null : null}
+        {base ? (
+          base !== "none" ? (
+            <div className="bg-[#7dc523] rounded-full p-3 text-white">
+              {iconItems[base]}
+            </div>
+          ) : null
+        ) : null}
         <h2
           className={
-            (!base ? "" : "ml-4 p-2 rounded bg-[#40d9f1] ") + css + " text-white uppercase tracking-wider font-semibold " +
-            (additional && additional.label ? additional.label : "") 
+            (!base ? "" : "ml-4 p-2 rounded bg-[#40d9f1] ") +
+            css +
+            " text-white uppercase tracking-wider font-semibold " +
+            (additional && additional.label ? additional.label : "")
           }
         >
           {literal ? literal : translations(label, language)}

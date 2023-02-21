@@ -26,6 +26,8 @@ export default function UserProfile({}: //countyUser,
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
 
+  const [userVL, setUserVL] = useState<boolean>(false);
+
   const router = useRouter();
 
   const { user, mutateUser } = useUser();
@@ -33,9 +35,16 @@ export default function UserProfile({}: //countyUser,
   const { data: county, error } = useSWR<CountyDTO>(
     `/api/counties/${user?.county_id}`
   );
+  //alert(user?.county_id);
 
-  if (error) return <div>Not Found</div>;
-  if (!county) return <div>loading...</div>;
+  if (error && user?.county_id) return <div>Not Found</div>;
+  if (!county && user?.county_id) return <div>loading...</div>;
+
+  // user?.roles.map((u) => {
+  //   if (u === "cisab") {
+  //     setUserVL(true);
+  //   }
+  // });
 
   return (
     <>
@@ -75,7 +84,7 @@ export default function UserProfile({}: //countyUser,
                               " flex items-center relative py-2.5 px-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-full"
                             }
                           >
-                            {}
+                            {"XXX"}
                           </div>
                         </div>
                       </Popover>
@@ -100,17 +109,29 @@ export default function UserProfile({}: //countyUser,
               h={200}
               obj="contain"
             /> */}
+
             <div className="z-10">
-              {IconsByName("ri", "RiAccountCircleFill", "100px")}
+              {user?.roles.map((u) => u === "cisab") ? (
+                <CapImage
+                  src={"/cisabLogo.svg"}
+                  w={192}
+                  h={128}
+                  obj="contain"
+                />
+              ) : (
+                IconsByName("ri", "RiAccountCircleFill", "100px")
+              )}
             </div>
           </Col>
           <Col sm={8} className="flex flex-column items-start text-left">
             <Row className="width-f-available">
-              <CapTitle
-                base={"none"}
-                literal={county.name}
-                additional={{ label: " !text-4xl !m-0" }}
-              />
+              {user?.county_id ? (
+                <CapTitle
+                  base={"none"}
+                  literal={county ? county.name : ""}
+                  additional={{ label: " !text-4xl !m-0" }}
+                />
+              ) : null}
               <h6 className="lowercase tracking-widest text-[silver]">
                 {user ? user.roles : translations("noValue", "pt")}
               </h6>

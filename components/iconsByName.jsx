@@ -16,6 +16,7 @@ import * as IconsIo from "react-icons/io"
 import * as IconsIo5 from "react-icons/io5"
 import * as IconsRi from "react-icons/ri"
 import * as IconsSi from "react-icons/si"
+import * as IconsTb from "react-icons/tb"
 import * as IconsTi from "react-icons/ti"
 
 import { BsSlashCircleFill } from "react-icons/bs"
@@ -41,6 +42,7 @@ export default function IconsByName(ico, name, size = "auto", margin="0", fill =
     if (ico === "md") IconComponent = IconsMd[name];
     if (ico === "ri") IconComponent = IconsRi[name];
     if (ico === "si") IconComponent = IconsSi[name];
+    if (ico === "tb") IconComponent = IconsTb[name];
     if (ico === "ti") IconComponent = IconsTi[name];
 
     if (!IconComponent) {
