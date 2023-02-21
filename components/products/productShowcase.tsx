@@ -17,7 +17,6 @@ import CapSwitcher from "atoms/capSwitcher";
 
 export default function ProductShowcase({ product }: { product: ProductDTO }) {
   const { user } = useUser({ redirectTo: "/login" });
-  useRole({ user, role: Role.Cisab, redirectTo: "/" });
 
   const {
     data: products,

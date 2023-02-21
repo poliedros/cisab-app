@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { OverlayTrigger, Popover } from "react-bootstrap";
+import { Button, OverlayTrigger, Popover, Tooltip } from "react-bootstrap";
 
 import useUser from "lib/useUser";
 import { useRouter } from "next/router";
@@ -9,8 +9,13 @@ import fetchJson from "lib/fetchJson";
 import CapIconButton from "atoms/capIconButton";
 
 import { useTheme, useThemeUpdate } from "../context/themeContext";
-
+import Router from "next/router";
 import { Role } from "lib/role.enum";
+import CapImage from "atoms/capImage";
+import translations from "lib/translations";
+import { CountyDTO } from "pages/api/counties";
+import useSWR from "swr";
+import UserProfile from "./users/userProfile";
 
 export default function SideBar() {
   const [side, setSide] = useState(false);
@@ -254,17 +259,110 @@ export default function SideBar() {
     </Popover>
   );
 
+  const renderTooltip = (props: any) => (
+    <Tooltip id="button-tooltip" className="tooltip-clean" {...props}>
+      <div className="overflow-auto -m-6 p-4 invisibleScroll">
+        <div className="flex relative font-[Jost] bg-white text-black shadow-md px-2 pt-1 pb-1 ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5">
+          {translations("myProfile", "pt")}
+        </div>
+      </div>
+    </Tooltip>
+  );
+
+  const { data: countyDT, error } = useSWR<CountyDTO>(
+    `/api/counties/${user?.county_id}`
+  );
+  //alert(JSON.stringify(user));
+
   return (
     <>
       <div className="flex flex-column">
+        {user?.roles.includes(Role.Cisab) ||
+        user?.roles.includes(Role.Admin) ? (
+          <>
+            <CapIconButton
+              iconType="ai"
+              icon="AiFillHome"
+              route="/"
+              tooltip="home"
+              css="mb-3"
+            />
+          </>
+        ) : null}
+
+        {/* User Profile */}
+        {user?.roles.includes(Role.Cisab) ? (
+          // <CapIconButton
+          //   iconType="ri"
+          //   icon="RiAccountCircleFill"
+          //   route={`/users/${user?.email}`} // TODO: Trocar para o id depois?
+          //   tooltip="myProfile"
+          //   css="mb-3"
+          // />
+          <OverlayTrigger
+            placement="bottom"
+            delay={{ show: 400, hide: 700 }}
+            overlay={renderTooltip}
+          >
+            <Button
+              style={{ height: "56px", backgroundColor: "#7dc523" }} //"#6c757d"
+              className={
+                "hover:!bg-[#02aae9] border-0 !rounded-full !p-[0px] w-15 h-15 mb-3"
+              }
+              variant="outline-secondary"
+              onClick={() => Router.push("/users/profile")}
+              // onMouseEnter={mouseEnter}
+              // onMouseLeave={mouseLeave}
+            >
+              <CapImage src={"/cisabLogo.svg"} w={56} h={56} obj="contain" />
+            </Button>
+          </OverlayTrigger>
+        ) : user?.roles.includes(Role.Manager) ? (
+          <CapIconButton
+            iconType="hi"
+            icon="HiLibrary"
+            route={`/users/profile`} // TODO: Trocar para o id depois?
+            tooltip="myProfile"
+            css="mb-3"
+          />
+        ) : (
+          // <UserProfile />
+          <CapIconButton
+            iconType="ri"
+            icon="RiAccountCircleFill"
+            route={`/users/${user?.email}`} // TODO: Trocar para o id depois?
+            tooltip="myProfile"
+            css="mb-3"
+          />
+        )}
+
         {/* County Overlay */}
-        {!user?.roles.includes(Role.Cisab) ? (
+        {/* {!user?.roles.includes(Role.Cisab) ? (
           <CapIconButton
             iconType="fa"
             icon="FaCity"
             route={`/counties/${user?.county_id}`}
             css="mb-3"
           />
+        ) : null} */}
+
+        {/* Employee Overlay */}
+        {user?.roles.includes(Role.Manager) ? (
+          <OverlayTrigger
+            trigger="click"
+            placement="right"
+            overlay={employee}
+            rootClose
+          >
+            <div>
+              <CapIconButton
+                iconType="fa"
+                icon="FaUserFriends"
+                tooltip="employees"
+                css="mb-3"
+              />
+            </div>
+          </OverlayTrigger>
         ) : null}
         {user?.roles.includes(Role.Cisab) ? (
           <>
@@ -285,15 +383,6 @@ export default function SideBar() {
             </OverlayTrigger>
           </>
         ) : null}
-
-        {/* User Profile */}
-        <CapIconButton
-          iconType="ri"
-          icon="RiAccountCircleFill"
-          route={`/users/${user?.email}`} // TODO: Trocar para o id depois?
-          tooltip="myProfile"
-          css="mb-3"
-        />
 
         {/* Demand Overlay */}
         {user?.roles.includes(Role.Cisab) ? (
@@ -349,25 +438,6 @@ export default function SideBar() {
               </div>
             </OverlayTrigger>
           </>
-        ) : null}
-
-        {/* Employee Overlay */}
-        {user?.roles.includes(Role.Manager) ? (
-          <OverlayTrigger
-            trigger="click"
-            placement="right"
-            overlay={employee}
-            rootClose
-          >
-            <div>
-              <CapIconButton
-                iconType="fa"
-                icon="FaUserFriends"
-                tooltip="employees"
-                css="mb-3"
-              />
-            </div>
-          </OverlayTrigger>
         ) : null}
 
         {/* Product Suggestion */}

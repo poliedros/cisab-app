@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import { ProductDTO } from "pages/api/products";
 import ProductShowcase from "components/products/productShowcase";
-//import CountyProfile from "components/counties/countyProfile";
 
 export default function Get() {
   const router = useRouter();
@@ -22,7 +21,7 @@ export default function Get() {
 
   return (
     <>
-      <ProductShowcase product={product}/>
+      <ProductShowcase product={product} />
     </>
   );
 }

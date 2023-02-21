@@ -715,5 +715,11 @@
   },
   "viewOffer": {
     "pt": "Ver Oferta"
+  },
+  "createdUser": {
+    "pt": "Usuário Criado Corretamente."
+  },
+  "createdUserFault": {
+    "pt": "Falha ao Criar o Usuário. Tente novamente."
   }
 }
