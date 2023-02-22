@@ -35,10 +35,18 @@ export default function UserProfile({}: //countyUser,
   const { data: county, error } = useSWR<CountyDTO>(
     `/api/counties/${user?.county_id}`
   );
-  //alert(user?.county_id);
+
+  const { data: countyUser, error: error2 } = useSWR<CountyUserDTO[]>(
+    `/api/counties/${user?.user_id}/users`
+  );
+
+  console.log(JSON.stringify(countyUser));
 
   if (error && user?.county_id) return <div>Not Found</div>;
   if (!county && user?.county_id) return <div>loading...</div>;
+
+  if (error2 && user?.user_id) return <div>Not Found</div>;
+  if (!countyUser && user?.user_id) return <div>loading...</div>;
 
   // user?.roles.map((u) => {
   //   if (u === "cisab") {
@@ -84,7 +92,11 @@ export default function UserProfile({}: //countyUser,
                               " flex items-center relative py-2.5 px-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-full"
                             }
                           >
-                            {"XXX"}
+                            {user?.roles
+                              .map((u) => {
+                                return u === "cisab";
+                              })
+                              .toString()}
                           </div>
                         </div>
                       </Popover>
@@ -111,13 +123,21 @@ export default function UserProfile({}: //countyUser,
             /> */}
 
             <div className="z-10">
-              {user?.roles.map((u) => u === "cisab") ? (
+              {user?.roles.includes("cisab") ? (
                 <CapImage
                   src={"/cisabLogo.svg"}
                   w={192}
                   h={128}
                   obj="contain"
                 />
+              ) : user?.roles.includes("employee") ? (
+                IconsByName("ri", "RiAccountCircleFill", "100px")
+              ) : county ? (
+                county.county_id !== undefined ? (
+                  IconsByName("ri", "RiGovernmentFill", "100px")
+                ) : (
+                  IconsByName("hi", "HiLibrary", "100px")
+                )
               ) : (
                 IconsByName("ri", "RiAccountCircleFill", "100px")
               )}
@@ -128,12 +148,28 @@ export default function UserProfile({}: //countyUser,
               {user?.county_id ? (
                 <CapTitle
                   base={"none"}
-                  literal={county ? county.name : ""}
+                  literal={
+                    user
+                      ? countyUser
+                          ?.filter((c) => c._id === user.user_id)
+                          .map((i) => {
+                            return i.name + " " + i.surname;
+                          })
+                      : translations("noValue", "pt")
+                  }
                   additional={{ label: " !text-4xl !m-0" }}
                 />
               ) : null}
               <h6 className="lowercase tracking-widest text-[silver]">
-                {user ? user.roles : translations("noValue", "pt")}
+                {user
+                  ? countyUser?.filter((c) => c._id === user.user_id)
+                    ? countyUser
+                        ?.filter((c) => c._id === user.user_id)
+                        .map((i) => {
+                          return i.properties.profession;
+                        })
+                    : translations("noValue", "pt")
+                  : translations("noValue", "pt")}
               </h6>
               {/* <CapParagraph
                 literal={
