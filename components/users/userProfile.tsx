@@ -67,6 +67,7 @@ export default function UserProfile({}: //countyUser,
                     icon="RiEyeFill"
                     size="24px"
                     click={() => {}}
+                    cssIcon="rotate-center"
                   />
                 </li>
                 <li>
@@ -75,6 +76,7 @@ export default function UserProfile({}: //countyUser,
                     icon="RiEditBoxFill"
                     size="24px"
                     click={() => {}}
+                    cssIcon="rotate-center"
                   />
                 </li>
                 <li>
@@ -103,11 +105,12 @@ export default function UserProfile({}: //countyUser,
                     }
                     rootClose
                   >
-                    <div className="mx-0.5">
+                    <div className="mx-0.5 ">
                       <CapIconButton
                         iconType="cg"
                         icon="CgPassword"
                         size="24px"
+                        cssIcon="rotate-center"
                       />
                     </div>
                   </OverlayTrigger>
@@ -122,7 +125,7 @@ export default function UserProfile({}: //countyUser,
               obj="contain"
             /> */}
 
-            <div className="z-10">
+            <div className="z-10 rotate-center">
               {user?.roles.includes("cisab") ? (
                 <CapImage
                   src={"/cisabLogo.svg"}
@@ -160,7 +163,7 @@ export default function UserProfile({}: //countyUser,
                   additional={{ label: " !text-4xl !m-0" }}
                 />
               ) : null}
-              <h6 className="lowercase tracking-widest text-[silver]">
+              <h6 className="lowercase tracking-widest text-[silver] rotate-center">
                 {user
                   ? countyUser?.filter((c) => c._id === user.user_id)
                     ? countyUser
