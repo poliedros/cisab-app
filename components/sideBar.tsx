@@ -292,13 +292,6 @@ export default function SideBar() {
 
         {/* User Profile */}
         {user?.roles.includes(Role.Cisab) ? (
-          // <CapIconButton
-          //   iconType="ri"
-          //   icon="RiAccountCircleFill"
-          //   route={`/users/${user?.email}`} // TODO: Trocar para o id depois?
-          //   tooltip="myProfile"
-          //   css="mb-3"
-          // />
           <OverlayTrigger
             placement="bottom"
             delay={{ show: 400, hide: 700 }}
@@ -321,7 +314,7 @@ export default function SideBar() {
           <CapIconButton
             iconType="hi"
             icon="HiLibrary"
-            route={`/users/profile`} // TODO: Trocar para o id depois?
+            route={`/users/profile`}
             tooltip="myProfile"
             css="mb-3"
           />
@@ -330,9 +323,10 @@ export default function SideBar() {
           <CapIconButton
             iconType="ri"
             icon="RiAccountCircleFill"
-            route={`/users/${user?.email}`} // TODO: Trocar para o id depois?
+            route={`/users/${user?.user_id}`}
             tooltip="myProfile"
             css="mb-3"
+            cssIcon="rotate-center"
           />
         )}
 
@@ -399,6 +393,7 @@ export default function SideBar() {
                   icon="RiFileList2Fill"
                   click={handleMain}
                   css="mb-3"
+                  cssIcon="rotate-center"
                   tooltip="demands"
                 />
               </div>
@@ -415,6 +410,7 @@ export default function SideBar() {
               route="/demands/viewer"
               css="mb-3"
               tooltip="placeOrder"
+              cssIcon="rotate-center"
             />
           </>
         ) : null}
@@ -449,6 +445,7 @@ export default function SideBar() {
               route="/products/suggest"
               tooltip="productSuggestion"
               css="mb-3"
+              cssIcon="rotate-center"
             />
           </>
         ) : null}
@@ -488,6 +485,7 @@ export default function SideBar() {
               icon="BsGearFill"
               tooltip="settings"
               css="mb-3"
+              cssIcon="rotate-center"
             />
           </div>
         </OverlayTrigger>
@@ -498,6 +496,7 @@ export default function SideBar() {
           icon="IoLogOut"
           click={logout}
           tooltip="logout"
+          cssIcon="rotate-center"
         />
       </div>
     </>
