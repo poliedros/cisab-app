@@ -163,7 +163,7 @@ export default function UserProfile({}: //countyUser,
                   additional={{ label: " !text-4xl !m-0" }}
                 />
               ) : null}
-              <h6 className="lowercase tracking-widest text-[silver] rotate-center">
+              <h6 className="lowercase tracking-widest text-[silver]">
                 {user
                   ? countyUser?.filter((c) => c._id === user.user_id)
                     ? countyUser

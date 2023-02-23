@@ -123,7 +123,9 @@ export default function CapTable({
     //elems = values2.slice(currentPage * pageSize, currentPage * pageSize + pageSize).map(el => el.id === i ? {id: el.id, value: e.target.value} : el);
     setValues(
       values2.map((el) =>
-        el.id === i ? { id: el.id, value: parseInt(e.target.value) } : el
+        el.product_id === i
+          ? { id: el.id, quantity: parseInt(e.target.value) }
+          : el
       )
     );
     console.log("CRY");
