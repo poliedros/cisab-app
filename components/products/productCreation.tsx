@@ -452,8 +452,8 @@ export default function ProductCreation({
                     <CapForm
                       key={0}
                       as={Col}
-                      label="measure" //"measure"
-                      placeholder="insertMeasure" //"insertMeasureName"
+                      label="measureName" //"measure"
+                      placeholder="insertMeasureName" //"insertMeasureName"
                       //value={} //(e: any) => measures[e.target.parentElement.parentElement.parentElement.id]
                       change={
                         (e: any) => handleProductMeasure(e) //console.log(e.target.parentElement.parentElement.parentElement.id ) //setMeasures(e.target.value)
@@ -463,8 +463,8 @@ export default function ProductCreation({
                     <CapForm
                       key={0}
                       as={Col}
-                      label="quantity" //"scale"
-                      placeholder="insertQuantity" //"insertScale"
+                      label="value" //"scale"
+                      placeholder="insertValue" //"insertScale"
                       type="number"
                       //value={measures}
                       change={
