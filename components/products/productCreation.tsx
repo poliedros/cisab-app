@@ -66,7 +66,7 @@ export default function ProductCreation({
   ]);
   const [list, setList] = useState([""]);
   const [listCat, setListCat] = useState([""]);
-  const [listProd, setListProd] = useState([""]);
+  const [listProd, setListProd] = useState<string[]>([]);
 
   const [description, setDescription] = useState("emptyText");
 
@@ -1027,7 +1027,7 @@ export default function ProductCreation({
                     throw new Error("Function not implemented.");
                   }}
                 />
-                <CapContainerAdd
+                {/* <CapContainerAdd
                   type="product"
                   components={[
                     <CapForm
@@ -1035,13 +1035,13 @@ export default function ProductCreation({
                       as={Col}
                       label="productName"
                       placeholder="insertProductName"
-                      /* value={productName}
-                                                change={
-                                                    (e: any) =>
-                                                        setProductName(
-                                                            e.target.value
-                                                        ) //setProductName(e.target.value)
-                                                } */
+                      // value={productName}
+                      //                           change={
+                      //                               (e: any) =>
+                      //                                   setProductName(
+                      //                                       e.target.value
+                      //                                   ) //setProductName(e.target.value)
+                      //                           }
                       legend="exampleProductName"
                     />,
                     <>
@@ -1051,12 +1051,12 @@ export default function ProductCreation({
                           as={Col}
                           label="productCode"
                           placeholder="insertProductCode"
-                          /* value={code}
-                                                        change={(e: any) =>
-                                                            setCode(
-                                                                e.target.value
-                                                            )
-                                                        } */
+                          // value={code}
+                          //                               change={(e: any) =>
+                          //                                   setCode(
+                          //                                       e.target.value
+                          //                                   )
+                          //                               }
                         />
                         <Col>
                           <CapInputAdvanced
@@ -1106,7 +1106,7 @@ export default function ProductCreation({
                             array={list}
                             setArray={setList}
                           />{" "}
-                          {/* (e: any) => setFunc(e) (e: any) => handleUnitName(e) */}
+                          // (e: any) => setFunc(e) (e: any) => handleUnitName(e)
                         </Col>,
                       ]}
                       //setComponents={setComponents}
@@ -1117,7 +1117,7 @@ export default function ProductCreation({
                   ]}
                   resultArray={[]}
                   setResultArray={undefined}
-                />
+                /> */}
                 <div className="flex justify-end items-end">
                   <Col>
                     <CapLegend label={description} />
