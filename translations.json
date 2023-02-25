@@ -269,6 +269,12 @@
   "measure": {
     "pt": "Medida"
   },
+  "measureName": {
+    "pt": "Nome da Medida"
+  },
+  "insertMeasureName": {
+    "pt": "Insira o Nome da Medida"
+  },
   "measures": {
     "pt": "Medidas"
   },
@@ -460,6 +466,12 @@
   },
   "questionRemove": {
     "pt": "Remover permanentemente"
+  },
+  "value": {
+    "pt": "Valor"
+  },
+  "insertValue": {
+    "pt": "Insira o Valor"
   },
   "noValue": {
     "pt": "Não Informado"
