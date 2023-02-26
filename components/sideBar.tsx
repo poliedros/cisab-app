@@ -71,6 +71,7 @@ export default function SideBar() {
             hoverColor="#7dc523"
             tooltip="createCounty"
             css="mr-3"
+            cssIcon="rotate-center"
           />
           <CapIconButton
             iconType="fa"
@@ -79,6 +80,7 @@ export default function SideBar() {
             route="/counties"
             hoverColor="#7dc523"
             tooltip="listCounties"
+            cssIcon="rotate-center"
           />
         </div>
       </div>
@@ -102,6 +104,7 @@ export default function SideBar() {
             hoverColor="#7dc523"
             css="mr-3"
             tooltip="createProduct"
+            cssIcon="rotate-center"
           />
           <CapIconButton
             iconType="fa"
@@ -111,6 +114,7 @@ export default function SideBar() {
             hoverColor="#7dc523"
             css="mr-3"
             tooltip="listProducts"
+            cssIcon="rotate-center"
           />
         </div>
       </div>
@@ -192,6 +196,7 @@ export default function SideBar() {
             hoverColor="#7dc523"
             css="mr-3"
             tooltip="createDemand"
+            cssIcon="rotate-center"
           />
           <CapIconButton
             iconType="fa"
@@ -200,6 +205,7 @@ export default function SideBar() {
             route="/demands"
             hoverColor="#7dc523"
             tooltip="listDemands"
+            cssIcon="rotate-center"
           />
         </div>
       </div>
@@ -253,6 +259,7 @@ export default function SideBar() {
             click={handleBrightness}
             hoverColor="#7dc523"
             tooltip="themes"
+            cssIcon="rotate-center"
           />
         </div>
       </div>
@@ -286,6 +293,7 @@ export default function SideBar() {
               route="/"
               tooltip="home"
               css="mb-3"
+              cssIcon="rotate-center"
             />
           </>
         ) : null}
@@ -307,7 +315,13 @@ export default function SideBar() {
               // onMouseEnter={mouseEnter}
               // onMouseLeave={mouseLeave}
             >
-              <CapImage src={"/cisabLogo.svg"} w={56} h={56} obj="contain" />
+              <CapImage
+                src={"/cisabLogo.svg"}
+                w={56}
+                h={56}
+                obj="contain"
+                //css="rotate-center"
+              />
             </Button>
           </OverlayTrigger>
         ) : user?.roles.includes(Role.Manager) ? (
@@ -372,6 +386,7 @@ export default function SideBar() {
                   icon="FaCity"
                   tooltip="counties"
                   css="mb-3"
+                  cssIcon="rotate-center"
                 />
               </div>
             </OverlayTrigger>
@@ -430,6 +445,7 @@ export default function SideBar() {
                   icon="GiCardboardBoxClosed"
                   css="mb-3"
                   tooltip="products"
+                  cssIcon="rotate-center"
                 />
               </div>
             </OverlayTrigger>
@@ -466,6 +482,7 @@ export default function SideBar() {
                   icon="BsDiagram3Fill"
                   css="mb-3"
                   tooltip="project"
+                  cssIcon="rotate-center"
                 />
               </div>
             </OverlayTrigger>

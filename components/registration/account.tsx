@@ -68,7 +68,7 @@ export default function Account({ kind, handleAccount }: AccountProps) {
               handleAccount(
                 {
                   name: e.target.value,
-                  email: e.target.value,
+                  email: managerEmail,
                 },
                 kind
               );

@@ -93,7 +93,7 @@ export default function CapContainer({
                               "\n"
                             : "") +
                           (a[i + 1].measurements[2]
-                            ? a[i].measurements[2].name +
+                            ? a[i + 1].measurements[2].name +
                               ": " +
                               a[i + 1].measurements[2].value +
                               a[i + 1].measurements[2].unit
@@ -119,7 +119,7 @@ export default function CapContainer({
                             ? a[i + 2].measurements[0].name +
                               ": " +
                               a[i + 2].measurements[0].value +
-                              a[i + 1].measurements[0].unit +
+                              a[i + 2].measurements[0].unit +
                               "\n"
                             : "") +
                           (a[i + 2].measurements[1]
@@ -130,7 +130,7 @@ export default function CapContainer({
                               "\n"
                             : "") +
                           (a[i + 2].measurements[2]
-                            ? a[i].measurements[2].name +
+                            ? a[i + 2].measurements[2].name +
                               ": " +
                               a[i + 2].measurements[2].value +
                               a[i + 2].measurements[2].unit

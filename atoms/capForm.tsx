@@ -65,47 +65,50 @@ export default function CapForm({
     <>
       {kind === "default" ? (
         <Form.Group
-          className={(theme === "dark" ? "text-white" : "") + (css ? css : " mb-3")}
+          className={
+            (theme === "dark" ? "text-white" : "") + (css ? css : " mb-3")
+          }
           controlId={controlId}
           placeholder={placeholder}
           as={as}
         >
           {label !== "text" ? (
-            label !== "emptyText" ? <Form.Label
-              column={column}
-              type={type}
-              htmlFor={htmlFor}
-            >
-              <div className="!flex items-center">
-                {iconType && icon ? IconsByName(iconType, icon) : ""}
-                &nbsp;
-                {translations(label, language)}
-              </div>
-            </Form.Label> : null
+            label !== "emptyText" ? (
+              <Form.Label column={column} type={type} htmlFor={htmlFor}>
+                <div className="!flex items-center">
+                  {iconType && icon ? IconsByName(iconType, icon) : ""}
+                  &nbsp;
+                  {translations(label, language)}
+                </div>
+              </Form.Label>
+            ) : null
           ) : null}
-          {required ? <Form.Control
-            required
-            type={type}
-            placeholder={translations(placeholder, language)}
-            value={value}
-            onClick={click}
-            onChange={change}
-            as={asControl}
-            rows={rows}
-            xs={xs}
-            disabled={disabled}
-          /> : <Form.Control
-          type={type}
-          placeholder={translations(placeholder,
-            language)}
-          value={value}
-          onClick={click}
-          onChange={change}
-          as={asControl}
-          rows={rows}
-          xs={xs}
-          disabled={disabled}
-        /> }
+          {required ? (
+            <Form.Control
+              required
+              type={type}
+              placeholder={translations(placeholder, language)}
+              value={value}
+              onClick={click}
+              onChange={change}
+              as={asControl}
+              rows={rows}
+              xs={xs}
+              disabled={disabled}
+            />
+          ) : (
+            <Form.Control
+              type={type}
+              placeholder={translations(placeholder, language)}
+              value={value}
+              onClick={click}
+              onChange={change}
+              as={asControl}
+              rows={rows}
+              xs={xs}
+              disabled={disabled}
+            />
+          )}
           <Form.Text className="text-muted">
             {legend !== "emptyText" ? translations(legend, language) : null}
           </Form.Text>
@@ -124,17 +127,15 @@ export default function CapForm({
           as={as}
         >
           {label !== "text" ? (
-            label !== "emptyText" ? <Form.Label
-              column={column}
-              type={type}
-              htmlFor={htmlFor}
-            >
-              <div className="!flex items-center">
-                {iconType && icon ? IconsByName(iconType, icon) : ""}
-                &nbsp;
-                {translations(label, language)}
-              </div>
-            </Form.Label> : null
+            label !== "emptyText" ? (
+              <Form.Label column={column} type={type} htmlFor={htmlFor}>
+                <div className="!flex items-center">
+                  {iconType && icon ? IconsByName(iconType, icon) : ""}
+                  &nbsp;
+                  {translations(label, language)}
+                </div>
+              </Form.Label>
+            ) : null
           ) : null}
           <Form.Select
             defaultValue={
