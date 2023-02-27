@@ -9,8 +9,8 @@ export type CartRequestDTO = {
   demand_id: string;
 };
 
-async function closeCart(cart_id: String): Promise<CartDTO | undefined> {
-  const response = await fetch(`/api/carts/${cart_id}/close`, {
+async function closeCart(demand_id: String): Promise<CartDTO | undefined> {
+  const response = await fetch(`/api/carts/${demand_id}/close`, {
     method: "POST",
   });
 

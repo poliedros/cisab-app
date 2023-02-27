@@ -1,4 +1,7 @@
 import CapBtn from "atoms/capBtn";
+import CapIconButton from "atoms/capIconButton";
+import CapLegend from "atoms/capLegend";
+import CapOverlayTrigger from "atoms/capOverlayTrigger";
 import CapSwitcher from "atoms/capSwitcher";
 import CapTitle from "atoms/capTitle";
 import { CartDTO, ProductIdOnCartDTO } from "pages/api/carts";
@@ -17,6 +20,9 @@ export default function CartView({ cart, update, close }: CartProps) {
 
   const [format, setFormat] = useState("grid");
   const [page, setPage] = useState(0);
+
+  const [showOT, setShowOT] = useState(false);
+  const [description, setDescription] = useState("emptyText");
 
   const [quantities, setQuantity] = useState(cart.product_ids);
   const [getInput, setInput] = useState([]);
@@ -48,7 +54,7 @@ export default function CartView({ cart, update, close }: CartProps) {
           <CapBtn
             label="closeCart"
             click={() => {
-              close(cart._id);
+              close(cart.demand_id);
             }}
           />
         </Col>
@@ -57,10 +63,12 @@ export default function CartView({ cart, update, close }: CartProps) {
         <CapSwitcher
           data={cart.products}
           tableHeaders={["products", "quantity"]}
-          tableColumns={["name"]}
+          tableColumns={
+            cart.state == "closed" ? ["name", "quantity"] : ["name"]
+          }
           tableNumeral={true}
           //tableImage={1}
-          input={2}
+          input={cart.state == "opened" ? 2 : undefined}
           inputValue={quantities}
           inputSetValue={setQuantity}
           getInput={setInput}
@@ -70,6 +78,52 @@ export default function CartView({ cart, update, close }: CartProps) {
           pagesSize={size}
         />
       </Row>
+      {cart.state == "opened" ? (
+        <Row className="flex justify-end items-end">
+          <Col>
+            <CapLegend label={description} />
+          </Col>
+
+          <Col md="auto" className="!pl-0 !pr-3">
+            <CapOverlayTrigger
+              setDescription={setDescription}
+              button={
+                <CapIconButton
+                  iconType="md"
+                  icon="MdShoppingCart"
+                  size="20px"
+                  click={() => {
+                    updateCart(getInput);
+                  }}
+                  mouseEnter={() => setDescription("updateCart")}
+                  mouseLeave={() => setDescription("emptyText")}
+                />
+              }
+            />
+          </Col>
+          <Col md="auto" className="!pl-0 !pr-3">
+            <CapOverlayTrigger
+              setDescription={setDescription}
+              button={
+                <CapIconButton
+                  iconType="ri"
+                  icon="RiCheckboxCircleLine"
+                  size="20px"
+                  click={() => {
+                    close(cart.demand_id);
+                  }}
+                  mouseEnter={() => setDescription("finalize")}
+                  mouseLeave={() => setDescription("emptyText")}
+                />
+              }
+            />
+          </Col>
+        </Row>
+      ) : (
+        <>
+          Carrinho fechado por {cart.user_name} em {cart.updated_on}.{" "}
+        </>
+      )}
     </>
   );
 }
