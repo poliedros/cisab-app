@@ -2,7 +2,14 @@ import CapForm from "atoms/capForm";
 import CapIconButton from "atoms/capIconButton";
 import { CategoryDTO } from "pages/api/categories";
 import { ProductDTO } from "pages/api/products";
-import { Col, Dropdown, OverlayTrigger, Popover, Row } from "react-bootstrap";
+import {
+  Col,
+  Dropdown,
+  Form,
+  OverlayTrigger,
+  Popover,
+  Row,
+} from "react-bootstrap";
 import useSWR, { MutatorCallback, MutatorOptions } from "swr";
 import useRole from "lib/useRole";
 import useUser from "lib/useUser";
@@ -301,9 +308,13 @@ export default function DemandCreation({
               }}
               array={categoriesSt}
               setArray={setCategoriesSt}
+              sendAll={() => {
+                setDefaultSt(Array.from(new Set(handleProductCategories())));
+              }}
+              tooltipSendAll="addAllProductsOfCategories"
             />
           </div>
-          <CapIconButton
+          {/* <CapIconButton
             css="ml-6"
             tooltip="addProductsFromCategory"
             iconType="io5"
@@ -312,7 +323,7 @@ export default function DemandCreation({
             click={() => {
               setDefaultSt(Array.from(new Set(handleProductCategories())));
             }}
-          />
+          /> */}
         </Col>
         <Col md={12}>
           <>

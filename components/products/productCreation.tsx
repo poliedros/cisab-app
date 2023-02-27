@@ -41,7 +41,7 @@ export default function ProductCreation({
   product = undefined,
   submit,
   title,
-  suggest,
+  suggest = false,
 }: {
   product?: ProductDTO | undefined;
   submit: (product: ProductDTO) => Promise<ProductDTO | undefined>;
@@ -66,7 +66,7 @@ export default function ProductCreation({
   ]);
   const [list, setList] = useState([""]);
   const [listCat, setListCat] = useState([""]);
-  const [listProd, setListProd] = useState([""]);
+  const [listProd, setListProd] = useState<string[]>([]);
 
   const [description, setDescription] = useState("emptyText");
 
@@ -188,6 +188,37 @@ export default function ProductCreation({
     await saveProduct(productResult);
   };
 
+  const handleProductLast = async () => {
+    //alert(categories);
+    const _id = product?._id;
+    let mea: Measure;
+    let meaRes = array;
+    let norRes = arrayNorms;
+    let prodRes = listProd; //arrayProducts.map((p: any) => p._id);
+    /* let meaRes: Measure[] = [];
+        array.map((a, i) => {
+            mea = {
+                name: measures[i],
+                value: unitsValue[i],
+                unit: a,
+            };
+            meaRes.push(mea);
+        }); */
+    let productResult: ProductDTO = {
+      _id: _id ?? "0",
+      name: productName,
+      measurements: meaRes ?? [],
+      norms: norRes ?? [],
+      code: code,
+      //photo_url: "", //https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg
+      accessory_ids: prodRes ?? [],
+      categories: listCat ?? [],
+    };
+    //alert(JSON.stringify(productResult))
+    setStep(4);
+    await saveProduct(productResult);
+  };
+
   const saveImage = async (image: any): Promise<any> => {
     const { data } = await axios.post(
       `/api/products/${productId}/image`,
@@ -220,6 +251,7 @@ export default function ProductCreation({
   const [showOT1, setShowOT1] = useState(false);
   const [showOT2, setShowOT2] = useState(false);
   const [showOT3, setShowOT3] = useState(false);
+  const [showOT4, setShowOT4] = useState(false);
   const [mesuamentSt, setMesuamentSt] = useState([]);
 
   if (error) return <div>failed to load</div>;
@@ -393,13 +425,13 @@ export default function ProductCreation({
               "finalize",
             ]}
             stagesIcons={[
-              "MdEditNote",
+              "HiClipboardList",
               "FaBalanceScale",
               "BsNutFill",
               "IoImage",
               "RiCheckboxCircleFill",
             ]}
-            stagesIconsTypes={["md", "fa", "bs", "io5", "ri"]}
+            stagesIconsTypes={["hi", "fa", "bs", "io5", "ri"]}
             stagesBody={[
               <>
                 {/* <ProductCreationInformation productName={""} setProductName={undefined} code={""} setCode={undefined} categories={[]} mutateCat={undefined} listCat={[]} setListCat={undefined} units={[]} mutate={undefined} list={[]} setList={undefined} description={description} setDescription={setDescription} array={undefined} setArray={undefined} setStep={undefined} handleProduct={undefined} handleUnitValue={undefined} handleProductMeasure={undefined} /> */}
@@ -452,8 +484,8 @@ export default function ProductCreation({
                     <CapForm
                       key={0}
                       as={Col}
-                      label="measure" //"measure"
-                      placeholder="insertMeasure" //"insertMeasureName"
+                      label="measureName" //"measure"
+                      placeholder="insertMeasureName" //"insertMeasureName"
                       //value={} //(e: any) => measures[e.target.parentElement.parentElement.parentElement.id]
                       change={
                         (e: any) => handleProductMeasure(e) //console.log(e.target.parentElement.parentElement.parentElement.id ) //setMeasures(e.target.value)
@@ -463,8 +495,8 @@ export default function ProductCreation({
                     <CapForm
                       key={0}
                       as={Col}
-                      label="quantity" //"scale"
-                      placeholder="insertQuantity" //"insertScale"
+                      label="value" //"scale"
+                      placeholder="insertValue" //"insertScale"
                       type="number"
                       //value={measures}
                       change={
@@ -535,6 +567,39 @@ export default function ProductCreation({
                   <Col md="auto" className="!pl-0 !pr-3">
                     <CapOverlayTrigger
                       listCat={listCat}
+                      handleProduct={handleProductLast}
+                      code={code}
+                      show={showOT4}
+                      setShow={setShowOT4}
+                      step={4}
+                      productName={productName}
+                      mesuamentSt={mesuamentSt}
+                      setMesuamentSt={setMesuamentSt}
+                      setStep={setStep}
+                      setDescription={setDescription}
+                      handleScanArray={() =>
+                        measurementRef.current.handleScanArray()
+                      }
+                      button={
+                        <CapIconButton
+                          iconType="ri"
+                          icon="RiCheckboxCircleLine"
+                          size="20px"
+                          click={() => {
+                            setShowOT4(true);
+                            setMesuamentSt(
+                              measurementRef.current.handleScanArray()
+                            );
+                          }}
+                          mouseEnter={() => setDescription("finalize")}
+                          mouseLeave={() => setDescription("emptyText")}
+                        />
+                      }
+                    />
+                  </Col>
+                  <Col md="auto" className="!pl-0 !pr-3">
+                    <CapOverlayTrigger
+                      listCat={listCat}
                       handleProduct={handleProduct}
                       code={code}
                       show={showOT2}
@@ -563,7 +628,7 @@ export default function ProductCreation({
                             );
                             //: null;
                           }}
-                          mouseEnter={() => setDescription("finalize")}
+                          mouseEnter={() => setDescription("goToInsertImage")}
                           mouseLeave={() => setDescription("emptyText")}
                         />
                       }
@@ -1027,7 +1092,7 @@ export default function ProductCreation({
                     throw new Error("Function not implemented.");
                   }}
                 />
-                <CapContainerAdd
+                {/* <CapContainerAdd
                   type="product"
                   components={[
                     <CapForm
@@ -1035,13 +1100,13 @@ export default function ProductCreation({
                       as={Col}
                       label="productName"
                       placeholder="insertProductName"
-                      /* value={productName}
-                                                change={
-                                                    (e: any) =>
-                                                        setProductName(
-                                                            e.target.value
-                                                        ) //setProductName(e.target.value)
-                                                } */
+                      // value={productName}
+                      //                           change={
+                      //                               (e: any) =>
+                      //                                   setProductName(
+                      //                                       e.target.value
+                      //                                   ) //setProductName(e.target.value)
+                      //                           }
                       legend="exampleProductName"
                     />,
                     <>
@@ -1051,12 +1116,12 @@ export default function ProductCreation({
                           as={Col}
                           label="productCode"
                           placeholder="insertProductCode"
-                          /* value={code}
-                                                        change={(e: any) =>
-                                                            setCode(
-                                                                e.target.value
-                                                            )
-                                                        } */
+                          // value={code}
+                          //                               change={(e: any) =>
+                          //                                   setCode(
+                          //                                       e.target.value
+                          //                                   )
+                          //                               }
                         />
                         <Col>
                           <CapInputAdvanced
@@ -1106,7 +1171,7 @@ export default function ProductCreation({
                             array={list}
                             setArray={setList}
                           />{" "}
-                          {/* (e: any) => setFunc(e) (e: any) => handleUnitName(e) */}
+                          // (e: any) => setFunc(e) (e: any) => handleUnitName(e)
                         </Col>,
                       ]}
                       //setComponents={setComponents}
@@ -1117,7 +1182,7 @@ export default function ProductCreation({
                   ]}
                   resultArray={[]}
                   setResultArray={undefined}
-                />
+                /> */}
                 <div className="flex justify-end items-end">
                   <Col>
                     <CapLegend label={description} />

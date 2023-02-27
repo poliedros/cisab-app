@@ -169,8 +169,9 @@ export default function ProductList({ products }: { products: ProductDTO[] }) {
           searchPath={"name"}
           pagesSize={size}
           getInput={setGetInput}
+          searchPlaceholder={"searchProductByName"}
         />
-        <Row className="flex justify-end items-end">
+        {/* <Row className="flex justify-end items-end">
           <Col>
             <CapLegend label={description} />
           </Col>
@@ -186,7 +187,7 @@ export default function ProductList({ products }: { products: ProductDTO[] }) {
               mouseLeave={() => setDescription("emptyText")}
             />
           </Col>
-        </Row>
+        </Row> */}
       </Container>
     </>
   );

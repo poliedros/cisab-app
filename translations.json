@@ -186,7 +186,7 @@
     "pt": "Insira a Distância"
   },
   "countyAccount": {
-    "pt": "Conta do Diretor da Prefeitura"
+    "pt": "Conta da Prefeitura"
   },
   "insertCountyAccount": {
     "pt": "Insira Nome da Conta"
@@ -268,6 +268,12 @@
   },
   "measure": {
     "pt": "Medida"
+  },
+  "measureName": {
+    "pt": "Nome da Medida"
+  },
+  "insertMeasureName": {
+    "pt": "Insira o Nome da Medida"
   },
   "measures": {
     "pt": "Medidas"
@@ -461,6 +467,12 @@
   "questionRemove": {
     "pt": "Remover permanentemente"
   },
+  "value": {
+    "pt": "Valor"
+  },
+  "insertValue": {
+    "pt": "Insira o Valor"
+  },
   "noValue": {
     "pt": "Não Informado"
   },
@@ -538,6 +550,9 @@
   },
   "accessories": {
     "pt": "Acessórios"
+  },
+  "searchAccessoryByName": {
+    "pt": "Buscar Acessório pelo Nome"
   },
   "countyAccountable": {
     "pt": "Responsável pelo Município"
@@ -677,8 +692,8 @@
   "errorOperation": {
     "pt": "Erro na operação"
   },
-  "addProductsFromCategory": {
-    "pt": "Adicionar todos os produtos dessa(s) categoria(s)"
+  "addAllProductsOfCategories": {
+    "pt": "Adicionar Todos os Produtos Filtrados"
   },
   "suggestProduct": {
     "pt": "Sugerir Produto"
@@ -724,5 +739,8 @@
   },
   "autarkyRegistration": {
     "pt": "Cadastro de Autarquia"
+  },
+  "goToInsertImage": {
+    "pt": "Seguir para Insertar Imagem"
   }
 }
