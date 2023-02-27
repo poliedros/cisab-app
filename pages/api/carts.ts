@@ -4,6 +4,11 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { Measure, ProductDTO } from "./products";
 
 export type ProductIdOnCartDTO = {
+  id: string;
+  value: number;
+};
+
+export type ProductIdAPIDTO = {
   product_id: string;
   quantity: number;
 };
@@ -18,6 +23,20 @@ export type ProductOnCartDTO = {
   categories: string[];
   acessories: ProductDTO[];
   quantity: number;
+};
+
+export type CartAPIDTO = {
+  _id: string;
+  user_id: string;
+  state: string;
+  updated_on: Date;
+  product_ids: ProductIdAPIDTO[];
+  products: ProductOnCartDTO[];
+  demand_name: string;
+  demand_id: string;
+  user_name: string;
+  county_id: string;
+  county_name: string;
 };
 
 export type CartDTO = {

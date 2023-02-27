@@ -2,19 +2,30 @@ import CartView from "components/carts/cartView";
 import useUser from "lib/useUser";
 import { useRouter } from "next/router";
 import useSWR from "swr";
-import { CartDTO, ProductIdOnCartDTO } from "../api/carts";
+import { CartDTO, ProductIdAPIDTO } from "../api/carts";
 
 export type CartRequestDTO = {
-  products: ProductIdOnCartDTO[];
+  products: ProductIdAPIDTO[];
   demand_id: string;
 };
+
+async function closeCart(cart_id: String): Promise<CartDTO | undefined> {
+  const response = await fetch(`/api/carts/${cart_id}/close`, {
+    method: "POST",
+  });
+
+  if (response.status === 201) {
+    const data = await response.json();
+    return data;
+  }
+  return;
+}
 
 async function updateCart(cart: CartRequestDTO): Promise<CartDTO | undefined> {
   const body = {
     demand_id: cart.demand_id,
     products: cart.products,
   };
-  console.log("body: ", body);
   const response = await fetch("/api/carts", {
     method: "POST",
     body: JSON.stringify(body),
@@ -32,11 +43,7 @@ export default function Cart() {
   const router = useRouter();
   const { id } = router.query; // Reffers to demand_id
 
-  const {
-    data: cart,
-    error,
-    mutate,
-  } = useSWR<CartDTO>(
+  const { data: cart, error } = useSWR<CartDTO>(
     user ? `/api/carts/${id}` : null // Reffers to demand_id
   );
   console.log("cart: ", cart);
@@ -48,6 +55,5 @@ export default function Cart() {
     return <div>404</div>;
   }
 
-  // TODO: passar mutate https://swr.vercel.app/docs/mutation
-  return <>{<CartView cart={cart} update={updateCart} />}</>;
+  return <>{<CartView cart={cart} update={updateCart} close={closeCart} />}</>;
 }

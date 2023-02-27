@@ -741,6 +741,12 @@
     "pt": "Cadastro de Autarquia"
   },
   "goToInsertImage": {
-    "pt": "Seguir para Insertar Imagem"
+    "pt": "Seguir para Inserir Imagem"
+  },
+  "updateCart": {
+    "pt": "Atualizar Carrinho"
+  },
+  "closeCart": {
+    "pt": "Fechar Carrinho"
   }
 }
