@@ -1,7 +1,7 @@
 import { withIronSessionApiRoute } from "iron-session/next";
 import { sessionOptions } from "lib/session";
 import { NextApiRequest, NextApiResponse } from "next";
-import { CartDTO } from "../[id]";
+import { CartDTO } from "../../carts";
 
 async function handler(req: NextApiRequest, res: NextApiResponse<CartDTO>) {
   const user = req.session.user;

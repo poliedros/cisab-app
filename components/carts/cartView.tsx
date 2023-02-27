@@ -1,12 +1,15 @@
+import CapBtn from "atoms/capBtn";
 import CapSwitcher from "atoms/capSwitcher";
 import CapTitle from "atoms/capTitle";
-import { CartDTO, ProductOnCartDTO } from "pages/api/carts/[id]";
+import { getIn } from "formik";
+import { CartDTO, ProductIdOnCartDTO, ProductOnCartDTO } from "pages/api/carts";
+import { CartRequestDTO } from "pages/carts/[id]";
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 
 type CartProps = {
   cart: CartDTO;
-  update: (cart: CartDTO) => Promise<CartDTO | undefined>;
+  update: (cart: CartRequestDTO) => Promise<CartDTO | undefined>;
 };
 
 export default function CartView({ cart, update }: CartProps) {
@@ -14,13 +17,42 @@ export default function CartView({ cart, update }: CartProps) {
 
   const [format, setFormat] = useState("grid");
   const [page, setPage] = useState(0);
+  console.log("cart: ", cart.product_ids);
+  // const quantities = cart;
 
-  const [quantity, setQuantity] = useState<(string | number)[]>([]);
-  const [products, setProducts] = useState<ProductOnCartDTO[]>(cart.products);
+  const [quantities, setQuantity] = useState(cart.product_ids);
+
+  // const [getInput, getQuantity] = useState<ProductIdOnCartDTO[]>(
+  //   cart.product_ids
+  // );
+
+  // const [quantities, setQuantity] = useState([]);
+  // const [getInput, getQuantity] = useState([]);
+
+  // console.log("quantities", quantities);
 
   useEffect(() => {
-    update(cart);
-  }, [quantity]);
+    console.log("getInput", quantities);
+    // cart.product_ids = getInput;
+    const productsRequest = quantities.map((prod) => {
+      console.log(prod);
+      if ("value" in prod && "id" in prod) {
+        prod.product_id = prod.id as string;
+        prod.quantity = prod.value as number;
+      }
+      return { product_id: prod.product_id, quantity: prod.quantity };
+    });
+    // prod.quantity = getInput.find(elem => {elem. === prod.product_id}).value
+    // });
+    // cart.product_ids.map((prod) => {
+    //   prod.product_id, prod.quantity;
+    // });
+    const cartRequest = {
+      products: productsRequest,
+      demand_id: cart.demand_id,
+    };
+    update(cartRequest);
+  }, [quantities]);
 
   return (
     <>
@@ -31,14 +63,14 @@ export default function CartView({ cart, update }: CartProps) {
       </Row>
       <Row>
         <CapSwitcher
-          data={products}
+          data={cart.products}
           tableHeaders={["products", "quantity"]}
           tableColumns={["name"]}
           tableNumeral={true}
           //tableImage={1}
           input={2}
-          inputValue={quantity}
-          inputSetValue={setQuantity}
+          inputValue={quantities}
+          inputSetValue={setQuantity} //TODO: passar mutate aqui
           getInput={setQuantity}
           buttons={["view"]}
           buttonsPaths={["/products/"]}
