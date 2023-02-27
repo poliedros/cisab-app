@@ -266,29 +266,29 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
               <Col>
                 <CapLegend label={description} />
               </Col>
-              <Col md="auto" className="!pl-0 !pr-3">
-                <CapIconButton
-                  iconType="ri"
-                  icon="RiGovernmentLine"
-                  size="20px"
-                  click={() => {
-                    registerCounty(county, county._id);
-                    setActiveTab(3);
-                  }}
-                  mouseEnter={() => setDescription("insertAutarky")}
-                  mouseLeave={() => setDescription("emptyText")}
-                />
-              </Col>
               <Col md="auto" className="!pl-0">
                 <CapIconButton
-                  iconType="bi"
-                  icon="BiMailSend"
+                  iconType="ri"
+                  icon="RiCheckboxCircleLine"
                   size="20px"
                   click={() => {
                     registerCounty(county, county._id);
                     setActiveTab(6);
                   }}
                   mouseEnter={() => setDescription("finalize")}
+                  mouseLeave={() => setDescription("emptyText")}
+                />
+              </Col>
+              <Col md="auto" className="!pl-0 !pr-3">
+                <CapIconButton
+                  iconType="md"
+                  icon="MdNavigateNext"
+                  size="20px"
+                  click={() => {
+                    registerCounty(county, county._id);
+                    setActiveTab(3);
+                  }}
+                  mouseEnter={() => setDescription("insertAutarky")}
                   mouseLeave={() => setDescription("emptyText")}
                 />
               </Col>

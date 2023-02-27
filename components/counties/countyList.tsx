@@ -6,6 +6,7 @@ import { CountyDTO } from "pages/api/counties";
 import CapTable from "atoms/capTable";
 import CapTitle from "atoms/capTitle";
 import CapInputGroup from "atoms/capInputGroup";
+import CapSwitcher from "atoms/capSwitcher";
 
 export default function CountyList({ counties }: { counties: CountyDTO[] }) {
   const [searchCounty, setSearchCounty] = useState("");
@@ -17,9 +18,9 @@ export default function CountyList({ counties }: { counties: CountyDTO[] }) {
   return (
     <>
       <Container className="p-0">
-        <CapTitle base="list" label="countyList" />
-        <div className="mb-6"></div>
-        <CapInputGroup
+        <CapTitle base="list" label="countyList" cssExternal="mb-6" />
+
+        {/* <CapInputGroup
           search={searchCounty}
           setSearch={setSearchCounty}
           placeholder={"searchCountyByName"}
@@ -39,6 +40,24 @@ export default function CountyList({ counties }: { counties: CountyDTO[] }) {
           ]}
           search={searchCounty}
           searchPath={"name"}
+        /> */}
+        <CapSwitcher
+          standard="table"
+          data={onlyCounties}
+          tableHeaders={["countyName", "responsible"]}
+          tableColumns={["name", "contact.speakTo"]}
+          tableNumeral={true}
+          pagesSize={10}
+          buttons={["view", "edit", "users", "autarkies", "remove"]}
+          buttonsPaths={[
+            "/counties/",
+            "/counties/",
+            "/counties/",
+            "/counties/",
+            "/api/counties/",
+          ]}
+          searchPath={"name"}
+          searchPlaceholder={"searchCountyByName"}
         />
       </Container>
     </>

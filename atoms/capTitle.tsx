@@ -8,6 +8,7 @@ export default function CapTitle({
   label = "emptyText",
   literal = undefined,
   css = "",
+  cssExternal = "",
   additional = undefined,
 }: {
   base?:
@@ -26,6 +27,7 @@ export default function CapTitle({
   label?: string;
   literal?: string;
   css?: string;
+  cssExternal?: string;
   additional?: any;
 }) {
   const language = useLanguage();
@@ -48,7 +50,12 @@ export default function CapTitle({
   };
   return (
     <>
-      <div className="flex items-end overflow-auto invisibleScroll w-full items-center">
+      <div
+        className={
+          "flex items-end overflow-auto invisibleScroll w-full items-center " +
+          cssExternal
+        }
+      >
         {base ? (
           base !== "none" ? (
             <div className="bg-[#7dc523] rounded-full p-3 text-white">

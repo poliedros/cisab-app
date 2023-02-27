@@ -224,6 +224,7 @@ export default function ProductShowcase({ product }: { product: ProductDTO }) {
             buttonsPaths={["/products/"]}
             searchPath={"name"}
             pagesSize={6}
+            searchPlaceholder={"searchAccessoryByName"}
           />
         </Row>
       ) : (
