@@ -1,6 +1,7 @@
 import CapBtn from "atoms/capBtn";
 import CapIconButton from "atoms/capIconButton";
 import CapLegend from "atoms/capLegend";
+import CapMessageBottom from "atoms/capMessageBottom";
 import CapOverlayTrigger from "atoms/capOverlayTrigger";
 import CapSwitcher from "atoms/capSwitcher";
 import CapTitle from "atoms/capTitle";
@@ -11,7 +12,7 @@ import { Col, Row } from "react-bootstrap";
 
 type CartProps = {
   cart: CartDTO;
-  update: (cart: CartRequestDTO) => Promise<CartDTO | undefined>;
+  update: (cart: CartRequestDTO) => Promise<Boolean>;
   close: (cart_id: String) => Promise<CartDTO | undefined>;
 };
 
@@ -21,13 +22,19 @@ export default function CartView({ cart, update, close }: CartProps) {
   const [format, setFormat] = useState("grid");
   const [page, setPage] = useState(0);
 
-  const [showOT, setShowOT] = useState(false);
+  const [showUpdate, setShowUpdate] = useState(false);
+  const [showClose, setShowClose] = useState(false);
   const [description, setDescription] = useState("emptyText");
+
+  const [errorMessage, setErrorMessage] = useState<boolean>(false);
+  const [successMessage, setSuccessMessage] = useState<boolean>(false);
 
   const [quantities, setQuantity] = useState(cart.product_ids);
   const [getInput, setInput] = useState([]);
 
-  const updateCart = (getInput: ProductIdOnCartDTO[]) => {
+  const updateCart = async (getInput: ProductIdOnCartDTO[]) => {
+    setErrorMessage(false);
+    setSuccessMessage(false);
     const productsRequest = getInput.map((prod) => {
       return { product_id: prod.id, quantity: prod.value };
     });
@@ -35,7 +42,12 @@ export default function CartView({ cart, update, close }: CartProps) {
       products: productsRequest,
       demand_id: cart.demand_id,
     };
-    update(cartRequest);
+    const response = await update(cartRequest);
+    if (response == false) {
+      setErrorMessage(true);
+      return;
+    }
+    setSuccessMessage(true);
   };
 
   return (
@@ -44,7 +56,7 @@ export default function CartView({ cart, update, close }: CartProps) {
         <Col>
           <CapTitle base="none" literal={cart.demand_name} />
         </Col>
-        <Col>
+        {/* <Col>
           <CapBtn
             label="updateCart"
             click={() => {
@@ -57,7 +69,7 @@ export default function CartView({ cart, update, close }: CartProps) {
               close(cart.demand_id);
             }}
           />
-        </Col>
+        </Col> */}
       </Row>
       <Row>
         <CapSwitcher
@@ -87,6 +99,7 @@ export default function CartView({ cart, update, close }: CartProps) {
           <Col md="auto" className="!pl-0 !pr-3">
             <CapOverlayTrigger
               setDescription={setDescription}
+              setShow={setShowUpdate}
               button={
                 <CapIconButton
                   iconType="md"
@@ -104,6 +117,7 @@ export default function CartView({ cart, update, close }: CartProps) {
           <Col md="auto" className="!pl-0 !pr-3">
             <CapOverlayTrigger
               setDescription={setDescription}
+              setShow={setShowClose}
               button={
                 <CapIconButton
                   iconType="ri"
@@ -123,6 +137,26 @@ export default function CartView({ cart, update, close }: CartProps) {
         <>
           Carrinho fechado por {cart.user_name} em {cart.updated_on}.{" "}
         </>
+      )}
+      {errorMessage ? (
+        <CapMessageBottom
+          label={"cartNotUpdated"}
+          css="text-red-600"
+          show={errorMessage}
+          setShow={setErrorMessage}
+        />
+      ) : (
+        <></>
+      )}
+      {successMessage ? (
+        <CapMessageBottom
+          label={"cartUpdated"}
+          css="text-green-600"
+          show={successMessage}
+          setShow={setSuccessMessage}
+        />
+      ) : (
+        <></>
       )}
     </>
   );

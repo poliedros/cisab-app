@@ -21,7 +21,7 @@ async function closeCart(demand_id: String): Promise<CartDTO | undefined> {
   return;
 }
 
-async function updateCart(cart: CartRequestDTO): Promise<CartDTO | undefined> {
+async function updateCart(cart: CartRequestDTO): Promise<Boolean> {
   const body = {
     demand_id: cart.demand_id,
     products: cart.products,
@@ -33,9 +33,9 @@ async function updateCart(cart: CartRequestDTO): Promise<CartDTO | undefined> {
 
   if (response.status === 201) {
     const data = await response.json();
-    return data;
+    return true;
   }
-  return;
+  return false;
 }
 
 export default function Cart() {
