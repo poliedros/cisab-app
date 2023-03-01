@@ -3,6 +3,7 @@ import CapIconButton from "atoms/capIconButton";
 import CapLegend from "atoms/capLegend";
 import CapMessageBottom from "atoms/capMessageBottom";
 import CapOverlayTrigger from "atoms/capOverlayTrigger";
+import CapParagraph from "atoms/capParagraph";
 import CapSwitcher from "atoms/capSwitcher";
 import CapTitle from "atoms/capTitle";
 import { CartDTO, ProductIdOnCartDTO } from "pages/api/carts";
@@ -17,7 +18,7 @@ type CartProps = {
 };
 
 export default function CartView({ cart, update, close }: CartProps) {
-  const size = 7;
+  const size = 9;
 
   const [format, setFormat] = useState("grid");
   const [page, setPage] = useState(0);
@@ -25,6 +26,8 @@ export default function CartView({ cart, update, close }: CartProps) {
   const [showUpdate, setShowUpdate] = useState(false);
   const [showClose, setShowClose] = useState(false);
   const [description, setDescription] = useState("emptyText");
+
+  const [cartState, setCartState] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
@@ -72,25 +75,44 @@ export default function CartView({ cart, update, close }: CartProps) {
         </Col> */}
       </Row>
       <Row>
-        <CapSwitcher
-          data={cart.products}
-          tableHeaders={["products", "quantity"]}
-          tableColumns={
-            cart.state == "closed" ? ["name", "quantity"] : ["name"]
-          }
-          tableNumeral={true}
-          //tableImage={1}
-          input={cart.state == "opened" ? 2 : undefined}
-          inputValue={quantities}
-          inputSetValue={setQuantity}
-          getInput={setInput}
-          buttons={["view"]}
-          buttonsPaths={["/products/"]}
-          //searchPath={"name"}
-          pagesSize={size}
-        />
+        {!cartState ? (
+          <CapSwitcher
+            data={cart.products}
+            tableHeaders={["products", "quantity"]}
+            tableColumns={
+              cart.state == "closed" ? ["name", "quantity"] : ["name"]
+            }
+            tableNumeral={true}
+            //tableImage={1}
+            input={cart.state == "opened" ? 2 : undefined}
+            inputValue={quantities}
+            inputSetValue={setQuantity}
+            getInput={setInput}
+            buttons={["view"]}
+            buttonsPaths={["/products/"]}
+            //searchPath={"name"}
+            pagesSize={size}
+          />
+        ) : (
+          <CapSwitcher
+            data={cart.products}
+            tableHeaders={["products", "quantity"]}
+            tableColumns={["name", "quantity"]}
+            tableNumeral={true}
+            //tableImage={1}
+            input={undefined}
+            inputValue={quantities}
+            inputSetValue={setQuantity}
+            getInput={setInput}
+            buttons={["view"]}
+            buttonsPaths={["/products/"]}
+            //searchPath={"name"}
+            pagesSize={size}
+          />
+        )}
       </Row>
-      {cart.state == "opened" ? (
+      {"Paleto: " + cart.state}
+      {!cartState && cart.state == "opened" ? (
         <Row className="flex justify-end items-end">
           <Col>
             <CapLegend label={description} />
@@ -124,6 +146,8 @@ export default function CartView({ cart, update, close }: CartProps) {
                   icon="RiCheckboxCircleLine"
                   size="20px"
                   click={() => {
+                    setCartState(true);
+                    //updateCart(getInput);
                     close(cart.demand_id);
                   }}
                   mouseEnter={() => setDescription("finalize")}
@@ -134,9 +158,21 @@ export default function CartView({ cart, update, close }: CartProps) {
           </Col>
         </Row>
       ) : (
-        <>
-          Carrinho fechado por {cart.user_name} em {cart.updated_on}.{" "}
-        </>
+        <CapParagraph
+          literal={
+            "Pedido solicitado a CISAB por: " +
+            cart.user_name +
+            " na data: " +
+            (cart.updated_on
+              ? JSON.stringify(cart.updated_on)
+                  .replaceAll('"', "")
+                  .split("T")[0]
+                  .split("-")
+                  .reverse()
+                  .join("/")
+              : "")
+          }
+        />
       )}
       {errorMessage ? (
         <CapMessageBottom
