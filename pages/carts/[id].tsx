@@ -43,7 +43,11 @@ export default function Cart() {
   const router = useRouter();
   const { id } = router.query; // Reffers to demand_id
 
-  const { data: cart, error } = useSWR<CartDTO>(
+  const {
+    data: cart,
+    error,
+    mutate,
+  } = useSWR<CartDTO>(
     user ? `/api/carts/${id}` : null // Reffers to demand_id
   );
   console.log("cart: ", cart);
@@ -55,5 +59,16 @@ export default function Cart() {
     return <div>404</div>;
   }
 
-  return <>{<CartView cart={cart} update={updateCart} close={closeCart} />}</>;
+  return (
+    <>
+      {
+        <CartView
+          cart={cart}
+          update={updateCart}
+          close={closeCart}
+          mutate={mutate}
+        />
+      }
+    </>
+  );
 }

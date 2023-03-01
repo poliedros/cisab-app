@@ -756,9 +756,15 @@
     "pt": "Pedido Realizado com Sucesso!"
   },
   "cartNotUpdated": {
-    "pt": "Não foi possível atualizar o carrinho! Tente novamente."
+    "pt": "Não foi Possível Atualizar o Carrinho! Tente novamente."
   },
   "cartNotClosed": {
-    "pt": "Não foi possível fechar o pedido! Tente novamente."
+    "pt": "Não foi Possível Fechar o Pedido! Tente novamente."
+  },
+  "sendToCisabBy": {
+    "pt": "Pedido Enviado a CISAB por"
+  },
+  "dateOfSend": {
+    "pt": "em"
   }
 }

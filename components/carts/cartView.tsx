@@ -5,6 +5,7 @@ import CapMessageBottom from "atoms/capMessageBottom";
 import CapOverlayTrigger from "atoms/capOverlayTrigger";
 import CapParagraph from "atoms/capParagraph";
 import CapSwitcher from "atoms/capSwitcher";
+import CapTextShowData from "atoms/capTextShowData";
 import CapTitle from "atoms/capTitle";
 import { CartDTO, ProductIdOnCartDTO } from "pages/api/carts";
 import { CartRequestDTO } from "pages/carts/[id]";
@@ -15,9 +16,10 @@ type CartProps = {
   cart: CartDTO;
   update: (cart: CartRequestDTO) => Promise<Boolean>;
   close: (cart_id: String) => Promise<CartDTO | undefined>;
+  mutate: any;
 };
 
-export default function CartView({ cart, update, close }: CartProps) {
+export default function CartView({ cart, update, close, mutate }: CartProps) {
   const size = 9;
 
   const [format, setFormat] = useState("grid");
@@ -46,6 +48,7 @@ export default function CartView({ cart, update, close }: CartProps) {
       demand_id: cart.demand_id,
     };
     const response = await update(cartRequest);
+    mutate();
     if (response == false) {
       setErrorMessage(true);
       return;
@@ -111,7 +114,7 @@ export default function CartView({ cart, update, close }: CartProps) {
           />
         )}
       </Row>
-      {"Paleto: " + cart.state}
+      {/* {"Paleto: " + cart.state} */}
       {!cartState && cart.state == "opened" ? (
         <Row className="flex justify-end items-end">
           <Col>
@@ -158,21 +161,37 @@ export default function CartView({ cart, update, close }: CartProps) {
           </Col>
         </Row>
       ) : (
-        <CapParagraph
-          literal={
-            "Pedido solicitado a CISAB por: " +
-            cart.user_name +
-            " na data: " +
-            (cart.updated_on
-              ? JSON.stringify(cart.updated_on)
-                  .replaceAll('"', "")
-                  .split("T")[0]
-                  .split("-")
-                  .reverse()
-                  .join("/")
-              : "")
-          }
-        />
+        <div className="flex flex-col items-end">
+          <CapTextShowData label={"sendToCisabBy"} info={cart.user_name} />
+          <CapTextShowData
+            label={"dateOfSend"}
+            info={
+              cart.updated_on
+                ? JSON.stringify(cart.updated_on)
+                    .replaceAll('"', "")
+                    .split("T")[0]
+                    .split("-")
+                    .reverse()
+                    .join("/")
+                : ""
+            }
+          />
+        </div>
+        // <CapParagraph
+        //   literal={
+        //     "Pedido solicitado a CISAB por: " +
+        //     cart.user_name +
+        //     " na data: " +
+        //     (cart.updated_on
+        //       ? JSON.stringify(cart.updated_on)
+        //           .replaceAll('"', "")
+        //           .split("T")[0]
+        //           .split("-")
+        //           .reverse()
+        //           .join("/")
+        //       : "")
+        //   }
+        // />
       )}
       {errorMessage ? (
         <CapMessageBottom
