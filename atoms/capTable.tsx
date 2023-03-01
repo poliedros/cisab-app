@@ -11,6 +11,8 @@ import CapImage from "./capImage";
 import CapForm from "./capForm";
 import CapMessageBottom from "./capMessageBottom";
 
+type KeyValue = { id: string; value: string };
+
 export default function CapTable({
   data = [],
   headers = [],
@@ -101,7 +103,7 @@ export default function CapTable({
     columns.push("buttons");
 
   let elems = inputValue;
-  const [values, setValues] = useState(inputValue);
+  const [values, setValues] = useState<any[]>(inputValue);
 
   console.log("INPUTVALUE");
   console.log(values);
@@ -118,7 +120,7 @@ export default function CapTable({
     if (getInput) getInput(final);
   }, [values]);
 
-  const handleChange = (i: number, e: any) => {
+  const handleChange = (i: any, e: any) => {
     let values2 = values;
     //elems = values2.slice(currentPage * pageSize, currentPage * pageSize + pageSize).map(el => el.id === i ? {id: el.id, value: e.target.value} : el);
     setValues(
@@ -361,7 +363,11 @@ export default function CapTable({
                           ) : input === j ? (
                             <div id={"table-" + d._id} className="flex">
                               <CapForm
-                                value={values[i + currentPage * pageSize].value}
+                                value={
+                                  values[i + currentPage * pageSize]
+                                    ? values[i + currentPage * pageSize].value
+                                    : null
+                                }
                                 type={"number"}
                                 change={(e: any) => handleChange(d._id, e)}
                                 css={" w-[100px] mx-auto "}

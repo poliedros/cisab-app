@@ -63,8 +63,13 @@ export default function CapSwitcher({
   //const [dataPage, setDataPage] = useState();
   const [page, setPage] = useState(0);
 
-  data.map((d) => {
-    inputValue?.push({ id: d._id, value: 0 });
+  // data.map((d) => {
+  //   inputValue?.push({ id: d._id, value: d.quantity });
+  // });
+
+  inputValue = data.map((d) => {
+    console.log("inv: ", d, inputValue);
+    return { id: d._id, value: d.quantity };
   });
 
   // inputValue = inputValue ? inputValue.filter((value, index, self) =>

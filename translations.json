@@ -741,6 +741,30 @@
     "pt": "Cadastro de Autarquia"
   },
   "goToInsertImage": {
-    "pt": "Seguir para Insertar Imagem"
+    "pt": "Seguir para Inserir Imagem"
+  },
+  "updateCart": {
+    "pt": "Atualizar Carrinho"
+  },
+  "closeCart": {
+    "pt": "Fechar Carrinho"
+  },
+  "cartUpdated": {
+    "pt": "Carrinho Atualizado Com Sucesso"
+  },
+  "cartClosed": {
+    "pt": "Pedido Realizado com Sucesso!"
+  },
+  "cartNotUpdated": {
+    "pt": "Não foi Possível Atualizar o Carrinho! Tente novamente."
+  },
+  "cartNotClosed": {
+    "pt": "Não foi Possível Fechar o Pedido! Tente novamente."
+  },
+  "sendToCisabBy": {
+    "pt": "Pedido Enviado a CISAB por"
+  },
+  "dateOfSend": {
+    "pt": "em"
   }
 }
