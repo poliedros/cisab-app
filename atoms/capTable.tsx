@@ -62,6 +62,19 @@ export default function CapTable({
   const [message, setMessage] = useState(false);
   const [messageContent, setMessageContent] = useState("");
 
+  const unlock = async (p: string, i: string) => {
+    const data = await fetch(`${p}${i}`, {
+      method: "PUT",
+    });
+    if (data.status === 200) {
+      setMessage(true);
+      setMessageContent("successOperation");
+    } else {
+      setMessage(true);
+      setMessageContent("errorOperation");
+    }
+  };
+
   const viewCounty = (p: string, i: string) => {
     Router.push(`${p}${i}`);
   };
@@ -76,10 +89,10 @@ export default function CapTable({
     });
     if (data.status === 200) {
       setMessage(true);
-      setMessageContent("removedCounty");
+      setMessageContent("successOperation");
     } else {
       setMessage(true);
-      setMessageContent("removedCountyFault");
+      setMessageContent("errorOperation");
     }
   };
 
@@ -105,11 +118,11 @@ export default function CapTable({
   let elems = inputValue;
   const [values, setValues] = useState<any[]>(inputValue);
 
-  console.log("INPUTVALUE");
-  console.log(values);
+  // console.log("INPUTVALUE");
+  // console.log(values);
 
   useEffect(() => {
-    console.log("VALUES");
+    // console.log("VALUES");
     let final = values
       ? values.filter(
           (value, index, self) =>
@@ -128,8 +141,8 @@ export default function CapTable({
         el.id === i ? { id: el.id, value: parseInt(e.target.value) } : el
       )
     );
-    console.log("CRY");
-    console.log(values);
+    // console.log("CRY");
+    // console.log(values);
   };
 
   let [brasil, setBrasil] = useState<any[]>(inputValue);
@@ -149,7 +162,7 @@ export default function CapTable({
             : parseInt(d.value),
       }))
     );
-    console.log("BRASIL");
+    // console.log("BRASIL");
 
     brasil = brasil
       ? brasil.filter(
@@ -158,7 +171,7 @@ export default function CapTable({
             self.findIndex((t) => t.id === value.id && t.value === value.value)
         )
       : [];
-    console.log(brasil);
+    // console.log(brasil);
   };
 
   return (
@@ -208,8 +221,8 @@ export default function CapTable({
                       >
                         {c.split(".").reduce(function (o, k) {
                           let word = o && o[k];
-                          console.log("WORD " + k);
-                          console.log(o && o[k]);
+                          // console.log("WORD " + k);
+                          // console.log(o && o[k]);
                           return numeral && j === 0 ? (
                             i + 1
                           ) : j ===
@@ -333,6 +346,18 @@ export default function CapTable({
                                           variant={"secondary"}
                                           css="!rounded-full !p-[6px]"
                                           click={buttonsPaths[l]}
+                                        />
+                                      </div>
+                                    ) : null}
+                                    {bc === "unlock" ? (
+                                      <div className="mx-0.5">
+                                        <CapBtn
+                                          kind={"unlock"}
+                                          variant={"secondary"}
+                                          css="!rounded-full !p-[6px]"
+                                          click={() =>
+                                            unlock(buttonsPaths[l], d._id)
+                                          }
                                         />
                                       </div>
                                     ) : null}

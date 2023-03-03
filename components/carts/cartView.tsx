@@ -62,20 +62,6 @@ export default function CartView({ cart, update, close, mutate }: CartProps) {
         <Col>
           <CapTitle base="none" literal={cart.demand_name} />
         </Col>
-        {/* <Col>
-          <CapBtn
-            label="updateCart"
-            click={() => {
-              updateCart(getInput);
-            }}
-          />
-          <CapBtn
-            label="closeCart"
-            click={() => {
-              close(cart.demand_id);
-            }}
-          />
-        </Col> */}
       </Row>
       <Row>
         {!cartState ? (
@@ -150,7 +136,6 @@ export default function CartView({ cart, update, close, mutate }: CartProps) {
                   size="20px"
                   click={() => {
                     setCartState(true);
-                    //updateCart(getInput);
                     close(cart.demand_id);
                   }}
                   mouseEnter={() => setDescription("finalize")}
@@ -177,21 +162,6 @@ export default function CartView({ cart, update, close, mutate }: CartProps) {
             }
           />
         </div>
-        // <CapParagraph
-        //   literal={
-        //     "Pedido solicitado a CISAB por: " +
-        //     cart.user_name +
-        //     " na data: " +
-        //     (cart.updated_on
-        //       ? JSON.stringify(cart.updated_on)
-        //           .replaceAll('"', "")
-        //           .split("T")[0]
-        //           .split("-")
-        //           .reverse()
-        //           .join("/")
-        //       : "")
-        //   }
-        // />
       )}
       {errorMessage ? (
         <CapMessageBottom

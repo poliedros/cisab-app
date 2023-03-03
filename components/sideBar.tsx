@@ -276,11 +276,6 @@ export default function SideBar() {
     </Tooltip>
   );
 
-  const { data: countyDT, error } = useSWR<CountyDTO>(
-    `/api/counties/${user?.county_id}`
-  );
-  //alert(JSON.stringify(user));
-
   return (
     <>
       <div className="flex flex-column">

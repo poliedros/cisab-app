@@ -40,7 +40,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<DemandDTO[]>) {
   });
 
   const data = (await response.json()) as DemandDTO[];
-  console.log("DATA");
+  console.log("Demanda");
   console.log(data);
   res.status(response.status).json(data);
 }
