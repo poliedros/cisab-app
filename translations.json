@@ -766,5 +766,8 @@
   },
   "dateOfSend": {
     "pt": "em"
+  },
+  "unlockDemand": {
+    "pt": "Liberar Demanda"
   }
 }

@@ -3,13 +3,26 @@ import { sessionOptions } from "lib/session";
 import { NextApiRequest, NextApiResponse } from "next";
 import { DemandDTO } from "../demands";
 
-async function handler(req: NextApiRequest, res: NextApiResponse<DemandDTO>) {
+export type DeleteResponseDTO = {
+  acknowledged: boolean;
+  deletedCount: number;
+};
+
+export type UnlockResponseDTO = {
+  unlocked: boolean;
+};
+
+async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<DemandDTO | DeleteResponseDTO | UnlockResponseDTO>
+) {
   const user = req.session.user;
   if (!user) {
     res.status(401).json({} as DemandDTO);
     return;
   }
 
+  // Unlock demand
   if (req.method === "PUT") {
     const response = await fetch(
       process.env.API_URL + `/demands/${req.query.id}`,
@@ -19,10 +32,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse<DemandDTO>) {
           "Content-Type": "application/json",
         },
         method: "PUT",
-        body: req.body,
       }
     );
-    const data = (await response.json()) as DemandDTO;
+    const data = (await response.json()) as UnlockResponseDTO;
     res.status(response.status).json(data);
     return;
   }
@@ -35,7 +47,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<DemandDTO>) {
         method: "DELETE",
       }
     );
-    const data = (await response.json()) as DemandDTO;
+    const data = (await response.json()) as DeleteResponseDTO;
     res.status(response.status).json(data);
     return;
   }
