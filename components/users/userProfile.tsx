@@ -196,10 +196,14 @@ export default function UserProfile({}: //countyUser,
             </Row>
             <Row className="border-t-2 pt-6 m-4 items-center w-max width-f-available">
               <Col className="text-left my-2">
-                <CapTextShowData
-                  label={"county"}
-                  info={county ? county.name : translations("noValue", "pt")}
-                />
+                {!user?.roles.includes("cisab") ? (
+                  <CapTextShowData
+                    label={"county"}
+                    info={county ? county.name : translations("noValue", "pt")}
+                  />
+                ) : (
+                  <></>
+                )}
                 {/* <CapTextShowData
                   label={"zipCode"}
                   info={
@@ -241,9 +245,9 @@ export default function UserProfile({}: //countyUser,
                   }
                 /> */}
               </Col>
-              <Col className="text-left bg-[#f9f9f9] !px-8">
+              {/* <Col className="text-left bg-[#f9f9f9] !px-8">
                 <CapInfoBoard title={"lastActions"} />
-              </Col>
+              </Col> */}
             </Row>
             {/* <Row className="text-center width-f-available">
               <CapParagraph

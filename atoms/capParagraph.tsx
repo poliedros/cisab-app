@@ -7,10 +7,14 @@ export default function CapParagraph({
   label = "emptyText",
   literal = undefined,
   show = true,
+  heading = "h6",
+  css = "",
 }: {
   label?: string;
   literal?: any;
   show?: boolean;
+  heading?: string;
+  css?: string;
 }) {
   const language = useLanguage();
   const toggleLanguage = useLanguageUpdate();
@@ -21,7 +25,7 @@ export default function CapParagraph({
   return (
     <>
       {show ? (
-        <h6 className={(theme === "dark" ? "text-white" : "") + " my-3"}>
+        <h6 className={(theme === "dark" ? "text-white" : "") + css + " my-3 "}>
           {literal ? literal : translations(label, language)}
         </h6>
       ) : (

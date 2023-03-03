@@ -60,7 +60,11 @@ export default function CartView({ cart, update, close, mutate }: CartProps) {
     <>
       <Row>
         <Col>
-          <CapTitle base="none" literal={cart.demand_name} />
+          <CapTitle
+            base="order"
+            literal={cart.demand_name}
+            cssExternal="mb-3"
+          />
         </Col>
       </Row>
       <Row>

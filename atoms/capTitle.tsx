@@ -21,6 +21,7 @@ export default function CapTitle({
     | "demand"
     | "doc"
     | "diagram"
+    | "order"
     | "lab"
     | "cap"
     | "art";
@@ -41,6 +42,7 @@ export default function CapTitle({
     list: IconsByName("fa", "FaThList", "32px"),
     product: IconsByName("gi", "GiCardboardBoxClosed", "32px"),
     demand: IconsByName("ri", "RiFileList2Fill", "32px"),
+    order: IconsByName("ri", "RiFileListFill", "32px"),
 
     doc: IconsByName("hi", "HiDocumentText", "32px"),
     diagram: IconsByName("bs", "BsDiagram2Fill", "32px"),
