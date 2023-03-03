@@ -68,11 +68,11 @@ export default function CartView({ cart, update, close, mutate }: CartProps) {
           data={cart.products}
           tableHeaders={["products", "quantity"]}
           tableColumns={
-            cart.state == "closed" ? ["name", "quantity"] : ["name"]
+            cart.state === "closed" ? ["name", "quantity"] : ["name"]
           }
           tableNumeral={true}
           //tableImage={1}
-          input={cart.state == "opened" ? 2 : undefined}
+          input={cart.state === "opened" ? 2 : undefined}
           inputValue={quantities}
           inputSetValue={setQuantity}
           getInput={setInput}
