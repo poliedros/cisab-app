@@ -36,7 +36,7 @@ export default function CapResponse({
         </div>
       ) : type === "notFound" ? (
         <div className="flex items-center">
-          <div className="felx justify-center">
+          <div className="flex justify-center">
             <div className="absolute bg-[#f62217] w-[75px] h-[75px] rounded-full" />
             <div className="rotate-scale-up-diag-2 w-auto mr-12">
               {IconsByName(
