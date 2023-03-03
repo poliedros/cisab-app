@@ -76,7 +76,7 @@ export default function CartView({ cart, update, close, mutate }: CartProps) {
           }
           tableNumeral={true}
           //tableImage={1}
-          input={cart.state === "opened" ? 2 : undefined}
+          input={cart.state === "opened" ? 1 : undefined}
           inputValue={quantities}
           inputSetValue={setQuantity}
           getInput={setInput}
@@ -86,7 +86,6 @@ export default function CartView({ cart, update, close, mutate }: CartProps) {
           pagesSize={size}
         />
       </Row>
-      {/* {"Paleto: " + cart.state} */}
       {!cartState && cart.state == "opened" ? (
         <Row className="flex justify-end items-end">
           <Col>
