@@ -64,41 +64,23 @@ export default function CartView({ cart, update, close, mutate }: CartProps) {
         </Col>
       </Row>
       <Row>
-        {!cartState ? (
-          <CapSwitcher
-            data={cart.products}
-            tableHeaders={["products", "quantity"]}
-            tableColumns={
-              cart.state == "closed" ? ["name", "quantity"] : ["name"]
-            }
-            tableNumeral={true}
-            //tableImage={1}
-            input={cart.state == "opened" ? 2 : undefined}
-            inputValue={quantities}
-            inputSetValue={setQuantity}
-            getInput={setInput}
-            buttons={["view"]}
-            buttonsPaths={["/products/"]}
-            //searchPath={"name"}
-            pagesSize={size}
-          />
-        ) : (
-          <CapSwitcher
-            data={cart.products}
-            tableHeaders={["products", "quantity"]}
-            tableColumns={["name", "quantity"]}
-            tableNumeral={true}
-            //tableImage={1}
-            input={undefined}
-            inputValue={quantities}
-            inputSetValue={setQuantity}
-            getInput={setInput}
-            buttons={["view"]}
-            buttonsPaths={["/products/"]}
-            //searchPath={"name"}
-            pagesSize={size}
-          />
-        )}
+        <CapSwitcher
+          data={cart.products}
+          tableHeaders={["products", "quantity"]}
+          tableColumns={
+            cart.state == "closed" ? ["name", "quantity"] : ["name"]
+          }
+          tableNumeral={true}
+          //tableImage={1}
+          input={cart.state == "opened" ? 2 : undefined}
+          inputValue={quantities}
+          inputSetValue={setQuantity}
+          getInput={setInput}
+          buttons={["view"]}
+          buttonsPaths={["/products/"]}
+          //searchPath={"name"}
+          pagesSize={size}
+        />
       </Row>
       {/* {"Paleto: " + cart.state} */}
       {!cartState && cart.state == "opened" ? (
