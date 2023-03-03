@@ -10,8 +10,8 @@ export default function DemandList({ demands }: { demands: DemandDTO[] }) {
       </div>
       <CapTable
         data={demands}
-        headers={["theme", "startDate", "endDate"]}
-        columns={["name", "start_date", "end_date"]}
+        headers={["theme", "startDate", "endDate", "state"]}
+        columns={["name", "start_date", "end_date", "state"]}
         buttonsColumns={["view", "remove", "unlock"]}
         buttonsPaths={["/demands/", "api/demands/", "api/demands/"]}
         date={[1, 2]}
