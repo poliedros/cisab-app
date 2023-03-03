@@ -8,6 +8,7 @@ import CapBtn from "atoms/capBtn";
 import CapLink from "atoms/capLink";
 import CapMessageBottom from "atoms/capMessageBottom";
 import CapImage from "atoms/capImage";
+import CapResponse from "atoms/capResponse";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
@@ -39,6 +40,9 @@ export default function Login() {
 
   return (
     <>
+      {/* <div className="flex justify-center">
+        <CapResponse type="loading" color="#02aae9" sWidth="3" height="25" />
+      </div> */}
       <div className="font-[Jost] h-screen flex items-center justify-center overflow-hidden flex-column">
         <div className="flex flex-column items-center">
           <CapImage src={"/cisabLogo.svg"} w={196} h={128} obj="contain" />{" "}
@@ -61,7 +65,14 @@ export default function Login() {
         </div>
         <div className="flex items-center justify-between flex-column">
           {loading ? (
-            <Spinner />
+            <div className="flex justify-center">
+              <CapResponse
+                type="loading"
+                color="#02aae9"
+                sWidth="3"
+                height="25"
+              />
+            </div>
           ) : (
             <CapBtn
               label="signin"
@@ -80,7 +91,13 @@ export default function Login() {
             css="text-white"
           />
         </div>
-        <CapMessageBottom label={"loginError"} css="text-red-600" externCss={"-bottom-[15vh]"} show={errorMessage} setShow={setErrorMessage} />
+        <CapMessageBottom
+          label={"loginError"}
+          css="text-red-600"
+          externCss={"-bottom-[15vh]"}
+          show={errorMessage}
+          setShow={setErrorMessage}
+        />
       </div>
     </>
   );

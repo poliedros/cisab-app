@@ -23,6 +23,7 @@ import IconsByName from "components/iconsByName";
 import CapDropdownIconButton from "atoms/capDropdownIconButton";
 import CapMessageBottom from "atoms/capMessageBottom";
 import CapInputAdvanced from "atoms/capInputAdvanced";
+import translations from "lib/translations";
 
 export default function DemandCreation({
   demand = undefined,
@@ -36,8 +37,8 @@ export default function DemandCreation({
 
   const [description, setDescription] = useState("emptyText");
   const [demandName, setDemandName] = useState("");
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
+  const [startDate, setStartDate] = useState<string>();
+  const [endDate, setEndDate] = useState<string>();
   const [productsId, setProductsId] = useState<string[]>([]);
   const [demandId, setDemandId] = useState();
 
@@ -126,8 +127,34 @@ export default function DemandCreation({
     let demandResult: any = {
       _id: _id ?? "0",
       name: demandName,
-      start_date: startDate,
-      end_date: endDate,
+      start_date:
+        !startDateAlt && startDate
+          ? startDate.split("/")[1] +
+            "/" +
+            startDate.split("/")[0] +
+            "/" +
+            startDate.split("/")[2]
+          : startDateAlt
+          ? startDateAlt.split("-")[1] +
+            "/" +
+            startDateAlt.split("-")[2] +
+            "/" +
+            startDateAlt.split("-")[0]
+          : "00/00/0000",
+      end_date:
+        !endDateAlt && endDate
+          ? endDate.split("/")[1] +
+            "/" +
+            endDate.split("/")[0] +
+            "/" +
+            endDate.split("/")[2]
+          : endDateAlt
+          ? endDateAlt.split("-")[1] +
+            "/" +
+            endDateAlt.split("-")[2] +
+            "/" +
+            endDateAlt.split("-")[0]
+          : "00/00/0000",
       draft: draft,
       product_ids: defaultSt.map((d) => d._id),
     };
@@ -249,11 +276,26 @@ export default function DemandCreation({
   //     }, [categoriesSt]
   //   );
 
+  const [startDateAlt, setStartDateAlt] = useState<string>();
+  const [endDateAlt, setEndDateAlt] = useState<string>();
+
+  useEffect(() => {
+    setStartDateAlt(undefined);
+  }, [startDate]);
+
+  useEffect(() => {
+    setEndDateAlt(undefined);
+  }, [endDate]);
+
+  // useEffect(() => {
+  //   setStartDate(state);
+  // }, [state]);
+
   return (
     <>
       <Row>
-        <CapTitle base="demand" label="createDemand" />
-        <div className="mb-3"></div>
+        <CapTitle base="demand" label="createDemand" cssExternal="mb-3" />
+        {/* <div className="mb-3"></div> */}
         {/* <Col md={12} css={" !py-3"}>
                     <CapIconButton
                         iconType="bs"
@@ -383,18 +425,81 @@ export default function DemandCreation({
             element={<CapInputRangeCalendar setDate={setStartDate} />}
           />
           <div className="m-2"></div>
-          <CapForm
+          <Form.Group>
+            <Form.Label>{translations("startDate", "pt")}</Form.Label>
+            <Form.Control
+              type="date"
+              placeholder="insertStartDate"
+              value={
+                startDate && !startDateAlt
+                  ? startDate.split("/")[2] +
+                    "-" +
+                    startDate.split("/")[1] +
+                    "-" +
+                    startDate.split("/")[0]
+                  : startDateAlt
+              }
+              onChange={(e: any) => setStartDateAlt(e.target.value)}
+            />
+          </Form.Group>
+          {!startDateAlt && startDate
+            ? startDate.split("/")[1] +
+              "/" +
+              startDate.split("/")[0] +
+              "/" +
+              startDate.split("/")[2]
+            : startDateAlt
+            ? startDateAlt.split("-")[1] +
+              "/" +
+              startDateAlt.split("-")[2] +
+              "/" +
+              startDateAlt.split("-")[0]
+            : "00/00/0000"}
+          {/* {Date.parse(startDate ? startDate : "")} */}
+          {/* {moment(startDate).format("YYYY-MM-DD")} */}
+          {/* <CapForm
             label="startDate"
             placeholder="insertStartDate"
             value={startDate}
-          />
+          /> */}
         </Col>
         <Col className="flex items-center justify-center">
-          <CapForm
+          {!endDateAlt && endDate
+            ? endDate.split("/")[1] +
+              "/" +
+              endDate.split("/")[0] +
+              "/" +
+              endDate.split("/")[2]
+            : endDateAlt
+            ? endDateAlt.split("-")[1] +
+              "/" +
+              endDateAlt.split("-")[2] +
+              "/" +
+              endDateAlt.split("-")[0]
+            : "00/00/0000"}
+          <Form.Group>
+            <Form.Label>{translations("endDate", "pt")}</Form.Label>
+            <Form.Control
+              type="date"
+              placeholder="insertEndDate"
+              value={
+                endDate && !endDateAlt
+                  ? endDate.split("/")[2] +
+                    "-" +
+                    endDate.split("/")[1] +
+                    "-" +
+                    endDate.split("/")[0]
+                  : endDateAlt
+              }
+              onChange={(e: any) => setEndDateAlt(e.target.value)}
+            />
+          </Form.Group>
+
+          {/* <CapForm
             label="endDate"
             placeholder="insertEndDate"
             value={endDate}
-          />
+          /> */}
           <div className="m-2"></div>
           <CapDropdownIconButton
             iconType="bs"

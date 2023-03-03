@@ -472,4 +472,142 @@ abbr {
                 transform: rotate(10deg);
       }
   }
+
+/* loading animation */
+
+.svgWrapper {
+    /* position: fixed;
+    top: 50%;
+    left: calc(50% + 15rem);
+    transform: translate(-50%, -50%); */
+}
+.svgWrapper svg {
+    width: 60rem;
+}
+.svgWrapper .path {
+    /* stroke: #7dc523; */
+    fill: transparent;
+    stroke-dasharray: 500;
+    stroke-dashoffset: -500;
+    animation: animate 5s forwards infinite;
+}
+
+@keyframes animate {
+    100% {
+        stroke-dashoffset: 500;
+   }
+}
+
+/* Not Found Animation */
+.rotate-scale-up-diag-2 {
+	-webkit-animation: rotate-scale-up-diag-2 3s linear infinite alternate both;
+	        animation: rotate-scale-up-diag-2 3s linear infinite alternate both;
+}
+
+@-webkit-keyframes rotate-scale-up-diag-2 {
+    0% {
+      -webkit-transform: scale(1) rotate3d(-1, 1, 0, 0deg);
+              transform: scale(1) rotate3d(-1, 1, 0, 0deg);
+    }
+    50% {
+      -webkit-transform: scale(2) rotate3d(-1, 1, 0, 180deg);
+              transform: scale(2) rotate3d(-1, 1, 0, 180deg);
+    }
+    100% {
+      -webkit-transform: scale(1) rotate3d(-1, 1, 0, 360deg);
+              transform: scale(1) rotate3d(-1, 1, 0, 360deg);
+    }
+  }
+  @keyframes rotate-scale-up-diag-2 {
+    0% {
+      -webkit-transform: scale(1) rotate3d(-1, 1, 0, 0deg);
+              transform: scale(1) rotate3d(-1, 1, 0, 0deg);
+    }
+    50% {
+      -webkit-transform: scale(2) rotate3d(-1, 1, 0, 180deg);
+              transform: scale(2) rotate3d(-1, 1, 0, 180deg);
+    }
+    100% {
+      -webkit-transform: scale(1) rotate3d(-1, 1, 0, 360deg);
+              transform: scale(1) rotate3d(-1, 1, 0, 360deg);
+    }
+  }
+
+  /* 404 animation */
+  .blink-2 {
+	-webkit-animation: blink-2 4s infinite alternate both;
+	        animation: blink-2 4s infinite alternate both;
+}
+
+@-webkit-keyframes blink-2 {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.2;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes blink-2 {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.2;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+/* Counting Animation - need fix */
+
+@property --countCounties {
+    syntax: "<number>";
+    initial-value: 0;
+    inherits: false;
+  }
+
+  .values {
+    transition: --countCounties 5s;
+    counter-set: num var(--countCounties);
+    /* animation: counter 5s infinite alternate ease-in-out;
+    counter-reset: num var(--countCounties); */
+    /* font: 800 40px system-ui; */
+    /* padding: 2rem; */
+  }
+
+  .values::after {
+    content: counter(num);
+  }
+  
+  @keyframes counter {
+    from {
+      --num: 0;
+    }
+    to {
+      --num: var(--countCounties);
+    }
+  }
+
+  /* .values::before {
+    content: counter(--countCounties);
+  }
+   */
+
+   /* .values::after {
+    content: counter(num);
+  }
+  .values:hover {
+    --countCounties: 100;
+  } */
+
+  /* remove icon pcalendar */
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    /* position: absolute;
+    left: 0; */
+  }
   
