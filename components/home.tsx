@@ -29,7 +29,7 @@ export default function Home() {
         `'${countiesCount}'`
       );
     }
-    alert(countiesCount);
+    console.log(countiesCount);
     // let value = parseInt(
     //   (document.getElementsByClassName("values")[0].lastChild ? document.getElementsByClassName("values")[0].lastChild as HTMLInputElement : null ).style.setProperty("--countyCounties")).toString();
     // console.log("Anderson");

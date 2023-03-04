@@ -68,25 +68,44 @@ export default function CartView({ cart, update, close, mutate }: CartProps) {
         </Col>
       </Row>
       <Row>
-        <CapSwitcher
-          data={cart.products}
-          tableHeaders={["products", "quantity"]}
-          tableColumns={
-            cart.state === "closed" ? ["name", "quantity"] : ["name"]
-          }
-          tableNumeral={true}
-          //tableImage={1}
-          input={cart.state === "opened" ? 2 : undefined}
-          inputValue={quantities}
-          inputSetValue={setQuantity}
-          getInput={setInput}
-          buttons={["view"]}
-          buttonsPaths={["/products/"]}
-          //searchPath={"name"}
-          pagesSize={size}
-        />
+        {cartState ? (
+          <>
+            <CapSwitcher
+              data={cart.products}
+              tableHeaders={["products", "quantity"]}
+              tableColumns={
+                cart.state === "closed" ? ["name", "quantity"] : ["name"]
+              }
+              tableNumeral={true}
+              //tableImage={1}
+              input={cart.state === "opened" ? 2 : undefined}
+              inputValue={quantities}
+              inputSetValue={setQuantity}
+              getInput={setInput}
+              buttons={["view"]}
+              buttonsPaths={["/products/"]}
+              //searchPath={"name"}
+              pagesSize={size}
+            />
+          </>
+        ) : (
+          <CapSwitcher
+            data={cart.products}
+            tableHeaders={["products", "quantity"]}
+            tableColumns={["name", "quantity"]}
+            tableNumeral={true}
+            //tableImage={1}
+            input={cart.state === "opened" ? 2 : undefined}
+            inputValue={quantities}
+            inputSetValue={setQuantity}
+            getInput={setInput}
+            buttons={["view"]}
+            buttonsPaths={["/products/"]}
+            //searchPath={"name"}
+            pagesSize={size}
+          />
+        )}
       </Row>
-      {/* {"Paleto: " + cart.state} */}
       {!cartState && cart.state == "opened" ? (
         <Row className="flex justify-end items-end">
           <Col>
@@ -122,6 +141,7 @@ export default function CartView({ cart, update, close, mutate }: CartProps) {
                   size="20px"
                   click={() => {
                     setCartState(true);
+                    //updateCart(getInput);
                     close(cart.demand_id);
                   }}
                   mouseEnter={() => setDescription("finalize")}
