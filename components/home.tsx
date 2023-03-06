@@ -120,14 +120,15 @@ export default function Home() {
               <div className="bg-[#7dc523] rounded-full p-3 m-1 text-white">
                 {IconsByName("fa", "FaCity", "20px")}
               </div>
-              <div className="ml-3 mr-6 values">
-                {counties.length}
+              <div className="ml-3 mr-6">
+                {" "}
                 {/*values*/}
+                <CapParagraph literal={counties.length} />
                 {/* <CapParagraph literal={counties.length} /> */}
               </div>
             </div>
           </div>
-          <div className="flex items-center mb-2 ml-3">
+          {/* <div className="flex items-center mb-2 ml-3">
             <div className="flex items-center border-2 border-[#7dc523] rounded-full">
               <div className="bg-[#7dc523] rounded-full p-3 m-1 text-white">
                 {IconsByName("gi", "GiCardboardBoxClosed", "20px")}
@@ -146,21 +147,21 @@ export default function Home() {
                 <CapParagraph literal={demands.length} />
               </div>
             </div>
-          </div>
+          </div> */}
         </Col>
         <Col sm={3}>
-          <div className="flex items-center mb-2 ml-6">
+          {/* <div className="flex items-center mb-2 ml-6">
             <div className="flex items-center border-2 border-[#7dc523] rounded-full">
               <div className="bg-[#7dc523] rounded-full p-3 m-1 text-white">
                 {IconsByName("fa", "FaCity", "20px")}
               </div>
               <div className="ml-3 mr-6">
                 {" "}
-                {/*values*/}
+                {/*values/}
                 <CapParagraph literal={counties.length} />
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="flex items-center mb-2 ml-3">
             <div className="flex items-center border-2 border-[#7dc523] rounded-full">
               <div className="bg-[#7dc523] rounded-full p-3 m-1 text-white">
@@ -171,7 +172,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="flex items-center">
+          {/* <div className="flex items-center">
             <div className="flex items-center border-2 border-[#7dc523] rounded-full">
               <div className="bg-[#7dc523] rounded-full p-3 m-1 text-white">
                 {IconsByName("ri", "RiFileList2Fill", "20px")}
@@ -180,17 +181,17 @@ export default function Home() {
                 <CapParagraph literal={demands.length} />
               </div>
             </div>
-          </div>
+          </div> */}
         </Col>
         <Col sm={3}>
-          <div className="flex items-center mb-2">
+          {/* <div className="flex items-center mb-2">
             <div className="flex items-center border-2 border-[#7dc523] rounded-full">
               <div className="bg-[#7dc523] rounded-full p-3 m-1 text-white">
                 {IconsByName("fa", "FaCity", "20px")}
               </div>
               <div className="ml-3 mr-6">
                 {" "}
-                {/*values*/}
+                {/*values/}
                 <CapParagraph literal={counties.length} />
               </div>
             </div>
@@ -204,7 +205,7 @@ export default function Home() {
                 <CapParagraph literal={products.length} />
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="flex items-center ml-6">
             <div className="flex items-center border-2 border-[#7dc523] rounded-full">
               <div className="bg-[#7dc523] rounded-full p-3 m-1 text-white">
