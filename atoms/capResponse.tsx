@@ -1,6 +1,7 @@
 import IconsByName from "components/iconsByName";
 import { useTheme } from "context/themeContext";
 import CapParagraph from "./capParagraph";
+import CapTextShowData from "./capTextShowData";
 
 export default function CapResponse({
   type = "loading",
@@ -8,12 +9,16 @@ export default function CapResponse({
   color = "#7dc523",
   sWidth = "1",
   height = "auto",
+  titles = [],
+  descriptions = [],
 }: {
   type?: string;
   dimensions?: string;
   color?: string;
   sWidth?: string;
   height?: string;
+  titles?: string[];
+  descriptions?: string[];
 }) {
   const theme = useTheme();
 
@@ -35,20 +40,20 @@ export default function CapResponse({
           </div>
         </div>
       ) : type === "notFound" ? (
-        <div className="flex items-center">
-          <div className="flex justify-center">
+        <div className="flex items-center  justify-center">
+          <div className="flex justify-center items-center">
             <div className="absolute bg-[#f62217] w-[75px] h-[75px] rounded-full" />
-            <div className="rotate-scale-up-diag-2 w-auto mr-12">
+            <div className="rotate-scale-up-diag-2 w-auto">
               {IconsByName(
                 "im",
                 "ImCross",
-                "60px",
+                "45px",
                 "0",
                 theme === "dark" ? "white" : "black"
               )}
             </div>
           </div>
-          <div>
+          <div className="ml-12">
             <CapParagraph literal={"Não Encontrado"} />
             <CapParagraph literal={"Recarregue a página"} />
             <CapParagraph
@@ -57,6 +62,27 @@ export default function CapResponse({
           </div>
         </div>
       ) : type === "404" ? (
+        <div className="flex items-center justify-center">
+          <div className="blink-2 w-auto mr-9">
+            <div className="vibrate-1">
+              {IconsByName(
+                "ri",
+                "RiGhostFill",
+                "100px",
+                "0",
+                theme === "dark" ? "white" : "black"
+              )}
+            </div>
+          </div>
+          <div>
+            <CapParagraph literal={"404"} />
+            <CapParagraph literal={"Página Inexistente"} />
+            <CapParagraph
+              literal={"Entre em Contato com a CZAR+, caso Problema Persista"}
+            />
+          </div>
+        </div>
+      ) : type === "failed" ? (
         <div className="flex items-center">
           <div className="blink-2 w-auto mr-9">
             {IconsByName(
@@ -73,6 +99,23 @@ export default function CapResponse({
             <CapParagraph
               literal={"Entre em Contato com a CZAR+, caso Problema Persista"}
             />
+          </div>
+        </div>
+      ) : type === "success" ? (
+        <div className="flex flex-column items-center">
+          <div className="bounce-in-top w-auto">
+            {IconsByName("ri", "RiCheckboxCircleFill", "100px", "0", "#7dc523")}
+          </div>
+          <div className="flex flex-column items-center mt-6">
+            {titles.map((l, i) => {
+              return (
+                <CapTextShowData
+                  key={i}
+                  label={titles[i]}
+                  info={descriptions[i]}
+                />
+              );
+            })}
           </div>
         </div>
       ) : (

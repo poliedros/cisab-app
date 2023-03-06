@@ -2,6 +2,7 @@ import CapBtn from "atoms/capBtn";
 import CapIconButton from "atoms/capIconButton";
 import CapLegend from "atoms/capLegend";
 import CapParagraph from "atoms/capParagraph";
+import CapResponse from "atoms/capResponse";
 import CapTabs from "atoms/capTabs";
 import CapTitle from "atoms/capTitle";
 import Account from "components/registration/account";
@@ -156,6 +157,7 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                   iconType="bi"
                   icon="BiMailSend"
                   size="20px"
+                  css="rotate-in-2-fwd-ccw"
                   click={() => {
                     if (!validateAccount(countyManager)) return;
                     registerAccount(countyManager);
@@ -180,6 +182,7 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                   iconType="ri"
                   icon="RiGovernmentLine"
                   size="20px"
+                  css="rotate-in-2-fwd-ccw1"
                   click={() => {
                     if (!validateAccount(countyManager)) return;
                     registerAccount(countyManager);
@@ -206,6 +209,7 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
                   iconType="md"
                   icon="MdNavigateNext"
                   size="20px"
+                  css="rotate-in-2-fwd-ccw2"
                   click={() => {
                     if (!validateAccount(countyManager)) return;
                     registerAccount(countyManager);
@@ -470,7 +474,16 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
             </Row>
           </>,
           // 6. Account Created
-          <>{error !== "" ? <h1>{error}</h1> : accountCreated()}</>,
+          <>
+            <CapResponse
+              type="success"
+              titles={["emails"]}
+              descriptions={[
+                [countyManager.email, autarkyManager.email].join(", "),
+              ]}
+            />
+          </>,
+          // <>{error !== "" ? <h1>{error}</h1> : accountCreated()}</>,
         ]}
       />
     </>

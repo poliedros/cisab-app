@@ -18,6 +18,7 @@ import IconsByName from "components/iconsByName";
 import useUser from "lib/useUser";
 import useSWR from "swr";
 import { CountyDTO } from "pages/api/counties";
+import CapResponse from "atoms/capResponse";
 
 export default function UserProfile({}: //countyUser,
 {
@@ -42,11 +43,13 @@ export default function UserProfile({}: //countyUser,
 
   console.log(JSON.stringify(countyUser));
 
-  if (error && user?.county_id) return <div>Not Found</div>;
-  if (!county && user?.county_id) return <div>loading...</div>;
+  if (error && user?.county_id) return <CapResponse type="notFound" />;
+  if (!county && user?.county_id)
+    return <CapResponse type="loading" height="75" />;
 
-  if (error2 && user?.user_id) return <div>Not Found</div>;
-  if (!countyUser && user?.user_id) return <div>loading...</div>;
+  if (error2 && user?.user_id) return <CapResponse type="notFound" />;
+  if (!countyUser && user?.user_id)
+    return <CapResponse type="loading" height="75" />;
 
   // user?.roles.map((u) => {
   //   if (u === "cisab") {

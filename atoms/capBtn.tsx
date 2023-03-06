@@ -67,7 +67,7 @@ export default function CapBtn({
     removeIcon: IconsByName("ri", "RiDeleteBin6Fill"),
     userIcon: IconsByName("fa", "FaUserFriends"),
     cartIcon: IconsByName("md", "MdShoppingCart"),
-    unlock: IconsByName("fa", "FaUnlock"),
+    unlock: IconsByName("fa", "FaCheckSquare"),
     autarkyIcon: IconsByName("ri", "RiGovernmentFill"),
   };
   let labelItems = {

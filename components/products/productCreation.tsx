@@ -36,6 +36,7 @@ import axios from "axios";
 import CapParagraph from "atoms/capParagraph";
 import { useTheme } from "context/themeContext";
 import CapOverlayTrigger from "atoms/capOverlayTrigger";
+import CapResponse from "atoms/capResponse";
 
 export default function ProductCreation({
   product = undefined,
@@ -152,7 +153,7 @@ export default function ProductCreation({
     else setShowError(true); //<CapMessageBottom literal="Erro" show={showError} setShow={setShowError} />
     const result = await data.json();
     setProductId(result._id);
-    alert(JSON.stringify(result));
+    //alert(JSON.stringify(result));
     return undefined;
   };
 
@@ -254,11 +255,11 @@ export default function ProductCreation({
   const [showOT4, setShowOT4] = useState(false);
   const [mesuamentSt, setMesuamentSt] = useState([]);
 
-  if (error) return <div>failed to load</div>;
-  if (!units) return <div>loading...</div>;
+  if (error) return <CapResponse type="failed" />;
+  if (!units) return <CapResponse type="loading" height="75" />;
 
   if (!user || user.isLoggedIn == false) {
-    return <div>404</div>;
+    return <CapResponse type="404" />;
   }
 
   //console.log(array);
@@ -585,6 +586,7 @@ export default function ProductCreation({
                           iconType="ri"
                           icon="RiCheckboxCircleLine"
                           size="20px"
+                          css="rotate-in-2-fwd-ccw"
                           click={() => {
                             setShowOT4(true);
                             setMesuamentSt(
@@ -618,6 +620,7 @@ export default function ProductCreation({
                           iconType="io5"
                           icon="IoImageOutline"
                           size="20px"
+                          css="rotate-in-2-fwd-ccw1"
                           click={() => {
                             setShowOT2(true);
                             //measurementRef.current
@@ -672,6 +675,7 @@ export default function ProductCreation({
                           iconType="bs"
                           icon="BsNut"
                           size="20px"
+                          css="rotate-in-2-fwd-ccw2"
                           click={() => {
                             setShowOT1(true);
                             //measurementRef.current
@@ -726,11 +730,13 @@ export default function ProductCreation({
                           iconType="md"
                           icon="MdNavigateNext"
                           size="20px"
+                          css="rotate-in-2-fwd-ccw3"
                           click={() => {
                             setShowOT(true);
                             //measurementRef.current
                             //handleScanArray
                             //?
+
                             setMesuamentSt(
                               measurementRef.current.handleScanArray()
                             );
@@ -1330,7 +1336,13 @@ export default function ProductCreation({
                                         click={() => setStep(4)}
                                     /> */}
               </>,
-              <></>,
+              <>
+                <CapResponse
+                  type="success"
+                  titles={["productName", "code", "norms"]}
+                  descriptions={[productName, code, arrayNorms.join(" ")]}
+                ></CapResponse>
+              </>,
             ]}
           />
 

@@ -180,6 +180,7 @@ export default function CapTable({
         striped={striped}
         responsive
         variant={theme === "dark" ? "dark" : "default"}
+        className="swing-in-top-bck"
       >
         <thead>
           <tr>
@@ -353,7 +354,7 @@ export default function CapTable({
                                       <div className="mx-0.5">
                                         <CapBtn
                                           kind={"unlock"}
-                                          variant={"secondary"}
+                                          variant={"success"}
                                           css="!rounded-full !p-[6px]"
                                           click={() =>
                                             unlock(buttonsPaths[l], d._id)

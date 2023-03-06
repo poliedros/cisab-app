@@ -7,6 +7,7 @@ import useSWR from "swr";
 import { CountyDTO } from "pages/api/counties";
 import { useState } from "react";
 import CapMessageBottom from "atoms/capMessageBottom";
+import CapResponse from "atoms/capResponse";
 
 export default function Edit() {
   const { user } = useUser({ redirectTo: "/login" });
@@ -28,11 +29,11 @@ export default function Edit() {
         setMessage("");
     }, 4000) */
 
-  if (errorCounty) return <div>failed to load</div>;
-  if (!countyRes) return <div>loading...</div>;
+  if (errorCounty) return <CapResponse type="failed" />;
+  if (!countyRes) return <CapResponse type="loading" height="75" />;
 
   if (!user || user.isLoggedIn == false) {
-    return <div>404</div>;
+    return <CapResponse type="404" />;
   }
 
   const editCounty = async (

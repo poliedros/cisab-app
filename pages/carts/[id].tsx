@@ -1,3 +1,4 @@
+import CapResponse from "atoms/capResponse";
 import CartView from "components/carts/cartView";
 import useUser from "lib/useUser";
 import { useRouter } from "next/router";
@@ -52,11 +53,11 @@ export default function Cart() {
   );
   console.log("cart: ", cart);
 
-  if (error) return <div>Not Found</div>;
-  if (!cart) return <div>loading...</div>;
+  if (error) return <CapResponse type="notFound" />;
+  if (!cart) return <CapResponse type="loading" height="75" />;
 
   if (!user || user.isLoggedIn == false) {
-    return <div>404</div>;
+    return <CapResponse type="404" />;
   }
 
   return (

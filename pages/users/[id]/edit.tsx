@@ -9,6 +9,7 @@ import { CountyUserDTO } from "pages/api/counties/[id]/users";
 import UserProfile from "components/users/userProfile";
 import UserRegistration from "components/users/userRegistration";
 import CapBtn from "atoms/capBtn";
+import CapResponse from "atoms/capResponse";
 
 export default function Edit() {
   const { user } = useUser({ redirectTo: "/login" });
@@ -32,11 +33,11 @@ export default function Edit() {
     user_id ? `/api/counties/${county_id}/users/${user_id}` : null
   );
 
-  if (errorUser) return <div>failed to load</div>;
-  if (!countyUser) return <div>loading...</div>;
+  if (errorUser) return <CapResponse type="failed" />;
+  if (!countyUser) return <CapResponse type="loading" height="75" />;
 
   if (!user || user.isLoggedIn == false) {
-    return <div>404</div>;
+    return <CapResponse type="404" />;
   }
 
   const editUser = async (

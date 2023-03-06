@@ -5,6 +5,7 @@ import useUser from "lib/useUser";
 import useSWR from "swr";
 import DemandList from "components/demands/demandList";
 import { DemandDTO } from "pages/api/demands";
+import CapResponse from "atoms/capResponse";
 
 export default function Index() {
   const { user } = useUser({ redirectTo: "/login" });
@@ -24,11 +25,11 @@ export default function Index() {
   if (error2) return <div>failed to load</div>;
   if (!units) return <div>loading...</div>; */
 
-  if (error) return <div>failed to load2</div>;
-  if (!demands) return <div>loading...</div>;
+  if (error) return <CapResponse type="failed" />;
+  if (!demands) return <CapResponse type="loading" height="75" />;
 
   if (!user || user.isLoggedIn == false) {
-    return <div>404</div>;
+    return <CapResponse type="404" />;
   }
 
   return (

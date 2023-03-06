@@ -10,6 +10,7 @@ import useUser from "lib/useUser";
 import { CountyDTO } from "pages/api/counties";
 import useSWR from "swr";
 import { useRouter } from "next/router";
+import CapResponse from "atoms/capResponse";
 
 export default function UserList({ users }: { users: CountyUserDTO[] }) {
   const [searchUser, setSearchUser] = useState("");
@@ -28,8 +29,8 @@ export default function UserList({ users }: { users: CountyUserDTO[] }) {
     user?.county_id ? `/api/counties/${user?.county_id}` : `/api/counties/${id}`
   );
 
-  if (error) return <div>Not Found</div>;
-  if (!county) return <div>loading...</div>;
+  if (error) return <CapResponse type="notFound" />;
+  if (!county) return <CapResponse type="loading" height="75" />;
 
   return (
     <>
