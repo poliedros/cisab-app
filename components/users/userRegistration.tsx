@@ -1,11 +1,9 @@
-import CapBtn from "atoms/capBtn";
 import CapForm from "atoms/capForm";
 import CapIconButton from "atoms/capIconButton";
 import CapLegend from "atoms/capLegend";
-import CapSubtitle from "atoms/capSubtitle";
 import CapTitle from "atoms/capTitle";
 import { CountyUserDTO } from "pages/api/counties/[id]/users";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Row, Col } from "react-bootstrap";
 
 type UserRegistrationProps = {
@@ -38,7 +36,6 @@ export default function UserRegistration({
 
   return (
     <>
-      {/* <CapSubtitle label="account" /> */}
       <CapTitle base="user" label="registerUser" />
       <div className="mb-3"></div>
       <Row className="mb-3">
@@ -122,20 +119,6 @@ export default function UserRegistration({
           />
         </Col>
       </Row>
-      {/* <CapBtn
-        kind="send"
-        click={() => {
-          const countyUserReq: CountyUserDTO = {
-            _id: countyUser._id,
-            name: countyUserName,
-            surname: countyUserSurname,
-            email: countyUserEmail,
-            password: countyUserPassword,
-            properties: { profession: countyUserJob },
-          };
-          submit(countyUserReq);
-        }}
-      /> */}
     </>
   );
 }

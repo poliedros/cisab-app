@@ -1,8 +1,12 @@
 import CapMessageBottom from "atoms/capMessageBottom";
 import CapTitle from "atoms/capTitle";
 import Password from "components/registration/password";
+import ManagerRegistration from "components/users/managerRegistration";
+import UserRegistration from "components/users/userRegistration";
 import translations from "lib/translations";
 import { useRouter } from "next/router";
+import { ManagerDTO } from "pages/api/counties/manager/[id]";
+import { CountyUserDTO } from "pages/api/counties/[id]/users";
 import { useState } from "react";
 import { Spinner } from "react-bootstrap";
 
@@ -35,6 +39,26 @@ export default function FirstAccess() {
       redirectToLogin();
     }
   }
+
+  const activateManager = async (
+    manager: any
+  ): Promise<ManagerDTO | undefined> => {
+    setErrorMessage(false);
+    setSuccessMessage(false);
+    delete manager._id;
+    const data = await fetch(`/api/counties/manager/${id}`, {
+      method: "POST",
+      body: JSON.stringify(manager),
+    });
+    if (data.status === 201) {
+      setSuccessMessage(true);
+      const response = await data.json();
+      return response;
+    } else {
+      setErrorMessage(true);
+      return undefined;
+    }
+  };
 
   async function registerPassword(password: string) {
     setErrorMessage(false);
@@ -69,9 +93,34 @@ export default function FirstAccess() {
         </div>
       ) : (
         <div className="font-[Jost] h-screen flex items-center justify-center overflow-hidden flex-column">
-          <div className="flex flex-column items-center">
-            <CapTitle base="none" label={"passwordRegistration"} />
-            <Password handleSubmitFunction={registerPassword} />
+          <div className="flex flex-column bg-white py-5 px-3">
+            {/* <CapTitle base="none" label={"passwordRegistration"} /> */}
+
+            <ManagerRegistration
+              manager={{
+                name: "",
+                surname: "",
+                password: "",
+                properties: {
+                  profession: "",
+                },
+              }}
+              submit={activateManager}
+            />
+            {/* <Password handleSubmitFunction={registerPassword} />
+            <UserRegistration
+              submit={activateManager}
+              countyUser={{
+                _id: "",
+                email: "",
+                name: "",
+                surname: "",
+                password: undefined,
+                properties: {
+                  profession: undefined,
+                },
+              }} */}
+            {/* /> */}
             {errorMessage ? (
               <CapMessageBottom label={"passwordError"} css="text-red-600" />
             ) : (
