@@ -24,6 +24,8 @@ import CapDropdownIconButton from "atoms/capDropdownIconButton";
 import CapMessageBottom from "atoms/capMessageBottom";
 import CapInputAdvanced from "atoms/capInputAdvanced";
 import translations from "lib/translations";
+import { useLanguage } from "context/languageContext";
+import { useTheme } from "context/themeContext";
 
 export default function DemandCreation({
   demand = undefined,
@@ -32,6 +34,9 @@ export default function DemandCreation({
   demand?: any | undefined;
   submit: (demand: any) => Promise<any | undefined>;
 }) {
+  const language = useLanguage();
+  const theme = useTheme();
+
   const { user } = useUser({ redirectTo: "/login" });
   useRole({ user, role: Role.Cisab, redirectTo: "/" });
 
@@ -66,15 +71,42 @@ export default function DemandCreation({
   const [productsSt, setProductsSt] = useState<any[]>([]);
   const [defaultSt, setDefaultSt] = useState<any[]>([]);
 
+  const updateCategory = async () => {
+    await setCategoriesSwr("");
+  };
+
   useEffect(() => {
-    setCategoriesSwr("");
+    // alert("daSolva");
+    // async function updateCategory() {
+    //   alert("Lula");
+    //   setCategoriesSwr("");
+    // }
+    // updateCategory();
+    // () => setCategoriesSwr("");
+    //updateCategory();
+
+    // if (categoriesSwr === "")
+    let lula = "";
     categoriesSt.map((c) => {
-      setCategoriesSwr(categoriesSwr + "category=" + c + "&");
+      // setCategoriesSwr(categoriesSwr + "category=" + c + "&");
+      lula = lula + "category=" + c + "&";
     });
+    setCategoriesSwr(lula);
+    console.log("my ass");
+    console.log(categoriesSwr);
+
     if (categoriesSt.length === 0) setDefaultSt([]);
+    // else {
+    //   console.log("ENtrOU AQUI");
+    //   handleProductCategories();
+    // }
 
     //setCategoriesSwr(Object.keys(categoriesSt).map(key => key + '=' + categoriesSwr[key]).join('&'));
   }, [categoriesSt]);
+
+  // useEffect(() => {
+  //   alert("Lula");
+  // }, [categoriesSwr]);
 
   /* useEffect(() => {
         const {
@@ -85,6 +117,9 @@ export default function DemandCreation({
     }, [categoriesSt]); */
 
   const handleProductCategories = () => {
+    console.log("smack");
+    console.log(categoriesSwr);
+    console.log(products);
     if (categories && categories?.length > 0) return products?.map((p) => p);
 
     /* let a: string[] = [];
@@ -417,7 +452,7 @@ export default function DemandCreation({
           </>
         </Col>
       </Row>
-      <Row>
+      <Row className="mb-3">
         <Col className="flex items-center justify-center">
           <CapDropdownIconButton
             iconType="bs"
@@ -426,7 +461,9 @@ export default function DemandCreation({
           />
           <div className="m-2"></div>
           <Form.Group>
-            <Form.Label>{translations("startDate", "pt")}</Form.Label>
+            <Form.Label className={theme === "dark" ? "text-white" : ""}>
+              {translations("startDate", language)}
+            </Form.Label>
             <Form.Control
               type="date"
               placeholder="insertStartDate"
@@ -442,7 +479,7 @@ export default function DemandCreation({
               onChange={(e: any) => setStartDateAlt(e.target.value)}
             />
           </Form.Group>
-          {!startDateAlt && startDate
+          {/* {!startDateAlt && startDate
             ? startDate.split("/")[1] +
               "/" +
               startDate.split("/")[0] +
@@ -454,7 +491,7 @@ export default function DemandCreation({
               startDateAlt.split("-")[2] +
               "/" +
               startDateAlt.split("-")[0]
-            : "00/00/0000"}
+            : "00/00/0000"} */}
           {/* {Date.parse(startDate ? startDate : "")} */}
           {/* {moment(startDate).format("YYYY-MM-DD")} */}
           {/* <CapForm
@@ -464,7 +501,7 @@ export default function DemandCreation({
           /> */}
         </Col>
         <Col className="flex items-center justify-center">
-          {!endDateAlt && endDate
+          {/* {!endDateAlt && endDate
             ? endDate.split("/")[1] +
               "/" +
               endDate.split("/")[0] +
@@ -476,9 +513,11 @@ export default function DemandCreation({
               endDateAlt.split("-")[2] +
               "/" +
               endDateAlt.split("-")[0]
-            : "00/00/0000"}
+            : "00/00/0000"} */}
           <Form.Group>
-            <Form.Label>{translations("endDate", "pt")}</Form.Label>
+            <Form.Label className={theme === "dark" ? "text-white" : ""}>
+              {translations("endDate", "pt")}
+            </Form.Label>
             <Form.Control
               type="date"
               placeholder="insertEndDate"
@@ -518,6 +557,7 @@ export default function DemandCreation({
             icon="BsSave"
             size="20px"
             click={handleDemand}
+            css="rotate-in-2-fwd-ccw"
             mouseEnter={() => setDescription("saveDemand")}
             mouseLeave={() => setDescription("emptyText")}
           />

@@ -4,6 +4,7 @@ import useSWR from "swr";
 import { CountyDTO } from "pages/api/counties";
 import CountyProfile from "components/counties/countyProfile";
 import CountyAutarkyProfile from "components/autarkies/countyAutarkyProfile";
+import CapResponse from "atoms/capResponse";
 
 export default function Get() {
   const router = useRouter();
@@ -17,8 +18,8 @@ export default function Get() {
     return <div>404</div>;
   }
 
-  if (error) return <div>Not Found</div>;
-  if (!county) return <div>loading...</div>;
+  if (error) return <CapResponse type="notFound" />;
+  if (!county) return <CapResponse type="loading" height="75" />;
 
   console.log(county);
 

@@ -61,7 +61,7 @@ export default function CapTitle({
         {base ? (
           base !== "none" ? (
             <div className="bg-[#7dc523] rounded-full p-3 text-white">
-              {iconItems[base]}
+              <div className="rotate-in-2-bck-cw">{iconItems[base]}</div>
             </div>
           ) : null
         ) : null}

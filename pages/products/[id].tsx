@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import { ProductDTO } from "pages/api/products";
 import ProductShowcase from "components/products/productShowcase";
+import CapResponse from "atoms/capResponse";
 
 export default function Get() {
   const router = useRouter();
@@ -13,11 +14,11 @@ export default function Get() {
   const { user } = useUser({ redirectTo: "/login" });
 
   if (!user || user.isLoggedIn == false) {
-    return <div>404</div>;
+    return <CapResponse type="404" />;
   }
 
-  if (error) return <div>Not Found</div>;
-  if (!product) return <div>loading...</div>;
+  if (error) return <CapResponse type="failed" />;
+  if (!product) return <CapResponse type="loading" height="75" />;
 
   return (
     <>

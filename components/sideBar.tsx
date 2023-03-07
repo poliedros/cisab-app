@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, OverlayTrigger, Popover, Tooltip } from "react-bootstrap";
 
 import useUser from "lib/useUser";
-import { useRouter } from "next/router";
+import router, { useRouter } from "next/router";
 
 import fetchJson from "lib/fetchJson";
 
@@ -112,7 +112,6 @@ export default function SideBar() {
             size="24px"
             route="/products"
             hoverColor="#7dc523"
-            css="mr-3"
             tooltip="listProducts"
             cssIcon="rotate-center"
           />
@@ -275,6 +274,12 @@ export default function SideBar() {
       </div>
     </Tooltip>
   );
+
+  // useEffect(() => {
+  //   if (router.isReady) {
+  //     router.reload(window.location.pathname);
+  //   }
+  // }, [router.isReady]);
 
   return (
     <>

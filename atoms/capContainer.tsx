@@ -28,7 +28,7 @@ export default function CapContainer({
 
   return (
     <>
-      <div className={component === "largeCard" ? "my-6" : ""}>
+      <div className={component === "largeCard" ? "my-12" : ""}>
         {data.map((d: any, i: any, a: any) =>
           component === "tinyCard" ? (
             <>

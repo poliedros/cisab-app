@@ -7,6 +7,7 @@ import useSWR from "swr";
 import CountyAutarkyList from "components/autarkies/countyAutarkyList";
 import { CountyDTO } from "pages/api/counties";
 import CountyAutarkyProfile from "components/autarkies/countyAutarkyProfile";
+import CapResponse from "atoms/capResponse";
 
 export default function Autarkies() {
   const { user } = useUser({ redirectTo: "/login" });
@@ -19,11 +20,11 @@ export default function Autarkies() {
     user ? `/api/counties/${id}/autarkies` : null
   );
 
-  if (error) return <div>failed to load</div>;
-  if (!autarkies) return <div>loading...</div>;
+  if (error) return <CapResponse type="failed" />;
+  if (!autarkies) return <CapResponse type="loading" height="75" />;
 
   if (!user || user.isLoggedIn == false) {
-    return <div>404</div>;
+    return <CapResponse type="404" />;
   }
 
   return (
