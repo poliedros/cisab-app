@@ -14,6 +14,7 @@ import CapImage from "./capImage";
 import { useTheme } from "context/themeContext";
 import IconsByName from "components/iconsByName";
 import Router from "next/router";
+import { useEffect } from "react";
 
 export default function CapLargeCard({
   label = "emptyText",
@@ -49,9 +50,48 @@ export default function CapLargeCard({
     Router.push(`${p}`);
   };
 
+  useEffect(() => {
+    const startAnimation = (entries: any, observer: any) => {
+      entries.forEach((entry: any) => {
+        entry.target.classList.toggle(
+          "slide-in-blurred-right",
+          entry.isIntersecting
+        );
+      });
+    };
+
+    const startAnimationy = (entries: any, observer: any) => {
+      entries.forEach((entry: any) => {
+        entry.target.classList.toggle(
+          "slide-in-blurred-left",
+          entry.isIntersecting
+        );
+      });
+    };
+
+    const observer = new IntersectionObserver(startAnimation);
+    const observery = new IntersectionObserver(startAnimationy);
+    const options = { root: null, rootMargin: "0px", threshold: 1 };
+
+    const elementx = document.querySelectorAll(".cardx");
+    elementx.forEach((el) => {
+      observer.observe(el); //, options
+    });
+
+    const elementy = document.querySelectorAll(".cardy");
+    elementy.forEach((el) => {
+      observery.observe(el); //, options
+    });
+  }, []);
+
   return (
     <>
-      <div className="flex items-center justify-center flex-column">
+      <div
+        className={
+          "flex items-center justify-center flex-column " +
+          (mirror ? "cardy" : "cardx")
+        }
+      >
         {/* <div className="flex items-center justify-center -mb-4 z-10">
           <div className="absolute bg-[silver] w-[70px] h-[70px] rounded-full"></div>
           <div

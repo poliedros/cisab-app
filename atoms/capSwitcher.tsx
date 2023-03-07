@@ -33,6 +33,7 @@ export default function CapSwitcher({
   inputValue = undefined,
   inputSetValue = undefined,
   getInput = undefined,
+  date = undefined,
 }: {
   data?: any[];
   searchPath?: string;
@@ -55,6 +56,7 @@ export default function CapSwitcher({
   inputValue?: any[] | undefined;
   inputSetValue?: any;
   getInput?: any;
+  date?: number[];
 }) {
   const language = useLanguage();
 
@@ -163,6 +165,7 @@ export default function CapSwitcher({
               buttonsPaths={buttonsPaths}
               pageSize={pagesSize}
               currentPage={page}
+              date={date}
             />
           ) : standard === "grid" ? (
             <CapContainer
@@ -195,6 +198,7 @@ export default function CapSwitcher({
               buttonsPaths={buttonsPaths}
               pageSize={pagesSize}
               currentPage={page}
+              date={date}
             />
           )}
           <CapPagination

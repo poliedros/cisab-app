@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import { CountyUserDTO } from "pages/api/counties/[id]/users";
 import UserProfile from "components/users/userProfile";
+import CapResponse from "atoms/capResponse";
 
 export default function Get() {
   const router = useRouter();
@@ -15,11 +16,11 @@ export default function Get() {
   const { user } = useUser({ redirectTo: "/login" });
 
   if (!user || user.isLoggedIn == false) {
-    return <div>404</div>;
+    return <CapResponse type="404" />;
   }
 
-  if (error) return <div>Not Found</div>;
-  if (!countyUser) return <div>loading...</div>;
+  if (error) return <CapResponse type="notFound" />;
+  if (!countyUser) return <CapResponse type="loading" height="75" />;
 
   return (
     <>

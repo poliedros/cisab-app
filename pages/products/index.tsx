@@ -7,6 +7,7 @@ import { UnitDTO } from "pages/api/units";
 import { ProductDTO } from "pages/api/products";
 import useSWR from "swr";
 import ProductList from "components/products/productList";
+import CapResponse from "atoms/capResponse";
 
 export default function Index() {
   const { user } = useUser({ redirectTo: "/login" });
@@ -22,14 +23,14 @@ export default function Index() {
 
   console.log(error2);
 
-  if (error2) return <div>failed to load</div>;
-  if (!units) return <div>loading...</div>;
+  if (error2) return <CapResponse type="failed" />;
+  if (!units) return <CapResponse type="loading" height="75" />;
 
-  if (error) return <div>failed to load2</div>;
-  if (!products) return <div>loading...</div>;
+  if (error) return <CapResponse type="failed" />;
+  if (!products) return <CapResponse type="loading" height="75" />;
 
   if (!user || user.isLoggedIn == false) {
-    return <div>404</div>;
+    return <CapResponse type="404" />;
   }
 
   /* if (!user || user.isLoggedIn == false) {

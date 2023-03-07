@@ -110,6 +110,9 @@
   "email": {
     "pt": "E-mail"
   },
+  "emails": {
+    "pt": "E-mails"
+  },
   "insertEmail": {
     "pt": "Insira o E-mail"
   },
@@ -588,7 +591,7 @@
     "pt": "Fontes"
   },
   "noMoreData": {
-    "pt": "Acabaram-se os dados"
+    "pt": "Dados Indisponíveis"
   },
   "project": {
     "pt": "Projeto"
@@ -625,6 +628,9 @@
   },
   "listDemands": {
     "pt": "Lista de Demandas"
+  },
+  "searchDemandByName": {
+    "pt": "Buscar Demanda pelo Nome"
   },
   "createEmployee": {
     "pt": "Criar Funcionário"

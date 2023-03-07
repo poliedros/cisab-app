@@ -1,4 +1,5 @@
 //import CountyList from "components/counties/countyList";
+import CapResponse from "atoms/capResponse";
 import { Role } from "lib/role.enum";
 import useRole from "lib/useRole";
 import useUser from "lib/useUser";
@@ -9,20 +10,14 @@ export default function Index() {
   const { user } = useUser({ redirectTo: "/login" });
   useRole({ user, role: Role.Cisab, redirectTo: "/" });
 
-  const { data: units, error } = useSWR<UnitDTO[]>(
-    user ? "/api/units" : null
-  );
+  const { data: units, error } = useSWR<UnitDTO[]>(user ? "/api/units" : null);
 
-  if (error) return <div>failed to load</div>;
-  if (!units) return <div>loading...</div>;
+  if (error) return <CapResponse type="failed" />;
+  if (!units) return <CapResponse type="loading" height="75" />;
 
   if (!user || user.isLoggedIn == false) {
-    return <div>404</div>;
+    return <CapResponse type="404" />;
   }
 
-  return (
-    <>
-      {/* <CountyList counties={counties} /> */}
-    </>
-  );
+  return <>{/* <CountyList counties={counties} /> */}</>;
 }

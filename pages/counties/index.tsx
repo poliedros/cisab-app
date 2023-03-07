@@ -1,3 +1,4 @@
+import CapResponse from "atoms/capResponse";
 import CountyAutarkyProfile from "components/autarkies/countyAutarkyProfile";
 import CountyList from "components/counties/countyList";
 import CountyProfile from "components/counties/countyProfile";
@@ -14,11 +15,11 @@ export default function Index() {
     user ? "/api/counties" : null
   );
 
-  if (error) return <div>failed to load</div>;
-  if (!counties) return <div>loading...</div>;
+  if (error) return <CapResponse type="failed" />;
+  if (!counties) return <CapResponse type="loading" height="75" />;
 
   if (!user || user.isLoggedIn == false) {
-    return <div>404</div>;
+    return <CapResponse type="404" />;
   }
 
   return (

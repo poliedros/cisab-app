@@ -1,3 +1,4 @@
+import CapResponse from "atoms/capResponse";
 import UserList from "components/users/userList";
 import { Role } from "lib/role.enum";
 import useRole from "lib/useRole";
@@ -17,11 +18,11 @@ export default function Users() {
     user ? `/api/counties/${id}/users` : null
   );
 
-  if (error) return <div>failed to load</div>;
-  if (!users) return <div>loading...</div>;
+  if (error) return <CapResponse type="failed" />;
+  if (!users) return <CapResponse type="loading" height="75" />;
 
   if (!user || user.isLoggedIn == false) {
-    return <div>404</div>;
+    return <CapResponse type="404" />;
   }
 
   console.log("USERS:", users);
