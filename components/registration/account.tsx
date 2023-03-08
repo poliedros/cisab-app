@@ -3,7 +3,7 @@ import CapInputAdvanced from "atoms/capInputAdvanced";
 import CapSubtitle from "atoms/capSubtitle";
 import { CategoryDTO } from "pages/api/categories";
 import { CountyManagerDTO } from "pages/api/counties/[id]/manager";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import { MutatorCallback, MutatorOptions } from "swr";
 
@@ -33,7 +33,9 @@ export default function Account({ kind, handleAccount }: AccountProps) {
     setCities(result);
   };
 
-  getCities();
+  useEffect(() => {
+    getCities();
+  }, []);
 
   return (
     <>

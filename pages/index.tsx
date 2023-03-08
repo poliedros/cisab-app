@@ -2,18 +2,18 @@ import type { NextPage } from "next";
 import Start from "components/start";
 import useUser from "lib/useUser";
 
-import { Spinner } from "components/spinner";
 import { useRouter } from "next/router";
 
 import jwt_decode from "jwt-decode";
 import fetchJson from "lib/fetchJson";
+import CapResponse from "atoms/capResponse";
 
 const Home: NextPage = () => {
   const router = useRouter();
   const { user, mutateUser } = useUser({ redirectTo: "/login" });
 
   if (!user || user.isLoggedIn == false) {
-    return <Spinner />;
+    return <CapResponse type="loading" height="75" />;
   }
 
   const decodedToken = jwt_decode<{ exp: number; iat: number }>(user.token);
