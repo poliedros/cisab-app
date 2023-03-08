@@ -6,7 +6,7 @@ import CapPagination from "atoms/capPagination";
 import CapTable from "atoms/capTable";
 import CapTitle from "atoms/capTitle";
 import { ProductDTO } from "pages/api/products";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Col, OverlayTrigger, Popover, Row } from "react-bootstrap";
 import useSWR, { MutatorCallback, MutatorOptions } from "swr";
 import useRole from "lib/useRole";
@@ -14,6 +14,7 @@ import useUser from "lib/useUser";
 import { Role } from "lib/role.enum";
 import CapParagraph from "atoms/capParagraph";
 import CapSwitcher from "atoms/capSwitcher";
+import { useRouter } from "next/router";
 
 export default function ProductShowcase({ product }: { product: ProductDTO }) {
   const { user } = useUser({ redirectTo: "/login" });
@@ -48,6 +49,14 @@ export default function ProductShowcase({ product }: { product: ProductDTO }) {
   productsPageFinal.map((p, i) => {
     p.photo = { photo_url: productsPage[i].photo_url };
   });
+
+  const router = useRouter();
+
+  //alert(JSON.stringify(router));
+
+  useEffect(() => {
+    setScreens("");
+  }, [router.query]);
 
   return (
     <>
