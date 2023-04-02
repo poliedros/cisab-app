@@ -32,7 +32,7 @@ export default function CapLegend({
 
   return (
     <>
-      <div className="border-b border-silver-500 mr-3">
+      <div className="border-b border-silver-500 mr-3 swing-in-right-bck ">
         <h6
           id="textLegend"
           className={

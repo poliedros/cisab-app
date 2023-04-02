@@ -1,5 +1,5 @@
 import CapMessageBottom from "atoms/capMessageBottom";
-import ProductCreation from "components/products/productCreation";
+import ProductCreation from "components/products/productCreate";
 //import CountyRegistration from "components/counties/countyRegistration";
 import useUser from "lib/useUser";
 import { ProductDTO } from "pages/api/products";

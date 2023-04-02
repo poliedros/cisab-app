@@ -13,19 +13,10 @@ import Router from "next/router";
 import { Role } from "lib/role.enum";
 import CapImage from "atoms/capImage";
 import translations from "lib/translations";
-import { CountyDTO } from "pages/api/counties";
-import useSWR from "swr";
-import UserProfile from "./users/userProfile";
 
 export default function SideBar() {
-  const [side, setSide] = useState(false);
-
-  const handleCloseSide = () => setSide(false);
-  const handleSide = () => setSide(true);
-
   const [main, setMain] = useState(false);
 
-  const handleCloseMain = () => setMain(false);
   const handleMain = () => setMain(true);
 
   const { user, mutateUser } = useUser();
@@ -228,6 +219,7 @@ export default function SideBar() {
             hoverColor="#7dc523"
             css="mr-3"
             tooltip="createEmployee"
+            cssIcon="rotate-center"
           />
           <CapIconButton
             iconType="fa"
@@ -236,6 +228,7 @@ export default function SideBar() {
             route={`/counties/${user?.county_id}/users`}
             hoverColor="#7dc523"
             tooltip="listEmployees"
+            cssIcon="rotate-center"
           />
         </div>
       </div>
@@ -283,7 +276,7 @@ export default function SideBar() {
 
   return (
     <>
-      <div className="flex flex-column">
+      <div className="flex flex-column !px-3">
         {user?.roles.includes(Role.Cisab) ||
         user?.roles.includes(Role.Admin) ? (
           <>
@@ -331,6 +324,7 @@ export default function SideBar() {
             route={`/users/profile`}
             tooltip="myProfile"
             css="mb-3"
+            cssIcon="rotate-center"
           />
         ) : (
           // <UserProfile />
@@ -368,6 +362,7 @@ export default function SideBar() {
                 icon="FaUserFriends"
                 tooltip="employees"
                 css="mb-3"
+                cssIcon="rotate-center"
               />
             </div>
           </OverlayTrigger>

@@ -8,7 +8,7 @@ export default function DemandList({ demands }: { demands: DemandDTO[] }) {
   });
   return (
     <>
-      <CapTitle base="list" label="listDemands" cssExternal="mb-3" />
+      <CapTitle base="list" label="listDemands" cssExternal="mb-6" />
       <CapSwitcher
         data={demands}
         tableHeaders={["theme", "startDate", "endDate", "state"]}

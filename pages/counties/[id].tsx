@@ -1,42 +1,30 @@
 import useUser from "lib/useUser";
 import { useRouter } from "next/router";
 import useSWR from "swr";
-import { CountyDTO } from "pages/api/counties";
-import CountyProfile from "components/counties/countyProfile";
-import CountyAutarkyProfile from "components/autarkies/countyAutarkyProfile";
+import { InstitutionDTO } from "pages/api/counties";
 import CapResponse from "atoms/capResponse";
+import TownHallProfile from "components/counties/townHallProfile";
+import AutarkyProfile from "components/autarkies/autarkyProfile";
 
 export default function Get() {
   const router = useRouter();
   const { id } = router.query;
-
-  const { data: county, error } = useSWR<CountyDTO>(`/api/counties/${id}`);
-
+  const { data: institution, error } = useSWR<InstitutionDTO>(
+    `/api/counties/${id}`
+  );
   const { user } = useUser({ redirectTo: "/login" });
-
   if (!user || user.isLoggedIn == false) {
-    return <div>404</div>;
+    return <CapResponse type="404" />;
   }
-
   if (error) return <CapResponse type="notFound" />;
-  if (!county) return <CapResponse type="loading" height="75" />;
-
-  console.log(county);
+  if (!institution) return <CapResponse type="loading" height="75" />;
 
   return (
     <>
-      {county.county_id ? (
-        <CountyAutarkyProfile
-          county={{
-            _id: "",
-            name: "",
-            county_id: undefined,
-            info: undefined,
-            contact: undefined,
-          }}
-        />
+      {institution.county_id ? (
+        <AutarkyProfile autarky={institution} />
       ) : (
-        <CountyProfile county={county} />
+        <TownHallProfile townHall={institution} />
       )}
     </>
   );

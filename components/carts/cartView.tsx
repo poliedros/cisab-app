@@ -1,9 +1,7 @@
-import CapBtn from "atoms/capBtn";
 import CapIconButton from "atoms/capIconButton";
 import CapLegend from "atoms/capLegend";
 import CapMessageBottom from "atoms/capMessageBottom";
 import CapOverlayTrigger from "atoms/capOverlayTrigger";
-import CapParagraph from "atoms/capParagraph";
 import CapSwitcher from "atoms/capSwitcher";
 import CapTextShowData from "atoms/capTextShowData";
 import CapTitle from "atoms/capTitle";
@@ -22,14 +20,11 @@ type CartProps = {
 export default function CartView({ cart, update, close, mutate }: CartProps) {
   const size = 9;
 
-  const [format, setFormat] = useState("grid");
-  const [page, setPage] = useState(0);
-
   const [showUpdate, setShowUpdate] = useState(false);
   const [showClose, setShowClose] = useState(false);
   const [description, setDescription] = useState("emptyText");
 
-  const [cartState, setCartState] = useState(false);
+  const [block, setBlock] = useState(cart.state === "opened" ? false : true);
 
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
@@ -68,50 +63,27 @@ export default function CartView({ cart, update, close, mutate }: CartProps) {
         </Col>
       </Row>
       <Row>
-        {cartState ? (
-          <>
-            <CapSwitcher
-              data={cart.products}
-              tableHeaders={["products", "quantity"]}
-              tableColumns={
-                cart.state === "closed" ? ["name", "quantity"] : ["name"]
-              }
-              tableNumeral={true}
-              //tableImage={1}
-              input={cart.state === "opened" ? 2 : undefined}
-              inputValue={quantities}
-              inputSetValue={setQuantity}
-              getInput={setInput}
-              buttons={["view"]}
-              buttonsPaths={["/products/"]}
-              //searchPath={"name"}
-              pagesSize={size}
-            />
-          </>
-        ) : (
+        <>
           <CapSwitcher
             data={cart.products}
             tableHeaders={["products", "quantity"]}
-            tableColumns={["name", "quantity"]}
+            tableColumns={block ? ["name", "quantity"] : ["name"]}
             tableNumeral={true}
-            //tableImage={1}
-            input={cart.state === "opened" ? 2 : undefined}
+            input={block ? undefined : 2}
             inputValue={quantities}
             inputSetValue={setQuantity}
             getInput={setInput}
             buttons={["view"]}
             buttonsPaths={["/products/"]}
-            //searchPath={"name"}
             pagesSize={size}
           />
-        )}
+        </>
       </Row>
-      {!cartState && cart.state == "opened" ? (
+      {!block ? (
         <Row className="flex justify-end items-end">
           <Col>
             <CapLegend label={description} />
           </Col>
-
           <Col md="auto" className="!pl-0 !pr-3">
             <CapOverlayTrigger
               setDescription={setDescription}
@@ -119,7 +91,7 @@ export default function CartView({ cart, update, close, mutate }: CartProps) {
               button={
                 <CapIconButton
                   iconType="md"
-                  icon="MdShoppingCart"
+                  icon="MdOutlineShoppingCart"
                   size="20px"
                   click={() => {
                     updateCart(getInput);
@@ -136,11 +108,11 @@ export default function CartView({ cart, update, close, mutate }: CartProps) {
               setShow={setShowClose}
               button={
                 <CapIconButton
-                  iconType="ri"
-                  icon="RiCheckboxCircleLine"
+                  iconType="bs"
+                  icon="BsPen"
                   size="20px"
                   click={() => {
-                    setCartState(true);
+                    setBlock(true);
                     //updateCart(getInput);
                     close(cart.demand_id);
                   }}

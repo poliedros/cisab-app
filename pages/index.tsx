@@ -21,7 +21,7 @@ const Home: NextPage = () => {
   if (decodedToken.exp < epochTimeNowInSeconds) {
     mutateUser(fetchJson("/api/logout", { method: "POST" }), false);
     router.push("/");
-    return <>Recarregue a pagina.</>;
+    return <CapResponse type="notFound" />;
   }
 
   return <Start />;

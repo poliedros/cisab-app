@@ -36,9 +36,8 @@ export default function UserRegistration({
 
   return (
     <>
-      <CapTitle base="user" label="registerUser" />
-      <div className="mb-3"></div>
-      <Row className="mb-3">
+      <CapTitle base="user" label="registerUser" cssExternal="mb-6" />
+      <Row>
         <CapForm
           as={Col}
           label="email"

@@ -31,11 +31,11 @@ export default function Layout({
       ) : (
         <main>
           <div className="font-[Jost] h-screen flex items-center justify-center overflow-hidden pageBase">
-            <div className="h-screen overflow-auto p-6 swing-in-right-bck invisibleScroll">
+            <div className="h-screen overflow-auto pl-6 py-6 swing-in-right-bck invisibleScroll">
               <div
                 className={
                   (theme === "dark" ? "bg-slate-800" : "bg-white") +
-                  " relative px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-10 w-max h-max"
+                  " relative px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-10 flex justify-center h-max" //w-max
                 }
               >
                 <SideBar />

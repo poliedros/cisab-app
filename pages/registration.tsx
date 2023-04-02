@@ -1,4 +1,5 @@
 import CapBtn from "atoms/capBtn";
+import CapFooterButtons from "atoms/capFooterButtons";
 import CapIconButton from "atoms/capIconButton";
 import CapLegend from "atoms/capLegend";
 import CapParagraph from "atoms/capParagraph";
@@ -11,26 +12,29 @@ import Info from "components/registration/info";
 import translations from "lib/translations";
 import { useEffect, useState } from "react";
 import { Col, Row, Form } from "react-bootstrap";
-import { ContactDTO, CountyDTO, InfoDTO } from "./api/counties";
-import { CountyManagerDTO } from "./api/counties/[id]/manager";
+import { ContactDTO, InstitutionDTO, InfoDTO } from "./api/counties";
+import { InstitutionAccountableDTO } from "./api/counties/[id]/manager";
 
 export default function Registration({ language = "pt" }: { language: "pt" }) {
   const [activeTab, setActiveTab] = useState(0);
   const [hasAutarky, setHasAutarky] = useState(false);
-  const [countyManager, setCountyManager] = useState<CountyManagerDTO>({
-    name: "",
-    email: "",
-  });
-  const [county, setCounty] = useState<CountyDTO>({
+  const [countyManager, setCountyManager] = useState<InstitutionAccountableDTO>(
+    {
+      name: "",
+      email: "",
+    }
+  );
+  const [county, setCounty] = useState<InstitutionDTO>({
     _id: "",
     name: "",
   });
-  const [autarkyManager, setAutarkyManager] = useState<CountyManagerDTO>({
-    name: "",
-    email: "",
-    county_id: "",
-  });
-  const [autarky, setAutarky] = useState<CountyDTO>({
+  const [autarkyManager, setAutarkyManager] =
+    useState<InstitutionAccountableDTO>({
+      name: "",
+      email: "",
+      county_id: "",
+    });
+  const [autarky, setAutarky] = useState<InstitutionDTO>({
     _id: "",
     name: "",
   });
@@ -46,7 +50,7 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
       );
   };
 
-  function validateAccount(account: CountyManagerDTO) {
+  function validateAccount(account: InstitutionAccountableDTO) {
     if (!validateEmail(account.email)) {
       setError("E-mail invalido");
       return false;
@@ -63,7 +67,7 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
     return true;
   }
 
-  function handleAccount(account: CountyManagerDTO, kind: string) {
+  function handleAccount(account: InstitutionAccountableDTO, kind: string) {
     if (kind == "county") setCountyManager(account);
     if (kind == "autarky") setAutarkyManager(account);
   }
@@ -78,7 +82,7 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
     if (kind == "autarky") setAutarky({ ...autarky, contact });
   }
 
-  async function registerAccount(account: CountyManagerDTO) {
+  async function registerAccount(account: InstitutionAccountableDTO) {
     console.log("registering manager...");
 
     const response = await fetch("api/counties/manager", {
@@ -110,7 +114,7 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
     ); //translations("accountCreated", language) + " " + email;
   }
 
-  async function registerCounty(county: CountyDTO, id: string) {
+  async function registerCounty(county: InstitutionDTO, id: string) {
     const response = await fetch(`api/counties/${id}`, {
       method: "PUT",
       body: JSON.stringify(county),
@@ -120,8 +124,7 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
 
   return (
     <>
-      <CapTitle base="county" label="countyRegistration" />
-      <div className="mb-3"></div>
+      <CapTitle base="county" label="countyRegistration" cssExternal="mb-3" />
       <CapTabs
         activeKey={activeTab.toString()}
         disabled={[true, true, true, true, true, true, true]}
@@ -148,88 +151,38 @@ export default function Registration({ language = "pt" }: { language: "pt" }) {
           // 0. County Manager Registration
           <>
             <Account handleAccount={handleAccount} kind={"county"} />
-            <Row className="flex justify-end items-end">
-              <Col>
-                <CapLegend label={description} />
-              </Col>
-              <Col md="auto" className="!pl-0 !pr-3">
-                <CapIconButton
-                  iconType="bi"
-                  icon="BiMailSend"
-                  size="20px"
-                  css="rotate-in-2-fwd-ccw"
-                  click={() => {
-                    if (!validateAccount(countyManager)) return;
-                    registerAccount(countyManager);
-                    setActiveTab(6);
-                  }}
-                  mouseEnter={() => setDescription("forwardToAccountable")}
-                  mouseLeave={() => setDescription("emptyText")}
-                />
-                {/* <CapBtn
-                  label="forwardToAccountable"
-                  iconType="bi"
-                  icon="BiMailSend"
-                  click={() => {
-                    if (!validateAccount(countyManager)) return;
-                    registerAccount(countyManager);
-                    setActiveTab(6);
-                  }}
-                /> */}
-              </Col>
-              <Col md="auto" className="!pl-0 !pr-3">
-                <CapIconButton
-                  iconType="ri"
-                  icon="RiGovernmentLine"
-                  size="20px"
-                  css="rotate-in-2-fwd-ccw1"
-                  click={() => {
-                    if (!validateAccount(countyManager)) return;
-                    registerAccount(countyManager);
-                    setActiveTab(3);
-                  }}
-                  mouseEnter={() =>
-                    setDescription("forwardToAccountableGoToAutarky")
-                  }
-                  mouseLeave={() => setDescription("emptyText")}
-                />
-                {/* <CapBtn
-                  label="forwardToAccountableGoToAutarky"
-                  iconType="ri"
-                  icon="RiGovernmentLine"
-                  click={() => {
-                    if (!validateAccount(countyManager)) return;
-                    registerAccount(countyManager);
-                    setActiveTab(3);
-                  }}
-                /> */}
-              </Col>
-              <Col md="auto" className="!pl-0">
-                <CapIconButton
-                  iconType="md"
-                  icon="MdNavigateNext"
-                  size="20px"
-                  css="rotate-in-2-fwd-ccw2"
-                  click={() => {
-                    if (!validateAccount(countyManager)) return;
-                    registerAccount(countyManager);
-                    setActiveTab(1);
-                  }}
-                  mouseEnter={() => setDescription("continueFillingOut")}
-                  mouseLeave={() => setDescription("emptyText")}
-                />
-                {/* <CapBtn
-                  label="continueFillingOut"
-                  iconType="md"
-                  icon="MdNavigateNext"
-                  click={() => {
-                    if (!validateAccount(countyManager)) return;
-                    registerAccount(countyManager);
-                    setActiveTab(1);
-                  }}
-                /> */}
-              </Col>
-            </Row>
+
+            <CapFooterButtons
+              icons={["BiMailSend", "RiGovernmentLine", "MdNavigateNext"]}
+              iconsTypes={["bi", "ri", "md"]}
+              messages={[
+                "forwardToAccountable",
+                "forwardToAccountableGoToAutarky",
+                "continueFillingOut",
+              ]}
+              iconsCss={[
+                "rotate-in-2-fwd-ccw",
+                "rotate-in-2-fwd-ccw1",
+                "rotate-in-2-fwd-ccw2",
+              ]}
+              iconClick={[
+                () => {
+                  if (!validateAccount(countyManager)) return;
+                  registerAccount(countyManager);
+                  setActiveTab(6);
+                },
+                () => {
+                  if (!validateAccount(countyManager)) return;
+                  registerAccount(countyManager);
+                  setActiveTab(3);
+                },
+                () => {
+                  if (!validateAccount(countyManager)) return;
+                  registerAccount(countyManager);
+                  setActiveTab(1);
+                },
+              ]}
+            />
             {error !== "" ? (
               <Row>
                 <Col md="auto" className="!pl-0">

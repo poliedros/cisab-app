@@ -33,6 +33,8 @@ export default function CapTable({
   getInput = undefined,
   pageSize = undefined,
   currentPage = undefined,
+  setPosition = undefined,
+  fields = [],
 }: {
   label?: string;
   literal?: string;
@@ -55,6 +57,8 @@ export default function CapTable({
   getInput?: any;
   pageSize?: any;
   currentPage?: any;
+  setPosition?: number;
+  fields?: string[];
 }) {
   const language = useLanguage();
   const theme = useTheme();
@@ -401,7 +405,16 @@ export default function CapTable({
                               {/* {values[i + (currentPage * pageSize)].id + " " + values[i + (currentPage * pageSize)].value}
                                                                 {i + (currentPage * pageSize)} */}
                             </div>
+                          ) : setPosition === j ? (
+                            <div style={{ whiteSpace: "pre-line" }}>
+                              {o[k]
+                                .map((m: any) =>
+                                  fields.map((f, i, s: any) => m[f]).join(" ")
+                                )
+                                .join("\n")}
+                            </div>
                           ) : (
+                            // JSON.stringify(o[k].map((m: any) => m[fields[0]]))
                             o && o[k]
                           );
                         }, d)}

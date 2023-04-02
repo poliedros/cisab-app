@@ -22,7 +22,7 @@ export type ContactDTO = {
   socialMedias: string;
 };
 
-export type CountyDTO = {
+export type InstitutionDTO = {
   _id: string;
   name: string;
   county_id?: string;
@@ -30,10 +30,13 @@ export type CountyDTO = {
   contact?: ContactDTO;
 };
 
-async function handler(req: NextApiRequest, res: NextApiResponse<CountyDTO[]>) {
+async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<InstitutionDTO[]>
+) {
   const user = req.session.user;
   if (!user) {
-    res.status(401).json({} as CountyDTO[]);
+    res.status(401).json({} as InstitutionDTO[]);
     return;
   }
 
@@ -46,7 +49,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<CountyDTO[]>) {
       method: "POST",
       body: req.body,
     });
-    const data = (await response.json()) as CountyDTO[];
+    const data = (await response.json()) as InstitutionDTO[];
     res.status(response.status).json(data);
     return;
   }
@@ -54,7 +57,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<CountyDTO[]>) {
   const response = await fetch(process.env.API_URL + "/counties", {
     headers: { Authorization: "Bearer " + user.token },
   });
-  const data = (await response.json()) as CountyDTO[];
+  const data = (await response.json()) as InstitutionDTO[];
 
   res.status(response.status).json(data);
 }

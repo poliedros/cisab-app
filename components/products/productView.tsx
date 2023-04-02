@@ -1,17 +1,12 @@
-import CapContainer from "atoms/capContainer";
 import CapIconButton from "atoms/capIconButton";
 import CapImage from "atoms/capImage";
 import CapInfoBoard from "atoms/capInfoBoard";
-import CapPagination from "atoms/capPagination";
-import CapTable from "atoms/capTable";
 import CapTitle from "atoms/capTitle";
 import { ProductDTO } from "pages/api/products";
 import { useEffect, useState } from "react";
 import { Col, OverlayTrigger, Popover, Row } from "react-bootstrap";
-import useSWR, { MutatorCallback, MutatorOptions } from "swr";
-import useRole from "lib/useRole";
+import useSWR from "swr";
 import useUser from "lib/useUser";
-import { Role } from "lib/role.enum";
 import CapParagraph from "atoms/capParagraph";
 import CapSwitcher from "atoms/capSwitcher";
 import { useRouter } from "next/router";
@@ -25,21 +20,13 @@ export default function ProductShowcase({ product }: { product: ProductDTO }) {
     mutate: mutate,
   } = useSWR<ProductDTO[]>(user ? "/api/products" : null);
 
-  /* let info = [];
-    product.accessory_ids ? product.accessory_ids.map((pa) => {
-        info.push(useSWR<ProductDTO[]>(user ? `/api/products/${pa}` : null));
-    }) : []; */
-
   const size = 7;
-
-  const [searchProduct, setSearchProduct] = useState("");
   const [screens, setScreens] = useState("");
 
   const accessories = products?.filter((p) =>
     product.accessory_ids ? product.accessory_ids.includes(p._id) : []
   );
 
-  const [format, setFormat] = useState("table");
   const [page, setPage] = useState(0);
   const [productsPage, setProductsPage] = useState(
     accessories ? accessories.slice(page * size, page * size + size) : []
@@ -51,8 +38,6 @@ export default function ProductShowcase({ product }: { product: ProductDTO }) {
   });
 
   const router = useRouter();
-
-  //alert(JSON.stringify(router));
 
   useEffect(() => {
     setScreens("");
@@ -177,52 +162,6 @@ export default function ProductShowcase({ product }: { product: ProductDTO }) {
       )}
       {screens === "accessories" ? (
         <Row className="mt-3 pt-3 border-t-2 justify-center">
-          {/* <Col md="auto" className="border-r-2 mr-3 !my-6">
-                    <div className="flex flex-column">
-                        <CapIconButton
-                            css="mb-3 mt-6"
-                            iconType="fa"
-                            icon="FaThList"
-                            size="24px"
-                            click={() => setFormat("table")}
-                        />
-                        <CapIconButton
-                            iconType="fa"
-                            icon="FaThLarge"
-                            size="24px"
-                            click={() => setFormat("grid")}
-                        />
-                    </div>
-                </Col>
-                <Col>
-                    {format === "grid" ? (
-                        <CapContainer
-                            data={productsPage}
-                            component="tinyCard"
-                        />
-                    ) : null}
-                    {format === "table" ? (
-                        <CapTable
-                            data={productsPageFinal}
-                            headers={["image", "products"]}
-                            columns={["photo", "name"]}
-                            numeral={true}
-                            image={1}
-                            buttonsColumns={["view"]}
-                            buttonsPaths={[
-                                "/products/",
-                            ]}
-                            search={searchProduct}
-                            searchPath={"name"}
-                        />
-                    ) : null}
-                    <CapPagination
-                        content={accessories}
-                        size={size}
-                        page={page}
-                        setPage={setPage}
-                    />
-                </Col> */}
           <CapSwitcher
             data={accessories}
             tableHeaders={["image", "products"]}

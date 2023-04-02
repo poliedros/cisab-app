@@ -2,7 +2,7 @@ import useUser from "lib/useUser";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { ProductDTO } from "pages/api/products";
-import ProductShowcase from "components/products/productShowcase";
+import ProductView from "components/products/productView";
 import CapResponse from "atoms/capResponse";
 
 export default function Get() {
@@ -22,7 +22,7 @@ export default function Get() {
 
   return (
     <>
-      <ProductShowcase product={product} />
+      <ProductView product={product} />
     </>
   );
 }

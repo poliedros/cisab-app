@@ -47,7 +47,7 @@ export default function CapTitle({
     doc: IconsByName("hi", "HiDocumentText", "32px"),
     diagram: IconsByName("bs", "BsDiagram2Fill", "32px"),
     lab: IconsByName("ri", "RiTestTubeFill", "32px"),
-    cap: IconsByName("bs", "BsPuzzleFill", "32px"),
+    cap: IconsByName("bi", "BiAtom", "32px"),
     art: IconsByName("ri", "RiArtboardFill", "32px"),
   };
   return (

@@ -3,7 +3,7 @@ import { withIronSessionApiRoute } from "iron-session/next";
 import { sessionOptions } from "lib/session";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-export type CountyManagerDTO = {
+export type InstitutionAccountableDTO = {
   email: string;
   name: string;
   county_id?: string;
@@ -11,11 +11,11 @@ export type CountyManagerDTO = {
 
 async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<CountyManagerDTO[]>
+  res: NextApiResponse<InstitutionAccountableDTO[]>
 ) {
   const user = req.session.user;
   if (!user) {
-    res.status(401).json({} as CountyManagerDTO[]);
+    res.status(401).json({} as InstitutionAccountableDTO[]);
     return;
   }
 
@@ -28,7 +28,7 @@ async function handler(
       method: "POST",
       body: req.body,
     });
-    const data = (await response.json()) as CountyManagerDTO[];
+    const data = (await response.json()) as InstitutionAccountableDTO[];
     res.status(response.status).json(data);
     return;
   }

@@ -7,13 +7,13 @@ import CapTextShowData from "atoms/capTextShowData";
 import CapTitle from "atoms/capTitle";
 import IconsByName from "components/iconsByName";
 import translations from "lib/translations";
-import { CountyDTO } from "pages/api/counties";
+import { InstitutionDTO } from "pages/api/counties";
 import { Col, OverlayTrigger, Popover, Row } from "react-bootstrap";
 
-export default function CountyAutarkyProfile({
-  county,
+export default function AutarkyProfile({
+  autarky,
 }: {
-  county: CountyDTO;
+  autarky: InstitutionDTO;
 }) {
   return (
     <>
@@ -86,33 +86,33 @@ export default function CountyAutarkyProfile({
             <Row className="width-f-available">
               <CapTitle
                 base={"none"}
-                literal={county.name}
+                literal={autarky.name}
                 additional={{ label: " !text-4xl !m-0" }}
               />
               <h6 className="lowercase tracking-widest text-[silver]">MG</h6>
               <CapParagraph
                 literal={
-                  county.contact
-                    ? county.contact.phone
+                  autarky.contact
+                    ? autarky.contact.phone
                     : translations("noValue", "pt")
                 }
               />
               <CapLink
                 literal={
-                  county.contact
-                    ? county.contact.email
+                  autarky.contact
+                    ? autarky.contact.email
                     : translations("noValue", "pt")
                 }
                 icon="MdAlternateEmail"
                 iconType="md"
                 iconColor="text-[#144974]"
                 href={`mailto:${
-                  county.contact ? county.contact.email : null
+                  autarky.contact ? autarky.contact.email : null
                 }?subject=`}
               />
               <h5 className="text-[#dd823b] my-2">
-                {county.contact
-                  ? county.contact.speakTo
+                {autarky.contact
+                  ? autarky.contact.speakTo
                   : translations("noValue", "pt")}
               </h5>
             </Row>
@@ -121,48 +121,48 @@ export default function CountyAutarkyProfile({
                 <CapTextShowData
                   label={"address"}
                   info={
-                    county.contact
-                      ? county.contact.address
+                    autarky.contact
+                      ? autarky.contact.address
                       : translations("noValue", "pt")
                   }
                 />
                 <CapTextShowData
                   label={"zipCode"}
                   info={
-                    county.contact
-                      ? county.contact.zipCode
+                    autarky.contact
+                      ? autarky.contact.zipCode
                       : translations("noValue", "pt")
                   }
                 />
                 <CapTextShowData
                   label={"countyDistanceToCisab"}
                   info={
-                    county.info
-                      ? county.info.distanceToCisab
+                    autarky.info
+                      ? autarky.info.distanceToCisab
                       : translations("noValue", "pt")
                   }
                 />
                 <CapTextShowData
                   label={"mayor"}
                   info={
-                    county.info
-                      ? county.info.mayor
+                    autarky.info
+                      ? autarky.info.mayor
                       : translations("noValue", "pt")
                   }
                 />
                 <CapTextShowData
                   label={"population"}
                   info={
-                    county.info
-                      ? county.info.population
+                    autarky.info
+                      ? autarky.info.population
                       : translations("noValue", "pt")
                   }
                 />
                 <CapTextShowData
                   label={"countyAnniversary"}
                   info={
-                    county.info
-                      ? county.info.anniversary
+                    autarky.info
+                      ? autarky.info.anniversary
                       : translations("noValue", "pt")
                   }
                 />
@@ -170,8 +170,8 @@ export default function CountyAutarkyProfile({
               <Col className="text-left bg-[#f9f9f9] !px-8">
                 <CapInfoBoard
                   litTitle={
-                    county.contact
-                      ? county.contact.speakTo
+                    autarky.contact
+                      ? autarky.contact.speakTo
                       : translations("noValue", "pt")
                   }
                 />
@@ -180,15 +180,15 @@ export default function CountyAutarkyProfile({
             <Row className="text-center width-f-available">
               <CapParagraph
                 literal={
-                  county.contact
-                    ? county.contact.socialMedias
+                  autarky.contact
+                    ? autarky.contact.socialMedias
                     : translations("noValue", "pt")
                 }
               />
               <CapParagraph
                 literal={
-                  county.contact
-                    ? county.contact.note
+                  autarky.contact
+                    ? autarky.contact.note
                     : translations("noValue", "pt")
                 }
               />

@@ -6,7 +6,7 @@ import CapTitle from "atoms/capTitle";
 import CapSubtitle from "atoms/capSubtitle";
 import CapForm from "atoms/capForm";
 import CapBtn from "atoms/capBtn";
-import { CountyDTO } from "pages/api/counties";
+import { InstitutionDTO } from "pages/api/counties";
 import CapImage from "atoms/capImage";
 import CountyImageModal from "./countyImageModal";
 import { info } from "console";
@@ -19,11 +19,11 @@ export default function CountyRegistration({
   county = undefined,
   submit,
 }: {
-  county: CountyDTO | undefined;
-  submit: (county: CountyDTO) => Promise<CountyDTO | undefined>;
+  county: InstitutionDTO | undefined;
+  submit: (county: InstitutionDTO) => Promise<InstitutionDTO | undefined>;
 }) {
   const [imageStage, setImageStage] = useState(false);
-  const [countyRegister, setCountyRegister] = useState<CountyDTO>();
+  const [countyRegister, setCountyRegister] = useState<InstitutionDTO>();
 
   const [countyAccount, setCountyAccount] = useState("");
   const [countyPassword, setCountyPassword] = useState("");
@@ -392,7 +392,7 @@ export default function CountyRegistration({
             kind="send"
             click={async () => {
               if (county) {
-                const countyReq: CountyDTO = {
+                const countyReq: InstitutionDTO = {
                   _id: county?._id,
                   name: countyName,
                   county_id: county?.county_id,

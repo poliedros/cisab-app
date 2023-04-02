@@ -9,6 +9,7 @@ import { useInterval } from 'usehooks-ts';
 import React from "react";
 
 import { ForceGraph } from "./forceGraph";
+import { tickStep } from "d3";
 
 function BarChart(id, data, width = 550, height = 300) {
   useEffect(() => {
@@ -839,10 +840,364 @@ export default function DocumentationDiagrams() {
     )
   }
 
+  const data2 = {
+    "nodes": [
+      {
+        "id": 1,
+        "name": "Andy",
+        "gender": "male"
+      },
+      {
+        "id": 2,
+        "name": "Betty",
+        "gender": "female"
+      },
+      {
+        "id": 3,
+        "name": "Cate",
+        "gender": "female"
+      },
+      {
+        "id": 4,
+        "name": "Dave",
+        "gender": "male"
+      },
+      {
+        "id": 5,
+        "name": "Ellen",
+        "gender": "female"
+      },
+      {
+        "id": 6,
+        "name": "Fiona",
+        "gender": "female"
+      },
+      {
+        "id": 7,
+        "name": "Garry",
+        "gender": "male"
+      },
+      {
+        "id": 8,
+        "name": "Holly",
+        "gender": "female"
+      },
+      {
+        "id": 9,
+        "name": "Iris",
+        "gender": "female"
+      },
+      {
+        "id": 10,
+        "name": "Jane",
+        "gender": "female"
+      }
+    ],
+    "links": [
+      {
+        "source": 1,
+        "target": 2
+      },
+      {
+        "source": 1,
+        "target": 5
+      },
+      {
+        "source": 1,
+        "target": 6
+      },
+  
+      {
+        "source": 2,
+        "target": 3
+      },
+      {
+        "source": 2,
+        "target": 7
+      }
+    ,
+  
+      {
+        "source": 3,
+        "target": 4
+      },
+      {
+        "source": 8,
+        "target": 3
+      }
+    ,
+      {
+        "source": 4,
+        "target": 5
+      }
+    ,
+  
+      {
+        "source": 4,
+        "target": 9
+      },
+      {
+        "source": 5,
+        "target": 10
+      }
+    ]
+  };
+
+  function runForceGraph(
+    container,
+    linksData,
+    nodesData,
+    nodeHoverTooltip
+  ) {
+    const links = linksData.map((d) => Object.assign({}, d));
+    const nodes = nodesData.map((d) => Object.assign({}, d));
+  
+    const containerRect = container.getBoundingClientRect();
+    const height = containerRect.height;
+    const width = containerRect.width;
+  
+    const color = () => { return "#9D00A0"; };
+  
+    const icon = (d) => {
+      return d.gender === "male" ? "\uf222" : "\uf221";
+    }
+  
+    const getClass = (d) => {
+      return d.gender === "male" ? "" : ""; //styles.male : styles.female;
+    };
+  
+    const drag = (simulation) => {
+      const dragstarted = (d) => {
+        if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+      };
+  
+      const dragged = (d) => {
+        d.fx = d3.event.x;
+        d.fy = d3.event.y;
+      };
+  
+      const dragended = (d) => {
+        if (!d3.event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+      };
+  
+      return d3
+        .drag()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended);
+    };
+  
+    // Add the tooltip element to the graph
+    const tooltip = document.querySelector("#graph-tooltip");
+    if (!tooltip) {
+      const tooltipDiv = document.createElement("div");
+      //tooltipDiv.classList.add(styles.tooltip);
+      tooltipDiv.style.opacity = "0";
+      tooltipDiv.id = "graph-tooltip";
+      document.body.appendChild(tooltipDiv);
+    }
+    const div = d3.select("#graph-tooltip");
+  
+    const addTooltip = (hoverTooltip, d, x, y) => {
+      div
+        .transition()
+        .duration(200)
+        .style("opacity", 0.9);
+      div
+        .html(hoverTooltip(d))
+        .style("left", `${x}px`)
+        .style("top", `${y - 28}px`);
+    };
+  
+    const removeTooltip = () => {
+      div
+        .transition()
+        .duration(200)
+        .style("opacity", 0);
+    };
+  
+    const simulation = d3
+      .forceSimulation(nodes)
+      .force("link", d3.forceLink(links).id(d => d.id))
+      .force("charge", d3.forceManyBody().strength(-150))
+      .force("x", d3.forceX())
+      .force("y", d3.forceY());
+  
+    const svg = d3
+      .select(container)
+      .append("svg")
+      .attr("viewBox", [-width / 2, -height / 2, width, height])
+      .call(d3.zoom().on("zoom", function () {
+        svg.attr("transform", d3.event.transform);
+      }));
+  
+    const link = svg
+      .append("g")
+      .attr("stroke", "#999")
+      .attr("stroke-opacity", 0.6)
+      .selectAll("line")
+      .data(links)
+      .join("line")
+      .attr("stroke-width", d => Math.sqrt(d.value));
+  
+    const node = svg
+      .append("g")
+      .attr("stroke", "#fff")
+      .attr("stroke-width", 2)
+      .selectAll("circle")
+      .data(nodes)
+      .join("circle")
+      .attr("r", 12)
+      .attr("fill", color)
+      .call(drag(simulation));
+  
+    const label = svg.append("g")
+      .attr("class", "labels")
+      .selectAll("text")
+      .data(nodes)
+      .enter()
+      .append("text")
+      .attr('text-anchor', 'middle')
+      .attr('dominant-baseline', 'central')
+      .attr("class", d => `fa ${getClass(d)}`)
+      .text(d => {return icon(d);})
+      .call(drag(simulation));
+  
+    label.on("mouseover", (d) => {
+      addTooltip(nodeHoverTooltip, d, d3.event.pageX, d3.event.pageY);
+    })
+      .on("mouseout", () => {
+        removeTooltip();
+      });
+  
+    simulation.on("tick", () => {
+      //update link positions
+      link
+        .attr("x1", d => d.source.x)
+        .attr("y1", d => d.source.y)
+        .attr("x2", d => d.target.x)
+        .attr("y2", d => d.target.y);
+  
+      // update node positions
+      node
+        .attr("cx", d => d.x)
+        .attr("cy", d => d.y);
+  
+      // update label positions
+      label
+        .attr("x", d => { return d.x; })
+        .attr("y", d => { return d.y; })
+    });
+  
+    return {
+      destroy: () => {
+        simulation.stop();
+      },
+      nodes: () => {
+        return svg.node();
+      }
+    };
+  }
+
+  const ArcDiagram3 = () => {
+
+    const nodeHoverTooltip = React.useCallback((node) => {
+      return `<div>     
+        <b>${node.name}</b>
+      </div>`;
+    }, []);
+
+    const containerRef = useRef(null);
+
+    let linksData = data2.links;
+    let nodesData = data2.nodes;
+
+  useEffect(() => {
+    let destroyFn;
+
+    if (containerRef.current) {
+      const { destroy } = runForceGraph(containerRef.current, linksData, nodesData, nodeHoverTooltip);
+      
+      destroyFn = destroy;
+    }
+
+    return destroyFn;
+  }, []);
+
+  return <div ref={containerRef} className={""} />; //className={styles.container}
+
+//     let ref = useRef();
+//     const margin = {top: 10, right: 30, bottom: 30, left: 40},
+//   width = 400 - margin.left - margin.right,
+//   height = 400 - margin.top - margin.bottom;
+
+//     useEffect(() => {
+//       const svg = d3.select("#my_dataviz")
+// .append("svg")
+//   .attr("width", width + margin.left + margin.right)
+//   .attr("height", height + margin.top + margin.bottom)
+// .append("g")
+//   .attr("transform",
+//         `translate(${margin.left}, ${margin.top})`);
+
+//         d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_network.json").then( function( data) {
+
+//   // Initialize the links
+//   const link = svg
+//     .selectAll("line")
+//     .data(data.links)
+//     .join("line")
+//       .style("stroke", "#aaa")
+
+//   // Initialize the nodes
+//   const node = svg
+//     .selectAll("circle")
+//     .data(data.nodes)
+//     .join("circle")
+//       .attr("r", 20)
+//       .style("fill", "#69b3a2")
+
+//   // Let's list the force we wanna apply on the network
+//   const simulation = d3.forceSimulation(data.nodes)                 // Force algorithm is applied to data.nodes
+//       .force("link", d3.forceLink()                               // This force provides links between nodes
+//             .id(function(d) { return d.id; })                     // This provide  the id of a node
+//             .links(data.links)                                    // and this the list of links
+//       )
+//       .force("charge", d3.forceManyBody().strength(-400))         // This adds repulsion between nodes. Play with the -400 for the repulsion strength
+//       .force("center", d3.forceCenter(width / 2, height / 2))     // This force attracts nodes to the center of the svg area
+//       .on("end", ticked);
+
+//   // This function is run at each iteration of the force algorithm, updating the nodes position.
+//   function ticked() {
+//     link
+//         .attr("x1", function(d) { return d.source.x; })
+//         .attr("y1", function(d) { return d.source.y; })
+//         .attr("x2", function(d) { return d.target.x; })
+//         .attr("y2", function(d) { return d.target.y; });
+
+//     node
+//          .attr("cx", function (d) { return d.x+6; })
+//          .attr("cy", function(d) { return d.y-6; });
+//   }
+
+// });
+//     }, []);
+//     return (
+//       <svg viewBox="0 0 650 400"
+//         ref={ref}>
+//       </svg>
+//     )
+  }
+
   return <>
     <CapTitle base="diagram" label="diagrams" />
     <ArcDiagram />
     <ArcDiagram2 />
+    <ArcDiagram3 />
     {/* <Circle />
     <Circles /> */}
     {/* {() => forceGraph2()} */}

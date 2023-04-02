@@ -775,5 +775,20 @@
   },
   "unlockDemand": {
     "pt": "Liberar Demanda"
+  },
+  "countyNameRequired": {
+    "pt": "Nome do Município é Obrigatório"
+  },
+  "invalidEmail": {
+    "pt": "E-mail Inválido"
+  },
+  "ibgeDataError": {
+    "pt": "Erro ao Consultar Dados do IBGE"
+  },
+  "searchAutarkyByName": {
+    "pt": "Buscar Autarquia pelo Nome"
+  },
+  "autarkyNameRequired": {
+    "pt": "Nome da Autarquia é Obrigatório"
   }
 }

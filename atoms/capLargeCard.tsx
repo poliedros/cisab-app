@@ -53,17 +53,14 @@ export default function CapLargeCard({
   useEffect(() => {
     const startAnimation = (entries: any, observer: any) => {
       entries.forEach((entry: any) => {
-        entry.target.classList.toggle(
-          "slide-in-blurred-right",
-          entry.isIntersecting
-        );
+        entry.target.classList.toggle("slide-in-right", entry.isIntersecting); //slide-in-blurred-right
       });
     };
 
     const startAnimationy = (entries: any, observer: any) => {
       entries.forEach((entry: any) => {
         entry.target.classList.toggle(
-          "slide-in-blurred-left",
+          "slide-in-left", //slide-in-blurred-left
           entry.isIntersecting
         );
       });
@@ -145,34 +142,37 @@ export default function CapLargeCard({
                             <OverlayTrigger
                               //key="right"
                               placement="bottom"
+                              flip={true}
                               overlay={
                                 <Popover>
-                                  <div className="overflow-auto -m-6 p-4 invisibleScroll">
-                                    <div
-                                      className={
-                                        (theme === "dark"
-                                          ? "bg-slate-600"
-                                          : "bg-white") +
-                                        " flex font-[Jost] items-center relative py-2.5 px-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-2xl swing-in-right-bck"
-                                      }
-                                    >
-                                      <p
+                                  <>
+                                    <div className="overflow-auto px-4 pt-[0.05rem] pb-3 invisibleScroll">
+                                      <div
                                         className={
                                           (theme === "dark"
-                                            ? "!text-white"
-                                            : "") +
-                                          " px-2 mb-0.5 mr-1.5 whitespace-pre-line text-base"
+                                            ? "bg-slate-600"
+                                            : "bg-white") +
+                                          " flex font-[Jost] items-center relative py-2.5 px-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-2xl swing-in-right-bck"
                                         }
                                       >
-                                        {e.name + "\n"}
-                                        <span className="uppercase text-xs tracking-widest text-slate-300">
-                                          {e.categories.map((c: any) => {
-                                            return c + "\n";
-                                          })}
-                                        </span>
-                                      </p>
+                                        <p
+                                          className={
+                                            (theme === "dark"
+                                              ? "!text-white"
+                                              : "") +
+                                            " px-2 mb-0.5 mr-1.5 whitespace-pre-line text-base"
+                                          }
+                                        >
+                                          {e.name + "\n"}
+                                          <span className="uppercase text-xs tracking-widest text-slate-300">
+                                            {e.categories.map((c: any) => {
+                                              return c + "\n";
+                                            })}
+                                          </span>
+                                        </p>
+                                      </div>
                                     </div>
-                                  </div>
+                                  </>
                                 </Popover>
                               }
                             >
@@ -361,34 +361,37 @@ export default function CapLargeCard({
                             <OverlayTrigger
                               //key="right"
                               placement="bottom"
+                              flip={true}
                               overlay={
                                 <Popover>
-                                  <div className="overflow-auto -m-6 p-4 invisibleScroll">
-                                    <div
-                                      className={
-                                        (theme === "dark"
-                                          ? "bg-slate-600"
-                                          : "bg-white") +
-                                        " flex font-[Jost] items-center relative py-2.5 px-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-2xl swing-in-right-bck"
-                                      }
-                                    >
-                                      <p
+                                  <>
+                                    <div className="overflow-auto px-4 pt-[0.05rem] pb-3 invisibleScroll">
+                                      <div
                                         className={
                                           (theme === "dark"
-                                            ? "!text-white"
-                                            : "") +
-                                          " px-2 mb-0.5 mr-1.5 whitespace-pre-line text-base"
+                                            ? "bg-slate-600"
+                                            : "bg-white") +
+                                          " flex font-[Jost] items-center relative py-2.5 px-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-2xl swing-in-right-bck"
                                         }
                                       >
-                                        {e.name + "\n"}
-                                        <span className="uppercase text-xs tracking-widest text-slate-300">
-                                          {e.categories.map((c: any) => {
-                                            return c + "\n";
-                                          })}
-                                        </span>
-                                      </p>
+                                        <p
+                                          className={
+                                            (theme === "dark"
+                                              ? "!text-white"
+                                              : "") +
+                                            " px-2 mb-0.5 mr-1.5 whitespace-pre-line text-base"
+                                          }
+                                        >
+                                          {e.name + "\n"}
+                                          <span className="uppercase text-xs tracking-widest text-slate-300">
+                                            {e.categories.map((c: any) => {
+                                              return c + "\n";
+                                            })}
+                                          </span>
+                                        </p>
+                                      </div>
                                     </div>
-                                  </div>
+                                  </>
                                 </Popover>
                               }
                             >

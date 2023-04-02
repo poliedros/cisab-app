@@ -29,7 +29,7 @@ export default function CapInputAdvanced({
   type = "",
   isMulti = true,
   categories = [],
-  mutate,
+  mutate = undefined,
   array = [],
   setArray = undefined,
   value = undefined,
@@ -48,7 +48,7 @@ export default function CapInputAdvanced({
   type?: string;
   isMulti?: boolean;
   categories?: CategoryDTO[];
-  mutate: KeyedMutator<CategoryDTO[]>;
+  mutate?: KeyedMutator<CategoryDTO[]> | undefined;
   array?: string[];
   setArray?: any;
   value?: any;
@@ -90,12 +90,16 @@ export default function CapInputAdvanced({
               onChange={(e: any) => setArray(e.map((c: any) => c.label))}
             />
           </div>
-          <CategoryFunded
-            categories={categories}
-            mutate={mutate}
-            array={array}
-            setArray={setArray}
-          />
+          {mutate !== undefined ? (
+            <CategoryFunded
+              categories={categories}
+              mutate={mutate}
+              array={array}
+              setArray={setArray}
+            />
+          ) : (
+            <></>
+          )}
           {/* <Button className="!bg-[#7dc523] !border-0" id="button-addon2">
                     {IconsByName("fi", "FiEdit")}
                 </Button> */}

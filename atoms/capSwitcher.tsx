@@ -1,19 +1,17 @@
-import IconsByName from "components/iconsByName";
-import translations from "../lib/translations";
-
-import { useLanguage, useLanguageUpdate } from "../context/languageContext";
+import { useLanguage } from "../context/languageContext";
 import { Col, Row } from "react-bootstrap";
 import CapIconButton from "./capIconButton";
 import { useEffect, useState } from "react";
 import CapTable from "./capTable";
 import CapContainer from "./capContainer";
 import CapInputGroup from "./capInputGroup";
-import { useEffectOnce } from "usehooks-ts";
 import CapPagination from "./capPagination";
 
 export default function CapSwitcher({
   data = [],
   searchPath = undefined,
+  searchPaths = [],
+  searchPlaceholders = [],
   searchPlaceholder = "emptyText",
   tableHeaders = [],
   tableColumns = [],
@@ -34,9 +32,13 @@ export default function CapSwitcher({
   inputSetValue = undefined,
   getInput = undefined,
   date = undefined,
+  set = undefined,
+  setKeys = [],
 }: {
   data?: any[];
   searchPath?: string;
+  searchPaths?: string[];
+  searchPlaceholders?: string[];
   searchPlaceholder?: string;
   tableHeaders?: string[];
   tableColumns?: string[];
@@ -57,20 +59,25 @@ export default function CapSwitcher({
   inputSetValue?: any;
   getInput?: any;
   date?: number[];
+  set?: number;
+  setKeys?: string[];
 }) {
   const language = useLanguage();
 
   const [format, setFormat] = useState("table");
   const [search, setSearch] = useState();
+  const [searchs, setSearchs] = useState<string[]>([]);
+  const [searchsChange, setSearchsChange] = useState<boolean>(false);
   //const [dataPage, setDataPage] = useState();
   const [page, setPage] = useState(0);
 
   // data.map((d) => {
   //   inputValue?.push({ id: d._id, value: d.quantity });
   // });
+  const [dataFinal, setDataFinal] = useState(data);
 
   inputValue = data.map((d) => {
-    console.log("inv: ", d, inputValue);
+    //console.log("inv: ", d, inputValue);
     return { id: d._id, value: d.quantity };
   });
 
@@ -80,43 +87,134 @@ export default function CapSwitcher({
   //     ))
   // ) : [];
 
-  data = data.filter((f) =>
-    searchPath
-      ? searchPath
-          .split(".")
-          .reduce(function (o, k) {
-            return o && o[k];
-          }, f)
-          .match(search)
-      : true
-  );
+  // data = data.filter((f) =>
+  //   searchPath
+  //     ? searchPath
+  //         .split(".")
+  //         .reduce(function (o, k) {
+  //           return o && o[k];
+  //         }, f)
+  //         .match(search)
+  //     : true
+  // );
+
+  useEffect(() => {
+    setDataFinal(
+      data.filter((f) =>
+        searchPaths.length > 0
+          ? searchPaths.map((sp, i) => {
+              sp.split(".")
+                .reduce(function (o, k) {
+                  return o && o[k];
+                }, f)
+                .match(searchs[i]);
+            })
+          : true
+      )
+    );
+  }, []);
+
+  useEffect(() => {
+    // console.log(
+    //   searchPaths.length > 0
+    //     ? searchPaths.map((sp, i) => {
+    //         data.filter((f) =>
+    //           sp
+    //             .split(".")
+    //             .reduce(function (o, k) {
+    //               return o && o[k];
+    //             }, f)
+    //             .match(searchs[i])
+    //         );
+    //       })
+    //     : null
+    // );
+
+    data.filter((f) =>
+      console.log(
+        searchPaths.length > 0
+          ? searchPaths.map((sp, i) => {
+              sp.split(".")
+                .reduce(function (o, k) {
+                  return o && o[k];
+                }, f)
+                .match(searchs[i]);
+            })
+          : true
+      )
+    );
+
+    if (searchsChange) {
+      let bools = new Array(data.length).fill(true);
+      data.filter((f, j) =>
+        searchPaths.map((sp, i) => {
+          bools[j] =
+            bools[j] &&
+            sp
+              .split(".")
+              .reduce(function (o, k) {
+                return o && o[k];
+              }, f)
+              .match(searchs[i]) !== null
+              ? true
+              : false;
+        })
+      );
+      setDataFinal(data.filter((f, i) => bools[i]));
+    }
+
+    setSearchsChange(false);
+  }, [searchsChange]);
 
   const [dataPage, setDataPage] = useState(
-    data.slice(page * pagesSize, (page + 1) * pagesSize)
+    // data.slice(page * pagesSize, (page + 1) * pagesSize)
+    dataFinal.slice(page * pagesSize, (page + 1) * pagesSize)
   );
+
+  useEffect(() => {
+    setDataPage(dataFinal.slice(page * pagesSize, (page + 1) * pagesSize));
+  }, [dataFinal]);
 
   /* useEffect(() => {
         return setDataPage(data.slice(page * pagesSize, page * pagesSize + pagesSize));
     }, [page]); */
 
   //image
-  let dataFixImage = data;
+  // let dataFixImage = data;
+  // dataFixImage.map((p, i) => {
+  //   p.photo = { photo_url: data[i].photo_url };
+  // });
+  let dataFixImage = dataFinal;
   dataFixImage.map((p, i) => {
-    p.photo = { photo_url: data[i].photo_url };
+    p.photo = { photo_url: dataFinal[i].photo_url };
   });
+
+  // useEffect(() => {
+  //   let array = new Array(searchPaths.length).fill("a");
+  //   setSearchs(array);
+  // }, []);
 
   return (
     <>
       <Row>
-        {searchPath ? (
-          <CapInputGroup
-            setSearch={setSearch}
-            placeholder={searchPlaceholder}
-          />
-        ) : null}
+        {searchPaths.length > 0
+          ? searchPaths.map((s, i: number) => {
+              return (
+                <div key={i}>
+                  <CapInputGroup
+                    pos={i}
+                    search={searchs}
+                    setSearch={setSearchs}
+                    setSearchChange={setSearchsChange}
+                    placeholder={searchPlaceholders[i]}
+                  />
+                </div>
+              );
+            })
+          : null}
         {!standard ? (
           <Col md="auto" className="border-r-2 mr-3 !my-6">
-            <div className="flex flex-column">
+            <div className="flex flex-column items-center">
               <CapIconButton
                 css="mb-3 mt-6"
                 iconType="fa"
@@ -166,6 +264,8 @@ export default function CapSwitcher({
               pageSize={pagesSize}
               currentPage={page}
               date={date}
+              setPosition={set}
+              fields={setKeys}
             />
           ) : standard === "grid" ? (
             <CapContainer
@@ -199,10 +299,12 @@ export default function CapSwitcher({
               pageSize={pagesSize}
               currentPage={page}
               date={date}
+              setPosition={set}
+              fields={setKeys}
             />
           )}
           <CapPagination
-            content={data}
+            content={dataFinal}
             size={pagesSize}
             page={page}
             setPage={setPage}
