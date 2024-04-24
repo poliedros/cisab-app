@@ -13,8 +13,8 @@ export default function DemandList({ demands }: { demands: DemandDTO[] }) {
         data={demands}
         tableHeaders={["theme", "startDate", "endDate", "state"]}
         tableColumns={["name", "start_date", "end_date", "state"]}
-        buttons={["view", "unlock", "remove"]}
-        buttonsPaths={["/demands/", "api/demands/", "api/demands/"]}
+        buttons={["view", /*"unlock",*/ "remove"]}
+        buttonsPaths={["/demands/", /*"api/demands/",*/ "api/demands/"]}
         date={[1, 2]}
         pagesSize={9}
         standard="table"
