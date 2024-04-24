@@ -4,7 +4,7 @@ import { DemandDTO } from "pages/api/demands";
 
 export default function DemandList({ demands }: { demands: DemandDTO[] }) {
   demands.map((demand) => {
-    demand.state === "DRAFT" ? (demand.state = "Incompleto") : null;
+    demand.state === "DRAFT" ? (demand.state = "Rascunho") : null;
   });
   return (
     <>
