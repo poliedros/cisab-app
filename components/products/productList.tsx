@@ -164,8 +164,8 @@ export default function ProductList({ products }: { products: ProductDTO[] }) {
           inputValue={quantity}
           //inputSetValue={setQuantity}
           tableImage={1}
-          buttons={["view", "edit", "remove"]}
-          buttonsPaths={["/products/", "/products/", "/api/products/"]}
+          buttons={["view", /*"edit",*/ "remove"]}
+          buttonsPaths={["/products/", /*"/products/",*/ "/api/products/"]}
           searchPath={"name"}
           pagesSize={size}
           getInput={setGetInput}
