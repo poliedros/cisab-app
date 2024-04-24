@@ -306,7 +306,7 @@
     "pt": "Nome do Produto é Obrigatório"
   },
   "insertProductName": {
-    "pt": "Insera o Nome do Produto"
+    "pt": "Insira o Nome do Produto"
   },
   "searchProductByName": {
     "pt": "Buscar Produto por Nome"
@@ -315,13 +315,13 @@
     "pt": "Código do Produto"
   },
   "insertProductCode": {
-    "pt": "Insera Código do Produto"
+    "pt": "Insira o Código do Produto"
   },
   "productCategory": {
     "pt": "Categoria do Produto"
   },
   "insertProductCategory": {
-    "pt": "Insera uma Categoria do Produto"
+    "pt": "Insira uma Categoria do Produto"
   },
   "insertProductMultiCategory": {
     "pt": "Selecione uma ou mais Categorias"
@@ -468,7 +468,7 @@
     "pt": "Insira o Responsável pela Cisab"
   },
   "questionRemove": {
-    "pt": "Remover permanentemente"
+    "pt": "Remover Permanentemente"
   },
   "value": {
     "pt": "Valor"
@@ -528,7 +528,7 @@
     "pt": "Norma"
   },
   "insertNorm": {
-    "pt": "Insira texto da Norma"
+    "pt": "Insira o Texto da Norma"
   },
   "findUnitName": {
     "pt": "Buscar Unidade"

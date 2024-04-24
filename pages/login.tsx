@@ -86,9 +86,9 @@ export default function Login() {
             label="resetPassword"
             icon="CgPassword"
             iconType="cg"
-            iconColor="text-white"
+            iconColor="text-sky-500"
             href="/forgetPassword"
-            css="text-white"
+            css="text-sky-500"
           />
         </div>
         <CapMessageBottom

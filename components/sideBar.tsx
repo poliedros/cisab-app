@@ -120,63 +120,63 @@ export default function SideBar() {
     </Popover>
   );
 
-  const project = (
-    <Popover>
-      <div className="overflow-auto -mt-[2.5rem] -mb-6 -mx-5 p-4 invisibleScroll w-max">
-        <div
-          className={
-            (theme === "dark" ? "bg-slate-900" : "bg-white") +
-            " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"
-          }
-        >
-          <CapIconButton
-            iconType="hi"
-            icon="HiDocumentText"
-            size="24px"
-            route="/project/documentation"
-            hoverColor="#7dc523"
-            css="mr-3"
-            tooltip="documentation"
-          />
-          <CapIconButton
-            iconType="bs"
-            icon="BsDiagram2Fill"
-            size="24px"
-            route="/project/diagrams"
-            hoverColor="#7dc523"
-            css="mr-3"
-            tooltip="diagrams"
-          />
-          <CapIconButton
-            iconType="ri"
-            icon="RiArtboardFill"
-            size="24px"
-            route="/project/art"
-            hoverColor="#7dc523"
-            css="mr-3"
-            tooltip="art"
-          />
-          <CapIconButton
-            iconType="bi"
-            icon="BiAtom"
-            size="24px"
-            route="/project/caps"
-            hoverColor="#7dc523"
-            css="mr-3"
-            tooltip="compCaps"
-          />
-          <CapIconButton
-            iconType="ri"
-            icon="RiTestTubeFill"
-            size="24px"
-            route="/project/test"
-            hoverColor="#7dc523"
-            tooltip="testLab"
-          />
-        </div>
-      </div>
-    </Popover>
-  );
+  // const project = (
+  //   <Popover>
+  //     <div className="overflow-auto -mt-[2.5rem] -mb-6 -mx-5 p-4 invisibleScroll w-max">
+  //       <div
+  //         className={
+  //           (theme === "dark" ? "bg-slate-900" : "bg-white") +
+  //           " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"
+  //         }
+  //       >
+  //         <CapIconButton
+  //           iconType="hi"
+  //           icon="HiDocumentText"
+  //           size="24px"
+  //           route="/project/documentation"
+  //           hoverColor="#7dc523"
+  //           css="mr-3"
+  //           tooltip="documentation"
+  //         />
+  //         <CapIconButton
+  //           iconType="bs"
+  //           icon="BsDiagram2Fill"
+  //           size="24px"
+  //           route="/project/diagrams"
+  //           hoverColor="#7dc523"
+  //           css="mr-3"
+  //           tooltip="diagrams"
+  //         />
+  //         <CapIconButton
+  //           iconType="ri"
+  //           icon="RiArtboardFill"
+  //           size="24px"
+  //           route="/project/art"
+  //           hoverColor="#7dc523"
+  //           css="mr-3"
+  //           tooltip="art"
+  //         />
+  //         <CapIconButton
+  //           iconType="bi"
+  //           icon="BiAtom"
+  //           size="24px"
+  //           route="/project/caps"
+  //           hoverColor="#7dc523"
+  //           css="mr-3"
+  //           tooltip="compCaps"
+  //         />
+  //         <CapIconButton
+  //           iconType="ri"
+  //           icon="RiTestTubeFill"
+  //           size="24px"
+  //           route="/project/test"
+  //           hoverColor="#7dc523"
+  //           tooltip="testLab"
+  //         />
+  //       </div>
+  //     </div>
+  //   </Popover>
+  // );
 
   const demand = (
     <Popover>
@@ -466,7 +466,7 @@ export default function SideBar() {
           </>
         ) : null}
 
-        {/* Project Overlay */}
+        {/* Project Overlay
         {user?.roles.includes(Role.Cisab) ||
         user?.roles.includes(Role.Admin) ? (
           <>
@@ -487,7 +487,7 @@ export default function SideBar() {
               </div>
             </OverlayTrigger>
           </>
-        ) : null}
+        ) : null} */}
 
         {/* Settings Overlay */}
         <OverlayTrigger
