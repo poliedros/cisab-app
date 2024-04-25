@@ -86,7 +86,7 @@ export default function CategoryFunded({
   };
 
   const removeCategory = async (i: string, idx: number) => {
-    const data = await fetch(`/api/categories/${i}`, {
+    const data = await fetch(`/api/category/${i}`, {
       method: "DELETE",
     });
     if (data.status === 200) {
