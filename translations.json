@@ -183,7 +183,7 @@
     "pt": "Insira o Aniversário da Cidade"
   },
   "countyDistanceToCisab": {
-    "pt": "Distância da CISAB (em Km)"
+    "pt": "Distância do CISAB (em Km)"
   },
   "insertCountyDistanceToCisab": {
     "pt": "Insira a Distância"
@@ -662,6 +662,9 @@
   "insertEndDate": {
     "pt": "Insira Data de Encerramento"
   },
+  "formatDayMonth": {
+    "pt": "dd/mm"
+  },
   "productSuggestion": {
     "pt": "Sugestão de Produto"
   },
@@ -705,7 +708,7 @@
     "pt": "Sugerir Produto"
   },
   "suggestObs": {
-    "pt": "O produto criado aqui irá passar por uma validação da CISAB."
+    "pt": "O produto sugerido abaixo passará por uma validação da CISAB antes de ser aprovado."
   },
   "orders": {
     "pt": "Pedidos"

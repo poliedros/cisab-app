@@ -5,6 +5,9 @@ import translations from "../lib/translations";
 import { useLanguage, useLanguageUpdate } from "../context/languageContext";
 import { useTheme, useThemeUpdate } from "../context/themeContext";
 import { string } from "yup";
+import CapBtn from "./capBtn";
+import CapIconButton from "./capIconButton";
+import { useState } from "react";
 
 export default function CapForm({
   kind = "default",
@@ -60,6 +63,8 @@ export default function CapForm({
 
   const theme = useTheme();
   const toggleTheme = useThemeUpdate();
+
+  const [eye, setEye] = useState<boolean>(false);
 
   return (
     <>
@@ -157,14 +162,30 @@ export default function CapForm({
       ) : kind === "floating" ? (
         <FloatingLabel
           label={translations(label, language)}
-          className="mb-3 text-white"
+          className={[
+            "mb-3 text-white",
+            type === "password" ? "flex items-top justify-center" : "",
+          ].join(" ")} //#7dc523
         >
           <Form.Control
-            className="!bg-white/25 text-white"
-            type={type}
+            className="!bg-[#02aae9]/25 text-white !border-x-0 !border-t-0 !border-b-4 border-white"
+            type={!eye ? type : "text"}
             placeholder={translations(placeholder, language)}
             onChange={change}
           />
+          {type === "password" ? (
+            <CapIconButton
+              iconType="ri"
+              icon={!eye ? "RiEye2Line" : "RiEyeCloseLine"}
+              size="20px"
+              cssIcon="text-white"
+              click={() => setEye(!eye)}
+              css="!-ml-11 hover:!bg-[#02aae9]/30 p-2 mt-1"
+            />
+          ) : (
+            <></>
+          )}
+
           <Form.Text className="text-muted">
             {legend !== "emptyText" ? translations(legend, language) : null}
           </Form.Text>
