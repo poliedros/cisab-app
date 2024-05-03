@@ -168,7 +168,7 @@ export default function CapForm({
           ].join(" ")} //#7dc523
         >
           <Form.Control
-            className="!bg-[#02aae9]/25 text-white !border-x-0 !border-t-0 !border-b-4 border-white"
+            className="!bg-[#02aae9]/25 text-white !border-x-0 !border-t-0 !border-b-4 border-white relative"
             type={!eye ? type : "text"}
             placeholder={translations(placeholder, language)}
             onChange={change}
@@ -180,7 +180,7 @@ export default function CapForm({
               size="20px"
               cssIcon="text-white"
               click={() => setEye(!eye)}
-              css="!-ml-11 hover:!bg-[#02aae9]/30 p-2 mt-1"
+              css="hover:!bg-[#02aae9]/30 p-2 mt-1 mr-1 absolute top-0 right-0"
             />
           ) : (
             <></>
