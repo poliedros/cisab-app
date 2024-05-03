@@ -498,7 +498,7 @@ export default function ProductCreation({
                       as={Col}
                       label="value" //"scale"
                       placeholder="insertValue" //"insertScale"
-                      type="number"
+                      type="text"
                       //value={measures}
                       change={
                         (e: any) => handleUnitValue(e) //alert(e.target.value)
