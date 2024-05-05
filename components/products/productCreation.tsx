@@ -43,11 +43,13 @@ export default function ProductCreation({
   submit,
   title,
   suggest = false,
+  code,
 }: {
   product?: ProductDTO | undefined;
   submit: (product: ProductDTO) => Promise<ProductDTO | undefined>;
   title?: string;
   suggest?: boolean;
+  code?: string;
 }) {
   const theme = useTheme();
   const language = useLanguage();
@@ -85,7 +87,7 @@ export default function ProductCreation({
 
   const [k, setK] = useState(undefined);
 
-  const [code, setCode] = useState("");
+  // const [code, setCode] = useState("");
   const [categorySt, setcategorySt] = useState([""]);
 
   const [productId, setProductId] = useState();
@@ -453,10 +455,12 @@ export default function ProductCreation({
                     as={Col}
                     label="productCode"
                     placeholder="insertProductCode"
+                    type="number"
                     value={code}
-                    change={
-                      (e: any) => setCode(e.target.value) //setProductName(e.target.value)
-                    }
+                    disabled={true}
+                    // change={
+                    //   (e: any) => setCode(e.target.value) //setProductName(e.target.value)
+                    // }
                     /* legend="exampleProductName" */
                   />
                   <Col>
@@ -1340,7 +1344,11 @@ export default function ProductCreation({
                 <CapResponse
                   type="success"
                   titles={["productName", "code", "norms"]}
-                  descriptions={[productName, code, arrayNorms.join(" ")]}
+                  descriptions={[
+                    productName,
+                    code ? code : "",
+                    arrayNorms.join(" "),
+                  ]}
                 ></CapResponse>
               </>,
             ]}
