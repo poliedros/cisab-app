@@ -37,6 +37,7 @@ import CapParagraph from "atoms/capParagraph";
 import { useTheme } from "context/themeContext";
 import CapOverlayTrigger from "atoms/capOverlayTrigger";
 import CapResponse from "atoms/capResponse";
+import CapSubtitle from "atoms/capSubtitle";
 
 export default function ProductCreation({
   product = undefined,
@@ -930,7 +931,7 @@ export default function ProductCreation({
                                 )
                               : null;
                           }}
-                          mouseEnter={() => setDescription("finalize")}
+                          mouseEnter={() => setDescription("goToInsertImage")}
                           mouseLeave={() => setDescription("emptyText")}
                         />
                         {/* <CapIconButton
@@ -1081,10 +1082,14 @@ export default function ProductCreation({
                 </Row>
               </>,
               <>
+                <CapSubtitle
+                  label="accessories"
+                  css="!border-0 mb-3 !text-left !mt-0"
+                />
                 <CapInputAdvanced
                   kind="product"
-                  label="productName"
-                  placeholder="insertMultiProducts"
+                  label="accessories"
+                  placeholder="insertMultiAccessories"
                   products={products}
                   setArray={setListProd}
                   mutate={function (
