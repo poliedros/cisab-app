@@ -70,7 +70,6 @@ export default function CapSwitcher({
   // });
 
   inputValue = data.map((d) => {
-    console.log("inv: ", d, inputValue);
     return { id: d._id, value: d.quantity };
   });
 

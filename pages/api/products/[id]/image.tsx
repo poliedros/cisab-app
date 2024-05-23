@@ -19,17 +19,26 @@ async function handler(
   }
   console.log("Qualquer coisa");
   console.log(req.query.id);
-  console.log(req.body);
+  console.log(req.body.slice(0, 10));
+  const blob = new Blob([req.body], { type: "plain/text" });
 
-  if (req.method === "POST") { //|| req.method === "PUT"
-    const { data } = await axios.post(process.env.API_URL + `/products/${req.query.id}/image`, req.body, {
+  if (req.method === "POST") {
+    var formdata = new FormData();
+    formdata.append("file", blob, `img_${req.query.id}.png`);
+
+    const response = await fetch(
+      process.env.API_URL + `/products/${req.query.id}/image`,
+      {
         headers: {
           Authorization: "Bearer " + user.token,
-          "Content-Type": "multipart/form-data",
         },
-    });
-    
-    res.status(data.status).json(data);
+        method: "POST",
+        body: formdata,
+      }
+    );
+    const data = await response.json();
+    console.log(data);
+    res.status(response.status).json(data);
     return;
   }
 }

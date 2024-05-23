@@ -708,7 +708,7 @@
     "pt": "Sugerir Produto"
   },
   "suggestObs": {
-    "pt": "O produto sugerido abaixo passará por uma validação da CISAB antes de ser aprovado."
+    "pt": "O produto sugerido abaixo passará por uma validação do CISAB, antes de ser aprovado."
   },
   "orders": {
     "pt": "Pedidos"

@@ -222,24 +222,27 @@ export default function ProductCreation({
   };
 
   const saveImage = async (image: any): Promise<any> => {
-    const { data } = await axios.post(
-      `/api/products/${productId}/image`,
-      { file: image },
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
+    // const { data } = await axios.post(
+    //   `/api/products/${productId}/image`,
+    //   { file: image },
+    //   {
+    //     headers: {
+    //       "Content-Type": "multipart/form-data",
+    //     },
+    //   }
+    // );
+    // var FormData = require("form-data");
+    // var formdata = new FormData();
+    // formdata.append("file", image, `img_${productId}.png`);
 
-    /* const data2 = await fetch(`/api/products/${productId}/image`, {
-            method: "POST",
-            body: JSON.stringify(image),
-        }); */
+    const data = await fetch(`/api/products/${productId}/image`, {
+      method: "POST",
+      body: image,
+    });
 
     // alert("Image: " + data.status);
 
-    const result = await data.json();
+    // const result = await data.json();
     return undefined;
   };
 
