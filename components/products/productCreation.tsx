@@ -97,7 +97,6 @@ export default function ProductCreation({
   const ref = useRef();
 
   const { user } = useUser({ redirectTo: "/login" });
-  // useRole({ user, role: Role.Cisab, redirectTo: "/" });
 
   const {
     data: units,
@@ -147,33 +146,22 @@ export default function ProductCreation({
       method: "POST",
       body: JSON.stringify(product),
     });
-    //alert(data.status);
 
     if (data.status === 201) setShowSave(true);
-    //<CapMessageBottom literal="Salvou" show={showSave} setShow={setShowSave} />
-    else setShowError(true); //<CapMessageBottom literal="Erro" show={showError} setShow={setShowError} />
+    else setShowError(true); 
     const result = await data.json();
     setProductId(result._id);
-    //alert(JSON.stringify(result));
+   
     return undefined;
   };
 
   const handleProduct = async () => {
-    //alert(categories);
+    
     const _id = product?._id;
     let mea: Measure;
     let meaRes = array;
     let norRes = arrayNorms;
-    let prodRes = listProd; //arrayProducts.map((p: any) => p._id);
-    /* let meaRes: Measure[] = [];
-        array.map((a, i) => {
-            mea = {
-                name: measures[i],
-                value: unitsValue[i],
-                unit: a,
-            };
-            meaRes.push(mea);
-        }); */
+    let prodRes = listProd; 
     let productResult: ProductDTO = {
       _id: _id ?? "0",
       name: productName,
@@ -185,27 +173,18 @@ export default function ProductCreation({
       categories: listCat ?? [],
     };
 
-    //alert(JSON.stringify(productResult))
+    
     setStep(3);
     await saveProduct(productResult);
   };
 
   const handleProductLast = async () => {
-    //alert(categories);
+    
     const _id = product?._id;
     let mea: Measure;
     let meaRes = array;
     let norRes = arrayNorms;
-    let prodRes = listProd; //arrayProducts.map((p: any) => p._id);
-    /* let meaRes: Measure[] = [];
-        array.map((a, i) => {
-            mea = {
-                name: measures[i],
-                value: unitsValue[i],
-                unit: a,
-            };
-            meaRes.push(mea);
-        }); */
+    let prodRes = listProd; 
     let productResult: ProductDTO = {
       _id: _id ?? "0",
       name: productName,
@@ -216,7 +195,7 @@ export default function ProductCreation({
       accessory_ids: prodRes ?? [],
       categories: listCat ?? [],
     };
-    //alert(JSON.stringify(productResult))
+    
     setStep(4);
     await saveProduct(productResult);
   };
@@ -239,8 +218,6 @@ export default function ProductCreation({
       method: "POST",
       body: image,
     });
-
-    // alert("Image: " + data.status);
 
     // const result = await data.json();
     return undefined;
@@ -266,13 +243,9 @@ export default function ProductCreation({
     return <CapResponse type="404" />;
   }
 
-  //console.log(array);
-  //console.log(list);
-
   const Overlay = (show: boolean, setShow: any) => {
     return (
       <OverlayTrigger
-        //ref="overlay"
         trigger="click"
         placement="top-end"
         show={show}
@@ -339,8 +312,6 @@ export default function ProductCreation({
                       <br />
                     </>
                   )}
-                  {/* Medidas: {measures.join(", ")} <br/>
-                                                            Tamanhos: {unitsValue.join(", ")} <br/> */}
                   <span className="uppercase text-xs tracking-widest text-slate-300">
                     {translations("measures", language)}
                   </span>
@@ -368,7 +339,6 @@ export default function ProductCreation({
                         })
                         .join("\n")
                     : null}
-                  {/* {measurementRef.current ? measurementRef.current.handleScanArray() : null} */}
                 </p>
                 <CapIconButton
                   css="!bg-[#7dc523]"
@@ -381,7 +351,7 @@ export default function ProductCreation({
                     () => {
                       setShow(false);
                       setStep(1);
-                    } //this.refs.overlay.hide();
+                    } 
                   }
                 />
               </div>
@@ -400,7 +370,7 @@ export default function ProductCreation({
               measurementRef.current
                 ? setMesuamentSt(measurementRef.current.handleScanArray())
                 : null;
-            }} //{measurementRef.current ? measurementRef.current.handleScanArray() : null; setStep(1)}
+            }}
             mouseEnter={() => setDescription("continueFillingOut")}
             mouseLeave={() => setDescription("emptyText")}
           />
@@ -413,7 +383,7 @@ export default function ProductCreation({
     <>
       <CapTitle
         base="product"
-        label={suggest ? "suggestProduct" : "addProduct"} //{county ? "editCounty" : "countyRegistration"}
+        label={suggest ? "suggestProduct" : "addProduct"} 
       />
       <CapParagraph label={"suggestObs"} show={suggest} />
 
@@ -439,15 +409,14 @@ export default function ProductCreation({
             stagesIconsTypes={["hi", "fa", "bs", "io5", "ri"]}
             stagesBody={[
               <>
-                {/* <ProductCreationInformation productName={""} setProductName={undefined} code={""} setCode={undefined} categories={[]} mutateCat={undefined} listCat={[]} setListCat={undefined} units={[]} mutate={undefined} list={[]} setList={undefined} description={description} setDescription={setDescription} array={undefined} setArray={undefined} setStep={undefined} handleProduct={undefined} handleUnitValue={undefined} handleProductMeasure={undefined} /> */}
-                <CapForm
+               <CapForm
                   key={0}
                   as={Col}
                   label="productName"
                   placeholder="insertProductName"
                   value={productName}
                   change={
-                    (e: any) => setProductName(e.target.value) //setProductName(e.target.value)
+                    (e: any) => setProductName(e.target.value) 
                   }
                   legend="exampleProductName"
                 />
@@ -459,9 +428,8 @@ export default function ProductCreation({
                     placeholder="insertProductCode"
                     value={code}
                     change={
-                      (e: any) => setCode(e.target.value) //setProductName(e.target.value)
+                      (e: any) => setCode(e.target.value)
                     }
-                    /* legend="exampleProductName" */
                   />
                   <Col>
                     <CapInputAdvanced
@@ -473,40 +441,29 @@ export default function ProductCreation({
                       setArray={setListCat}
                     />
                   </Col>
-                  {/* <CapForm
-                                            key={0}
-                                            as={Col}
-                                            label="productCategory"
-                                            placeholder="insertProductCategory"
-                                        /> */}
                 </Row>
-                {/* {
-                                        setComponents()
-                                    } */}
                 <CapContainerAdd
                   ref={measurementRef}
                   components={[
                     <CapForm
                       key={0}
                       as={Col}
-                      label="measureName" //"measure"
-                      placeholder="insertMeasureName" //"insertMeasureName"
-                      //value={} //(e: any) => measures[e.target.parentElement.parentElement.parentElement.id]
+                      label="measureName"
+                      placeholder="insertMeasureName" 
                       change={
-                        (e: any) => handleProductMeasure(e) //console.log(e.target.parentElement.parentElement.parentElement.id ) //setMeasures(e.target.value)
+                        (e: any) => handleProductMeasure(e)
                       }
                       legend="exampleMeasure"
                     />,
                     <CapForm
                       key={0}
                       as={Col}
-                      label="value" //"scale"
-                      placeholder="insertValue" //"insertScale"
+                      label="value" 
+                      placeholder="insertValue"
                       type="number"
-                      //value={measures}
                       change={
-                        (e: any) => handleUnitValue(e) //alert(e.target.value)
-                      } //setMeasures([...measures, e.target.value])
+                        (e: any) => handleUnitValue(e)
+                      }
                     />,
                     <Col key={0}>
                       <UnitFunded
@@ -515,56 +472,11 @@ export default function ProductCreation({
                         array={list}
                         setArray={setList}
                       />{" "}
-                      {/* (e: any) => setFunc(e) (e: any) => handleUnitName(e) */}
                     </Col>,
                   ]}
-                  //setComponents={setComponents}
-                  key={k}
                   resultArray={array}
                   setResultArray={setArray}
                 />
-                {/* unit.map((m, i) => 
-                                <div key={i}>
-                                    <Row className="mb-3 items-center">
-                                        <CapForm
-                                            as={Col}
-                                            label="measure"
-                                            placeholder="insertMeasure"
-                                            /* value={countyMayor}
-                                            change={(e: any) => setCountyMayor(e.target.value)} /
-                                        />
-                                        <CapForm
-                                            as={Col}
-                                            label="unit"
-                                            placeholder="insertUnit"
-                                            /* value={countyMayor}
-                                            change={(e: any) => setCountyMayor(e.target.value)} /
-                                        />
-                                        <Col>
-                                                <UnitFunded units={units} />
-                                        </Col>
-                                        {/* <CapForm
-                                            kind="select"
-                                            as={Col}
-                                            label="selectScale"
-                                            optionsDefault={1}
-                                            options={["centímetros", "polegadas", "mililitros", "graus"]}
-                                            /* value={countyState}
-                                            change={(e: any) => setCountyState(e.target.value)} /
-                                        /> /}
-                                        {i !== unit.length -1 ? <Col md="auto">
-                                            <CapIconButton iconType="fa" icon="FaMinus" size="18px" click={() => setUnit(unit.filter(function(uni, j) { 
-                                            return j !== i 
-                                        }))} />
-                                        </Col>
-                                        : <Col md="auto">
-                                            <CapIconButton iconType="fa" icon="FaPlus" size="18px" click={() => setUnit([...unit, "2"])} />
-                                        </Col>
-                                        }
-                                    </Row>
-                                    </div>
-                                    ) */}
-                {/* <CapBtn kind="next" click={handleProduct} /> */}
                 <Row className="flex justify-end items-end">
                   <Col>
                     <CapLegend label={description} />
@@ -627,37 +539,15 @@ export default function ProductCreation({
                           css="rotate-in-2-fwd-ccw1"
                           click={() => {
                             setShowOT2(true);
-                            //measurementRef.current
-                            //handleScanArray
-                            //?
                             setMesuamentSt(
                               measurementRef.current.handleScanArray()
                             );
-                            //: null;
                           }}
                           mouseEnter={() => setDescription("goToInsertImage")}
                           mouseLeave={() => setDescription("emptyText")}
                         />
                       }
                     />
-                    {/* <CapIconButton
-                                            iconType="io5"
-                                            icon="IoImageOutline"
-                                            size="20px"
-                                            click={handleProduct}
-                                            mouseEnter={() =>
-                                                setDescription("finalize")
-                                            }
-                                            mouseLeave={() =>
-                                                setDescription("emptyText")
-                                            }
-                                        /> */}
-                    {/* <CapBtn
-                                                label="finalize"
-                                                iconType="io5"
-                                                icon="IoImageOutline"
-                                                click={handleProduct} //() => setStep(3)
-                                            /> */}
                   </Col>
                   <Col md="auto" className="!pl-0 !pr-3">
                     <CapOverlayTrigger
@@ -682,37 +572,15 @@ export default function ProductCreation({
                           css="rotate-in-2-fwd-ccw2"
                           click={() => {
                             setShowOT1(true);
-                            //measurementRef.current
-                            //handleScanArray
-                            //?
                             setMesuamentSt(
                               measurementRef.current.handleScanArray()
                             );
-                            //: null;
                           }}
                           mouseEnter={() => setDescription("goToAccessory")}
                           mouseLeave={() => setDescription("emptyText")}
                         />
                       }
                     />
-                    {/* <CapIconButton
-                                            iconType="md"
-                                            icon="MdOutlineAddCircleOutline"
-                                            size="20px"
-                                            click={() => setStep(2)}
-                                            mouseEnter={() =>
-                                                setDescription("goToAccessory")
-                                            }
-                                            mouseLeave={() =>
-                                                setDescription("emptyText")
-                                            }
-                                        /> */}
-                    {/* <CapBtn
-                                                label="goToAccessory"
-                                                iconType="md"
-                                                icon="MdOutlineAddCircleOutline"
-                                                click={() => setStep(2)}
-                                            /> */}
                   </Col>
                   <Col md="auto" className="!pl-0">
                     <CapOverlayTrigger
@@ -737,15 +605,10 @@ export default function ProductCreation({
                           css="rotate-in-2-fwd-ccw3"
                           click={() => {
                             setShowOT(true);
-                            //measurementRef.current
-                            //handleScanArray
-                            //?
-
                             setMesuamentSt(
                               measurementRef.current.handleScanArray()
                             );
-                            //: null;
-                          }} //{measurementRef.current ? measurementRef.current.handleScanArray() : null; setStep(1)}
+                          }} 
                           mouseEnter={() =>
                             setDescription("continueFillingOut")
                           }
@@ -753,93 +616,6 @@ export default function ProductCreation({
                         />
                       }
                     />
-                    {/* <OverlayTrigger
-                                        //ref="overlay"
-                                        trigger="click"
-                                        placement="top-end"
-                                        show={showOT}
-                                        onToggle={() => setShowOT(!showOT)}
-                                        overlay={
-                                            <Popover>
-                                                <div className="overflow-auto -m-6 p-4 invisibleScroll">
-                                                    <div
-                                                        className={
-                                                            (theme === "dark"
-                                                                ? "bg-slate-600"
-                                                                : "bg-white") +
-                                                            " flex font-[Jost] items-center relative py-2.5 px-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-2xl swing-in-right-bck"
-                                                        }
-                                                    >
-                                                        <p
-                                                            className={
-                                                                (theme === "dark"
-                                                                    ? "!text-white"
-                                                                    : "") +
-                                                                " px-2 mb-0.5 mr-1.5 whitespace-pre-line text-base"
-                                                            }
-                                                        >
-                                                            {productName && productName !== "" ? (<><span className="uppercase text-xs tracking-widest text-slate-300">{translations("productName", language)}</span><br/> {productName} <br/></>) : <><span className="uppercase text-xs tracking-widest text-[#f62217]">{translations("productNameRequired", language)}</span><br/></>}
-                                                            {code && code !== "" ? (<><span className="uppercase text-xs tracking-widest text-slate-300">{translations("code", language)}</span><br/> {code} <br/></>) : <><span className="uppercase text-xs tracking-widest text-slate-300">{translations("code", language)}</span><br/>{translations("noCodeAdded", language)}<br/></>}
-                                                            {listCat.length > 0 && listCat[0].length !== 0 ? (<><span className="uppercase text-xs tracking-widest text-slate-300">{translations("categories", language)}</span><br/> {listCat.join(", ")} <br/></>) : <><span className="uppercase text-xs tracking-widest text-[#f62217]">{translations("atLeastOneCategoryRequired", language)}</span><br/></>}
-                                                            
-                                                            <span className="uppercase text-xs tracking-widest text-slate-300">{translations("measures", language)}</span><br/>
-                                                            { mesuamentSt ? mesuamentSt.map((m: any) => {return (m.name && m.name !== "" && m.value && m.value !== "" && m.unit && m.unit !== "Unidade") ? m.name + ": " + m.value + " " + m.unit : !(m.name && m.name !== "" && m.value && m.value !== "" && m.unit && m.unit !== "Unidade") ? translations("incorrectedMeasureAdded", language) : translations("noMeasureAdded", language)}).join("\n") : null}
-                                                            
-                                                        </p>
-                                                        <CapIconButton
-                                                            css="!bg-[#7dc523]"
-                                                            iconType="gr"
-                                                            icon="GrCheckmark"
-                                                            size="14px"
-                                                            //variant="success"
-                                                            hoverColor="transparent"
-                                                            click={() =>
-                                                               { setShowOT(false); setStep(1)} //this.refs.overlay.hide();
-                                                            }
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </Popover>
-                                        }
-                                        rootClose
-                                    >
-                                        <div>
-                                        <CapIconButton
-                                            iconType="md"
-                                            icon="MdNavigateNext"
-                                            size="20px"
-                                            click={() => {setShowOT(true); measurementRef.current ? setMesuamentSt(measurementRef.current.handleScanArray()) : null}} //{measurementRef.current ? measurementRef.current.handleScanArray() : null; setStep(1)}
-                                            mouseEnter={() =>
-                                                setDescription(
-                                                    "continueFillingOut"
-                                                )
-                                            }
-                                            mouseLeave={() =>
-                                                setDescription("emptyText")
-                                            }
-                                        />
-                                        </div>
-                                    </OverlayTrigger> */}
-                    {/* <CapIconButton
-                                            iconType="md"
-                                            icon="MdNavigateNext"
-                                            size="20px"
-                                            click={() => {measurementRef.current ? measurementRef.current.handleScanArray() : null; setStep(1)}}
-                                            mouseEnter={() =>
-                                                setDescription(
-                                                    "continueFillingOut"
-                                                )
-                                            }
-                                            mouseLeave={() =>
-                                                setDescription("emptyText")
-                                            }
-                                        /> */}
-                    {/* <CapBtn
-                                                label="continueFillingOut"
-                                                iconType="md"
-                                                icon="MdNavigateNext"
-                                                click={() => setStep(1)}
-                                            /> */}
                   </Col>
                 </Row>
               </>,
@@ -860,15 +636,12 @@ export default function ProductCreation({
                   resultArray={arrayNorms}
                   setResultArray={setArrayNorms}
                 />
-                {/* <CapIconButton iconType="" icon="" click={() => childRef.current ? childRef.current.handleContainer() : null} />
-                                {arrayNorms} */}
                 <Row className="flex justify-end items-end">
                   <Col>
                     <CapLegend label={description} />
                   </Col>
                   <Col md="auto" className="!pl-0 !pr-3">
                     <OverlayTrigger
-                      //ref="overlay"
                       trigger="click"
                       placement="top-end"
                       show={showOT3}
@@ -899,7 +672,6 @@ export default function ProductCreation({
                                     return an;
                                   })
                                   .join("\n")}
-                                {/* {measurementRef.current ? measurementRef.current.handleScanArray() : null} */}
                               </p>
                               <CapIconButton
                                 css="!bg-[#7dc523]"
@@ -912,7 +684,7 @@ export default function ProductCreation({
                                   () => {
                                     setShowOT3(false);
                                     handleProduct();
-                                  } //this.refs.overlay.hide();
+                                  }
                                 }
                               />
                             </div>
@@ -937,44 +709,11 @@ export default function ProductCreation({
                           mouseEnter={() => setDescription("goToInsertImage")}
                           mouseLeave={() => setDescription("emptyText")}
                         />
-                        {/* <CapIconButton
-                                            iconType="md"
-                                            icon="MdNavigateNext"
-                                            size="20px"
-                                            click={() => setShowOT(true)} //{measurementRef.current ? measurementRef.current.handleScanArray() : null; setStep(1)}
-                                            mouseEnter={() =>
-                                                setDescription(
-                                                    "continueFillingOut"
-                                                )
-                                            }
-                                            mouseLeave={() =>
-                                                setDescription("emptyText")
-                                            }
-                                        /> */}
                       </div>
                     </OverlayTrigger>
-                    {/* <CapIconButton
-                                            iconType="io5"
-                                            icon="IoImageOutline"
-                                            size="20px"
-                                            click={handleProduct}
-                                            mouseEnter={() =>
-                                                setDescription("finalize")
-                                            }
-                                            mouseLeave={() =>
-                                                setDescription("emptyText")
-                                            }
-                                        /> */}
-                    {/* <CapBtn
-                                                label="finalize"
-                                                iconType="io5"
-                                                icon="IoImageOutline"
-                                                click={handleProduct} //() => setStep(3)
-                                            /> */}
                   </Col>
                   <Col md="auto" className="!pl-0">
                     <OverlayTrigger
-                      //ref="overlay"
                       trigger="click"
                       placement="top-end"
                       show={showOT}
@@ -1005,20 +744,18 @@ export default function ProductCreation({
                                     return an;
                                   })
                                   .join("\n")}
-                                {/* {measurementRef.current ? measurementRef.current.handleScanArray() : null} */}
                               </p>
                               <CapIconButton
                                 css="!bg-[#7dc523]"
                                 iconType="gr"
                                 icon="GrCheckmark"
                                 size="14px"
-                                //variant="success"
                                 hoverColor="transparent"
                                 click={
                                   () => {
                                     setShowOT(false);
                                     setStep(2);
-                                  } //this.refs.overlay.hide();
+                                  }
                                 }
                               />
                             </div>
@@ -1045,42 +782,8 @@ export default function ProductCreation({
                           }
                           mouseLeave={() => setDescription("emptyText")}
                         />
-                        {/* <CapIconButton
-                                            iconType="md"
-                                            icon="MdNavigateNext"
-                                            size="20px"
-                                            click={() => setShowOT(true)} //{measurementRef.current ? measurementRef.current.handleScanArray() : null; setStep(1)}
-                                            mouseEnter={() =>
-                                                setDescription(
-                                                    "continueFillingOut"
-                                                )
-                                            }
-                                            mouseLeave={() =>
-                                                setDescription("emptyText")
-                                            }
-                                        /> */}
                       </div>
                     </OverlayTrigger>
-                    {/* <CapIconButton
-                                            iconType="md"
-                                            icon="MdNavigateNext"
-                                            size="20px"
-                                            click={() => {childRef.current ? childRef.current.handleContainer() : null; setStep(2)}}
-                                            mouseEnter={() =>
-                                                setDescription(
-                                                    "continueFillingOut"
-                                                )
-                                            }
-                                            mouseLeave={() =>
-                                                setDescription("emptyText")
-                                            }
-                                        /> */}
-                    {/* <CapBtn
-                                                label="continueFillingOut"
-                                                iconType="md"
-                                                icon="MdNavigateNext"
-                                                click={() => setStep(2)}
-                                            /> */}
                   </Col>
                 </Row>
               </>,
@@ -1106,103 +809,11 @@ export default function ProductCreation({
                     throw new Error("Function not implemented.");
                   }}
                 />
-                {/* <CapContainerAdd
-                  type="product"
-                  components={[
-                    <CapForm
-                      key={0}
-                      as={Col}
-                      label="productName"
-                      placeholder="insertProductName"
-                      // value={productName}
-                      //                           change={
-                      //                               (e: any) =>
-                      //                                   setProductName(
-                      //                                       e.target.value
-                      //                                   ) //setProductName(e.target.value)
-                      //                           }
-                      legend="exampleProductName"
-                    />,
-                    <>
-                      <Row className="flex items-center">
-                        <CapForm
-                          key={0}
-                          as={Col}
-                          label="productCode"
-                          placeholder="insertProductCode"
-                          // value={code}
-                          //                               change={(e: any) =>
-                          //                                   setCode(
-                          //                                       e.target.value
-                          //                                   )
-                          //                               }
-                        />
-                        <Col>
-                          <CapInputAdvanced
-                            label="productCategory"
-                            placeholder="insertProductMultiCategory"
-                            categories={categories}
-                            mutate={mutate}
-                            array={listCat}
-                            setArray={setListCat}
-                          />
-                        </Col>
-                      </Row>
-                    </>,
-                    <CapContainerAdd
-                      id="123"
-                      components={[
-                        <>
-                          <Row>
-                            <CapForm
-                              key={0}
-                              as={Col}
-                              label="measure" //"measure"
-                              placeholder="insertMeasure" //"insertMeasureName"
-                              //value={} //(e: any) => measures[e.target.parentElement.parentElement.parentElement.id]
-                              change={
-                                (e: any) => handleProductMeasure(e) //console.log(e.target.parentElement.parentElement.parentElement.id ) //setMeasures(e.target.value)
-                              }
-                              legend="exampleMeasure"
-                            />
-                          </Row>
-                        </>,
-                        <CapForm
-                          key={0}
-                          as={Col}
-                          label="quantity" //"scale"
-                          placeholder="insertQuantity" //"insertScale"
-                          type="number"
-                          //value={measures}
-                          change={
-                            (e: any) => handleUnitValue(e) //alert(e.target.value)
-                          } //setMeasures([...measures, e.target.value])
-                        />,
-                        <Col key={0}>
-                          <UnitFunded
-                            units={units}
-                            mutate={mutate}
-                            array={list}
-                            setArray={setList}
-                          />{" "}
-                          // (e: any) => setFunc(e) (e: any) => handleUnitName(e)
-                        </Col>,
-                      ]}
-                      //setComponents={setComponents}
-                      key={k}
-                      resultArray={array}
-                      setResultArray={setArray}
-                    />,
-                  ]}
-                  resultArray={[]}
-                  setResultArray={undefined}
-                /> */}
                 <div className="flex justify-end items-end">
                   <Col>
                     <CapLegend label={description} />
                   </Col>
                   <OverlayTrigger
-                    //ref="overlay"
                     trigger="click"
                     placement="top-end"
                     show={showOT}
@@ -1233,17 +844,15 @@ export default function ProductCreation({
                                   }
                                 })
                                 .join(" ")}
-                              {/* {measurementRef.current ? measurementRef.current.handleScanArray() : null} */}
                             </p>
                             <CapIconButton
                               css="!bg-[#7dc523]"
                               iconType="gr"
                               icon="GrCheckmark"
                               size="14px"
-                              //variant="success"
                               hoverColor="transparent"
                               click={
-                                handleProduct //this.refs.overlay.hide();
+                                handleProduct
                               }
                             />
                           </div>
@@ -1253,20 +862,6 @@ export default function ProductCreation({
                     rootClose
                   >
                     <div>
-                      {/* <CapIconButton
-                                            iconType="md"
-                                            icon="MdNavigateNext"
-                                            size="20px"
-                                            click={() => setShowOT(true)}
-                                            mouseEnter={() =>
-                                                setDescription(
-                                                    "continueFillingOut"
-                                                )
-                                            }
-                                            mouseLeave={() =>
-                                                setDescription("emptyText")
-                                            }
-                                        /> */}
                       <CapIconButton
                         iconType="md"
                         icon="MdNavigateNext"
@@ -1277,32 +872,13 @@ export default function ProductCreation({
                       />
                     </div>
                   </OverlayTrigger>
-                  {/* <CapIconButton
-                                        iconType="md"
-                                        icon="MdNavigateNext"
-                                        size="20px"
-                                        click={handleProduct} //() => setStep(3)
-                                        mouseEnter={() =>
-                                            setDescription("continueFillingOut")
-                                        }
-                                        mouseLeave={() =>
-                                            setDescription("emptyText")
-                                        }
-                                    /> */}
                 </div>
-                {/* <CapBtn
-                                        label="continueFillingOut"
-                                        iconType="md"
-                                        icon="MdNavigateNext"
-                                        click={handleProduct} //() => setStep(3)
-                                    /> */}
               </>,
               <>
                 <CapImage key={0} src={""} />
                 <CapForm
                   label="image"
                   type="file"
-                  //value={imageSt}
                   change={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setBigFileWarning(false);
 
@@ -1337,12 +913,6 @@ export default function ProductCreation({
                     />
                   </Col>
                 </Row>
-                {/* <CapBtn
-                                        label="finalize"
-                                        iconType="ri"
-                                        icon="RiCheckboxCircleLine"
-                                        click={() => setStep(4)}
-                                    /> */}
               </>,
               <>
                 <CapResponse
@@ -1364,24 +934,9 @@ export default function ProductCreation({
             show={showError}
             setShow={setShowError}
           />
-
-          {/* <Row>
-                            <Col>
-                            <CapTinyCard />
-                            </Col>
-                            <Col>
-                            <CapTinyCard />
-                            </Col>
-                            <Col>
-                            <CapTinyCard />
-                            </Col>
-                            <Col>
-                            <CapTinyCard />
-                            </Col>
-                        </Row> */}
         </Row>
       </Form>
-      {/* <CapMessageBottom literal="Bloqueado" show={showBlocked} setShow={setShowBlocked} externCss="-mt-6" /> */}
+   
     </>
   );
 }
