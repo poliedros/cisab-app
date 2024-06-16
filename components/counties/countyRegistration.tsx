@@ -420,6 +420,20 @@ export default function CountyRegistration({
               }
             }}
           />
+          <CapMessageBottom
+            label={"ErrorOperation"}
+            css="text-red-600"
+            externCss={"bottom-[1vh]"}
+            show={errorMessage}
+            setShow={setErrorMessage}
+          />
+          <CapMessageBottom
+            label={"successOperation"}
+            css="text-green-600"
+            externCss={"bottom-[1vh]"}
+            show={successMessage}
+            setShow={setSuccessMessage}
+          />
         </Form>
       </Container>
       <CountyImageModal
@@ -427,21 +441,6 @@ export default function CountyRegistration({
         onHide={() => setImageStage(false)}
         county={countyRegister}
         submit={submit}
-      />
-
-      <CapMessageBottom
-        label={"ErrorOperation"}
-        css="text-red-600"
-        externCss={"-bottom-[15vh]"}
-        show={errorMessage}
-        setShow={setErrorMessage}
-      />
-      <CapMessageBottom
-        label={"successOperation"}
-        css="text-green-600"
-        externCss={"-bottom-[15vh]"}
-        show={successMessage}
-        setShow={setSuccessMessage}
       />
     </>
   );
