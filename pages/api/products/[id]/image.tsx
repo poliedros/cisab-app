@@ -17,10 +17,8 @@ async function handler(
     res.status(401).json({} as ImageDTO);
     return;
   }
-  console.log("Qualquer coisa");
-  console.log(req.query.id);
-  console.log(req.body.slice(0, 10));
-  const blob = new Blob([req.body], { type: "plain/text" });
+
+  const blob = new Blob([req.body], { type: "" });
 
   if (req.method === "POST") {
     var formdata = new FormData();
@@ -36,9 +34,8 @@ async function handler(
         body: formdata,
       }
     );
-    const data = await response.json();
-    console.log(data);
-    res.status(response.status).json(data);
+
+    res.status(response.status).json({} as ImageDTO);
     return;
   }
 }
