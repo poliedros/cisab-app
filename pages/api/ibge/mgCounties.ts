@@ -1,21 +1,21 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
+import { promises as fs } from "fs";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const response = await fetch(
-    "https://servicodados.ibge.gov.br/api/v1/localidades/estados/31/municipios",
-    {
-      method: "GET",
-    }
+  const file = await fs.readFile(
+    process.cwd() + "/public/mgCounties.json",
+    "utf8"
   );
-  const data = await response.json();
+  const data = JSON.parse(file);
+
   const countyList = data.map((county: any) => {
     return {
       id: county.id,
       name: county.nome,
     };
   });
-  res.status(response.status).json(countyList);
+  res.status(200).json(countyList);
   return;
 }
 

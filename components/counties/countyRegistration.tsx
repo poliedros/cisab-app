@@ -14,6 +14,10 @@ import CapMessageBottom from "atoms/capMessageBottom";
 import CapInputAdvanced from "atoms/capInputAdvanced";
 import useSWR, { MutatorCallback, MutatorOptions } from "swr";
 import { CategoryDTO } from "pages/api/categories";
+import CapInputRangeCalendar from "atoms/capInputRangeCalendar";
+import translations from "lib/translations";
+import { useTheme } from "context/themeContext";
+import CapDropdownIconButton from "atoms/capDropdownIconButton";
 
 export default function CountyRegistration({
   county = undefined,
@@ -34,6 +38,7 @@ export default function CountyRegistration({
   const [countyPopulation, setCountyPopulation] = useState("");
   const [countyFlag, setCountyFlag] = useState("");
   const [countyAnniversary, setCountyAnniversary] = useState("");
+  const [countyAnniversaryAlt, setCountyAnniversaryAlt] = useState("");
   const [countyDistanceToCisab, setCountyDistanceToCisab] = useState("");
   const [countyNote, setCountyNote] = useState("");
   const [countyAddress, setCountyAddress] = useState("");
@@ -55,6 +60,8 @@ export default function CountyRegistration({
 
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
+
+  const theme = useTheme();
 
   /* const handleCounty = async () => {
     const _id = county?._id;
@@ -166,6 +173,7 @@ export default function CountyRegistration({
           base="county"
           label={county ? "editCounty" : "countyRegistration"}
         />
+
         <Form>
           {/* <CapSubtitle label="account" />
           <Row className="mb-3">
@@ -199,6 +207,7 @@ export default function CountyRegistration({
             <CapForm
               label="countyCityName" /* Alterado no arquivo translation.json de countyName para countyCityName */
               placeholder="insertCountyCityName" /* Alterado no arquivo translation.json de insertCountyName para insertCountyCityName */
+              disabled={true}
               value={countyCityName}
               change={(e: any) => setCountyCityName(e.target.value)}
             />
@@ -242,13 +251,49 @@ export default function CountyRegistration({
                 change={(e: any) => setCountyFlag(e.target.value)}
               />
             </Col> */}
-            <CapForm
+            {/* <CapForm
               as={Col}
               label="countyAnniversary"
               type="date"
               value={countyAnniversary}
               change={(e: any) => setCountyAnniversary(e.target.value)}
-            />
+            /> */}
+
+            <Col className="flex items-center justify-center">
+              <CapDropdownIconButton
+                iconType="bs"
+                icon="BsCalendar"
+                element={
+                  <CapInputRangeCalendar
+                    setDate={setCountyAnniversary}
+                    mDetail="month"
+                    fDate={{ year: undefined }}
+                  />
+                }
+              />
+              <div className="mr-2" />
+              <Form.Group className="w-full">
+                <Form.Label className={theme === "dark" ? "text-white" : ""}>
+                  {translations("countyAnniversary", "pt")}
+                </Form.Label>
+                <Form.Control
+                  type="string"
+                  placeholder={translations("formatDayMonth", "pt")}
+                  value={
+                    countyAnniversary && !countyAnniversaryAlt
+                      ? countyAnniversary.split("/")[0] +
+                        "/" +
+                        countyAnniversary.split("/")[1]
+                      : //  +
+                        // "-" +
+                        // endDate.split("/")[0]
+                        countyAnniversaryAlt
+                  }
+                  onChange={(e: any) => setCountyAnniversaryAlt(e.target.value)}
+                />
+              </Form.Group>
+            </Col>
+
             <CapForm
               as={Col}
               label="countyDistanceToCisab"

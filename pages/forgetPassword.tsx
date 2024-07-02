@@ -59,14 +59,20 @@ export default function Login() {
           )}
         </div>
         <CapLink
-            label="returnToLogin"
-            icon="BiLogInCircle"
-            iconType="bi"
-            iconColor="text-white"
-            href="/login"
-            css="text-white"
+          label="returnToLogin"
+          icon="BiLogInCircle"
+          iconType="bi"
+          iconColor="text-sky-500"
+          href="/login"
+          css="text-sky-500"
         />
-        <CapMessageBottom label={"recoverPasswordError"} css="text-red-600" externCss={"-bottom-[15vh]"} show={errorMessage} setShow={setErrorMessage} />
+        <CapMessageBottom
+          label={"recoverPasswordError"}
+          css="text-red-600"
+          externCss={"-bottom-[15vh]"}
+          show={errorMessage}
+          setShow={setErrorMessage}
+        />
         <CapMessageBottom
           label={"recoverPasswordSuccess"}
           css="text-green-600"

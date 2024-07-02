@@ -131,7 +131,7 @@ export default function ProductShowcase({ product }: { product: ProductDTO }) {
             base="none"
             additional={{ label: " !text-4xl !m-0" }}
           />
-          <h6 className="lowercase mt-2 tracking-widest text-[silver]">
+          <h6 className="mt-2 tracking-widest text-[silver]">
             {product.categories?.map((c) => c + " ")}
           </h6>
           <CapInfoBoard
