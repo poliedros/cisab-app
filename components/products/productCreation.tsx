@@ -44,11 +44,13 @@ export default function ProductCreation({
   submit,
   title,
   suggest = false,
+  code,
 }: {
   product?: ProductDTO | undefined;
   submit: (product: ProductDTO) => Promise<ProductDTO | undefined>;
   title?: string;
   suggest?: boolean;
+  code?: string;
 }) {
   const theme = useTheme();
   const language = useLanguage();
@@ -86,7 +88,7 @@ export default function ProductCreation({
 
   const [k, setK] = useState(undefined);
 
-  const [code, setCode] = useState("");
+  // const [code, setCode] = useState("");
   const [categorySt, setcategorySt] = useState([""]);
 
   const [productId, setProductId] = useState();
@@ -148,20 +150,19 @@ export default function ProductCreation({
     });
 
     if (data.status === 201) setShowSave(true);
-    else setShowError(true); 
+    else setShowError(true);
     const result = await data.json();
     setProductId(result._id);
-   
+
     return undefined;
   };
 
   const handleProduct = async () => {
-    
     const _id = product?._id;
     let mea: Measure;
     let meaRes = array;
     let norRes = arrayNorms;
-    let prodRes = listProd; 
+    let prodRes = listProd;
     let productResult: ProductDTO = {
       _id: _id ?? "0",
       name: productName,
@@ -173,18 +174,16 @@ export default function ProductCreation({
       categories: listCat ?? [],
     };
 
-    
     setStep(3);
     await saveProduct(productResult);
   };
 
   const handleProductLast = async () => {
-    
     const _id = product?._id;
     let mea: Measure;
     let meaRes = array;
     let norRes = arrayNorms;
-    let prodRes = listProd; 
+    let prodRes = listProd;
     let productResult: ProductDTO = {
       _id: _id ?? "0",
       name: productName,
@@ -195,7 +194,7 @@ export default function ProductCreation({
       accessory_ids: prodRes ?? [],
       categories: listCat ?? [],
     };
-    
+
     setStep(4);
     await saveProduct(productResult);
   };
@@ -347,12 +346,10 @@ export default function ProductCreation({
                   size="14px"
                   //variant="success"
                   hoverColor="transparent"
-                  click={
-                    () => {
-                      setShow(false);
-                      setStep(1);
-                    } 
-                  }
+                  click={() => {
+                    setShow(false);
+                    setStep(1);
+                  }}
                 />
               </div>
             </div>
@@ -383,7 +380,7 @@ export default function ProductCreation({
     <>
       <CapTitle
         base="product"
-        label={suggest ? "suggestProduct" : "addProduct"} 
+        label={suggest ? "suggestProduct" : "addProduct"}
       />
       <CapParagraph label={"suggestObs"} show={suggest} />
 
@@ -409,15 +406,13 @@ export default function ProductCreation({
             stagesIconsTypes={["hi", "fa", "bs", "io5", "ri"]}
             stagesBody={[
               <>
-               <CapForm
+                <CapForm
                   key={0}
                   as={Col}
                   label="productName"
                   placeholder="insertProductName"
                   value={productName}
-                  change={
-                    (e: any) => setProductName(e.target.value) 
-                  }
+                  change={(e: any) => setProductName(e.target.value)}
                   legend="exampleProductName"
                 />
                 <Row className="flex items-center">
@@ -426,10 +421,13 @@ export default function ProductCreation({
                     as={Col}
                     label="productCode"
                     placeholder="insertProductCode"
+                    type="number"
                     value={code}
-                    change={
-                      (e: any) => setCode(e.target.value)
-                    }
+                    disabled={true}
+                    // change={
+                    //   (e: any) => setCode(e.target.value) //setProductName(e.target.value)
+                    // }
+                    /* legend="exampleProductName" */
                   />
                   <Col>
                     <CapInputAdvanced
@@ -448,22 +446,22 @@ export default function ProductCreation({
                     <CapForm
                       key={0}
                       as={Col}
-                      label="measureName"
-                      placeholder="insertMeasureName" 
-                      change={
-                        (e: any) => handleProductMeasure(e)
-                      }
+                      label="measureName" //"measure"
+                      placeholder="insertMeasureName" //"insertMeasureName"
+                      //value={} //(e: any) => measures[e.target.parentElement.parentElement.parentElement.id]
+                      change={(e: any) => handleProductMeasure(e)}
                       legend="exampleMeasure"
                     />,
                     <CapForm
                       key={0}
                       as={Col}
-                      label="value" 
-                      placeholder="insertValue"
-                      type="number"
+                      label="value" //"scale"
+                      placeholder="insertValue" //"insertScale"
+                      type="text"
+                      //value={measures}
                       change={
-                        (e: any) => handleUnitValue(e)
-                      }
+                        (e: any) => handleUnitValue(e) //alert(e.target.value)
+                      } //setMeasures([...measures, e.target.value])
                     />,
                     <Col key={0}>
                       <UnitFunded
@@ -608,7 +606,7 @@ export default function ProductCreation({
                             setMesuamentSt(
                               measurementRef.current.handleScanArray()
                             );
-                          }} 
+                          }}
                           mouseEnter={() =>
                             setDescription("continueFillingOut")
                           }
@@ -680,12 +678,10 @@ export default function ProductCreation({
                                 size="14px"
                                 //variant="success"
                                 hoverColor="transparent"
-                                click={
-                                  () => {
-                                    setShowOT3(false);
-                                    handleProduct();
-                                  }
-                                }
+                                click={() => {
+                                  setShowOT3(false);
+                                  handleProduct();
+                                }}
                               />
                             </div>
                           </div>
@@ -751,12 +747,10 @@ export default function ProductCreation({
                                 icon="GrCheckmark"
                                 size="14px"
                                 hoverColor="transparent"
-                                click={
-                                  () => {
-                                    setShowOT(false);
-                                    setStep(2);
-                                  }
-                                }
+                                click={() => {
+                                  setShowOT(false);
+                                  setStep(2);
+                                }}
                               />
                             </div>
                           </div>
@@ -851,9 +845,7 @@ export default function ProductCreation({
                               icon="GrCheckmark"
                               size="14px"
                               hoverColor="transparent"
-                              click={
-                                handleProduct
-                              }
+                              click={handleProduct}
                             />
                           </div>
                         </div>
@@ -918,7 +910,11 @@ export default function ProductCreation({
                 <CapResponse
                   type="success"
                   titles={["productName", "code", "norms"]}
-                  descriptions={[productName, code, arrayNorms.join(" ")]}
+                  descriptions={[
+                    productName,
+                    code ? code : "",
+                    arrayNorms.join(" "),
+                  ]}
                 ></CapResponse>
               </>,
             ]}
@@ -936,7 +932,6 @@ export default function ProductCreation({
           />
         </Row>
       </Form>
-   
     </>
   );
 }
