@@ -8,7 +8,10 @@ export type CountyUserDTO = {
   email: string;
   name: string;
   surname: string;
+  password?: string;
   properties: {
+    // county_id: string;
+    profession?: string;
   };
 };
 
@@ -17,6 +20,7 @@ async function handler(
   res: NextApiResponse<CountyUserDTO>
 ) {
   const user = req.session.user;
+
   if (!user) {
     res.status(401).json({} as CountyUserDTO);
     return;

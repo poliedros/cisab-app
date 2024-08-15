@@ -19,6 +19,7 @@ import useUser from "lib/useUser";
 import useSWR from "swr";
 import { CountyDTO } from "pages/api/counties";
 import CapResponse from "atoms/capResponse";
+import { Role } from "lib/role.enum";
 
 export default function UserProfile({}: //countyUser,
 {
@@ -41,8 +42,9 @@ export default function UserProfile({}: //countyUser,
     `/api/counties/${user?.user_id}/users`
   );
 
-  console.log(JSON.stringify(county));
-  console.log(JSON.stringify(countyUser));
+  // console.log(JSON.stringify(county));
+  // console.log(JSON.stringify(countyUser));
+  console.log("user na profile:", !countyUser && user?.user_id);
 
   if (error && user?.county_id) return <CapResponse type="notFound" />;
   if (!county && user?.county_id)
@@ -58,8 +60,14 @@ export default function UserProfile({}: //countyUser,
   //   }
   // });
 
-  const editUser = (p: string, i: string) => {
-    Router.push(`${p}${i}/edit`);
+  const editUser = (
+    prefix: string,
+    county_id: string,
+    user_id: string,
+    edit_county_data: boolean
+  ) => {
+    if (edit_county_data) Router.push(`${prefix}${county_id}/edit`);
+    else Router.push(`${prefix}${user_id}/edit`);
   };
 
   return (
@@ -74,21 +82,36 @@ export default function UserProfile({}: //countyUser,
                     iconType="ri"
                     icon="RiEyeFill"
                     size="24px"
-                    click={() => {}}
-                    cssIcon="rotate-center"
-                  />
-                </li>
-                <li>
-                  <CapIconButton
-                    iconType="ri"
-                    icon="RiEditBoxFill"
-                    size="24px"
                     click={() =>
-                      editUser("/counties/", county?._id ? county?._id : "")
+                      editUser(
+                        "/users/",
+                        county?._id ? county?._id : "",
+                        user?.user_id ? user.user_id : "",
+                        false
+                      )
                     }
                     cssIcon="rotate-center"
                   />
                 </li>
+                {user?.roles.includes(Role.Admin) ? (
+                  <li>
+                    <CapIconButton
+                      iconType="ri"
+                      icon="RiEditBoxFill"
+                      size="24px"
+                      click={() =>
+                        editUser(
+                          "/counties/",
+                          county?._id ? county?._id : "",
+                          user?.user_id ? user.user_id : "",
+                          true
+                        )
+                      }
+                      cssIcon="rotate-center"
+                    />
+                  </li>
+                ) : null}
+
                 <li>
                   <OverlayTrigger
                     trigger="click"
