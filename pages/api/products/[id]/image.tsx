@@ -17,19 +17,25 @@ async function handler(
     res.status(401).json({} as ImageDTO);
     return;
   }
-  console.log("Qualquer coisa");
-  console.log(req.query.id);
-  console.log(req.body);
 
-  if (req.method === "POST") { //|| req.method === "PUT"
-    const { data } = await axios.post(process.env.API_URL + `/products/${req.query.id}/image`, req.body, {
+  const blob = new Blob([req.body], { type: "" });
+
+  if (req.method === "POST") {
+    var formdata = new FormData();
+    formdata.append("file", blob, `img_${req.query.id}.png`);
+
+    const response = await fetch(
+      process.env.API_URL + `/products/${req.query.id}/image`,
+      {
         headers: {
           Authorization: "Bearer " + user.token,
-          "Content-Type": "multipart/form-data",
         },
-    });
-    
-    res.status(data.status).json(data);
+        method: "POST",
+        body: formdata,
+      }
+    );
+
+    res.status(response.status).json({} as ImageDTO);
     return;
   }
 }
