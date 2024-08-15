@@ -1,5 +1,5 @@
 import { Row, Col, OverlayTrigger, Popover } from "react-bootstrap";
-
+import Router from "next/router";
 import { CountyUserDTO } from "pages/api/counties/[id]/users";
 import CapForm from "atoms/capForm";
 import { useState } from "react";
@@ -41,6 +41,7 @@ export default function UserProfile({}: //countyUser,
     `/api/counties/${user?.user_id}/users`
   );
 
+  console.log(JSON.stringify(county));
   console.log(JSON.stringify(countyUser));
 
   if (error && user?.county_id) return <CapResponse type="notFound" />;
@@ -56,6 +57,10 @@ export default function UserProfile({}: //countyUser,
   //     setUserVL(true);
   //   }
   // });
+
+  const editUser = (p: string, i: string) => {
+    Router.push(`${p}${i}/edit`);
+  };
 
   return (
     <>
@@ -78,7 +83,9 @@ export default function UserProfile({}: //countyUser,
                     iconType="ri"
                     icon="RiEditBoxFill"
                     size="24px"
-                    click={() => {}}
+                    click={() =>
+                      editUser("/counties/", county?._id ? county?._id : "")
+                    }
                     cssIcon="rotate-center"
                   />
                 </li>
