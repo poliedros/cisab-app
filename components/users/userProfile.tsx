@@ -41,11 +41,6 @@ export default function UserProfile({}: //countyUser,
   const { data: countyUser, error: error2 } = useSWR<CountyUserDTO[]>(
     `/api/counties/${user?.user_id}/users`
   );
-
-  // console.log(JSON.stringify(county));
-  // console.log(JSON.stringify(countyUser));
-  console.log("user na profile:", !countyUser && user?.user_id);
-
   if (error && user?.county_id) return <CapResponse type="notFound" />;
   if (!county && user?.county_id)
     return <CapResponse type="loading" height="75" />;
@@ -93,7 +88,7 @@ export default function UserProfile({}: //countyUser,
                     cssIcon="rotate-center"
                   />
                 </li>
-                {user?.roles.includes(Role.Admin) ? (
+                {user?.roles.includes(Role.Manager) ? (
                   <li>
                     <CapIconButton
                       iconType="ri"
@@ -111,43 +106,6 @@ export default function UserProfile({}: //countyUser,
                     />
                   </li>
                 ) : null}
-
-                <li>
-                  <OverlayTrigger
-                    trigger="click"
-                    placement="bottom"
-                    overlay={
-                      <Popover>
-                        <div className="overflow-auto -m-6 p-4 invisibleScroll">
-                          <div
-                            className={
-                              (false //theme === "dark"
-                                ? "bg-slate-600"
-                                : "bg-white") +
-                              " flex items-center relative py-2.5 px-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-full"
-                            }
-                          >
-                            {user?.roles
-                              .map((u) => {
-                                return u === "cisab";
-                              })
-                              .toString()}
-                          </div>
-                        </div>
-                      </Popover>
-                    }
-                    rootClose
-                  >
-                    <div className="mx-0.5 ">
-                      <CapIconButton
-                        iconType="cg"
-                        icon="CgPassword"
-                        size="24px"
-                        cssIcon="rotate-center"
-                      />
-                    </div>
-                  </OverlayTrigger>
-                </li>
               </ul>
             </div>
             {/* <CapImage

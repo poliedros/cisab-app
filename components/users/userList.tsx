@@ -48,8 +48,8 @@ export default function UserList({ users }: { users: CountyUserDTO[] }) {
           headers={["userName", "userEmail"]}
           columns={["name", "email"]}
           numeral={true}
-          buttonsColumns={["edit"]}
-          buttonsPaths={["/users/"]}
+          buttonsColumns={[""]}
+          buttonsPaths={[""]}
           // search={searchUser}
           // searchPath={"name"}
         />
