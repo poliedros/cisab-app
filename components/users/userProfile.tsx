@@ -19,6 +19,7 @@ import useUser from "lib/useUser";
 import useSWR from "swr";
 import { CountyDTO } from "pages/api/counties";
 import CapResponse from "atoms/capResponse";
+import { Role } from "lib/role.enum";
 
 export default function UserProfile({}: //countyUser,
 {
@@ -40,10 +41,6 @@ export default function UserProfile({}: //countyUser,
   const { data: countyUser, error: error2 } = useSWR<CountyUserDTO[]>(
     `/api/counties/${user?.user_id}/users`
   );
-
-  console.log(JSON.stringify(county));
-  console.log(JSON.stringify(countyUser));
-
   if (error && user?.county_id) return <CapResponse type="notFound" />;
   if (!county && user?.county_id)
     return <CapResponse type="loading" height="75" />;
@@ -58,8 +55,14 @@ export default function UserProfile({}: //countyUser,
   //   }
   // });
 
-  const editUser = (p: string, i: string) => {
-    Router.push(`${p}${i}/edit`);
+  const editUser = (
+    prefix: string,
+    county_id: string,
+    user_id: string,
+    edit_county_data: boolean
+  ) => {
+    if (edit_county_data) Router.push(`${prefix}${county_id}/edit`);
+    else Router.push(`${prefix}${user_id}/edit`);
   };
 
   return (
@@ -74,57 +77,35 @@ export default function UserProfile({}: //countyUser,
                     iconType="ri"
                     icon="RiEyeFill"
                     size="24px"
-                    click={() => {}}
-                    cssIcon="rotate-center"
-                  />
-                </li>
-                <li>
-                  <CapIconButton
-                    iconType="ri"
-                    icon="RiEditBoxFill"
-                    size="24px"
                     click={() =>
-                      editUser("/counties/", county?._id ? county?._id : "")
+                      editUser(
+                        "/users/",
+                        county?._id ? county?._id : "",
+                        user?.user_id ? user.user_id : "",
+                        false
+                      )
                     }
                     cssIcon="rotate-center"
                   />
                 </li>
-                <li>
-                  <OverlayTrigger
-                    trigger="click"
-                    placement="bottom"
-                    overlay={
-                      <Popover>
-                        <div className="overflow-auto -m-6 p-4 invisibleScroll">
-                          <div
-                            className={
-                              (false //theme === "dark"
-                                ? "bg-slate-600"
-                                : "bg-white") +
-                              " flex items-center relative py-2.5 px-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-full"
-                            }
-                          >
-                            {user?.roles
-                              .map((u) => {
-                                return u === "cisab";
-                              })
-                              .toString()}
-                          </div>
-                        </div>
-                      </Popover>
-                    }
-                    rootClose
-                  >
-                    <div className="mx-0.5 ">
-                      <CapIconButton
-                        iconType="cg"
-                        icon="CgPassword"
-                        size="24px"
-                        cssIcon="rotate-center"
-                      />
-                    </div>
-                  </OverlayTrigger>
-                </li>
+                {user?.roles.includes(Role.Manager) ? (
+                  <li>
+                    <CapIconButton
+                      iconType="ri"
+                      icon="RiEditBoxFill"
+                      size="24px"
+                      click={() =>
+                        editUser(
+                          "/counties/",
+                          county?._id ? county?._id : "",
+                          user?.user_id ? user.user_id : "",
+                          true
+                        )
+                      }
+                      cssIcon="rotate-center"
+                    />
+                  </li>
+                ) : null}
               </ul>
             </div>
             {/* <CapImage

@@ -22,15 +22,15 @@ export default function Edit() {
   );
 
   const router = useRouter();
-  const { user_id } = router.query;
+  const { user_id } = router.query; // Isso não tá pegando o user
 
   let idNumber = 0;
   if (user_id) idNumber = parseInt(String(user_id).padStart(3, "0"));
 
-  const county_id = "6363c2f363e9deb5a8e1c672";
-
   const { data: countyUser, error: errorUser } = useSWR<CountyUserDTO>(
-    user_id ? `/api/counties/${county_id}/users/${user_id}` : null
+    user?.user_id
+      ? `/api/counties/${user?.county_id}/users/${user?.user_id}`
+      : null
   );
 
   if (errorUser) return <CapResponse type="failed" />;
@@ -43,10 +43,10 @@ export default function Edit() {
   const editUser = async (
     countyUser: CountyUserDTO
   ): Promise<CountyUserDTO | undefined> => {
-    const data = await fetch(`/api/counties/${county_id}/users`, {
+    const data = await fetch(`/api/counties/${user?.county_id}/users`, {
       method: "PUT",
       body: JSON.stringify(countyUser),
-    }); //.finally(() => setLoading(false));
+    });
     if (data.status === 200) {
       setMessage("success");
       const response = await data.json();
