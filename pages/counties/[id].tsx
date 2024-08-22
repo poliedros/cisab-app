@@ -23,21 +23,5 @@ export default function Get() {
 
   console.log(county);
 
-  return (
-    <>
-      {county.county_id ? (
-        <CountyAutarkyProfile
-          county={{
-            _id: "",
-            name: "",
-            county_id: undefined,
-            info: undefined,
-            contact: undefined,
-          }}
-        />
-      ) : (
-        <CountyProfile county={county} />
-      )}
-    </>
-  );
+  return <CountyProfile county={county} />;
 }

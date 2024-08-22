@@ -190,20 +190,17 @@ export default function Info({ info, kind, handleInfo }: InfoProps) {
               as={Col}
               label="typeInstitution"
               placeholder="insertTypeInstitution"
-              disabled={true}
             />
             <CapForm
               as={Col}
               label="accountableCisab"
               placeholder="insertAccountableCisab"
-              disabled={true}
             />
           </Row>
           <CapForm
             asControl="textarea"
             rows={3}
             label="note"
-            disabled={true}
             placeholder="insertNote"
           />
         </>
