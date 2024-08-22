@@ -62,68 +62,59 @@ export default function ProductShowcase({ product }: { product: ProductDTO }) {
     <>
       <Row className="flex items-center">
         <Col sm={4} className="flex justify-center mb-16 pr-16">
-          <div className="absolute bg-[silver] w-[200px] h-[200px] rounded-full circle">
-            <ul className="menu">
-              <li>
-                <CapIconButton
-                  iconType="fa"
-                  icon="FaBalanceScale"
-                  size="24px"
-                  click={() => {
-                    setScreens("norms");
-                  }}
-                />
-              </li>
-              <li>
-                <CapIconButton
-                  iconType="bs"
-                  icon="BsNutFill"
-                  size="24px"
-                  click={() => {
-                    setScreens("accessories");
-                  }}
-                />
-              </li>
-              <li>
-                <OverlayTrigger
-                  trigger="click"
-                  placement="bottom"
-                  overlay={
-                    <Popover>
-                      <div className="overflow-auto -m-6 p-4 invisibleScroll">
-                        <div
-                          className={
-                            (false //theme === "dark"
-                              ? "bg-slate-600"
-                              : "bg-white") +
-                            " flex items-center relative py-2.5 px-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-full"
-                          }
-                        >
-                          {product.code}
-                        </div>
+          <ul className="menu">
+            <li>
+              <CapIconButton
+                iconType="fa"
+                icon="FaBalanceScale"
+                size="24px"
+                click={() => {
+                  setScreens("norms");
+                }}
+              />
+            </li>
+            <li>
+              <CapIconButton
+                iconType="bs"
+                icon="BsNutFill"
+                size="24px"
+                click={() => {
+                  setScreens("accessories");
+                }}
+              />
+            </li>
+            <li>
+              <OverlayTrigger
+                trigger="click"
+                placement="bottom"
+                overlay={
+                  <Popover>
+                    <div className="overflow-auto -m-6 p-4 invisibleScroll">
+                      <div
+                        className={
+                          (false //theme === "dark"
+                            ? "bg-slate-600"
+                            : "bg-white") +
+                          " flex items-center relative py-2.5 px-3 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-full"
+                        }
+                      >
+                        {product.code}
                       </div>
-                    </Popover>
-                  }
-                  rootClose
-                >
-                  <div className="mx-0.5">
-                    <CapIconButton
-                      iconType="fa"
-                      icon="FaInfoCircle"
-                      size="24px"
-                    />
-                  </div>
-                </OverlayTrigger>
-              </li>
-            </ul>
-          </div>
-          <CapImage
-            src={"https://mergejil.mn/mergejilmn/no-image.svg"} //county.county.flag
-            //alt={county.name}
-            w={200}
-            h={200}
-            obj="contain"
-          />
+                    </div>
+                  </Popover>
+                }
+                rootClose
+              >
+                <div className="mx-0.5">
+                  <CapIconButton
+                    iconType="fa"
+                    icon="FaInfoCircle"
+                    size="24px"
+                  />
+                </div>
+              </OverlayTrigger>
+            </li>
+          </ul>
         </Col>
         <Col sm={8} className="flex flex-column items-start text-left">
           <CapTitle
