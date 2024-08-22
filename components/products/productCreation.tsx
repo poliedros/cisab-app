@@ -43,7 +43,7 @@ export default function ProductCreation({
   product = undefined,
   submit,
   title,
-  suggest = false,
+  suggest,
   code,
 }: {
   product?: ProductDTO | undefined;
@@ -175,7 +175,8 @@ export default function ProductCreation({
     };
 
     setStep(3);
-    await saveProduct(productResult);
+    if (suggest) await submit(productResult);
+    else await saveProduct(productResult);
   };
 
   const handleProductLast = async () => {
@@ -196,7 +197,8 @@ export default function ProductCreation({
     };
 
     setStep(4);
-    await saveProduct(productResult);
+    if (suggest) await submit(productResult);
+    else await saveProduct(productResult);
   };
 
   const saveImage = async (image: any): Promise<any> => {

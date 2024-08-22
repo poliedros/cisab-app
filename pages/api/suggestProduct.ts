@@ -15,7 +15,7 @@ async function handler(
   }
 
   if (req.method === "POST") {
-    const response = await fetch(process.env.API_URL + "/suggest-product", {
+    const response = await fetch(process.env.API_URL + "/products/suggest", {
       headers: {
         Authorization: "Bearer " + user.token,
         "Content-Type": "application/json",
@@ -23,8 +23,7 @@ async function handler(
       method: "POST",
       body: req.body,
     });
-    const data = (await response.json()) as ProductDTO[];
-    return res.status(response.status).json(data);
+    return response.status;
   }
 }
 
