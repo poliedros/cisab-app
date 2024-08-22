@@ -3,7 +3,12 @@ import { sessionOptions } from "lib/session";
 import { NextApiRequest, NextApiResponse } from "next";
 import { CountyDTO } from "../counties";
 
-async function handler(req: NextApiRequest, res: NextApiResponse<CountyDTO>) {
+export type DeleteResponseDTO = {};
+
+async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<CountyDTO | DeleteResponseDTO>
+) {
   const user = req.session.user;
   if (!user) {
     res.status(401).json({} as CountyDTO);
@@ -35,8 +40,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<CountyDTO>) {
         method: "DELETE",
       }
     );
-    const data = (await response.json()) as CountyDTO;
-    res.status(response.status).json(data);
+    res.status(response.status).json({});
     return;
   }
 
