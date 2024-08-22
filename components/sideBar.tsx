@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, OverlayTrigger, Popover, Tooltip } from "react-bootstrap";
 
 import useUser from "lib/useUser";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 import fetchJson from "lib/fetchJson";
 
@@ -13,9 +13,6 @@ import Router from "next/router";
 import { Role } from "lib/role.enum";
 import CapImage from "atoms/capImage";
 import translations from "lib/translations";
-import { CountyDTO } from "pages/api/counties";
-import useSWR from "swr";
-import UserProfile from "./users/userProfile";
 
 export default function SideBar() {
   const [side, setSide] = useState(false);
@@ -44,11 +41,9 @@ export default function SideBar() {
 
   const handleBrightness = () => {
     if (theme === "light") {
-      //bgColor("dark");
       toggleTheme("dark");
       setIconBrightness("MdBrightness5");
     } else if (theme === "dark") {
-      //bgColor("light");
       toggleTheme("light");
       setIconBrightness("MdBrightness4");
     } else null;
@@ -119,64 +114,6 @@ export default function SideBar() {
       </div>
     </Popover>
   );
-
-  // const project = (
-  //   <Popover>
-  //     <div className="overflow-auto -mt-[2.5rem] -mb-6 -mx-5 p-4 invisibleScroll w-max">
-  //       <div
-  //         className={
-  //           (theme === "dark" ? "bg-slate-900" : "bg-white") +
-  //           " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"
-  //         }
-  //       >
-  //         <CapIconButton
-  //           iconType="hi"
-  //           icon="HiDocumentText"
-  //           size="24px"
-  //           route="/project/documentation"
-  //           hoverColor="#7dc523"
-  //           css="mr-3"
-  //           tooltip="documentation"
-  //         />
-  //         <CapIconButton
-  //           iconType="bs"
-  //           icon="BsDiagram2Fill"
-  //           size="24px"
-  //           route="/project/diagrams"
-  //           hoverColor="#7dc523"
-  //           css="mr-3"
-  //           tooltip="diagrams"
-  //         />
-  //         <CapIconButton
-  //           iconType="ri"
-  //           icon="RiArtboardFill"
-  //           size="24px"
-  //           route="/project/art"
-  //           hoverColor="#7dc523"
-  //           css="mr-3"
-  //           tooltip="art"
-  //         />
-  //         <CapIconButton
-  //           iconType="bi"
-  //           icon="BiAtom"
-  //           size="24px"
-  //           route="/project/caps"
-  //           hoverColor="#7dc523"
-  //           css="mr-3"
-  //           tooltip="compCaps"
-  //         />
-  //         <CapIconButton
-  //           iconType="ri"
-  //           icon="RiTestTubeFill"
-  //           size="24px"
-  //           route="/project/test"
-  //           hoverColor="#7dc523"
-  //           tooltip="testLab"
-  //         />
-  //       </div>
-  //     </div>
-  //   </Popover>
-  // );
 
   const demand = (
     <Popover>
