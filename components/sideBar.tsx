@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, OverlayTrigger, Popover, Tooltip } from "react-bootstrap";
 
 import useUser from "lib/useUser";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 import fetchJson from "lib/fetchJson";
 
@@ -13,9 +13,6 @@ import Router from "next/router";
 import { Role } from "lib/role.enum";
 import CapImage from "atoms/capImage";
 import translations from "lib/translations";
-import { CountyDTO } from "pages/api/counties";
-import useSWR from "swr";
-import UserProfile from "./users/userProfile";
 
 export default function SideBar() {
   const [side, setSide] = useState(false);
@@ -44,11 +41,9 @@ export default function SideBar() {
 
   const handleBrightness = () => {
     if (theme === "light") {
-      //bgColor("dark");
       toggleTheme("dark");
       setIconBrightness("MdBrightness5");
     } else if (theme === "dark") {
-      //bgColor("light");
       toggleTheme("light");
       setIconBrightness("MdBrightness4");
     } else null;
@@ -119,64 +114,6 @@ export default function SideBar() {
       </div>
     </Popover>
   );
-
-  // const project = (
-  //   <Popover>
-  //     <div className="overflow-auto -mt-[2.5rem] -mb-6 -mx-5 p-4 invisibleScroll w-max">
-  //       <div
-  //         className={
-  //           (theme === "dark" ? "bg-slate-900" : "bg-white") +
-  //           " flex relative px-4 pt-4 pb-4 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-screen sm:rounded-3xl sm:px-5"
-  //         }
-  //       >
-  //         <CapIconButton
-  //           iconType="hi"
-  //           icon="HiDocumentText"
-  //           size="24px"
-  //           route="/project/documentation"
-  //           hoverColor="#7dc523"
-  //           css="mr-3"
-  //           tooltip="documentation"
-  //         />
-  //         <CapIconButton
-  //           iconType="bs"
-  //           icon="BsDiagram2Fill"
-  //           size="24px"
-  //           route="/project/diagrams"
-  //           hoverColor="#7dc523"
-  //           css="mr-3"
-  //           tooltip="diagrams"
-  //         />
-  //         <CapIconButton
-  //           iconType="ri"
-  //           icon="RiArtboardFill"
-  //           size="24px"
-  //           route="/project/art"
-  //           hoverColor="#7dc523"
-  //           css="mr-3"
-  //           tooltip="art"
-  //         />
-  //         <CapIconButton
-  //           iconType="bi"
-  //           icon="BiAtom"
-  //           size="24px"
-  //           route="/project/caps"
-  //           hoverColor="#7dc523"
-  //           css="mr-3"
-  //           tooltip="compCaps"
-  //         />
-  //         <CapIconButton
-  //           iconType="ri"
-  //           icon="RiTestTubeFill"
-  //           size="24px"
-  //           route="/project/test"
-  //           hoverColor="#7dc523"
-  //           tooltip="testLab"
-  //         />
-  //       </div>
-  //     </div>
-  //   </Popover>
-  // );
 
   const demand = (
     <Popover>
@@ -284,20 +221,6 @@ export default function SideBar() {
   return (
     <>
       <div className="flex flex-column">
-        {user?.roles.includes(Role.Cisab) ||
-        user?.roles.includes(Role.Admin) ? (
-          <>
-            <CapIconButton
-              iconType="ai"
-              icon="AiFillHome"
-              route="/"
-              tooltip="home"
-              css="mb-3"
-              cssIcon="rotate-center"
-            />
-          </>
-        ) : null}
-
         {/* User Profile */}
         {user?.roles.includes(Role.Cisab) ? (
           <OverlayTrigger
@@ -306,22 +229,14 @@ export default function SideBar() {
             overlay={renderTooltip}
           >
             <Button
-              style={{ height: "56px", backgroundColor: "#7dc523" }} //"#6c757d"
+              style={{ height: "56px", backgroundColor: "#7dc523" }}
               className={
                 "hover:!bg-[#02aae9] border-0 !rounded-full !p-[0px] w-15 h-15 mb-3"
               }
               variant="outline-secondary"
-              onClick={() => Router.push("/users/profile")}
-              // onMouseEnter={mouseEnter}
-              // onMouseLeave={mouseLeave}
+              onClick={() => Router.push("/")}
             >
-              <CapImage
-                src={"/cisabLogo.svg"}
-                w={56}
-                h={56}
-                obj="contain"
-                //css="rotate-center"
-              />
+              <CapImage src={"/cisabLogo.svg"} w={56} h={56} obj="contain" />
             </Button>
           </OverlayTrigger>
         ) : user?.roles.includes(Role.Manager) ? (
@@ -343,16 +258,6 @@ export default function SideBar() {
             cssIcon="rotate-center"
           />
         )}
-
-        {/* County Overlay */}
-        {/* {!user?.roles.includes(Role.Cisab) ? (
-          <CapIconButton
-            iconType="fa"
-            icon="FaCity"
-            route={`/counties/${user?.county_id}`}
-            css="mb-3"
-          />
-        ) : null} */}
 
         {/* Employee Overlay */}
         {user?.roles.includes(Role.Manager) ? (
@@ -465,47 +370,6 @@ export default function SideBar() {
             />
           </>
         ) : null}
-
-        {/* Project Overlay
-        {user?.roles.includes(Role.Cisab) ||
-        user?.roles.includes(Role.Admin) ? (
-          <>
-            <OverlayTrigger
-              trigger="click"
-              placement="right"
-              overlay={project}
-              rootClose
-            >
-              <div>
-                <CapIconButton
-                  iconType="bs"
-                  icon="BsDiagram3Fill"
-                  css="mb-3"
-                  tooltip="project"
-                  cssIcon="rotate-center"
-                />
-              </div>
-            </OverlayTrigger>
-          </>
-        ) : null} */}
-
-        {/* Settings Overlay */}
-        <OverlayTrigger
-          trigger="click"
-          placement="right"
-          overlay={setting}
-          rootClose
-        >
-          <div>
-            <CapIconButton
-              iconType="bs"
-              icon="BsGearFill"
-              tooltip="settings"
-              css="mb-3"
-              cssIcon="rotate-center"
-            />
-          </div>
-        </OverlayTrigger>
 
         {/* Logout */}
         <CapIconButton

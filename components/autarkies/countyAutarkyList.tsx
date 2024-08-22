@@ -36,7 +36,7 @@ export default function CountyAutarkyList({
           columns={["name", "contact.speakTo"]}
           numeral={true}
           buttonsColumns={["view", "edit", "remove"]}
-          buttonsPaths={["", "", ""]}
+          buttonsPaths={["/counties/", "/counties/", "/api/counties/"]}
         />
         <Row className="flex justify-end items-end">
           <Col>

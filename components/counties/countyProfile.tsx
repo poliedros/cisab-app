@@ -9,22 +9,13 @@ import CapInfoBoard from "atoms/capInfoBoard";
 import CapLink from "atoms/capLink";
 import translations from "lib/translations";
 import CapParagraph from "atoms/capParagraph";
+import CapIconButton from "atoms/capIconButton";
 
 export default function CountyProfile({ county }: { county: any }) {
   return (
     <>
       <div className="flex flex-column">
         <Row className="flex items-center">
-          <Col sm={4} className="flex justify-center">
-            <div className="absolute bg-[silver] w-[200px] h-[200px] rounded-full" />
-            <CapImage
-              src={"https://mergejil.mn/mergejilmn/no-image.svg"} //county.county.flag
-              alt={county.name}
-              w={200}
-              h={200}
-              obj="contain"
-            />
-          </Col>
           <Col sm={8} className="flex flex-column items-start text-left">
             <CapTitle
               base={"none"}
