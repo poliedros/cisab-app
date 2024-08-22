@@ -284,20 +284,6 @@ export default function SideBar() {
   return (
     <>
       <div className="flex flex-column">
-        {user?.roles.includes(Role.Cisab) ||
-        user?.roles.includes(Role.Admin) ? (
-          <>
-            <CapIconButton
-              iconType="ai"
-              icon="AiFillHome"
-              route="/"
-              tooltip="home"
-              css="mb-3"
-              cssIcon="rotate-center"
-            />
-          </>
-        ) : null}
-
         {/* User Profile */}
         {user?.roles.includes(Role.Cisab) ? (
           <OverlayTrigger
@@ -306,22 +292,14 @@ export default function SideBar() {
             overlay={renderTooltip}
           >
             <Button
-              style={{ height: "56px", backgroundColor: "#7dc523" }} //"#6c757d"
+              style={{ height: "56px", backgroundColor: "#7dc523" }}
               className={
                 "hover:!bg-[#02aae9] border-0 !rounded-full !p-[0px] w-15 h-15 mb-3"
               }
               variant="outline-secondary"
-              onClick={() => Router.push("/users/profile")}
-              // onMouseEnter={mouseEnter}
-              // onMouseLeave={mouseLeave}
+              onClick={() => Router.push("/")}
             >
-              <CapImage
-                src={"/cisabLogo.svg"}
-                w={56}
-                h={56}
-                obj="contain"
-                //css="rotate-center"
-              />
+              <CapImage src={"/cisabLogo.svg"} w={56} h={56} obj="contain" />
             </Button>
           </OverlayTrigger>
         ) : user?.roles.includes(Role.Manager) ? (
@@ -343,16 +321,6 @@ export default function SideBar() {
             cssIcon="rotate-center"
           />
         )}
-
-        {/* County Overlay */}
-        {/* {!user?.roles.includes(Role.Cisab) ? (
-          <CapIconButton
-            iconType="fa"
-            icon="FaCity"
-            route={`/counties/${user?.county_id}`}
-            css="mb-3"
-          />
-        ) : null} */}
 
         {/* Employee Overlay */}
         {user?.roles.includes(Role.Manager) ? (
@@ -465,47 +433,6 @@ export default function SideBar() {
             />
           </>
         ) : null}
-
-        {/* Project Overlay
-        {user?.roles.includes(Role.Cisab) ||
-        user?.roles.includes(Role.Admin) ? (
-          <>
-            <OverlayTrigger
-              trigger="click"
-              placement="right"
-              overlay={project}
-              rootClose
-            >
-              <div>
-                <CapIconButton
-                  iconType="bs"
-                  icon="BsDiagram3Fill"
-                  css="mb-3"
-                  tooltip="project"
-                  cssIcon="rotate-center"
-                />
-              </div>
-            </OverlayTrigger>
-          </>
-        ) : null} */}
-
-        {/* Settings Overlay */}
-        <OverlayTrigger
-          trigger="click"
-          placement="right"
-          overlay={setting}
-          rootClose
-        >
-          <div>
-            <CapIconButton
-              iconType="bs"
-              icon="BsGearFill"
-              tooltip="settings"
-              css="mb-3"
-              cssIcon="rotate-center"
-            />
-          </div>
-        </OverlayTrigger>
 
         {/* Logout */}
         <CapIconButton
