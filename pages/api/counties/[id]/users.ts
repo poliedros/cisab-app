@@ -26,18 +26,19 @@ async function handler(
   }
 
   if (req.method === "POST" || req.method === "PUT") {
-    console.log(req.body);
-    const response = await fetch(
-      process.env.API_URL + `/counties/${req.query.id}/users`,
-      {
-        headers: {
-          Authorization: "Bearer " + user.token,
-          "Content-Type": "application/json",
-        },
-        method: req.method,
-        body: req.body,
-      }
-    );
+    let url = `/counties/${req.query.id}/users`;
+    if (user.roles.find((role) => role == "manager")) {
+      url = `/counties/${req.query.id}/managers`;
+    }
+
+    const response = await fetch(process.env.API_URL + url, {
+      headers: {
+        Authorization: "Bearer " + user.token,
+        "Content-Type": "application/json",
+      },
+      method: req.method,
+      body: req.body,
+    });
     const data = (await response.json()) as CountyUserDTO;
     res.status(response.status).json(data);
     return;
