@@ -38,6 +38,7 @@ export default function CapInputAdvanced({
   products = [],
   sendAll = undefined,
   tooltipSendAll = "emptyText",
+  suggest = false,
 }: {
   label?: string;
   literal?: string;
@@ -57,6 +58,7 @@ export default function CapInputAdvanced({
   products?: ProductDTO[];
   sendAll?: any;
   tooltipSendAll?: string;
+  suggest?: boolean;
 }) {
   const language = useLanguage();
   const theme = useTheme();
@@ -95,6 +97,7 @@ export default function CapInputAdvanced({
             mutate={mutate}
             array={array}
             setArray={setArray}
+            suggest={suggest}
           />
           {/* <Button className="!bg-[#7dc523] !border-0" id="button-addon2">
                     {IconsByName("fi", "FiEdit")}

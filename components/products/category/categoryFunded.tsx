@@ -25,11 +25,13 @@ export default function CategoryFunded({
   array = [],
   setArray = undefined,
   mutate,
+  suggest,
 }: {
   array?: string[];
   setArray?: any;
   categories?: CategoryDTO[];
   mutate: KeyedMutator<CategoryDTO[]>;
+  suggest?: boolean;
 }) {
   const language = useLanguage();
   const toggleLanguage = useLanguageUpdate();
@@ -176,6 +178,8 @@ export default function CategoryFunded({
                           <div className="ml-1.5">
                             {IconsByName("md", messageCategory)}
                           </div>
+                        ) : suggest ? (
+                          <></>
                         ) : (
                           <CapIconButton
                             iconType="io"

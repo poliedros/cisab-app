@@ -1,38 +1,22 @@
-import CapBtn from "atoms/capBtn";
 import CapForm from "atoms/capForm";
-import CapImage from "atoms/capImage";
 import CapTabs from "atoms/capTabs";
 import CapTitle from "atoms/capTitle";
-import useRole from "lib/useRole";
 import useUser from "lib/useUser";
 import { Measure, ProductDTO } from "pages/api/products";
 import { UnitDTO } from "pages/api/units";
 import { useRef, useState } from "react";
-import {
-  Col,
-  Container,
-  Form,
-  OverlayTrigger,
-  Popover,
-  Row,
-} from "react-bootstrap";
-import { Role } from "lib/role.enum";
+import { Col, Form, OverlayTrigger, Popover, Row } from "react-bootstrap";
 import useSWR, { MutatorCallback, MutatorOptions } from "swr";
 import UnitFunded from "./unit/unitFunded";
-import CapTinyCard from "atoms/capTinyCard";
 import CapContainerAdd from "atoms/capContainerAdd";
 import CapInputAdvanced from "atoms/capInputAdvanced";
-import CategoryFunded from "./category/categoryFunded";
 import { CategoryDTO } from "pages/api/categories";
-import { stringify } from "querystring";
 import CapIconButton from "atoms/capIconButton";
 
 import translations from "../../lib/translations";
 import { useLanguage, useLanguageUpdate } from "../../context/languageContext";
 import CapLegend from "atoms/capLegend";
-import ProductCreationInformation from "./tabs/productCreationInformation";
 import CapMessageBottom from "atoms/capMessageBottom";
-import axios from "axios";
 import CapParagraph from "atoms/capParagraph";
 import { useTheme } from "context/themeContext";
 import CapOverlayTrigger from "atoms/capOverlayTrigger";
@@ -42,7 +26,6 @@ import CapSubtitle from "atoms/capSubtitle";
 export default function ProductCreation({
   product = undefined,
   submit,
-  title,
   suggest,
   code,
 }: {
@@ -60,8 +43,6 @@ export default function ProductCreation({
 
   const [step, setStep] = useState(0);
 
-  const [productRegister, setProductRegister] = useState<ProductDTO>();
-
   const [array, setArray] = useState([]);
   const [arrayNorms, setArrayNorms] = useState([]);
   const [arrayProducts, setArrayProducts] = useState([]);
@@ -78,17 +59,11 @@ export default function ProductCreation({
   const [unitsValue, setUnitsValue] = useState<string[]>([]);
   const [unitsSt, setUnitsSt] = useState<UnitDTO[]>([]);
 
-  const [imageSt, setImageSt] = useState<File | undefined>(undefined);
-  const [bigFileWarning, setBigFileWarning] = useState(false);
-
   const [categoriesValue, setCategoriesValue] = useState<string[]>([]);
   const [categoriesSt, setCategoriesSt] = useState<CategoryDTO[]>([]);
 
-  const [func, setFunc] = useState();
-
   const [k, setK] = useState(undefined);
 
-  // const [code, setCode] = useState("");
   const [categorySt, setcategorySt] = useState([""]);
 
   const [productId, setProductId] = useState();
@@ -135,13 +110,6 @@ export default function ProductCreation({
     setUnitsValue(unitsValueAlt);
   };
 
-  const handleUnitName = (e: any) => {
-    let unitsStAlt: UnitDTO[] = unitsSt;
-    unitsStAlt[e.target.parentElement.parentElement.parentElement.id].name =
-      e.target.value;
-    setUnitsSt(unitsStAlt);
-  };
-
   const saveProduct = async (product: any): Promise<ProductDTO | undefined> => {
     delete product._id;
     const data = await fetch("/api/products", {
@@ -169,7 +137,6 @@ export default function ProductCreation({
       measurements: meaRes ?? [],
       norms: norRes ?? [],
       code: code,
-      //photo_url: "", //https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg
       accessory_ids: prodRes ?? [],
       categories: listCat ?? [],
     };
@@ -179,63 +146,12 @@ export default function ProductCreation({
     else await saveProduct(productResult);
   };
 
-  const handleProductLast = async () => {
-    const _id = product?._id;
-    let mea: Measure;
-    let meaRes = array;
-    let norRes = arrayNorms;
-    let prodRes = listProd;
-    let productResult: ProductDTO = {
-      _id: _id ?? "0",
-      name: productName,
-      measurements: meaRes ?? [],
-      norms: norRes ?? [],
-      code: code,
-      //photo_url: "", //https://d38b044pevnwc9.cloudfront.net/cutout-nuxt/enhancer/2.jpg
-      accessory_ids: prodRes ?? [],
-      categories: listCat ?? [],
-    };
-
-    setStep(4);
-    if (suggest) await submit(productResult);
-    else await saveProduct(productResult);
-  };
-
-  const saveImage = async (image: any): Promise<any> => {
-    // const { data } = await axios.post(
-    //   `/api/products/${productId}/image`,
-    //   { file: image },
-    //   {
-    //     headers: {
-    //       "Content-Type": "multipart/form-data",
-    //     },
-    //   }
-    // );
-    // var FormData = require("form-data");
-    // var formdata = new FormData();
-    // formdata.append("file", image, `img_${productId}.png`);
-
-    const data = await fetch(`/api/products/${productId}/image`, {
-      method: "POST",
-      body: image,
-    });
-
-    // const result = await data.json();
-    return undefined;
-  };
-
-  const handleSaveImage = async () => {
-    setStep(4);
-    console.log(imageSt);
-    await saveImage(imageSt);
-  };
-
   const [showOT, setShowOT] = useState(false);
   const [showOT1, setShowOT1] = useState(false);
   const [showOT2, setShowOT2] = useState(false);
   const [showOT3, setShowOT3] = useState(false);
   const [showOT4, setShowOT4] = useState(false);
-  const [mesuamentSt, setMesuamentSt] = useState([]);
+  const [measurementSt, setMeasurementSt] = useState([]);
 
   if (error) return <CapResponse type="failed" />;
   if (!units) return <CapResponse type="loading" height="75" />;
@@ -317,8 +233,8 @@ export default function ProductCreation({
                     {translations("measures", language)}
                   </span>
                   <br />
-                  {mesuamentSt
-                    ? mesuamentSt
+                  {measurementSt
+                    ? measurementSt
                         .map((m: any) => {
                           return m.name &&
                             m.name !== "" &&
@@ -367,7 +283,7 @@ export default function ProductCreation({
             click={() => {
               setShow(true);
               measurementRef.current
-                ? setMesuamentSt(measurementRef.current.handleScanArray())
+                ? setMeasurementSt(measurementRef.current.handleScanArray())
                 : null;
             }}
             mouseEnter={() => setDescription("continueFillingOut")}
@@ -384,28 +300,21 @@ export default function ProductCreation({
         base="product"
         label={suggest ? "suggestProduct" : "addProduct"}
       />
-      <CapParagraph label={"suggestObs"} show={suggest} />
+      <CapParagraph label={"suggestObs"} show={suggest ? true : false} />
 
       <Form className="mt-3">
         <Row>
           <CapTabs
             activeKey={step.toString()}
-            disabled={[true, true, true, true, true]}
-            stagesTooltips={[
-              "productData",
-              "norms",
-              "accessories",
-              "image",
-              "finalize",
-            ]}
+            disabled={[true, true, true, true]}
+            stagesTooltips={["productData", "norms", "accessories", "finalize"]}
             stagesIcons={[
               "HiClipboardList",
               "FaBalanceScale",
               "BsNutFill",
-              "IoImage",
               "RiCheckboxCircleFill",
             ]}
-            stagesIconsTypes={["hi", "fa", "bs", "io5", "ri"]}
+            stagesIconsTypes={["hi", "fa", "bs", "ri"]}
             stagesBody={[
               <>
                 <CapForm
@@ -426,10 +335,6 @@ export default function ProductCreation({
                     type="number"
                     value={code}
                     disabled={true}
-                    // change={
-                    //   (e: any) => setCode(e.target.value) //setProductName(e.target.value)
-                    // }
-                    /* legend="exampleProductName" */
                   />
                   <Col>
                     <CapInputAdvanced
@@ -439,6 +344,7 @@ export default function ProductCreation({
                       mutate={mutate}
                       array={listCat}
                       setArray={setListCat}
+                      suggest={suggest}
                     />
                   </Col>
                 </Row>
@@ -448,22 +354,18 @@ export default function ProductCreation({
                     <CapForm
                       key={0}
                       as={Col}
-                      label="measureName" //"measure"
-                      placeholder="insertMeasureName" //"insertMeasureName"
-                      //value={} //(e: any) => measures[e.target.parentElement.parentElement.parentElement.id]
+                      label="measureName"
+                      placeholder="insertMeasureName"
                       change={(e: any) => handleProductMeasure(e)}
                       legend="exampleMeasure"
                     />,
                     <CapForm
                       key={0}
                       as={Col}
-                      label="value" //"scale"
-                      placeholder="insertValue" //"insertScale"
+                      label="value"
+                      placeholder="insertValue"
                       type="text"
-                      //value={measures}
-                      change={
-                        (e: any) => handleUnitValue(e) //alert(e.target.value)
-                      } //setMeasures([...measures, e.target.value])
+                      change={(e: any) => handleUnitValue(e)}
                     />,
                     <Col key={0}>
                       <UnitFunded
@@ -484,14 +386,14 @@ export default function ProductCreation({
                   <Col md="auto" className="!pl-0 !pr-3">
                     <CapOverlayTrigger
                       listCat={listCat}
-                      handleProduct={handleProductLast}
+                      handleProduct={handleProduct}
                       code={code}
                       show={showOT4}
                       setShow={setShowOT4}
                       step={4}
                       productName={productName}
-                      mesuamentSt={mesuamentSt}
-                      setMesuamentSt={setMesuamentSt}
+                      mesuamentSt={measurementSt}
+                      setMesuamentSt={setMeasurementSt}
                       setStep={setStep}
                       setDescription={setDescription}
                       handleScanArray={() =>
@@ -505,7 +407,7 @@ export default function ProductCreation({
                           css="rotate-in-2-fwd-ccw"
                           click={() => {
                             setShowOT4(true);
-                            setMesuamentSt(
+                            setMeasurementSt(
                               measurementRef.current.handleScanArray()
                             );
                           }}
@@ -524,28 +426,12 @@ export default function ProductCreation({
                       setShow={setShowOT2}
                       step={3}
                       productName={productName}
-                      mesuamentSt={mesuamentSt}
-                      setMesuamentSt={setMesuamentSt}
+                      mesuamentSt={measurementSt}
+                      setMesuamentSt={setMeasurementSt}
                       setStep={setStep}
                       setDescription={setDescription}
                       handleScanArray={() =>
                         measurementRef.current.handleScanArray()
-                      }
-                      button={
-                        <CapIconButton
-                          iconType="io5"
-                          icon="IoImageOutline"
-                          size="20px"
-                          css="rotate-in-2-fwd-ccw1"
-                          click={() => {
-                            setShowOT2(true);
-                            setMesuamentSt(
-                              measurementRef.current.handleScanArray()
-                            );
-                          }}
-                          mouseEnter={() => setDescription("goToInsertImage")}
-                          mouseLeave={() => setDescription("emptyText")}
-                        />
                       }
                     />
                   </Col>
@@ -556,8 +442,8 @@ export default function ProductCreation({
                       show={showOT1}
                       setShow={setShowOT1}
                       productName={productName}
-                      mesuamentSt={mesuamentSt}
-                      setMesuamentSt={setMesuamentSt}
+                      mesuamentSt={measurementSt}
+                      setMesuamentSt={setMeasurementSt}
                       setStep={setStep}
                       step={2}
                       setDescription={setDescription}
@@ -572,7 +458,7 @@ export default function ProductCreation({
                           css="rotate-in-2-fwd-ccw2"
                           click={() => {
                             setShowOT1(true);
-                            setMesuamentSt(
+                            setMeasurementSt(
                               measurementRef.current.handleScanArray()
                             );
                           }}
@@ -589,8 +475,8 @@ export default function ProductCreation({
                       show={showOT}
                       setShow={setShowOT}
                       productName={productName}
-                      mesuamentSt={mesuamentSt}
-                      setMesuamentSt={setMesuamentSt}
+                      mesuamentSt={measurementSt}
+                      setMesuamentSt={setMeasurementSt}
                       setStep={setStep}
                       step={1}
                       setDescription={setDescription}
@@ -605,7 +491,7 @@ export default function ProductCreation({
                           css="rotate-in-2-fwd-ccw3"
                           click={() => {
                             setShowOT(true);
-                            setMesuamentSt(
+                            setMeasurementSt(
                               measurementRef.current.handleScanArray()
                             );
                           }}
@@ -678,7 +564,6 @@ export default function ProductCreation({
                                 iconType="gr"
                                 icon="GrCheckmark"
                                 size="14px"
-                                //variant="success"
                                 hoverColor="transparent"
                                 click={() => {
                                   setShowOT3(false);
@@ -691,23 +576,7 @@ export default function ProductCreation({
                       }
                       rootClose
                     >
-                      <div>
-                        <CapIconButton
-                          iconType="io5"
-                          icon="IoImageOutline"
-                          size="20px"
-                          click={() => {
-                            setShowOT3(true);
-                            childRef.current
-                              ? setArrayNorms(
-                                  childRef.current.handleContainer()
-                                )
-                              : null;
-                          }}
-                          mouseEnter={() => setDescription("goToInsertImage")}
-                          mouseLeave={() => setDescription("emptyText")}
-                        />
-                      </div>
+                      <div></div>
                     </OverlayTrigger>
                   </Col>
                   <Col md="auto" className="!pl-0">
@@ -794,6 +663,7 @@ export default function ProductCreation({
                   placeholder="insertMultiAccessories"
                   products={products}
                   setArray={setListProd}
+                  suggest={false}
                   mutate={function (
                     data?:
                       | CategoryDTO[]
@@ -867,46 +737,6 @@ export default function ProductCreation({
                     </div>
                   </OverlayTrigger>
                 </div>
-              </>,
-              <>
-                <CapImage key={0} src={""} />
-                <CapForm
-                  label="image"
-                  type="file"
-                  change={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setBigFileWarning(false);
-
-                    const TWO_MBs = 2097152;
-                    const files = e.target.files;
-
-                    if (!files) return;
-
-                    if (files.length <= 0) return;
-
-                    if (files[0].size > TWO_MBs) {
-                      setBigFileWarning(true);
-                      setImageSt(undefined);
-                      return;
-                    }
-
-                    setImageSt(files[0]);
-                  }}
-                />
-                <Row className="flex justify-end items-end">
-                  <Col>
-                    <CapLegend label={description} />
-                  </Col>
-                  <Col md="auto" className="!pl-0">
-                    <CapIconButton
-                      iconType="ri"
-                      icon="RiCheckboxCircleLine"
-                      size="20px"
-                      click={handleSaveImage} //() => setStep(4)
-                      mouseEnter={() => setDescription("finalize")}
-                      mouseLeave={() => setDescription("emptyText")}
-                    />
-                  </Col>
-                </Row>
               </>,
               <>
                 <CapResponse
