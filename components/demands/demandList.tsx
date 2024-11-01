@@ -11,8 +11,8 @@ export default function DemandList({ demands }: { demands: DemandDTO[] }) {
       <CapTitle base="list" label="listDemands" cssExternal="mb-3" />
       <CapSwitcher
         data={demands}
-        tableHeaders={["theme", "startDate", "endDate", "state"]}
-        tableColumns={["name", "start_date", "end_date", "state"]}
+        tableHeaders={["theme", "startDate", "endDate"]}
+        tableColumns={["name", "start_date", "end_date"]}
         buttons={["view", /*"unlock",*/ "remove"]}
         buttonsPaths={["/demands/", /*"api/demands/",*/ "api/demands/"]}
         date={[1, 2]}

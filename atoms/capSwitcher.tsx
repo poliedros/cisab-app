@@ -123,12 +123,6 @@ export default function CapSwitcher({
                 size="24px"
                 click={() => setFormat("table")}
               />
-              <CapIconButton
-                iconType="fa"
-                icon="FaThLarge"
-                size="24px"
-                click={() => setFormat("grid")}
-              />
             </div>
           </Col>
         ) : null}

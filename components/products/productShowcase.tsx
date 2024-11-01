@@ -61,6 +61,24 @@ export default function ProductShowcase({ product }: { product: ProductDTO }) {
   return (
     <>
       <Row className="flex items-center">
+        <Col sm={8} className="flex flex-column items-start text-left">
+          <CapTitle
+            literal={product.name}
+            base="none"
+            additional={{ label: " !text-4xl !m-0" }}
+          />
+          <h6 className="mt-2 tracking-widest text-[silver]">
+            {product.categories?.map((c) => c + " ")}
+          </h6>
+          <CapInfoBoard
+            litTitle={"Medidas"}
+            litSubtitle=""
+            litSentences={product.measurements?.map(
+              (p) => `${p.name}: ${p.value}${p.unit}`
+            )}
+            style={[]}
+          />
+        </Col>
         <Col sm={4} className="flex justify-center mb-16 pr-16">
           <ul className="menu">
             <li>
@@ -116,58 +134,22 @@ export default function ProductShowcase({ product }: { product: ProductDTO }) {
             </li>
           </ul>
         </Col>
-        <Col sm={8} className="flex flex-column items-start text-left">
-          <CapTitle
-            literal={product.name}
-            base="none"
-            additional={{ label: " !text-4xl !m-0" }}
-          />
-          <h6 className="mt-2 tracking-widest text-[silver]">
-            {product.categories?.map((c) => c + " ")}
-          </h6>
-          <CapInfoBoard
-            litTitle={"Medidas"}
-            litSubtitle=""
-            litSentences={
-              //[
-              product.measurements?.map((p) => `${p.name}: ${p.value}${p.unit}`)
-              //product.measurements ? product.measurements[0].name : "",
-              /* `${county.accountable.address} - ${county.accountable.zipCode}`,
-                        county.accountable.phone,
-                        county.accountable.email,
-                        county.accountable.socialMedias,
-                        county.accountable.note, */
-              //]
-            }
-            style={
-              [
-                /* "email",
-                            "huge",
-                        "email",
-                        "default",
-                        "default", */
-              ]
-            }
-          />
-        </Col>
       </Row>
       {screens === "norms" ? (
         <Row className="mt-3 pt-3 border-t-2">
-          {product.norms
-            ? product.norms.map((n, i) => {
-                return (
-                  <Col key={i} md={12}>
-                    <CapParagraph literal={n} />
-                  </Col>
-                );
-              })
-            : []}
+          <CapInfoBoard
+            litTitle={"Normas"}
+            litSubtitle=""
+            litSentences={product.norms ? product.norms.map((n, i) => n) : []}
+            style={[]}
+          />
         </Row>
       ) : (
         <></>
       )}
       {screens === "accessories" ? (
         <Row className="mt-3 pt-3 border-t-2 justify-center">
+          <h5>Acessórios</h5>
           {/* <Col md="auto" className="border-r-2 mr-3 !my-6">
                     <div className="flex flex-column">
                         <CapIconButton

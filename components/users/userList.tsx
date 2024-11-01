@@ -19,8 +19,6 @@ export default function UserList({ users }: { users: CountyUserDTO[] }) {
   const router = useRouter();
   const { id } = router.query;
 
-  //alert(JSON.stringify(user?.county_id));
-
   users.map((u) => {
     if (!u.name) u.name = "Não Cadastrado";
   });
@@ -36,7 +34,6 @@ export default function UserList({ users }: { users: CountyUserDTO[] }) {
     <>
       <Container className="p-0">
         <CapTitle base="list" literal={"Lista de Usuários de " + county.name} />{" "}
-        {/* userListOf */}
         <div className="mb-6"></div>
         <CapInputGroup
           search={searchUser}
@@ -50,8 +47,8 @@ export default function UserList({ users }: { users: CountyUserDTO[] }) {
           numeral={true}
           buttonsColumns={[""]}
           buttonsPaths={[""]}
-          // search={searchUser}
-          // searchPath={"name"}
+          search={searchUser}
+          searchPath={"name"}
         />
       </Container>
     </>
