@@ -80,16 +80,11 @@ export default function DemandCreation({
       lula = lula + "category=" + c + "&";
     });
     setCategoriesSwr(lula);
-    console.log("my ass");
-    console.log(categoriesSwr);
 
     if (categoriesSt.length === 0) setDefaultSt([]);
   }, [categoriesSt]);
 
   const handleProductCategories = () => {
-    console.log("smack");
-    console.log(categoriesSwr);
-    console.log(products);
     if (categories && categories?.length > 0) return products?.map((p) => p);
   };
 
@@ -109,42 +104,16 @@ export default function DemandCreation({
   };
 
   const handleDemand = async () => {
-    const _id = demand?._id;
-    let draft = true;
-    let demandResult: any = {
-      _id: _id ?? "0",
+    const _id = demand?._id || "0";
+    const demandResult = {
+      _id,
       name: demandName,
-      start_date:
-        !startDateAlt && startDate
-          ? startDate.split("/")[1] +
-            "/" +
-            startDate.split("/")[0] +
-            "/" +
-            startDate.split("/")[2]
-          : startDateAlt
-          ? startDateAlt.split("-")[1] +
-            "/" +
-            startDateAlt.split("-")[2] +
-            "/" +
-            startDateAlt.split("-")[0]
-          : "00/00/0000",
-      end_date:
-        !endDateAlt && endDate
-          ? endDate.split("/")[1] +
-            "/" +
-            endDate.split("/")[0] +
-            "/" +
-            endDate.split("/")[2]
-          : endDateAlt
-          ? endDateAlt.split("-")[1] +
-            "/" +
-            endDateAlt.split("-")[2] +
-            "/" +
-            endDateAlt.split("-")[0]
-          : "00/00/0000",
-      draft: draft,
+      start_date: startDate ? startDate.split("T")[0] : "0000-00-00",
+      end_date: endDate ? endDate.split("T")[0] : "0000-00-00",
+      draft: true,
       product_ids: defaultSt.map((d) => d._id),
     };
+
     await saveDemand(demandResult);
   };
 
@@ -199,17 +168,6 @@ export default function DemandCreation({
     );
   };
 
-  const [startDateAlt, setStartDateAlt] = useState<string>();
-  const [endDateAlt, setEndDateAlt] = useState<string>();
-
-  useEffect(() => {
-    setStartDateAlt(undefined);
-  }, [startDate]);
-
-  useEffect(() => {
-    setEndDateAlt(undefined);
-  }, [endDate]);
-
   return (
     <>
       <Row>
@@ -262,7 +220,14 @@ export default function DemandCreation({
           <CapDropdownIconButton
             iconType="bs"
             icon="BsCalendar"
-            element={<CapInputRangeCalendar setDate={setStartDate} />}
+            // element={<CapInputRangeCalendar setDate={setStartDate} />}
+            element={
+              <CapInputRangeCalendar
+                setDate={(date: SetStateAction<string | undefined>) =>
+                  setStartDate(date)
+                }
+              />
+            }
           />
           <div className="m-2"></div>
           <Form.Group>
@@ -273,15 +238,21 @@ export default function DemandCreation({
               type="date"
               placeholder="insertStartDate"
               value={
-                startDate && !startDateAlt
-                  ? startDate.split("/")[2] +
-                    "-" +
-                    startDate.split("/")[1] +
-                    "-" +
-                    startDate.split("/")[0]
-                  : startDateAlt
+                startDate ? new Date(startDate).toISOString().slice(0, 10) : ""
               }
-              onChange={(e: any) => setStartDateAlt(e.target.value)}
+              // value={
+              //   startDate && !startDateAlt
+              //     ? startDate.split("/")[2] +
+              //       "-" +
+              //       startDate.split("/")[1] +
+              //       "-" +
+              //       startDate.split("/")[0]
+              //     : startDateAlt
+              // }
+              // onChange={(e: any) => setStartDateAlt(e.target.value)}
+              onChange={(e) =>
+                setStartDate(new Date(e.target.value).toISOString())
+              }
             />
           </Form.Group>
         </Col>
@@ -293,23 +264,36 @@ export default function DemandCreation({
             <Form.Control
               type="date"
               placeholder="insertEndDate"
+              // value={
+              //   endDate && !endDateAlt
+              //     ? endDate.split("/")[2] +
+              //       "-" +
+              //       endDate.split("/")[1] +
+              //       "-" +
+              //       endDate.split("/")[0]
+              //     : endDateAlt
+              // }
               value={
-                endDate && !endDateAlt
-                  ? endDate.split("/")[2] +
-                    "-" +
-                    endDate.split("/")[1] +
-                    "-" +
-                    endDate.split("/")[0]
-                  : endDateAlt
+                endDate ? new Date(endDate).toISOString().slice(0, 10) : ""
               }
-              onChange={(e: any) => setEndDateAlt(e.target.value)}
+              onChange={(e) =>
+                setEndDate(new Date(e.target.value).toISOString())
+              }
+              // onChange={(e: any) => setEndDateAlt(e.target.value)}
             />
           </Form.Group>
           <div className="m-2"></div>
           <CapDropdownIconButton
             iconType="bs"
             icon="BsCalendar"
-            element={<CapInputRangeCalendar setDate={setEndDate} />}
+            // element={<CapInputRangeCalendar setDate={setEndDate} />}
+            element={
+              <CapInputRangeCalendar
+                setDate={(date: SetStateAction<string | undefined>) =>
+                  setEndDate(date)
+                }
+              />
+            }
           />
         </Col>
       </Row>
