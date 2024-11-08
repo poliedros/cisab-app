@@ -60,7 +60,6 @@ export default function DemandCreation({
   } = useSWR<ProductDTO[]>(
     user && categoriesSt.length > 0 ? `/api/products?${categoriesSwr}` : null
   );
-  //useSWR<ProductDTO[]>(user ? `/api/products` : null);
 
   const {
     data: categories,
@@ -76,19 +75,8 @@ export default function DemandCreation({
   };
 
   useEffect(() => {
-    // alert("daSolva");
-    // async function updateCategory() {
-    //   alert("Lula");
-    //   setCategoriesSwr("");
-    // }
-    // updateCategory();
-    // () => setCategoriesSwr("");
-    //updateCategory();
-
-    // if (categoriesSwr === "")
     let lula = "";
     categoriesSt.map((c) => {
-      // setCategoriesSwr(categoriesSwr + "category=" + c + "&");
       lula = lula + "category=" + c + "&";
     });
     setCategoriesSwr(lula);
@@ -96,43 +84,13 @@ export default function DemandCreation({
     console.log(categoriesSwr);
 
     if (categoriesSt.length === 0) setDefaultSt([]);
-    // else {
-    //   console.log("ENtrOU AQUI");
-    //   handleProductCategories();
-    // }
-
-    //setCategoriesSwr(Object.keys(categoriesSt).map(key => key + '=' + categoriesSwr[key]).join('&'));
   }, [categoriesSt]);
-
-  // useEffect(() => {
-  //   alert("Lula");
-  // }, [categoriesSwr]);
-
-  /* useEffect(() => {
-        const {
-            data: products,
-            error: error,
-            mutate: mutate,
-        } = useSWR<ProductDTO[]>(user ? "/api/products" : null);
-    }, [categoriesSt]); */
 
   const handleProductCategories = () => {
     console.log("smack");
     console.log(categoriesSwr);
     console.log(products);
     if (categories && categories?.length > 0) return products?.map((p) => p);
-
-    /* let a: string[] = [];
-        if (categoriesSt.length === 0) return products?.map((p) => p.name);
-        products
-            ? products.map((ps) => {
-                  categoriesSt.map((c) => {
-                      if (ps.categories ? ps.categories.includes(c) : true)
-                          a.push(ps.name);
-                  });
-              })
-            : [];
-        return a; */
   };
 
   const saveDemand = async (demand: any): Promise<any | undefined> => {
@@ -141,9 +99,6 @@ export default function DemandCreation({
       method: "POST",
       body: JSON.stringify(demand),
     });
-
-    // if (data.status === 200) <CapMessageBottom literal="Salvou" />;
-    // else <CapMessageBottom literal="Erro" />;
 
     if (data.status === 201) setSuccessMessage(true);
     else setSuccessMessage(false);
@@ -155,10 +110,7 @@ export default function DemandCreation({
 
   const handleDemand = async () => {
     const _id = demand?._id;
-    //let start_date: Measure;
-    //let end_date = array;
     let draft = true;
-    //let product_ids = listProd;
     let demandResult: any = {
       _id: _id ?? "0",
       name: demandName,
@@ -193,53 +145,10 @@ export default function DemandCreation({
       draft: draft,
       product_ids: defaultSt.map((d) => d._id),
     };
-
-    //console.log(products);
-    //console.log(categoriesSwr);
-    console.log(demandResult);
-    console.log(productsSt);
     await saveDemand(demandResult);
   };
 
   let layout;
-
-  // useEffect(() => {
-  //     layout = <CapInputAdvanced
-  //     kind="base"
-  //     label="products"
-  //     placeholder="insertMultiProducts"
-  //     type="product"
-  //     defaultValue={defaultSt.map((p) => {
-  //         return {
-  //             label: p.name.toString(),
-  //             value: p._id.toString(),
-  //         };
-  //     })/* products
-  //         ? products.map((p) => {
-  //               if (!p.name.includes("mangueirao"))
-  //                   return {
-  //                       label: p.name.toString(),
-  //                       value: p._id.toString(),
-  //                   };
-  //           })
-  //         : [] */}
-  //     values={Array.from(new Set(handleProductCategories()))} //products?.map((p) => p.name)
-  //     mutate={function (
-  //         data?:
-  //             | CategoryDTO[]
-  //             | Promise<CategoryDTO[]>
-  //             | MutatorCallback<CategoryDTO[]>
-  //             | undefined,
-  //         opts?:
-  //             | boolean
-  //             | MutatorOptions<CategoryDTO[]>
-  //             | undefined
-  //     ): Promise<CategoryDTO[] | undefined> {
-  //         throw new Error("Function not implemented.");
-  //     }}
-  //     setArray={setProductsSt}
-  // />;
-  // }, [categoriesSt]);
 
   const ChildComponent = ({
     value,
@@ -248,23 +157,9 @@ export default function DemandCreation({
     value: any[];
     setValue: any;
   }) => {
-    //{ onClick, count }
     const [prod, setProd] = useState<ProductDTO[]>([]);
     const [prodAx, setProdAx] = useState<ProductDTO[]>([]);
-    //alert(prod.length);
     const [def, setDef] = useState(value);
-    // useEffect(() => {
-    //     //if(products.length === 0)
-    //     //setDef(prod);
-    //         //setDef(prod);
-    // }, [prod]);
-
-    // useEffect(() => {
-    //     // const prods = products?.find(f => prod.includes(f));
-    //     // setValue(prods);
-    //     console.log("MUDOU" + JSON.stringify(def));
-    //     setDef(def.find(f => prod.includes(f._id)));
-    // }, prod);
 
     console.log("cat: " + categoriesSt.length);
     console.log("def: " + JSON.stringify(def));
@@ -304,13 +199,6 @@ export default function DemandCreation({
     );
   };
 
-  //   useEffect(
-  //     () => {
-  //         if(categories && (categories.length == 0))
-  //             setDefaultSt([]);
-  //     }, [categoriesSt]
-  //   );
-
   const [startDateAlt, setStartDateAlt] = useState<string>();
   const [endDateAlt, setEndDateAlt] = useState<string>();
 
@@ -322,22 +210,10 @@ export default function DemandCreation({
     setEndDateAlt(undefined);
   }, [endDate]);
 
-  // useEffect(() => {
-  //   setStartDate(state);
-  // }, [state]);
-
   return (
     <>
       <Row>
         <CapTitle base="demand" label="createDemand" cssExternal="mb-3" />
-        {/* <div className="mb-3"></div> */}
-        {/* <Col md={12} css={" !py-3"}>
-                    <CapIconButton
-                        iconType="bs"
-                        icon="BsFilter"
-                        size={"16px"}
-                    />
-                </Col> */}
         <Col md={12}>
           <CapForm
             label="theme"
@@ -346,22 +222,6 @@ export default function DemandCreation({
             change={(e: any) => setDemandName(e.target.value)}
           />
         </Col>
-        {/* <Col md={12}>
-                    <OverlayTrigger
-                        trigger="click"
-                        placement="bottom"
-                        overlay={calendar}
-                        rootClose
-                    >
-                        <div>
-                        <CapIconButton
-                            iconType="bs"
-                            icon="BsCalendar"
-                            size={"16px"}
-                        />
-                        </div>
-                    </OverlayTrigger>
-                </Col> */}
       </Row>
       <Row>
         <Col className="flex items-center">
@@ -370,7 +230,6 @@ export default function DemandCreation({
               kind="base"
               label="searchCategory"
               placeholder="insertProductMultiCategory"
-              //defaultValue={defineValuesAccessories()}
               base="filter"
               values={categories?.map((c) => c.name)}
               mutate={function (
@@ -391,64 +250,10 @@ export default function DemandCreation({
               tooltipSendAll="addAllProductsOfCategories"
             />
           </div>
-          {/* <CapIconButton
-            css="ml-6"
-            tooltip="addProductsFromCategory"
-            iconType="io5"
-            icon="IoDownload"
-            size="24px"
-            click={() => {
-              setDefaultSt(Array.from(new Set(handleProductCategories())));
-            }}
-          /> */}
         </Col>
         <Col md={12}>
           <>
             <ChildComponent value={defaultSt} setValue={setDefaultSt} />
-            {/* {products
-                            ? products.map((p) => {
-                                  if (!p.name.includes("mangueirao"))
-                                      console.log( {
-                                          label: p.name.toString(),
-                                          value: p._id.toString(),
-                                      });
-                              })
-                            : []} */}
-            {/* {defaultSt.length > 0 ? <CapInputAdvanced
-                        kind="base"
-                        label="products"
-                        placeholder="insertMultiProducts"
-                        type="product"
-                        defaultValue={defaultSt.map((p) => {
-                            return {
-                                label: p.name.toString(),
-                                value: p._id.toString(),
-                            };
-                        })/* products
-                            ? products.map((p) => {
-                                  if (!p.name.includes("mangueirao"))
-                                      return {
-                                          label: p.name.toString(),
-                                          value: p._id.toString(),
-                                      };
-                              })
-                            : [] /}
-                        values={Array.from(new Set(handleProductCategories()))} //products?.map((p) => p.name)
-                        mutate={function (
-                            data?:
-                                | CategoryDTO[]
-                                | Promise<CategoryDTO[]>
-                                | MutatorCallback<CategoryDTO[]>
-                                | undefined,
-                            opts?:
-                                | boolean
-                                | MutatorOptions<CategoryDTO[]>
-                                | undefined
-                        ): Promise<CategoryDTO[] | undefined> {
-                            throw new Error("Function not implemented.");
-                        }}
-                        setArray={setProductsSt}
-                    /> : <></>} */}
           </>
         </Col>
       </Row>
@@ -479,41 +284,8 @@ export default function DemandCreation({
               onChange={(e: any) => setStartDateAlt(e.target.value)}
             />
           </Form.Group>
-          {/* {!startDateAlt && startDate
-            ? startDate.split("/")[1] +
-              "/" +
-              startDate.split("/")[0] +
-              "/" +
-              startDate.split("/")[2]
-            : startDateAlt
-            ? startDateAlt.split("-")[1] +
-              "/" +
-              startDateAlt.split("-")[2] +
-              "/" +
-              startDateAlt.split("-")[0]
-            : "00/00/0000"} */}
-          {/* {Date.parse(startDate ? startDate : "")} */}
-          {/* {moment(startDate).format("YYYY-MM-DD")} */}
-          {/* <CapForm
-            label="startDate"
-            placeholder="insertStartDate"
-            value={startDate}
-          /> */}
         </Col>
         <Col className="flex items-center justify-center">
-          {/* {!endDateAlt && endDate
-            ? endDate.split("/")[1] +
-              "/" +
-              endDate.split("/")[0] +
-              "/" +
-              endDate.split("/")[2]
-            : endDateAlt
-            ? endDateAlt.split("-")[1] +
-              "/" +
-              endDateAlt.split("-")[2] +
-              "/" +
-              endDateAlt.split("-")[0]
-            : "00/00/0000"} */}
           <Form.Group>
             <Form.Label className={theme === "dark" ? "text-white" : ""}>
               {translations("endDate", "pt")}
@@ -533,12 +305,6 @@ export default function DemandCreation({
               onChange={(e: any) => setEndDateAlt(e.target.value)}
             />
           </Form.Group>
-
-          {/* <CapForm
-            label="endDate"
-            placeholder="insertEndDate"
-            value={endDate}
-          /> */}
           <div className="m-2"></div>
           <CapDropdownIconButton
             iconType="bs"
