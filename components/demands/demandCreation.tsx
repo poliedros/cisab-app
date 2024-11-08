@@ -130,11 +130,6 @@ export default function DemandCreation({
     const [prodAx, setProdAx] = useState<ProductDTO[]>([]);
     const [def, setDef] = useState(value);
 
-    console.log("cat: " + categoriesSt.length);
-    console.log("def: " + JSON.stringify(def));
-    console.log("prod: " + JSON.stringify(prod));
-    console.log("prodAx: " + JSON.stringify(prodAx));
-
     return (
       <CapInputAdvanced
         kind="base"
@@ -152,7 +147,7 @@ export default function DemandCreation({
               })
             : []
         }
-        values={Array.from(new Set(handleProductCategories()))} //products?.map((p) => p.name)
+        values={Array.from(new Set(handleProductCategories()))}
         mutate={function (
           data?:
             | CategoryDTO[]
@@ -220,7 +215,6 @@ export default function DemandCreation({
           <CapDropdownIconButton
             iconType="bs"
             icon="BsCalendar"
-            // element={<CapInputRangeCalendar setDate={setStartDate} />}
             element={
               <CapInputRangeCalendar
                 setDate={(date: SetStateAction<string | undefined>) =>
@@ -240,16 +234,6 @@ export default function DemandCreation({
               value={
                 startDate ? new Date(startDate).toISOString().slice(0, 10) : ""
               }
-              // value={
-              //   startDate && !startDateAlt
-              //     ? startDate.split("/")[2] +
-              //       "-" +
-              //       startDate.split("/")[1] +
-              //       "-" +
-              //       startDate.split("/")[0]
-              //     : startDateAlt
-              // }
-              // onChange={(e: any) => setStartDateAlt(e.target.value)}
               onChange={(e) =>
                 setStartDate(new Date(e.target.value).toISOString())
               }
@@ -264,29 +248,18 @@ export default function DemandCreation({
             <Form.Control
               type="date"
               placeholder="insertEndDate"
-              // value={
-              //   endDate && !endDateAlt
-              //     ? endDate.split("/")[2] +
-              //       "-" +
-              //       endDate.split("/")[1] +
-              //       "-" +
-              //       endDate.split("/")[0]
-              //     : endDateAlt
-              // }
               value={
                 endDate ? new Date(endDate).toISOString().slice(0, 10) : ""
               }
               onChange={(e) =>
                 setEndDate(new Date(e.target.value).toISOString())
               }
-              // onChange={(e: any) => setEndDateAlt(e.target.value)}
             />
           </Form.Group>
           <div className="m-2"></div>
           <CapDropdownIconButton
             iconType="bs"
             icon="BsCalendar"
-            // element={<CapInputRangeCalendar setDate={setEndDate} />}
             element={
               <CapInputRangeCalendar
                 setDate={(date: SetStateAction<string | undefined>) =>
