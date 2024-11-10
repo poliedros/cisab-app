@@ -1,13 +1,10 @@
 import CapIconButton from "atoms/capIconButton";
 import CapLegend from "atoms/capLegend";
-import CapParagraph from "atoms/capParagraph";
+import CapMessageBottom from "atoms/capMessageBottom";
 import CapTabs from "atoms/capTabs";
 import CapTitle from "atoms/capTitle";
 import Account from "components/registration/account";
-import Contact from "components/registration/contact";
-import Info from "components/registration/info";
-import translations from "lib/translations";
-import { ContactDTO, CountyDTO, InfoDTO } from "pages/api/counties";
+import { CountyDTO } from "pages/api/counties";
 import { CountyManagerDTO } from "pages/api/counties/[id]/manager";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -40,6 +37,9 @@ export default function CountyAutarkyCreation({
 
   const [description, setDescription] = useState("emptyText");
 
+  const [errorMessage, setErrorMessage] = useState<boolean>(false);
+  const [successMessage, setSuccessMessage] = useState<boolean>(false);
+
   const validateEmail: any = (email: string) => {
     return String(email)
       .toLowerCase()
@@ -54,8 +54,6 @@ export default function CountyAutarkyCreation({
       return false;
     }
 
-    // TODO:
-    // colocar a validacao do nome do municipio aqui junto ao IBGE
     if (account.name === "") {
       setError("Instituição deve ter um nome");
       return false;
@@ -70,20 +68,10 @@ export default function CountyAutarkyCreation({
     if (kind == "autarky") setAutarkyManager(account);
   }
 
-  function handleInfo(info: InfoDTO, kind: string) {
-    if (kind == "county") setCounty({ ...county, info });
-    if (kind == "autarky") setAutarky({ ...autarky, info });
-  }
-
-  function handleContact(contact: ContactDTO, kind: string) {
-    if (kind == "county") setCounty({ ...county, contact });
-    if (kind == "autarky") setAutarky({ ...autarky, contact });
-  }
-
   async function registerAccount(account: CountyManagerDTO) {
     console.log("registering manager...");
 
-    const response = await fetch("api/counties/manager", {
+    const response = await fetch("/api/counties/manager", {
       method: "POST",
       body: JSON.stringify(account),
     });
@@ -100,16 +88,7 @@ export default function CountyAutarkyCreation({
       _id: data.county_id,
       county_id: county._id,
     });
-    // setCounty({ name: account.name, _id: "637e7572a43d43b46f0cd180" });
-  }
-
-  function accountCreated() {
-    const email = countyManager.email + ", " + autarkyManager.email;
-    return (
-      <CapParagraph
-        literal={translations("accountCreated", language) + " " + email}
-      />
-    ); //translations("accountCreated", language) + " " + email;
+    return data;
   }
 
   async function registerCounty(county: CountyDTO, id: string) {
@@ -127,24 +106,12 @@ export default function CountyAutarkyCreation({
       <CapTabs
         activeKey={activeTab.toString()}
         disabled={[true, true, true, true]}
-        stagesTooltips={[
-          "autarkyAccount",
-          "autarkyData",
-          "aurtarkyAccountable",
-          "finalize",
-        ]}
-        stagesIcons={[
-          "RiAccountCircleFill",
-          "RiGovernmentFill",
-          "HiClipboardList",
-          "RiCheckboxCircleFill",
-        ]}
-        stagesIconsTypes={["ri", "ri", "hi", "ri"]}
+        stagesTooltips={["autarkyAccount"]}
+        stagesIcons={["RiAccountCircleFill"]}
+        stagesIconsTypes={["ri"]}
         stagesBody={[
-          // 3. Autarky Manager Registration
           <>
             <Account handleAccount={handleAccount} kind={"autarky"} />
-            {/* <p>{translations("additionalDataQuestion", language)}</p> */}
             <Row className="flex justify-end items-end">
               <Col>
                 <CapLegend label={description} />
@@ -154,97 +121,40 @@ export default function CountyAutarkyCreation({
                   iconType="bi"
                   icon="BiMailSend"
                   size="20px"
-                  click={() => {
+                  click={async () => {
                     if (!validateAccount(autarkyManager)) return;
-                    registerAccount({
+                    const response = await registerAccount({
                       ...autarkyManager,
                       county_id: county._id,
                     });
-                    setActiveTab(6);
+                    if (response == undefined) setSuccessMessage(false);
+                    else setSuccessMessage(true);
                   }}
-                  mouseEnter={() => setDescription("forwardToAccountable")}
-                  mouseLeave={() => setDescription("emptyText")}
-                />
-              </Col>
-              <Col md="auto" className="!pl-0">
-                <CapIconButton
-                  iconType="md"
-                  icon="MdNavigateNext"
-                  size="20px"
-                  click={() => {
-                    if (!validateAccount(autarkyManager)) return;
-                    registerAccount({
-                      ...autarkyManager,
-                      county_id: county._id,
-                    });
-                    setActiveTab(4);
-                  }}
-                  mouseEnter={() => setDescription("continueFillingOut")}
-                  mouseLeave={() => setDescription("emptyText")}
                 />
               </Col>
             </Row>
+            <CapMessageBottom
+              label={"ErrorOperation"}
+              css="text-red-600"
+              externCss={"bottom-[1vh]"}
+              show={errorMessage}
+              setShow={setErrorMessage}
+            />
+            <CapMessageBottom
+              label={"successOperation"}
+              css="text-green-600"
+              externCss={"bottom-[1vh]"}
+              show={successMessage}
+              setShow={setSuccessMessage}
+            />
             {error !== "" ? (
-              <Row>
+              <Row className="mt-3">
                 <Col md="auto" className="!pl-0">
-                  <h1>{error}</h1>
+                  <h3>{error}</h3>
                 </Col>
               </Row>
             ) : null}
           </>,
-          // 4. Autarky Info
-          <>
-            <Info handleInfo={handleInfo} kind={"autarky"} />
-            {/* <CapBtn kind="next" click={() => setActiveTab(5)} /> */}
-
-            <Row className="flex justify-end items-end">
-              <Col>
-                <CapLegend label={description} />
-              </Col>
-              <Col md="auto" className="!pl-0">
-                <CapIconButton
-                  iconType="md"
-                  icon="MdNavigateNext"
-                  size="20px"
-                  click={() => {
-                    setActiveTab(5);
-                  }}
-                  mouseEnter={() => setDescription("continueFillingOut")}
-                  mouseLeave={() => setDescription("emptyText")}
-                />
-              </Col>
-            </Row>
-          </>,
-          // 5. Autarky Contact
-          <>
-            <Contact handleContact={handleContact} kind={"autarky"} />
-            <Row className="flex justify-end items-end">
-              <Col>
-                <CapLegend label={description} />
-              </Col>
-              <Col md="auto" className="!pl-0">
-                <CapIconButton
-                  iconType="md"
-                  icon="MdNavigateNext"
-                  size="20px"
-                  click={() => {
-                    registerCounty(
-                      {
-                        ...autarky,
-                        county_id: county._id,
-                      },
-                      autarky._id
-                    );
-                    setActiveTab(6);
-                  }}
-                  mouseEnter={() => setDescription("finalize")}
-                  mouseLeave={() => setDescription("emptyText")}
-                />
-              </Col>
-            </Row>
-          </>,
-          // 6. Account Created
-          <>{error !== "" ? <h1>{error}</h1> : accountCreated()}</>,
         ]}
       />
     </>
