@@ -8,19 +8,6 @@ export default function Get() {
   const router = useRouter();
   const { id } = router.query;
 
-  // const { data: countyUser, error } = useSWR<CountyUserDTO>(
-  //   `/api/counties/${id}/users`
-  // );
-
-  // const { user } = useUser({ redirectTo: "/login" });
-
-  // if (!user || user.isLoggedIn == false) {
-  //   return <div>404</div>;
-  // }
-
-  // if (error) return <div>Not Found</div>;
-  // if (!countyUser) return <div>loading...</div>;
-
   return (
     <>
       <UserProfile />
