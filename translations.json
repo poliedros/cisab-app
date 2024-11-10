@@ -778,5 +778,14 @@
   },
   "unlockDemand": {
     "pt": "Liberar Demanda"
+  },
+  "editUserTooltip": {
+    "pt": "Editar meus dados de usuário"
+  },
+  "editInstitutionTooltip": {
+    "pt": "Editar dados da minha instituição"
+  },
+  "institutionName": {
+    "pt": "Instituição / Município"
   }
 }
