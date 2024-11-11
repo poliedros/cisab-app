@@ -10,9 +10,9 @@ import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 
 export default function CountyAutarkyCreation({
-  language = "pt",
+  county_id,
 }: {
-  language: "pt";
+  county_id: any;
 }) {
   const [activeTab, setActiveTab] = useState(0);
   const [hasAutarky, setHasAutarky] = useState(false);
@@ -86,7 +86,7 @@ export default function CountyAutarkyCreation({
     setAutarky({
       name: account.name,
       _id: data.county_id,
-      county_id: county._id,
+      county_id: county_id,
     });
     return data;
   }
@@ -125,7 +125,7 @@ export default function CountyAutarkyCreation({
                     if (!validateAccount(autarkyManager)) return;
                     const response = await registerAccount({
                       ...autarkyManager,
-                      county_id: county._id,
+                      county_id: county_id,
                     });
                     if (response == undefined) setSuccessMessage(false);
                     else setSuccessMessage(true);

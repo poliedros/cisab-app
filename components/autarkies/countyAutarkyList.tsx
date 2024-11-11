@@ -38,24 +38,6 @@ export default function CountyAutarkyList({
           buttonsColumns={["view", "remove"]}
           buttonsPaths={["/counties/", "/api/counties/"]}
         />
-        <Row className="flex justify-end items-end">
-          <Col>
-            <CapLegend label={description} />
-          </Col>
-          <Col md="auto" className="!pl-0">
-            <CapIconButton
-              iconType="ri"
-              icon="RiGovernmentLine"
-              size="20px"
-              route="/counties/autarky/create"
-              // click={() => {
-              //   //setAddNewUser(true)
-              // }}
-              mouseEnter={() => setDescription("createAutarky")}
-              mouseLeave={() => setDescription("emptyText")}
-            />
-          </Col>
-        </Row>
       </Container>
     </>
   );

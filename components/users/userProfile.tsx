@@ -49,12 +49,6 @@ export default function UserProfile({}: //countyUser,
   if (!countyUser && user?.user_id)
     return <CapResponse type="loading" height="75" />;
 
-  // user?.roles.map((u) => {
-  //   if (u === "cisab") {
-  //     setUserVL(true);
-  //   }
-  // });
-
   const editUser = (
     prefix: string,
     county_id: string,
