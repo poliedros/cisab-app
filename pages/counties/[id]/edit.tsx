@@ -25,10 +25,6 @@ export default function Edit() {
     id ? `/api/counties/${id}` : null
   );
 
-  /* setTimeout(function() {
-        setMessage("");
-    }, 4000) */
-
   if (errorCounty) return <CapResponse type="failed" />;
   if (!countyRes) return <CapResponse type="loading" height="75" />;
 
@@ -43,7 +39,7 @@ export default function Edit() {
     const data = await fetch(`/api/counties/${id}`, {
       method: "PUT",
       body: JSON.stringify(county),
-    }); //.finally(() => setLoading(false));
+    });
     if (data.status === 200) {
       setMessage("success");
       const mb = document.querySelectorAll(".messageB");
@@ -58,13 +54,8 @@ export default function Edit() {
       });
       const response = await data.json();
       return response;
-      /* [].forEach.call(document.querySelectorAll('messageB'), function (el) {
-                el.classList.remove('swing-in-right-bck');
-                el.classList.add('swing-in-right-bck');
-            }); */
     } else {
       setMessage("fault");
-      //setTimeout;
     }
     return undefined;
   };

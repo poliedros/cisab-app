@@ -63,87 +63,11 @@ export default function CountyRegistration({
 
   const theme = useTheme();
 
-  /* const handleCounty = async () => {
-    const _id = county?._id;
-    let countyResult: CountyDTO = {
-      _id: _id ?? "0", //valor provisório
-      account: {
-        user: countyAccount,
-        password: countyPassword,
-      },
-      county: {
-        name: countyCityName,
-        state: countyState,
-        mayor: countyMayor,
-        population: countyPopulation,
-        flag: countyFlag,
-        anniversary: countyAnniversary,
-        distanceToCisab: countyDistanceToCisab,
-        note: countyNote,
-        address: countyAddress,
-        zipCode: countyZipCode,
-        phone: countyPhone,
-        contact: countyContactWith,
-        site: countyContactSite,
-        email: countyEmail,
-        socialMedias: countySocialMedias,
-      },
-      accountable: {
-        name: countyName,
-        job: countyJob,
-        address: countyContactAddress,
-        zipCode: countyContactZipCode,
-        phone: countyContactPhone,
-        email: countyContactEmail,
-        socialMedias: countyContactSocialMedias,
-        note: countyContactNote,
-      },
-    };
-    setImageStage(true);
-    const countyReg = await submit(countyResult);
-    setCountyRegister(countyReg);
-  }; */
-
-  /* useEffect(() => {
-    if (county) {
-      setCountyAccount(county?.account.user);
-      setCountyPassword(county?.account.password);
-      setCountyConfirmPassword(county?.account.password);
-      setCountyCityName(county?.county.name);
-      setCountyState(county?.county.state);
-      setCountyMayor(county?.county.mayor);
-      setCountyPopulation(county?.county.population);
-      //setCountyFlag(county?.county.flag);
-      setCountyAnniversary(county?.county.anniversary.toString());
-      setCountyDistanceToCisab(county?.county.distanceToCisab);
-      setCountyNote(county?.county.note);
-      setCountyAddress(county?.county.address);
-      setCountyZipCode(county?.county.zipCode);
-      setCountyPhone(county?.county.phone);
-      setCountyContactWith(county?.county.contact);
-      setCountyEmail(county?.county.email);
-      setCountySocialMedias(county?.county.socialMedias);
-      setCountyName(county?.accountable.name);
-      setCountyJob(county?.accountable.job);
-      setCountyContactAddress(county?.accountable.address);
-      setCountyContactZipCode(county?.accountable.zipCode);
-      setCountyContactPhone(county?.accountable.phone);
-      setCountyContactNote(county?.accountable.note);
-      setCountyContactSocialMedias(county?.accountable.socialMedias);
-      setCountyContactEmail(county?.accountable.email);
-    }
-  }, [county]); */
-
   useEffect(() => {
     if (county) {
-      //setCountyAccount(county?.account.user);
-      //setCountyPassword(county?.account.password);
-      //setCountyConfirmPassword(county?.account.password);
       setCountyCityName(county.name);
-      //setCountyState(county?.county.state);
       setCountyMayor(county.info ? county.info?.mayor : "");
       setCountyPopulation(county.info ? county.info?.population : "");
-      //setCountyFlag(county?.county.flag);
       setCountyAnniversary(
         county.info ? county.info?.anniversary.toString() : ""
       );
@@ -155,14 +79,6 @@ export default function CountyRegistration({
       setCountyContactWith(county.contact ? county.contact?.speakTo : "");
       setCountyEmail(county.contact ? county.contact?.email : "");
       setCountySocialMedias(county.contact ? county.contact?.socialMedias : "");
-      //setCountyName(county?.accountable.name);
-      //setCountyJob(county?.accountable.job);
-      //setCountyContactAddress(county?.accountable.address);
-      //setCountyContactZipCode(county?.accountable.zipCode);
-      //setCountyContactPhone(county?.accountable.phone);
-      //setCountyContactNote(county?.accountable.note);
-      //setCountyContactSocialMedias(county?.accountable.socialMedias);
-      //setCountyContactEmail(county?.accountable.email);
     }
   }, [county]);
 
@@ -175,33 +91,6 @@ export default function CountyRegistration({
         />
 
         <Form>
-          {/* <CapSubtitle label="account" />
-          <Row className="mb-3">
-            <CapForm
-              as={Col}
-              label="countyAccount"
-              placeholder="insertCountyAccount"
-              value={countyAccount}
-              change={(e: any) => setCountyAccount(e.target.value)}
-            />
-            <CapForm
-              as={Col}
-              label="countyPassword"
-              type={county ? "text" : "password"}
-              placeholder="insertCountyPassword"
-              value={countyPassword}
-              change={(e: any) => setCountyPassword(e.target.value)}
-            />
-            <CapForm
-              as={Col}
-              label="countyConfirmPassword"
-              type={county ? "text" : "password"}
-              placeholder="insertCountyConfirmPassword"
-              value={countyConfirmPassword}
-              change={(e: any) => setCountyConfirmPassword(e.target.value)}
-            />
-          </Row> */}
-
           <CapSubtitle label="countyData" />
           <Row className="mb-3">
             <CapForm
@@ -238,27 +127,6 @@ export default function CountyRegistration({
             />
           </Row>
           <Row className="mb-3 flex items-center">
-            {/* <Col className="flex flex-column">
-              {countyFlag ? (
-                <CapImage src={countyFlag} w={128} h={128} obj="contain" />
-              ) : (
-                <></>
-              )}
-              <CapForm
-                label="flag"
-                type="file"
-                value={countyFlag}
-                change={(e: any) => setCountyFlag(e.target.value)}
-              />
-            </Col> */}
-            {/* <CapForm
-              as={Col}
-              label="countyAnniversary"
-              type="date"
-              value={countyAnniversary}
-              change={(e: any) => setCountyAnniversary(e.target.value)}
-            /> */}
-
             <Col className="flex items-center justify-center">
               <CapDropdownIconButton
                 iconType="bs"
@@ -284,10 +152,7 @@ export default function CountyRegistration({
                       ? countyAnniversary.split("/")[0] +
                         "/" +
                         countyAnniversary.split("/")[1]
-                      : //  +
-                        // "-" +
-                        // endDate.split("/")[0]
-                        countyAnniversaryAlt
+                      : countyAnniversaryAlt
                   }
                   onChange={(e: any) => setCountyAnniversaryAlt(e.target.value)}
                 />
@@ -368,71 +233,6 @@ export default function CountyRegistration({
               change={(e: any) => setCountySocialMedias(e.target.value)}
             />
           </Row>
-          {/* <CapSubtitle label="contact" />
-          <Row className="mb-3">
-            <CapForm
-              as={Col}
-              label="name"
-              placeholder="insertName"
-              value={countyName}
-              change={(e: any) => setCountyName(e.target.value)}
-            />
-            <CapForm
-              as={Col}
-              label="job"
-              placeholder="insertJob"
-              value={countyJob}
-              change={(e: any) => setCountyJob(e.target.value)}
-            />
-          </Row>
-          <Row className="mb-3">
-            <CapForm
-              as={Col}
-              xs={8}
-              label="address"
-              placeholder="insertAddress"
-              value={countyContactAddress}
-              change={(e: any) => setCountyContactAddress(e.target.value)}
-            />
-            <CapForm
-              as={Col}
-              label="zipCode"
-              placeholder="insertZipCode"
-              value={countyContactZipCode}
-              change={(e: any) => setCountyContactZipCode(e.target.value)}
-            />
-          </Row>
-          <Row className="mb-3">
-            <CapForm
-              as={Col}
-              label="phone"
-              placeholder="insertPhone"
-              value={countyContactPhone}
-              change={(e: any) => setCountyContactPhone(e.target.value)}
-            />
-            <CapForm
-              as={Col}
-              label="email"
-              placeholder="insertEmail"
-              value={countyContactEmail}
-              change={(e: any) => setCountyContactEmail(e.target.value)}
-            />
-            <CapForm
-              as={Col}
-              label="socialMedias"
-              placeholder="insertSocialMedias"
-              value={countyContactSocialMedias}
-              change={(e: any) => setCountyContactSocialMedias(e.target.value)}
-            />
-          </Row>
-          <CapForm
-            asControl="textarea"
-            rows={3}
-            label="note"
-            placeholder="insertNote"
-            value={countyContactNote}
-            change={(e: any) => setCountyContactNote(e.target.value)}
-          /> */}
           <CapBtn
             kind="send"
             click={async () => {
