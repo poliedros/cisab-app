@@ -174,7 +174,7 @@ export default function CapContainer({
                             .join("/")
                         : ""
                     }
-                    elements={d.products}
+                    elements={d.products.slice(0, 5)}
                     id={d._id}
                     buttons={buttons}
                     buttonsPath={buttonsPath}
