@@ -30,13 +30,13 @@
     "pt": "Falha ao Remover Município."
   },
   "countyRegistration": {
-    "pt": "Cadastro de Município"
+    "pt": "Cadastro de Município / Autarquia"
   },
   "createCounty": {
     "pt": "Criar Município"
   },
   "editCounty": {
-    "pt": "Alterar Dados do Município"
+    "pt": "Alterar Dados de Município / Autarquia"
   },
   "listCounties": {
     "pt": "Lista de Municípios"
@@ -63,7 +63,7 @@
     "pt": "Buscar Município por Nome"
   },
   "countyContact": {
-    "pt": "Dados de Contato com o Município"
+    "pt": "Dados de Contato"
   },
   "numberAbbreviation": {
     "pt": "Nº"
@@ -81,7 +81,7 @@
     "pt": "Dados da Autarquia"
   },
   "countyData": {
-    "pt": "Informações sobre o Município"
+    "pt": "Informações gerais"
   },
   "name": {
     "pt": "Nome"
@@ -222,7 +222,7 @@
     "pt": "Redes Sociais do Responsável"
   },
   "countyCityName": {
-    "pt": "Nome do Município"
+    "pt": "Nome"
   },
   "insertCountyCityName": {
     "pt": "Insira o Nome do Município"
