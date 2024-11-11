@@ -65,6 +65,7 @@ export default function CountyRegistration({
 
   useEffect(() => {
     if (county) {
+      console.log(county);
       setCountyCityName(county.name);
       setCountyMayor(county.info ? county.info?.mayor : "");
       setCountyPopulation(county.info ? county.info?.population : "");
@@ -110,55 +111,62 @@ export default function CountyRegistration({
               value={countyState}
               change={(e: any) => setCountyState(e.target.value)}
             />
-            <CapForm
-              as={Col}
-              label="mayor"
-              placeholder="insertMayor"
-              value={countyMayor}
-              change={(e: any) => setCountyMayor(e.target.value)}
-            />
-            <CapForm
-              as={Col}
-              label="population"
-              type="number"
-              placeholder="insertPopulation"
-              value={countyPopulation}
-              change={(e: any) => setCountyPopulation(e.target.value)}
-            />
+            {county && !county.hasOwnProperty("county_id") && (
+              <CapForm
+                as={Col}
+                label="mayor"
+                placeholder="insertMayor"
+                value={countyMayor}
+                change={(e: any) => setCountyMayor(e.target.value)}
+              />
+            )}
+            {county && !county.hasOwnProperty("county_id") && (
+              <CapForm
+                as={Col}
+                label="population"
+                type="number"
+                placeholder="insertPopulation"
+                value={countyPopulation}
+                change={(e: any) => setCountyPopulation(e.target.value)}
+              />
+            )}
           </Row>
           <Row className="mb-3 flex items-center">
-            <Col className="flex items-center justify-center">
-              <CapDropdownIconButton
-                iconType="bs"
-                icon="BsCalendar"
-                element={
-                  <CapInputRangeCalendar
-                    setDate={setCountyAnniversary}
-                    mDetail="month"
-                    fDate={{ year: undefined }}
-                  />
-                }
-              />
-              <div className="mr-2" />
-              <Form.Group className="w-full">
-                <Form.Label className={theme === "dark" ? "text-white" : ""}>
-                  {translations("countyAnniversary", "pt")}
-                </Form.Label>
-                <Form.Control
-                  type="string"
-                  placeholder={translations("formatDayMonth", "pt")}
-                  value={
-                    countyAnniversary && !countyAnniversaryAlt
-                      ? countyAnniversary.split("/")[0] +
-                        "/" +
-                        countyAnniversary.split("/")[1]
-                      : countyAnniversaryAlt
+            {county && !county.hasOwnProperty("county_id") && (
+              <Col className="flex items-center justify-center">
+                <CapDropdownIconButton
+                  iconType="bs"
+                  icon="BsCalendar"
+                  element={
+                    <CapInputRangeCalendar
+                      setDate={setCountyAnniversary}
+                      mDetail="month"
+                      fDate={{ year: undefined }}
+                    />
                   }
-                  onChange={(e: any) => setCountyAnniversaryAlt(e.target.value)}
                 />
-              </Form.Group>
-            </Col>
-
+                <div className="mr-2" />
+                <Form.Group className="w-full">
+                  <Form.Label className={theme === "dark" ? "text-white" : ""}>
+                    {translations("countyAnniversary", "pt")}
+                  </Form.Label>
+                  <Form.Control
+                    type="string"
+                    placeholder={translations("formatDayMonth", "pt")}
+                    value={
+                      countyAnniversary && !countyAnniversaryAlt
+                        ? countyAnniversary.split("/")[0] +
+                          "/" +
+                          countyAnniversary.split("/")[1]
+                        : countyAnniversaryAlt
+                    }
+                    onChange={(e: any) =>
+                      setCountyAnniversaryAlt(e.target.value)
+                    }
+                  />
+                </Form.Group>
+              </Col>
+            )}
             <CapForm
               as={Col}
               label="countyDistanceToCisab"
