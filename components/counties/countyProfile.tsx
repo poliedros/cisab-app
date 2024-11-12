@@ -11,7 +11,7 @@ import translations from "lib/translations";
 import CapParagraph from "atoms/capParagraph";
 import CapIconButton from "atoms/capIconButton";
 
-export default function CountyProfile({ county }: { county: any }) {
+export default function CountyProfile({ county }: { county: CountyDTO }) {
   return (
     <>
       <div className="flex flex-column">
@@ -22,7 +22,9 @@ export default function CountyProfile({ county }: { county: any }) {
               literal={county.name}
               additional={{ label: " !text-4xl !m-0" }}
             />
-            <h6 className="tracking-widest text-[silver]">MG</h6>
+            <h6 className="tracking-widest text-[silver]">
+              {county.hasOwnProperty("county_id") ? county.county_id : ""} MG
+            </h6>
             <CapParagraph
               literal={
                 county.contact
@@ -30,11 +32,6 @@ export default function CountyProfile({ county }: { county: any }) {
                   : translations("noValue", "pt")
               }
             />
-            {/* <h3 className="font-black">
-                            {county.contact
-                                ? county.contact.phone
-                                : translations("noValue", "pt")}
-                        </h3> */}
             <CapLink
               literal={
                 county.contact
@@ -81,30 +78,38 @@ export default function CountyProfile({ county }: { county: any }) {
                   : translations("noValue", "pt")
               }
             />
-            <CapTextShowData
-              label={"mayor"}
-              info={
-                county.info ? county.info.mayor : translations("noValue", "pt")
-              }
-            />
-            <CapTextShowData
-              label={"population"}
-              info={
-                county.info
-                  ? county.info.population
-                  : translations("noValue", "pt")
-              }
-            />
-            <CapTextShowData
-              label={"countyAnniversary"}
-              info={
-                county.info
-                  ? county.info.anniversary.split("/")[0] +
-                    "/" +
-                    county.info.anniversary.split("/")[1]
-                  : translations("noValue", "pt")
-              }
-            />
+            {!county.hasOwnProperty("county_id") && (
+              <CapTextShowData
+                label={"mayor"}
+                info={
+                  county.info
+                    ? county.info.mayor
+                    : translations("noValue", "pt")
+                }
+              />
+            )}
+            {!county.hasOwnProperty("county_id") && (
+              <CapTextShowData
+                label={"population"}
+                info={
+                  county.info
+                    ? county.info.population
+                    : translations("noValue", "pt")
+                }
+              />
+            )}
+            {!county.hasOwnProperty("county_id") && (
+              <CapTextShowData
+                label={"countyAnniversary"}
+                info={
+                  county.info
+                    ? county.info.anniversary.split("/")[0] +
+                      "/" +
+                      county.info.anniversary.split("/")[1]
+                    : translations("noValue", "pt")
+                }
+              />
+            )}
           </Col>
           <Col className="text-left bg-[#f9f9f9] !px-8">
             <CapInfoBoard
