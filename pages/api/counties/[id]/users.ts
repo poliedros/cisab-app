@@ -10,7 +10,6 @@ export type CountyUserDTO = {
   surname: string;
   password?: string;
   properties: {
-    // county_id: string;
     profession?: string;
   };
 };
@@ -25,34 +24,40 @@ async function handler(
     return;
   }
 
-  if (req.method === "POST" || req.method === "PUT") {
-    let url = `/counties/${req.query.id}/users`;
-    if (user.roles.find((role) => role == "manager")) {
-      url = `/counties/${req.query.id}/managers`;
-    }
+  if (req.method === "GET") {
+    const response = await fetch(
+      process.env.API_URL + `/counties/${req.query.id}/users`,
+      {
+        headers: { Authorization: "Bearer " + user.token },
+      }
+    );
+    const data = (await response.json()) as CountyUserDTO[];
 
-    const response = await fetch(process.env.API_URL + url, {
-      headers: {
-        Authorization: "Bearer " + user.token,
-        "Content-Type": "application/json",
-      },
-      method: req.method,
-      body: req.body,
-    });
-    const data = (await response.json()) as CountyUserDTO;
     res.status(response.status).json(data);
     return;
   }
 
-  const response = await fetch(
-    process.env.API_URL + `/counties/${req.query.id}/users`,
-    {
-      headers: { Authorization: "Bearer " + user.token },
-    }
-  );
-  const data = (await response.json()) as CountyUserDTO[];
+  const isManager = user.roles.some((role) => role === "manager");
+  console.log(isManager);
 
+  let url = `/counties/${req.query.id}/users`;
+
+  if (isManager && req.method === "PUT") {
+    url = `/counties/${req.query.id}/managers`;
+  }
+
+  const response = await fetch(process.env.API_URL + url, {
+    headers: {
+      Authorization: "Bearer " + user.token,
+      "Content-Type": "application/json",
+    },
+    method: req.method,
+    body: req.body,
+  });
+
+  const data = (await response.json()) as CountyUserDTO;
   res.status(response.status).json(data);
+  return;
 }
 
 export default withIronSessionApiRoute(handler, sessionOptions);
